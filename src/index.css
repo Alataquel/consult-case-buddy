@@ -8,9 +8,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Case Study Buddy Color Scheme - Professional Case Interview Blues */
-    --primary-blue: 220 90% 25%; /* Deep Professional Blue */
-    --accent-blue: 210 100% 45%; /* Bright Case Interview Blue */
+    /* Case Study Buddy Color Scheme */
+    --primary-blue: 240 69% 30%; /* #1E2A78 */
+    --accent-blue: 230 81% 68%; /* #657AF1 */
     --background: 0 0% 98%; /* #FAFAFA */
     --text: 0 0% 12%; /* #1E1E1E */
     --description-gray: 213 27% 41%; /* #64748b */
@@ -148,5 +148,12 @@ All colors MUST be HSL.
   
   .transition-smooth {
     transition: var(--transition-smooth);
+  }
+  
+  .case-interview-gradient {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

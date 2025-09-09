@@ -154,7 +154,7 @@ const Index = () => {
             </Badge>
             
             <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-              Master Your Next <span className="text-yellow-300">Case Interview</span>
+              Master Your Next <span className="case-interview-gradient">Case Interview</span>
             </h1>
             
             <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
