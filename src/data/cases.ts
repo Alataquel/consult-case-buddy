@@ -251,12 +251,42 @@ export const cases: Case[] = [
     title: "Talbot Trucks Case Interview",
     firm: "McKinsey",
     type: "Sustainability",
-    background: "Talbot Trucks is a Europe-based private truck OEM producing and selling trucks worldwide. The company is considered a leader in quality manufacturing with a customer base including large trucking companies with thousands of trucks and owner-operators with fewer trucks. Trucks today are mainly powered by diesel engines requiring carbon-based petroleum fuel. Talbot Trucks is interested in exploring ways to reduce the carbon footprint of its vehicles, specifically electric trucks (eTrucks). ETrucks differ in design (e-motor and batteries vs combustion engines) and fueling (slow charging vs quick diesel refilling).",
-    question: "The CEO of Talbot Trucks has approached McKinsey to help determine the attractiveness of an investment in eTruck manufacturing for its European market. What information would you want to collect?",
+    background: "Talbot Trucks is a Europe-based private truck OEM. It produces and sells trucks all over the world. Talbot Trucks is considered a leader in quality manufacturing. Its primary customer base includes large trucking companies that own thousands of trucks and owner-operators, which are smaller customers that own fewer trucks.\n\nTrucks today are mainly powered by diesel engines and require carbon-based petroleum fuel. Talbot Trucks is interested in exploring ways to reduce the carbon footprint of its vehicles and has specifically asked about electric trucks, or 'eTrucks.'\n\nETrucks and diesel trucks differ in the design—e-motor and batteries versus combustion engines—and also in the way they are fueled, meaning comparably slow charging versus quick refilling with diesel fuel at gas stations. The introduction of this new technology is disruptive for the manufacturers as well as customers both large and small.\n\nThe CEO of Talbot Trucks has approached McKinsey to help determine the attractiveness of an investment in eTruck manufacturing for its European market.",
+    question: "Multi-part case with 3 questions",
+    questions: [
+      {
+        number: 1,
+        question: "What information would you want to collect to understand the attractiveness for Talbot Trucks in producing and selling eTrucks in Europe?",
+        hints: [
+          "Take time to organize your thoughts before answering. This will help show your interviewer that you have a logical approach and can think in an organized way, regardless of the accuracy of the outcome.",
+          "Develop an overall approach before diving into details."
+        ],
+        answer: "Some of the information you might discuss with your interviewer could include:\n\n• Market: What important differences exist between large and small truck customers, such as price, features, reliability, and volume? Which geographies in Europe are most receptive to eTrucks—an environmentally conscious population, or ones with a political agenda? How will customers perceive Talbot Trucks' eTrucks when compared to existing competitors or new entrants? What are potential substitutes, like rail?\n\n• Financials: Are there different market segments or use cases for eTrucks? How does revenue potential compare between these segments? What are Talbot Trucks' main cost drivers? What price could be expected in different segments?\n\n• Risks: How much experience does Talbot Trucks have with eTrucks? Will it be able to produce a reliable product in a cost-efficient way? What will happen to sales of current truck models? Will legislation force a move toward eTrucks? If so, what are the risks associated with actively addressing the issue instead of waiting it out?"
+      },
+      {
+        number: 2,
+        question: "The team set out to investigate the major cost drivers for buying and operating one diesel truck, an analysis commonly referred to as 'total cost of ownership' (TCO). You have been given the following information comparing the TCO for a diesel truck against that for an eTruck:\n\n• Driver: A driver costs around €3,000 per month. There is a significant shortage of drivers in the market.\n• Depreciation: Diesel trucks costs €100,000. The typical lifespan is four years. Residual value—the value at which you can resell the truck—is assumed to be €0.\n• Fuel: A heavy duty diesel truck consumes around 30 liters of diesel per 100 kilometers. Diesel costs €1 per liter.\n• Maintenance: As a general rule, maintenance per truck is around €5,000 a year for a diesel truck.\n• Other, including tolls, insurances, and taxes: €10,000 per year.\n\nUsing this data, what can you infer about the differences in TCO for diesel trucks vs eTrucks?",
+        hints: [
+          "Take some time to look at the information and note down any observations you have.",
+          "Challenge yourself to identify trends that are not immediately obvious from the data."
+        ],
+        answer: "Some of the differences you might discuss with your interviewer could include:\n\n• Fuel and depreciation account for the majority of the costs of an eTruck, and therefore are the key drivers for buying an eTruck.\n\n• eTrucks have a significant advantage over diesel trucks in terms of cost per kilometer. Therefore, eTrucks become more attractive the more distance they cover per year.\n\n• Depreciation may also vary drastically for eTrucks, since presumably eTrucks will be more expensive as the technology is newer.\n\n• Other costs are much lower for eTrucks, suggesting there may be tax breaks or other financial incentives keeping these costs lower.",
+        exhibitImage: "talbot-trucks-exhibit"
+      },
+      {
+        number: 3,
+        question: "After running focus groups with Talbot Trucks' customers, the team concluded that the total cost of an eTruck needs to be the same as a diesel truck to be considered attractive to customers. Currently, a Talbot Trucks diesel truck costs €100,000.\n\nAssuming that the figures above do not change, what is the maximum price Talbot Trucks can charge for its eTruck so that the total cost of ownership is equal to that of a diesel truck?",
+        hints: [
+          "Don't feel rushed into performing calculations. Take your time.",
+          "Remember that calculators are not allowed—you may want to write out your calculations on paper during the interview.",
+          "Talk your interviewer through your steps so that you can demonstrate an organized approach; the more you talk the easier it will be for your interviewer to help you."
+        ],
+        answer: "One possible approach to discuss with your interviewer could be:\n\nAnnual TCO for an existing diesel truck has five components:\n\n• Driver costs: €3,000 a month times 12 months equals €36,000\n• Depreciation: €100,000 over lifespan divided by four years equals €25,000\n• Fuel: 30 liters divided by 100 kilometers times €1 per liter times 100,000 kilometers a year equals €30,000\n• Maintenance: €5,000\n• Other: €10,000\n• This adds up to €106,000 total annual cost of ownership for a diesel truck.\n\nFour of the five components of an eTruck's annual TCO are:\n\n• Driver costs: €3,000 a month times 12 months is equal to €36,000\n• Fuel: 100 kWh divided by 100 kilometers times €0.15 per kWh times 100,000 kilometers a year equals €15,000\n• Maintenance: €3,000\n• Other: €5,000\n• This adds up to €59,000, not yet including the depreciation component\n\nIf the annual TCO for an eTruck is equal to the annual TCO of a diesel truck: €106,000, then the annual depreciation for an eTruck is €47,000, which is €106,000 minus €59,000\n\nTherefore, to match a diesel truck's TCO over the four year lifetime of the truck, the maximum purchase price for an eTruck would be €188,000, or 47,000 times four years."
+      }
+    ],
     difficulty: "Advanced",
-    modelSolution: "Key information to collect: (1) Market - differences between large and small customers, geographic receptivity in Europe, customer perception vs competitors, potential substitutes like rail. (2) Financials - revenue potential across segments, main cost drivers, expected pricing. (3) Risks - Talbot's experience with eTrucks, ability to produce cost-efficiently, impact on current truck sales, legislation forcing change. TCO analysis for diesel truck: Driver €36K + Depreciation €25K (€100K over 4 years) + Fuel €30K (30L/100km × €1/L × 100K km) + Maintenance €5K + Other €10K = €106K annual total. For eTruck to match: €106K total - €36K driver - €15K fuel (100kWh/100km × €0.15/kWh × 100K km) - €3K maintenance - €5K other = €47K annual depreciation needed. Therefore, maximum eTruck price = €47K × 4 years = €188K. Key insight: fuel and depreciation are the major cost drivers, and eTrucks become more attractive the more distance covered annually.",
-    keyFrameworks: ["Total Cost of Ownership", "Sustainability Strategy", "Market Assessment", "Investment Analysis"],
-    exhibitImage: "talbot-trucks-exhibit"
+    modelSolution: "This is a multi-part case study covering sustainability strategy, total cost of ownership analysis, and investment feasibility. See individual question answers for detailed solutions.",
+    keyFrameworks: ["Total Cost of Ownership", "Sustainability Strategy", "Market Assessment", "Investment Analysis"]
   }
 ];
 
