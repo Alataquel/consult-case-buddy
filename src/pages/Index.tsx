@@ -5,7 +5,6 @@ import CaseListSelector from "@/components/CaseListSelector";
 import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
-import UserStatistics from "@/components/UserStatistics";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore } from "@/utils/scoreStorage";
@@ -105,8 +104,7 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-8 space-y-6">
-          <UserStatistics />
+        <div className="container mx-auto px-4 py-8">
           <CaseSelector onSelectFirm={handleSelectFirm} />
         </div>
       </div>
