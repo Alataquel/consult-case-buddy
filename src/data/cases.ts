@@ -25,37 +25,37 @@ export interface Case {
 export const cases: Case[] = [
   {
     id: "mckinsey-aurelia-beauty",
-    title: "Aurelia Beauty — Going Virtual Case Interview",
+    title: "Aurelia Beauty — Going Virtual",
     firm: "McKinsey",
     type: "Digital Transformation",
-    background: "Aurelia Beauty is a global luxury cosmetics company seeking ways to strengthen customer engagement and explore new digital sales channels.\n\nAurelia sells prestige makeup, fragrance, and skincare products through high-end department stores and online beauty retailers. In stores, beauty advisors are central to the shopping experience. Their responsibilities include approaching and engaging customers who are browsing, demonstrating product knowledge and techniques, driving sales through personal recommendations, and building long-term relationships with loyal clients.\n\nAdvisors are hired either directly by Aurelia or through specialized recruitment agencies. Within the company, they are managed by brand and by country—for example, a consultant might belong to the Lumineux brand team within a particular store. As consumers increasingly move toward online shopping, many advisors now face reduced foot traffic in physical stores.\n\nAurelia's leadership has asked a consulting firm to assess whether training most beauty advisors to operate as virtual, social-media-based consultants could be profitable for the company.\n\nNote: Inspired by McKinsey case materials (https://www.mckinsey.com/careers/interviewing/beautify). This adaptation has been reworded for educational purposes.",
+    background: "Aurelia Beauty, a global luxury cosmetics company, wants to explore new ways to engage customers more effectively in an increasingly digital world.\n\nAurelia sells premium makeup, fragrance, and skincare products mainly through high-end department stores and specialty online retailers.\n\nIn-store, beauty advisors play a key role by:\n• Engaging shoppers who browse passively\n• Demonstrating product expertise\n• Driving sales through personalized service\n• Maintaining loyal repeat customers\n\nAdvisors are hired either directly or via third-party agencies. They are trained, managed, and paid by Aurelia and organized by brand and country.\n\nHowever, as more consumers shop online, store traffic has declined—leaving many advisors underutilized.\n\nAurelia's leadership team has asked consultants to evaluate whether training most beauty advisors to connect with customers through virtual and social channels could be both effective and profitable.\n\nNote: Inspired by McKinsey case materials (https://www.mckinsey.com/careers/interviewing/beautify). This adaptation has been reworded for educational purposes.",
     question: "Multi-part case with 3 questions",
     questions: [
       {
         number: 1,
-        question: "Aurelia plans to help its current advisors become digital ambassadors who engage clients virtually. They would be responsible for maintaining their own online client groups, selling through personal pages on aurelia.com, attending select in-store events, and maintaining a strong presence across major social platforms.\n\nWhat factors should Aurelia consider before shifting these employees into their new roles?",
+        question: "Aurelia plans to train its current advisors to become virtual beauty consultants who will manage client groups, sell through personalized pages on aurelia.com, appear at key retail events, and maintain active social media presences.\n\nWhat factors should Aurelia consider before shifting advisors into this new model?",
         hints: [
-          "Take time to organize your ideas before answering.",
-          "Outline an overall framework before diving into specifics."
+          "Take time to structure your answer logically.",
+          "Present your framework before diving into details."
         ],
-        answer: "Key considerations might include:\n\n• Retailer reaction: How will department store partners respond if more customers begin purchasing directly through Aurelia's website? What kinds of financial or promotional arrangements might be needed to maintain these relationships?\n\n• Competitor behavior: Are other beauty brands already offering virtual advisory services? If so, how successful have they been? If not, are they planning similar initiatives?\n\n• Current skill set: How comfortable are existing advisors with social media and online engagement? How many already manage professional accounts or blogs? Would Aurelia need to hire new advisors with stronger digital marketing experience?\n\n• Brand image: What impact might hundreds of online advisors have on Aurelia's brand identity? How can the company ensure consistency and quality while benefiting from authentic, individual voices? Could this enhance Aurelia's reputation as an attractive employer?"
+        answer: "Retail partnerships: How might retailers react if more customers buy directly through Aurelia's website? What new commercial arrangements would maintain strong partner relationships?\n\nCompetition: Are rival beauty brands already using virtual advisors? How successful are they, and what are their plans to expand digital selling?\n\nInternal capabilities: What is the current digital skill level of advisors? How many already have professional social media profiles or blogs? Can new advisors with stronger online skills be hired?\n\nBrand consistency: How can Aurelia protect its brand image while empowering many advisors to post content? Could this approach also strengthen Aurelia's reputation as a modern, desirable employer?"
       },
       {
         number: 2,
-        question: "Aurelia wants to understand how customers—both current and potential—would react to interacting with virtual advisors instead of in-store consultants.\n\nImagine you are a loyal Aurelia customer who values the personal, high-touch service offered in stores. What features might convince you to adopt a primarily virtual experience instead?",
+        question: "Aurelia wants to understand how customers—especially those who prefer in-store experiences—would respond to interacting with virtual beauty advisors.\n\nIf you were a loyal Aurelia customer who enjoys in-store service, what features might convince you to switch to a mostly online experience?",
         hints: [
-          "Group your ideas logically so you address all relevant aspects clearly."
+          "Group your thoughts to cover all key aspects."
         ],
-        answer: "Possible features could include:\n\n• Personalized feedback through technology: A 'smart mirror' or mobile app that lets customers upload selfies and receive real-time recommendations from their advisor, including visual examples of suggested looks (\"A glossier finish might suit you better\").\n\n• Interactive community spaces: Advisors could host private groups or forums where customers share experiences, comment on looks, and exchange advice with others who have similar interests or concerns.\n\n• Trusted social content: Advisors active on platforms like Instagram, TikTok, or Douyin could post tutorials, reviews, and trend updates, keeping customers inspired and informed.\n\n• Private consultations: Customers dealing with specific issues (such as skin sensitivity) could contact advisors privately for tailored advice based on their purchase history and preferences."
+        answer: "Personalized feedback tools: A 'smart mirror' app could allow customers to upload selfies and receive instant shade or product suggestions ('Try a glossier finish instead').\n\nOnline communities: Advisors could run exclusive groups or forums where customers share looks and discuss products that work for them.\n\nTrusted expert content: Advisors active on Instagram, TikTok, or Douyin could post tutorials, reviews, and product insights to build credibility and engagement.\n\nPrivate consultations: Customers could message advisors directly about specific skincare or makeup needs, receiving personalized recommendations based on their purchase history."
       },
       {
         number: 3,
-        question: "To evaluate the investment, the team decides to calculate how long it will take for the initiative to become profitable—that is, when incremental revenue exceeds the total investment and ongoing costs.\n\nThe finance team provides these assumptions:\n\n• Total annual revenue: €1.3 billion\n• Expected incremental revenue: 10% increase in the first year\n• Initial investment: €50M (IT) + €25M (training) + €50M (store remodeling) + €25M (inventory)\n• Ongoing annual cost: €10M, beginning in the first year\n\nHow long would it take before the initiative becomes profitable?",
+        question: "To assess the potential financial impact, the team wants to know how long it would take for this investment to become profitable.\n\nAssumptions:\n• Expected revenue increase: 10% (first year)\n• Current revenue: €1.3 billion\n• One-time investments: €50M in IT, €25M in training, €50M in store counter upgrades, €25M in inventory\n• Ongoing annual costs: €10M starting in year one\n\nHow many years until the investment breaks even?",
         hints: [
-          "Work through your calculation step by step.",
-          "Explain your logic clearly as you go."
+          "Explain each step.",
+          "Focus on your reasoning, not speed."
         ],
-        answer: "A structured approach might look like this:\n\n• Incremental revenue: €1.3B × 10% = €130M\n• Annual profit impact: €130M incremental revenue − €10M ongoing costs = €120M net annual gain\n• Initial investment total: €50M + €25M + €50M + €25M = €150M\n• Payback period: €150M ÷ €120M ≈ 1.25 years, or about 1 year and 3 months\n\nTherefore, the investment would become profitable a little over one year after implementation."
+        answer: "Incremental revenue: €1.3B × 10% = €130M\n\nNet annual profit: €130M − €10M = €120M\n\nTotal investment: €50M + €25M + €50M + €25M = €150M\n\nPayback period: €150M ÷ €120M = 1.25 years\n\nResult: The initiative would become profitable in roughly 1 year and 3 months."
       }
     ],
     difficulty: "Intermediate",
