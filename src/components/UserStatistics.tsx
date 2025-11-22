@@ -6,36 +6,38 @@ import { getUserStats } from "@/utils/scoreStorage";
 const UserStatistics = () => {
   const stats = getUserStats();
 
-  if (stats.totalCasesAttempted === 0) {
-    return null;
-  }
-
   return (
     <Card className="shadow-elegant border-0 bg-gradient-to-br from-primary/5 to-accent/5">
       <CardContent className="pt-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="flex flex-col items-center p-4 bg-background rounded-lg">
             <Award className="w-8 h-8 text-accent mb-2" />
-            <div className="text-3xl font-bold text-foreground">{stats.overallGrade}</div>
+            <div className="text-3xl font-bold text-foreground">
+              {stats.totalCasesAttempted === 0 ? "-" : stats.overallGrade}
+            </div>
             <div className="text-sm text-description-gray">Overall Grade</div>
-            <div className="text-xs text-muted-foreground mt-1">{stats.averageScore}% avg</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              {stats.totalCasesAttempted === 0 ? "Start practicing!" : `${stats.averageScore}% avg`}
+            </div>
           </div>
           
           <div className="flex flex-col items-center p-4 bg-background rounded-lg">
             <Target className="w-8 h-8 text-primary mb-2" />
             <div className="text-3xl font-bold text-foreground">{stats.totalAttempts}</div>
             <div className="text-sm text-description-gray">Total Attempts</div>
-            <div className="text-xs text-muted-foreground mt-1">{stats.totalCasesAttempted} unique cases</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              {stats.totalCasesAttempted === 0 ? "Complete your first case" : `${stats.totalCasesAttempted} unique cases`}
+            </div>
           </div>
           
           <div className="flex flex-col items-center p-4 bg-background rounded-lg">
             <Trophy className="w-8 h-8 text-amber-500 mb-2" />
             <div className="text-lg font-bold text-foreground text-center line-clamp-1">
-              {stats.bestCase ? stats.bestCase.title.split(' ')[0] : 'N/A'}
+              {stats.bestCase ? stats.bestCase.title.split(' ')[0] : '-'}
             </div>
             <div className="text-sm text-description-gray">Best Case</div>
             <div className="text-xs text-muted-foreground mt-1">
-              {stats.bestCase ? `${stats.bestCase.score}%` : '-'}
+              {stats.bestCase ? `${stats.bestCase.score}%` : 'No cases yet'}
             </div>
           </div>
           
@@ -43,7 +45,9 @@ const UserStatistics = () => {
             <Flame className="w-8 h-8 text-orange-500 mb-2" />
             <div className="text-3xl font-bold text-foreground">{stats.currentStreak}</div>
             <div className="text-sm text-description-gray">Day Streak</div>
-            <div className="text-xs text-muted-foreground mt-1">Keep it up!</div>
+            <div className="text-xs text-muted-foreground mt-1">
+              {stats.currentStreak === 0 ? "Start today!" : "Keep it up!"}
+            </div>
           </div>
         </div>
 
