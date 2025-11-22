@@ -13,7 +13,6 @@ interface Case {
   background: string;
   question: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
-  duration: string;
 }
 
 interface CasePracticeProps {

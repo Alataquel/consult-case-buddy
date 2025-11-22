@@ -11,7 +11,6 @@ interface Case {
   background: string;
   question: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
-  duration: string;
 }
 
 interface CasePresentationProps {
@@ -57,10 +56,6 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
                 <Badge className={difficultyColors[caseData.difficulty]}>
                   {caseData.difficulty}
                 </Badge>
-                <div className="flex items-center gap-1 text-description-gray">
-                  <Clock className="w-4 h-4" />
-                  <span className="text-sm">{caseData.duration}</span>
-                </div>
               </div>
             </div>
           </div>
