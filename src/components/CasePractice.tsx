@@ -10,6 +10,7 @@ interface CaseQuestion {
   question: string;
   hints?: string[];
   answer: string;
+  exhibitImage?: string;
 }
 
 interface Case {
@@ -142,6 +143,18 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
                       </div>
                     )}
                   </div>
+                  
+                  {/* Question-specific exhibit */}
+                  {q.exhibitImage && (
+                    <div className="mb-3 bg-muted p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-foreground mb-2">Exhibit for Question {q.number}:</p>
+                      <img 
+                        src={`/src/assets/${q.exhibitImage}.png`}
+                        alt={`Exhibit for question ${q.number}`}
+                        className="w-full h-auto rounded border border-border"
+                      />
+                    </div>
+                  )}
                   
                   {/* Answer box for this question */}
                   <Textarea

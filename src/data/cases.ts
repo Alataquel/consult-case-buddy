@@ -5,6 +5,7 @@ export interface CaseQuestion {
   question: string;
   hints?: string[];
   answer: string;
+  exhibitImage?: string;
 }
 
 export interface Case {
@@ -91,12 +92,13 @@ export const cases: Case[] = [
       },
       {
         number: 3,
-        question: "The team conducted a survey on a sample of the rural population in three different regions of Mexico. Participants were shown several statements about the concept of collecting benefits at their nearest Diconsa store and asked how much they agreed with each statement. The average response to some of the questions in each region is shown in the exhibit above.\n\nWhat are your observations regarding this information, and how would you explain these trends?",
+        question: "The team conducted a survey on a sample of the rural population in three different regions of Mexico. Participants were shown several statements about the concept of collecting benefits at their nearest Diconsa store and asked how much they agreed with each statement. The average response to some of the questions in each region is shown in the exhibit below.\n\nWhat are your observations regarding this information, and how would you explain these trends?",
         hints: [
           "Take some time to look at the information and note down any observations you have.",
           "Challenge yourself to identify trends that are not immediately obvious from the data."
         ],
-        answer: "Some of the observations you might discuss with your interviewer could include:\n\n• There are significant differences by region as to how interested people are in collecting benefits at their nearest Diconsa\n• Everyone has security concerns about collecting benefits at a Diconsa, but this is especially true in Region B\n• People are not so concerned about whether they will receive their benefits, except in Region B\n• Not everyone is completely convinced it will cost them less to collect benefits from their nearest Diconsa, despite the fact that they all agree it will save time\n• Broadly speaking, security, trust, and cost effectiveness all seem to influence whether someone is interested in collecting benefits at a Diconsa. People's perception of these seem to differ by region, with Region B being a particular issue. One potential explanation for the results in Region B is that this region has far higher levels of crime and corruption, which means people are less convinced that they will receive their benefits or that they can keep them secure once received."
+        answer: "Some of the observations you might discuss with your interviewer could include:\n\n• There are significant differences by region as to how interested people are in collecting benefits at their nearest Diconsa\n• Everyone has security concerns about collecting benefits at a Diconsa, but this is especially true in Region B\n• People are not so concerned about whether they will receive their benefits, except in Region B\n• Not everyone is completely convinced it will cost them less to collect benefits from their nearest Diconsa, despite the fact that they all agree it will save time\n• Broadly speaking, security, trust, and cost effectiveness all seem to influence whether someone is interested in collecting benefits at a Diconsa. People's perception of these seem to differ by region, with Region B being a particular issue. One potential explanation for the results in Region B is that this region has far higher levels of crime and corruption, which means people are less convinced that they will receive their benefits or that they can keep them secure once received.",
+        exhibitImage: "diconsa-exhibit"
       },
       {
         number: 4,
@@ -109,8 +111,7 @@ export const cases: Case[] = [
     ],
     difficulty: "Advanced",
     modelSolution: "This is a multi-part case study covering financial inclusion strategy, market sizing, data analysis, and go-to-market strategy. See individual question answers for detailed solutions.",
-    keyFrameworks: ["Social Impact", "Financial Inclusion", "Stakeholder Analysis", "Market Sizing"],
-    exhibitImage: "diconsa-exhibit"
+    keyFrameworks: ["Social Impact", "Financial Inclusion", "Stakeholder Analysis", "Market Sizing"]
   },
   {
     id: "mckinsey-electro-light",
