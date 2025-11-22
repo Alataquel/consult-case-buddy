@@ -31,7 +31,7 @@ interface CasePracticeProps {
 }
 
 const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps) => {
-  const [answer, setAnswer] = useState("");
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [visibleHints, setVisibleHints] = useState<Record<number, boolean>>({});
 
@@ -39,6 +39,13 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
     setVisibleHints(prev => ({
       ...prev,
       [questionNumber]: !prev[questionNumber]
+    }));
+  };
+
+  const updateAnswer = (questionNumber: number, value: string) => {
+    setAnswers(prev => ({
+      ...prev,
+      [questionNumber]: value
     }));
   };
 
@@ -50,10 +57,27 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
   };
 
   const handleSubmit = () => {
-    if (answer.trim()) {
-      onSubmitAnswer(answer);
+    // Combine all answers into one string
+    let combinedAnswer = "";
+    
+    if (caseData.questions && caseData.questions.length > 0) {
+      combinedAnswer = caseData.questions
+        .map(q => {
+          const answer = answers[q.number] || "";
+          return answer ? `Question ${q.number}:\n${answer}` : "";
+        })
+        .filter(a => a)
+        .join("\n\n");
+    } else {
+      combinedAnswer = answers[1] || "";
+    }
+    
+    if (combinedAnswer.trim()) {
+      onSubmitAnswer(combinedAnswer);
     }
   };
+
+  const hasAnyAnswer = Object.values(answers).some(a => a.trim().length > 0);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -89,42 +113,67 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
           </div>
           
           {caseData.questions && caseData.questions.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-6">
               {caseData.questions.map((q) => (
-                <div key={q.number} className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
-                  <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
-                  <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
-                  {q.hints && q.hints.length > 0 && (
-                    <div className="mt-3">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => toggleHints(q.number)}
-                        className="text-xs text-description-gray hover:text-foreground"
-                      >
-                        <Lightbulb className="w-3 h-3 mr-1" />
-                        {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
-                      </Button>
-                      {visibleHints[q.number] && (
-                        <div className="mt-2 pt-2 border-t border-border">
-                          <ul className="text-xs text-description-gray space-y-1">
-                            {q.hints.map((hint, idx) => (
-                              <li key={idx}>• {hint}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                <div key={q.number}>
+                  <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary mb-3">
+                    <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
+                    <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
+                    {q.hints && q.hints.length > 0 && (
+                      <div className="mt-3">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => toggleHints(q.number)}
+                          className="text-xs text-description-gray hover:text-foreground"
+                        >
+                          <Lightbulb className="w-3 h-3 mr-1" />
+                          {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
+                        </Button>
+                        {visibleHints[q.number] && (
+                          <div className="mt-2 pt-2 border-t border-border">
+                            <ul className="text-xs text-description-gray space-y-1">
+                              {q.hints.map((hint, idx) => (
+                                <li key={idx}>• {hint}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Answer box for this question */}
+                  <Textarea
+                    placeholder={`Your answer for Question ${q.number}...`}
+                    value={answers[q.number] || ""}
+                    onChange={(e) => updateAnswer(q.number, e.target.value)}
+                    className="min-h-[200px] resize-none border-border focus:border-accent"
+                  />
+                  <p className="text-xs text-description-gray mt-1">
+                    {answers[q.number]?.length || 0} characters
+                  </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
-              <p className="text-foreground font-medium leading-relaxed">
-                <strong>Question:</strong> {caseData.question}
+            <>
+              <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
+                <p className="text-foreground font-medium leading-relaxed">
+                  <strong>Question:</strong> {caseData.question}
+                </p>
+              </div>
+              
+              <Textarea
+                placeholder="Your answer..."
+                value={answers[1] || ""}
+                onChange={(e) => updateAnswer(1, e.target.value)}
+                className="min-h-[300px] resize-none border-border focus:border-accent"
+              />
+              <p className="text-xs text-description-gray">
+                {answers[1]?.length || 0} characters
               </p>
-            </div>
+            </>
           )}
           
           {caseData.exhibitImage && (
@@ -140,33 +189,22 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
         </CardContent>
       </Card>
 
-      {/* Answer Input */}
+      {/* Submit Button */}
       <Card className="shadow-elegant border-0">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-foreground">Your Response</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-3">
-            <Textarea
-              placeholder="Structure your approach and provide your analysis here. Think about:&#10;&#10;1. How would you break down this problem?&#10;2. What are your key assumptions?&#10;3. What's your analysis and calculations?&#10;4. What's your final recommendation?"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              className="min-h-[300px] resize-none border-border focus:border-accent"
-            />
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-description-gray">
-                {answer.length > 0 ? `${answer.length} characters` : "Start typing your response..."}
-              </p>
-              <Button 
-                onClick={handleSubmit} 
-                disabled={!answer.trim()}
-                variant="hero"
-                className="px-6"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Submit Answer
-              </Button>
-            </div>
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-description-gray">
+              {hasAnyAnswer ? "Review your answers and submit when ready" : "Start typing your responses..."}
+            </p>
+            <Button 
+              onClick={handleSubmit} 
+              disabled={!hasAnyAnswer}
+              variant="hero"
+              className="px-6"
+            >
+              <Send className="w-4 h-4 mr-2" />
+              Submit All Answers
+            </Button>
           </div>
         </CardContent>
       </Card>
