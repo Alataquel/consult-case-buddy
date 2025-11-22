@@ -210,12 +210,41 @@ export const cases: Case[] = [
     title: "National Education Case Interview",
     firm: "McKinsey",
     type: "Public Sector",
-    background: "Loravia is a fictional Eastern European country with 20 million population. The government wants to make major improvements in both quantity and quality of education for its children to support economic development goals and compete with European neighbors. Schooling in Loravia is completely public, provided by government-run schools admitting children ages 5-18. The first stage involves diagnosing the current state to determine how best to meet future aspirations.",
-    question: "McKinsey has been asked to support the Loravian department of education in diagnosing the current state of its school system and identifying the most important areas for improvement. What issues would you want to investigate?",
+    background: "Loravia is a fictional country located in Eastern Europe with a population of 20 million. The government of Loravia wants to make major improvements in both the quantity and quality of education for its children. Because McKinsey has great deal of global knowledge and expertise in the education sector, the Loravian department of education has asked McKinsey to advise on how it can achieve this transformation of its school system.\n\nLoravia's free market economy is still developing, having emerged from many decades under communism. Recently, the government of Loravia put a new economic plan in place with aspirations to transform its economy and turbocharge its development so it's well positioned to compete with its European neighbors. The government of Loravia realizes that the education of its children is a critical factor in meeting crucial economic development goals. It intends to transform the school system over the next ten years to enable it to support its economic aspirations.\n\nSchooling in Loravia is completely public and is provided by a network of government-run schools that admit children from ages five through 18.\n\nThe first stage of this effort will involve diagnosing the current state of education in schools in Loravia to determine how best to meet the government's future aspirations.\n\nMcKinsey has been asked to support the Loravian department of education in diagnosing the state of its current school system, and in identifying the most important areas for improvement.",
+    question: "Multi-part case with 3 questions",
+    questions: [
+      {
+        number: 1,
+        question: "What issues would you want to investigate in diagnosing the current state of the Loravian school system?",
+        hints: [
+          "Take time to organize your thoughts before answering. This tells the interviewer that you think about the problem in a logical way.",
+          "Develop overall approach before diving into details."
+        ],
+        answer: "Some of the factors you might discuss with your interviewer could include:\n\n• The quantity of available education: What is access to education like, and how does it differ by age, region, and demographic group? What is the supply of teachers and education resources like at a national, regional, or local levels? What are the national, regional, and local budgets for education?\n\n• The quality of available education: What is the quality of the current curriculum, for example, the subjects taught in schools and levels of attainment or learning objectives? What is the quality of the teaching, for example, the qualification level of teachers or results of teacher assessments?\n\n• Loravia's broader economic objectives: What industries and sectors will be a priority for Loravia in future, and what skills will be needed? How well does the current education system develop these skills? Should alternative models to a public education system be considered, for example, independent or private schools?"
+      },
+      {
+        number: 2,
+        question: "The chart below shows some important education-related measures for Loravia and also for some comparison countries. Three sets of comparison countries have been used. The first set contains some of Loravia's neighboring countries in Eastern Europe. In the second set are some of the most developed economies in Europe. Finally, in the third set are some countries that have similar sized economies to Loravia on a per person basis, which have similar GDP per capita.\n\nWhat observations can you derive from this chart?",
+        hints: [
+          "Take some time to look at the information and note any observations you have.",
+          "Challenge yourself to identify trends that are not immediately obvious from the data."
+        ],
+        answer: "Some of the observations you might discuss with your interviewer could include:\n\nA good answer might include the following observations:\n\n• Loravia spends more on education and also has a lower student-to-teacher ratio than the majority of its neighbors and economic peers, however, despite these factors, Loravia still has one of the lowest international assessment scores.\n\n• Broadly, there seems to be no direct relationship between student-to-teacher ratio and education outcome as measured by the international assessment.\n\n• Developed countries clearly spend more per student on education and have better outcomes as measured by the international assessment. However, among Loravia's peers and neighbors there is no clear relationship between spending and education outcomes.\n\n• While student-to-teacher ratios and per-student funding are levers that could be important in improving education quality, the data here indicates that alone, these may not deliver the necessary improvements. Issues such as teacher quality and curriculum content should be investigated.",
+        exhibitImage: "national-education-exhibit"
+      },
+      {
+        number: 3,
+        question: "One of the clients at Loravian's educational department mentions neighbor country 'C' as an example, because it's outperforming all of Loravia's economic peers and neighbors in the international assessment. She believes that the more concentrated school structure in this country is a big reason for better outcomes in the international assessment. She suggests that having larger, less fragmented schools allows for more effective teacher selection and training, leading to improved education outcomes for students. Finally, she shares that 15 percent of Loravia's population is currently attending school.\n\nWhat would be the reduction in the total number of schools in Loravia if it were to achieve the same average school size as neighbor country C?",
+        hints: [
+          "Don't feel rushed into performing calculations. Take your time.",
+          "Talk your interviewer through your steps so that you can demonstrate an organized approach."
+        ],
+        answer: "One possible approach to discuss with your interviewer could be:\n\n• There are three million schoolchildren in Loravia: 15 percent times 20 million\n• There are currently 6,000 schools across Loravia: three million school children divided by 500 per school\n• Assuming the same school size as neighbor C would mean there are 3,750 schools across Loravia: three million divided by 800 students per school\n• Therefore, 2,250 schools would be closed—or about 37.5 percent of schools"
+      }
+    ],
     difficulty: "Intermediate",
-    modelSolution: "Key investigation areas: (1) Quantity of education - access by age/region/demographic, supply of teachers and resources, budgets at national/regional/local levels. (2) Quality of education - curriculum quality, teaching quality, teacher qualifications. (3) Broader economic objectives - priority industries/sectors and needed skills, how well current system develops these skills. Data analysis reveals: Loravia spends more per student ($5,000) and has better student-to-teacher ratio (18:1) than most neighbors and economic peers, yet has one of lowest international assessment scores (41). This suggests spending and ratios alone won't improve outcomes - teacher quality and curriculum content are critical. School consolidation analysis: With 15% of 20M population in school (3M students) and current 500 students/school, there are 6,000 schools. Matching Neighbor C's 800 students/school would mean 3,750 schools - a reduction of 2,250 schools (37.5%).",
-    keyFrameworks: ["Public Sector Strategy", "Benchmarking", "Education Policy", "Data Analysis"],
-    exhibitImage: "national-education-exhibit"
+    modelSolution: "This is a multi-part case study covering public sector strategy, data analysis, and education policy. See individual question answers for detailed solutions.",
+    keyFrameworks: ["Public Sector Strategy", "Benchmarking", "Education Policy", "Data Analysis"]
   },
   {
     id: "mckinsey-talbot-trucks",
