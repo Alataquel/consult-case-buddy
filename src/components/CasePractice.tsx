@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Send, RotateCcw } from "lucide-react";
+import { Clock, Send, RotateCcw, Lightbulb } from "lucide-react";
 
 interface CaseQuestion {
   number: number;
@@ -33,6 +33,14 @@ interface CasePracticeProps {
 const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps) => {
   const [answer, setAnswer] = useState("");
   const [timeElapsed, setTimeElapsed] = useState(0);
+  const [visibleHints, setVisibleHints] = useState<Record<number, boolean>>({});
+
+  const toggleHints = (questionNumber: number) => {
+    setVisibleHints(prev => ({
+      ...prev,
+      [questionNumber]: !prev[questionNumber]
+    }));
+  };
 
   // Simple timer (you could enhance this with useEffect for real-time updates)
   const formatTime = (seconds: number) => {
@@ -87,13 +95,25 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
                   <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
                   <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
                   {q.hints && q.hints.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-border">
-                      <p className="text-xs font-semibold text-description-gray mb-1">Helpful hints:</p>
-                      <ul className="text-xs text-description-gray space-y-1">
-                        {q.hints.map((hint, idx) => (
-                          <li key={idx}>• {hint}</li>
-                        ))}
-                      </ul>
+                    <div className="mt-3">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleHints(q.number)}
+                        className="text-xs text-description-gray hover:text-foreground"
+                      >
+                        <Lightbulb className="w-3 h-3 mr-1" />
+                        {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
+                      </Button>
+                      {visibleHints[q.number] && (
+                        <div className="mt-2 pt-2 border-t border-border">
+                          <ul className="text-xs text-description-gray space-y-1">
+                            {q.hints.map((hint, idx) => (
+                              <li key={idx}>• {hint}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
