@@ -5,6 +5,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Send, RotateCcw } from "lucide-react";
 
+interface CaseQuestion {
+  number: number;
+  question: string;
+  hints?: string[];
+  answer: string;
+}
+
 interface Case {
   id: string;
   title: string;
@@ -12,6 +19,7 @@ interface Case {
   type: string;
   background: string;
   question: string;
+  questions?: CaseQuestion[];
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   exhibitImage?: string;
 }
@@ -70,10 +78,34 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
             <p className="text-foreground text-sm leading-relaxed mb-3">
               <strong>Background:</strong> {caseData.background}
             </p>
-            <p className="text-foreground font-medium leading-relaxed">
-              <strong>Question:</strong> {caseData.question}
-            </p>
           </div>
+          
+          {caseData.questions && caseData.questions.length > 0 ? (
+            <div className="space-y-3">
+              {caseData.questions.map((q) => (
+                <div key={q.number} className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
+                  <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
+                  <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
+                  {q.hints && q.hints.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-border">
+                      <p className="text-xs font-semibold text-description-gray mb-1">Helpful hints:</p>
+                      <ul className="text-xs text-description-gray space-y-1">
+                        {q.hints.map((hint, idx) => (
+                          <li key={idx}>• {hint}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
+              <p className="text-foreground font-medium leading-relaxed">
+                <strong>Question:</strong> {caseData.question}
+              </p>
+            </div>
+          )}
           
           {caseData.exhibitImage && (
             <div className="bg-muted p-4 rounded-lg">
