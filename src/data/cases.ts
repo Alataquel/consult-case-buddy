@@ -287,6 +287,63 @@ export const cases: Case[] = [
     difficulty: "Advanced",
     modelSolution: "This is a multi-part case study covering sustainability strategy, total cost of ownership analysis, and investment feasibility. See individual question answers for detailed solutions.",
     keyFrameworks: ["Total Cost of Ownership", "Sustainability Strategy", "Market Assessment", "Investment Analysis"]
+  },
+  {
+    id: "bain-coffee-shop",
+    title: "Coffee Shop Co. Case Interview",
+    firm: "Bain",
+    type: "Market Entry",
+    background: "You're having lunch with an old friend from university, and she's looking for some business advice. She is thinking of opening a coffee shop in Cambridge, England, a large university city an hour and a half away from London.\n\nShe sees potential in this business but wants your help in determining whether opening a coffee shop is a good idea.\n\nCase Setup:\nStart any case by understanding the question you're asked to solve. Ask your interviewer questions if you feel confused or need more information. We want you to succeed in your interviews!\n\nTake the time (1-2 minutes) to think about how you would approach the problem. Always structure your thinking, and communicate your ideas with your interviewer.\n\nHere are some sample questions to ask yourself:\n• How big is the opportunity?\n• How much does it cost to open a coffee shop?\n• What is the shop's go-to-market strategy?",
+    question: "Multi-part case with 4 questions",
+    questions: [
+      {
+        number: 1,
+        question: "You show your proposed framework to your friend, and she really likes it! She's especially interested in figuring out how big the market is to best estimate how much coffee she can sell. She knows the market probably includes commuters, visitors, etc., but for now, she wants you to focus on Cambridge residents alone.\n\nHow do you estimate the size of the market?",
+        hints: [
+          "Two potential approaches come to mind when estimating market size:",
+          "'Top-down' approach: Start with a large number (e.g. total relevant population) and progressively narrow down.",
+          "'Bottom-up' approach: Start with a small number (e.g. average cups of coffee consumed per day) and progressively scale up.",
+          "Note: When making assumptions about market size, there is no 'right' or 'wrong' answer. Base your estimations on your reasonable assumptions about the market."
+        ],
+        answer: "Two potential approaches come to mind when estimating market size:\n\n• 'Top-down' approach: Start with a large number (e.g. total relevant population) and progressively narrow down.\n• 'Bottom-up' approach: Start with a small number (e.g. average cups of coffee consumed per day) and progressively scale up.\n\nAfter you show her the potential options for estimating market size, she wants you to approximate the market size using your framework. Assume that Cambridge has a population of 100,000 people and, on average, each drinks 1 cup of coffee per day.",
+        exhibitImage: "coffee-shop-framework"
+      },
+      {
+        number: 2,
+        question: "After discussing the framework, your friend wants you to calculate the actual market size. Assume that Cambridge has a population of 100,000 people and, on average, each drinks 1 cup of coffee per day.\n\nWhat is the total market size in cups of coffee per year?",
+        hints: [
+          "Use the top-down approach starting with the total population.",
+          "Consider what percentage are adults, what percentage of adults drink coffee, and how much coffee is consumed at home vs. at coffee shops.",
+          "Remember to annualize your calculation."
+        ],
+        answer: "Top-Down calculation:\n\n• 100,000 people live in Cambridge\n• *80% are adults = 80,000\n• *50% of adults are coffee drinkers = 40,000 people\n• *1 cup of coffee per person per day = 40,000 cups of coffee per day\n• *50% of coffee made and consumed at home = 20,000 cups of coffee per day bought at coffee shops\n• *~350 days per year = 7,000,000 cups of coffee per year\n\nTotal market size is 7,000,000 cups of coffee per year",
+        exhibitImage: "coffee-shop-calculation"
+      },
+      {
+        number: 3,
+        question: "Now that you have the market size, your friend wants to gain a better understanding of how much coffee she would need to sell to break even in her first year.\n\nHow much coffee does she need to sell to break even in the first year?\n\nHere is some additional information:\n• Price per coffee = £3\n• Cost to open shop = £245,610\n• Cost to run shop each year = £163,740\n• Cost per cup of coffee = £1",
+        hints: [
+          "Don't feel rushed into performing calculations. Take your time.",
+          "Remember that calculators are not allowed - you may want to write out your calculations on paper during the interview.",
+          "Talk your interviewer through your steps so that you can demonstrate an organized approach; the more you talk the easier it will be for your interviewer to help you.",
+          "Use the breakeven formula: Profit = Revenue - Cost = £0"
+        ],
+        answer: "Breakeven calculation:\n\nProfit = £0\nRevenue - Cost = £0\n\n(Price × Quantity) - (Fixed costs + Variable costs) = £0\n(3 × Q) - (163,740 + 245,610 + [1 × Q]) = 0\n3Q - 409,350 - Q = 0\n2Q - 409,350 = 0\n2Q = 409,350\nQ = 204,675 cups to break even\n\nYour friend needs to sell 204,675 cups of coffee to break even in the first year."
+      },
+      {
+        number: 4,
+        question: "After running through the calculations, do you think it's reasonable for her to open up a coffee shop?",
+        hints: [
+          "Consider the market size you calculated earlier (7,000,000 cups per year).",
+          "Calculate what percentage of the market share would be needed to break even.",
+          "Think about other factors beyond just breaking even, such as timeline to recoup initial investment and competitive positioning."
+        ],
+        answer: "A good answer:\nYes! Because there are 7,000,000 cups sold and the break-even point is 204,675 cups, which is ~3% of the market share, breaking even is achievable.\n\nA better answer:\nBreaking even is achievable, but we'd want to understand more about our friend's investment timeline. Depending on how many years she plans to run the store, it might be difficult to recoup the cost of opening it.\n\nOther key questions she needs to think about before proceeding include:\n\n• What is CoffeeCo's go-to-market strategy?\n• How will the organization differentiate itself among its competitors?\n• Is there a dominant player that will make it difficult to win share?\n• Is the market full of smaller competitors that CoffeeCo could beat?"
+      }
+    ],
+    difficulty: "Beginner",
+    modelSolution: "This is a multi-part case study covering market sizing, breakeven analysis, and business strategy. The case walks through a structured approach to evaluating a small business opportunity. See individual question answers for detailed solutions.",
+    keyFrameworks: ["Market Sizing", "Breakeven Analysis", "Profitability Framework", "Go-to-Market Strategy"]
   }
 ];
 
