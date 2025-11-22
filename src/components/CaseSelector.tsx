@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building, Building2, Briefcase, LineChart, TrendingUp, Target, Award, Globe, Users } from "lucide-react";
+import UserStatistics from "@/components/UserStatistics";
 
 interface CaseSelectorProps {
   onSelectFirm: (firmName: string) => void;
@@ -31,6 +32,9 @@ const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
           Select a consulting firm to practice with their methodology and case style
         </p>
       </div>
+
+      {/* User Statistics */}
+      <UserStatistics />
 
       <div className="max-w-4xl mx-auto">
         <Card className="shadow-elegant border-0">
