@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,6 +35,15 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [visibleHints, setVisibleHints] = useState<Record<number, boolean>>({});
+
+  // Start timer when component mounts
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeElapsed(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const toggleHints = (questionNumber: number) => {
     setVisibleHints(prev => ({
