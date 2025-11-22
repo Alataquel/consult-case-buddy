@@ -10,6 +10,14 @@ interface FeedbackSection {
   score: number; // 1-5 scale
 }
 
+interface CaseQuestion {
+  number: number;
+  question: string;
+  hints?: string[];
+  answer: string;
+  exhibitImage?: string;
+}
+
 interface CaseFeedbackProps {
   userAnswer: string;
   feedback: {
@@ -18,7 +26,9 @@ interface CaseFeedbackProps {
     synthesis: FeedbackSection;
   };
   modelSolution: string;
+  correctAnswers?: CaseQuestion[];
   nextTip: string;
+  timeElapsed: number;
   onTryAnother: () => void;
   onGoHome: () => void;
 }
@@ -27,10 +37,18 @@ const CaseFeedback = ({
   userAnswer, 
   feedback, 
   modelSolution, 
+  correctAnswers,
   nextTip, 
+  timeElapsed,
   onTryAnother, 
   onGoHome 
 }: CaseFeedbackProps) => {
+  
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
   
   const getScoreColor = (score: number) => {
     if (score >= 4) return "text-green-600";
@@ -100,6 +118,9 @@ const CaseFeedback = ({
         <p className="text-description-gray">
           Review your performance and learn from the expert solution below
         </p>
+        <Badge variant="secondary" className="text-sm font-mono">
+          Time Taken: {formatTime(timeElapsed)}
+        </Badge>
       </div>
 
       {/* Feedback Sections */}
@@ -125,6 +146,28 @@ const CaseFeedback = ({
           </div>
         )}
       </div>
+
+      {/* Correct Answers */}
+      {correctAnswers && correctAnswers.length > 0 && (
+        <Card className="border-0 shadow-elegant">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-green-600" />
+              Correct Answers
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {correctAnswers.map((q) => (
+              <div key={q.number} className="space-y-2">
+                <div className="bg-secondary p-3 rounded-lg border-l-4 border-primary">
+                  <p className="text-sm font-bold text-accent mb-1">Question {q.number}</p>
+                  <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">{q.answer}</p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Model Solution */}
       <Card className="border-0 shadow-elegant">
