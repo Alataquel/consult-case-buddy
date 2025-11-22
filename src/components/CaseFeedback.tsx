@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +33,11 @@ const CaseFeedback = ({
   onTryAnother, 
   onGoHome 
 }: CaseFeedbackProps) => {
+  
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
   
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
