@@ -27,7 +27,7 @@ interface Case {
 
 interface CasePracticeProps {
   caseData: Case;
-  onSubmitAnswer: (answer: string) => void;
+  onSubmitAnswer: (answer: string, timeElapsed: number) => void;
   onRestart: () => void;
 }
 
@@ -36,8 +36,10 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [visibleHints, setVisibleHints] = useState<Record<number, boolean>>({});
 
-  // Start timer when component mounts
+  // Start timer when component mounts and scroll to top
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     const interval = setInterval(() => {
       setTimeElapsed(prev => prev + 1);
     }, 1000);
@@ -83,7 +85,7 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
     }
     
     if (combinedAnswer.trim()) {
-      onSubmitAnswer(combinedAnswer);
+      onSubmitAnswer(combinedAnswer, timeElapsed);
     }
   };
 

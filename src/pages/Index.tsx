@@ -16,6 +16,7 @@ const Index = () => {
   const [selectedFirm, setSelectedFirm] = useState<string>('');
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [userAnswer, setUserAnswer] = useState<string>('');
+  const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
 
   const handleSelectFirm = (firmName: string) => {
@@ -35,8 +36,9 @@ const Index = () => {
     setCurrentState('practice');
   };
 
-  const handleSubmitAnswer = (answer: string) => {
+  const handleSubmitAnswer = (answer: string, time: number) => {
     setUserAnswer(answer);
+    setTimeElapsed(time);
     
     if (selectedCase) {
       const feedback = generateFeedback(answer, selectedCase.type);
@@ -48,7 +50,8 @@ const Index = () => {
       setCaseFeedback({
         feedback,
         nextTip,
-        modelSolution: selectedCase.modelSolution
+        modelSolution: selectedCase.modelSolution,
+        correctAnswers: selectedCase.questions
       });
       
       setCurrentState('feedback');
@@ -60,6 +63,7 @@ const Index = () => {
     setSelectedFirm('');
     setSelectedCase(null);
     setUserAnswer('');
+    setTimeElapsed(0);
     setCaseFeedback(null);
   };
 
@@ -68,6 +72,7 @@ const Index = () => {
     setSelectedFirm('');
     setSelectedCase(null);
     setUserAnswer('');
+    setTimeElapsed(0);
     setCaseFeedback(null);
   };
 
@@ -165,7 +170,9 @@ const Index = () => {
             userAnswer={userAnswer}
             feedback={caseFeedback.feedback}
             modelSolution={caseFeedback.modelSolution}
+            correctAnswers={caseFeedback.correctAnswers}
             nextTip={caseFeedback.nextTip}
+            timeElapsed={timeElapsed}
             onTryAnother={handleTryAnother}
             onGoHome={handleGoHome}
           />
