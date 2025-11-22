@@ -67,44 +67,42 @@ export const cases: Case[] = [
     title: "RuralPay — Expanding Financial Access in Mexico",
     firm: "McKinsey",
     type: "Financial Inclusion",
-    background: "The Horizon Foundation, a global philanthropic organization focused on reducing poverty, has asked a consulting team to design a simple set of financial services for people living in remote rural areas of Mexico.\n\nA large portion of Mexico's rural population lives on modest incomes and depends partly on government assistance. Most recipients do not have bank accounts, so they must travel to state-owned bank branches to collect their payments in cash. These branches are few and far between, meaning that beneficiaries often spend considerable time and money reaching them. Traveling long distances with cash can also pose safety risks.\n\nThe Mexican government operates a nationwide chain of community stores called RuralPay Shops, numbering around 22,000 locations. These outlets supply local residents with food staples, clothing, and other essentials through a system of central warehouses and regional delivery fleets.\n\nThe consulting team has been asked to evaluate whether this existing RuralPay network could also be used to deliver basic financial services—starting with benefit disbursement and potentially expanding to savings, bill payment, insurance, loans, and other products.\n\nNote: This case is credited to McKinsey & Company (https://www.mckinsey.com/careers/interviewing/diconsa).",
+    background: "The Horizon Foundation, a global nonprofit focused on poverty reduction, wants to design a basic financial services model for people living in rural Mexico.\n\nMost of Mexico's rural population lives on low incomes and relies partly on government assistance. Because few have bank accounts, they collect benefits in cash from a limited number of state-run bank branches—often far from home. These trips are time-consuming, costly, and carry safety risks.\n\nThe Mexican government also operates a network of about 22,000 community stores, known here as RuralPay Shops, which sell food and essential goods through centralized warehouses and regional delivery routes.\n\nThe consulting team has been asked to evaluate whether the RuralPay store network could also deliver basic financial services, starting with benefit payments and eventually expanding to savings, bill payments, insurance, and loans.\n\nNote: This case is credited to McKinsey & Company (https://www.mckinsey.com/careers/interviewing/diconsa).",
     question: "Multi-part case with 4 questions",
     questions: [
       {
         number: 1,
-        question: "What should the team examine to determine whether the RuralPay network could—and should—be leveraged to deliver basic financial services across rural Mexico?",
+        question: "What should the team analyze to determine whether the RuralPay network can and should be used to offer financial services to rural residents?",
         hints: [
-          "Take a few moments to organize your thoughts before answering.",
-          "Lay out a clear structure before detailing your analysis."
+          "Take a few moments to structure your ideas before you start.",
+          "Begin with an overall framework, then go into details."
         ],
-        answer: "Key factors might include:\n\n• Benefits for rural households: How much time, money, and effort would recipients save if they could collect benefits locally instead of traveling to distant bank branches? Beyond convenience, would this improve access to other financial products or enhance personal security?\n\n• Benefits for the government and stakeholders: Could this model lower administrative or distribution costs for the government and state bank? Would it help increase efficiency or compliance? Might RuralPay stores see greater foot traffic and sales as a result?\n\n• Operational and capacity risks: Does the RuralPay store network have the infrastructure, technology, and staff capability to handle financial transactions? Could the state bank effectively manage a much larger distribution footprint? Would decentralizing payments increase risks such as theft or fraud?"
+        answer: "Benefits for rural families: How much time and travel cost could beneficiaries save by collecting payments locally? Would easier access improve financial security and savings habits?\n\nBenefits for stakeholders: Could this model lower administrative costs for the government or the state bank? Would it drive more business to RuralPay shops or ease pressure on existing bank branches?\n\nOperational risks: Do the stores have the staff, infrastructure, and security to handle payments safely? Can the state bank manage a larger and more distributed network? Would decentralization increase fraud or theft risk?"
       },
       {
         number: 2,
-        question: "The team estimates that each family currently spends 50 pesos per month on travel and food to collect benefit payments from distant bank branches. If benefits were available locally through RuralPay stores, that cost would drop by 30%.\n\nAssume:\n• Mexico's total population is 100 million\n• 20% of the population is rural\n• Half of rural residents receive state benefits\n• The average family size is 4 people\n\nIf every eligible family could collect benefits at their local RuralPay store, how much total savings per year would rural families realize?",
+        question: "Each family currently spends 50 pesos per month on travel and food to collect benefit payments. If payments were available through local RuralPay stores, that cost would drop by 30%.\n\nAssume:\n• Mexico's population = 100 million\n• 20% rural population\n• 50% of rural residents receive benefits\n• Average family = 4 members\n\nHow much money would rural families collectively save each year if they could collect benefits locally?",
         hints: [
-          "Take your time with the calculations—no calculator required.",
-          "Explain each step as you go; clear reasoning matters as much as the final number."
+          "Take your time and explain your steps clearly."
         ],
-        answer: "Number of rural families:\n• 100M × 20% = 20M people in rural areas\n• 20M ÷ 4 = 5M rural families\n\nFamilies receiving benefits:\n• 5M × 50% = 2.5M families\n\nAnnual cost per family to collect benefits:\n• 50 pesos/month × 12 = 600 pesos/year\n\nTotal annual cost across all families:\n• 600 × 2.5M = 1.5B pesos\n\nAnnual savings if costs fall by 30%:\n• 1.5B × 30% = 450M pesos saved per year\n\nResult: Rural families would collectively save approximately 450 million pesos annually."
+        answer: "Rural population: 100M × 20% = 20M people\n\nRural families: 20M ÷ 4 = 5M families\n\nFamilies receiving benefits: 5M × 50% = 2.5M families\n\nAnnual cost per family: 50 pesos × 12 = 600 pesos\n\nTotal annual cost: 600 × 2.5M = 1.5B pesos\n\nAnnual savings: 1.5B × 30% = 450M pesos\n\nResult: Families would collectively save about 450 million pesos per year."
       },
       {
         number: 3,
-        question: "The team surveyed a sample of rural residents across three Mexican regions. Respondents rated how much they agreed with statements about collecting benefits at their nearest RuralPay store.\n\nWhat observations would you make from the results, and how would you explain the regional trends?",
+        question: "A survey across three regions asked rural residents about collecting benefits at their nearest RuralPay store.\n\nWhat trends do you see in the results, and how would you explain them?",
         hints: [
-          "Take time to study the information carefully.",
-          "Look for differences or trends that aren't immediately obvious."
+          "Study the data carefully and look for differences between regions."
         ],
-        answer: "Key observations:\n\n• There are clear regional differences in how interested people are in collecting benefits at RuralPay stores.\n\n• Security concerns are common everywhere but are especially strong in one region, suggesting safety issues play a major role.\n\n• Most respondents are confident they will receive their benefits, though skepticism is higher in certain areas.\n\n• Not everyone believes that collecting benefits locally will be cheaper, even though most agree it would save time.\n\n• Overall, security, trust, and perceived cost-effectiveness drive people's willingness to use RuralPay. Differences across regions—especially in areas with higher crime—likely explain the varied responses.",
+        answer: "Interest in using RuralPay varies widely by region.\n\nSecurity concerns are common everywhere but highest in one region.\n\nMost respondents trust they'll receive benefits, except in regions with higher crime.\n\nSome doubt that collecting locally will be cheaper, even though most agree it saves time.\n\nOverall, trust, safety, and perceived savings drive willingness to adopt. In areas with more crime and corruption, skepticism is stronger.",
         exhibitImage: "diconsa-exhibit"
       },
       {
         number: 4,
-        question: "During a follow-up meeting, representatives from the state-owned bank voice concerns about the difficulty of offering banking services in rural areas. They note that many residents have limited formal education, little familiarity with banking products, and face high levels of crime and fraud.\n\nHow could the bank effectively introduce these financial services despite these challenges?",
+        question: "During a meeting, the state-owned bank raises concerns about introducing financial products in rural areas where education levels are low, financial literacy is limited, and crime rates are high.\n\nHow could the bank effectively promote and deliver financial services under these conditions?",
         hints: [
-          "Group your ideas by theme to ensure your answer is organized and comprehensive."
+          "Group your ideas logically by theme."
         ],
-        answer: "Addressing limited education and product awareness:\n\n• Begin with pilot programs in regions more open to adoption, allowing other areas to observe early success.\n• Host in-store information sessions and demonstrations to explain products clearly and build confidence.\n• Partner with trusted community organizations or brands that already have credibility in these regions.\n• Feature real-life customer stories showing how others have benefited (e.g., successful insurance claims or savings outcomes).\n• Encourage RuralPay store employees to promote new products actively.\n• Offer introductory incentives, such as small bonuses for opening a first savings account.\n\nReducing crime and fraud risks:\n\n• Improve store security measures and training.\n• Set transaction limits to control cash exposure.\n• Introduce secure technologies—like chip cards or digital authentication—to minimize fraud and reduce reliance on cash."
+        answer: "Addressing low awareness:\n\n• Pilot products in receptive areas first to demonstrate success.\n• Host in-store demos explaining how products work.\n• Partner with trusted community groups or local brands.\n• Share real stories of customers who benefited (e.g., successful claims or savings goals).\n• Encourage RuralPay staff to promote product uptake.\n• Offer small incentives (e.g., 50 pesos for opening a first savings account).\n\nAddressing crime and fraud:\n\n• Strengthen store security and staff training.\n• Impose daily or weekly transaction limits.\n• Use secure technology (chip cards, electronic verification) to reduce cash handling and fraud."
       }
     ],
     difficulty: "Advanced",
