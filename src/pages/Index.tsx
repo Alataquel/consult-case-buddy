@@ -1,25 +1,45 @@
 import { useState } from "react";
 import { Brain } from "lucide-react";
 import CaseSelector from "@/components/CaseSelector";
+import DifficultySelector from "@/components/DifficultySelector";
 import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
 import { getCasesBySelection, getRandomCase, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 
-type AppState = 'selection' | 'case-presentation' | 'practice' | 'feedback';
+type AppState = 'selection' | 'difficulty-selection' | 'case-presentation' | 'practice' | 'feedback';
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('selection');
+  const [selectedFirm, setSelectedFirm] = useState<string>('');
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
 
-  const handleSelection = (type: string, value: string) => {
-    const filteredCases = getCasesBySelection(type, value);
-    const randomCase = getRandomCase(filteredCases);
-    setSelectedCase(randomCase);
-    setCurrentState('case-presentation');
+  const handleSelectFirm = (firmName: string) => {
+    setSelectedFirm(firmName);
+    setCurrentState('difficulty-selection');
+  };
+
+  const handleSelectDifficulty = (difficulty: string) => {
+    const filteredCases = getCasesBySelection('firm', selectedFirm).filter(
+      case_ => case_.difficulty === difficulty
+    );
+    
+    if (filteredCases.length > 0) {
+      const randomCase = getRandomCase(filteredCases);
+      setSelectedCase(randomCase);
+      setCurrentState('case-presentation');
+    } else {
+      // Fallback: get any case from the firm if no cases match difficulty
+      const allFirmCases = getCasesBySelection('firm', selectedFirm);
+      if (allFirmCases.length > 0) {
+        const randomCase = getRandomCase(allFirmCases);
+        setSelectedCase(randomCase);
+        setCurrentState('case-presentation');
+      }
+    }
   };
 
   const handleStartCase = () => {
@@ -45,6 +65,7 @@ const Index = () => {
 
   const handleTryAnother = () => {
     setCurrentState('selection');
+    setSelectedFirm('');
     setSelectedCase(null);
     setUserAnswer('');
     setCaseFeedback(null);
@@ -52,6 +73,7 @@ const Index = () => {
 
   const handleGoHome = () => {
     setCurrentState('selection');
+    setSelectedFirm('');
     setSelectedCase(null);
     setUserAnswer('');
     setCaseFeedback(null);
@@ -59,6 +81,12 @@ const Index = () => {
 
   const handleRestart = () => {
     setCurrentState('selection');
+    setSelectedFirm('');
+  };
+
+  const handleBackToFirms = () => {
+    setCurrentState('selection');
+    setSelectedFirm('');
   };
 
   // Header Component
@@ -85,7 +113,22 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-8">
-          <CaseSelector onSelect={handleSelection} />
+          <CaseSelector onSelectFirm={handleSelectFirm} />
+        </div>
+      </div>
+    );
+  }
+
+  if (currentState === 'difficulty-selection') {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-8">
+          <DifficultySelector 
+            firmName={selectedFirm}
+            onSelectDifficulty={handleSelectDifficulty}
+            onBack={handleBackToFirms}
+          />
         </div>
       </div>
     );
