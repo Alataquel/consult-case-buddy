@@ -9,6 +9,7 @@ interface CaseQuestion {
   question: string;
   hints?: string[];
   answer: string;
+  exhibitImage?: string;
 }
 
 interface Case {
@@ -95,29 +96,43 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
               <h3 className="text-lg font-semibold text-foreground">Case Questions</h3>
               <div className="space-y-4">
                 {caseData.questions.map((q) => (
-                  <div key={q.number} className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
-                    <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
-                    <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
-                    {q.hints && q.hints.length > 0 && (
-                      <div className="mt-3">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => toggleHints(q.number)}
-                          className="text-xs text-description-gray hover:text-foreground"
-                        >
-                          <Lightbulb className="w-3 h-3 mr-1" />
-                          {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
-                        </Button>
-                        {visibleHints[q.number] && (
-                          <div className="mt-2 pt-2 border-t border-border">
-                            <ul className="text-xs text-description-gray space-y-1">
-                              {q.hints.map((hint, idx) => (
-                                <li key={idx}>• {hint}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                  <div key={q.number}>
+                    <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
+                      <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
+                      <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
+                      {q.hints && q.hints.length > 0 && (
+                        <div className="mt-3">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => toggleHints(q.number)}
+                            className="text-xs text-description-gray hover:text-foreground"
+                          >
+                            <Lightbulb className="w-3 h-3 mr-1" />
+                            {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
+                          </Button>
+                          {visibleHints[q.number] && (
+                            <div className="mt-2 pt-2 border-t border-border">
+                              <ul className="text-xs text-description-gray space-y-1">
+                                {q.hints.map((hint, idx) => (
+                                  <li key={idx}>• {hint}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Question-specific exhibit */}
+                    {q.exhibitImage && (
+                      <div className="mt-3 bg-muted p-4 rounded-lg">
+                        <p className="text-sm font-semibold text-foreground mb-2">Exhibit for Question {q.number}:</p>
+                        <img 
+                          src={`/src/assets/${q.exhibitImage}.png`}
+                          alt={`Exhibit for question ${q.number}`}
+                          className="w-full h-auto rounded border border-border"
+                        />
                       </div>
                     )}
                   </div>
