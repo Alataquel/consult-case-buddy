@@ -117,13 +117,42 @@ export const cases: Case[] = [
     id: "mckinsey-electro-light",
     title: "Electro-Light Case Interview",
     firm: "McKinsey",
-    type: "New Product",
-    background: "SuperSoda is a top-three beverage producer in the United States that leads its own brand design, marketing, and sales efforts. The company owns its entire beverage supply chain, including production of concentrates, bottling and packaging, and distribution. SuperSoda is evaluating the launch of Electro-Light, a flavored sports drink formulated to focus on electrolyte replenishment with lower sugar content compared to most other sports drinks, capitalizing on the trend away from high-sugar products.",
-    question: "SuperSoda's vice president of marketing has asked McKinsey to help analyze key factors surrounding the launch of Electro-Light. What key factors should SuperSoda consider when deciding whether or not to launch Electro-Light?",
+    type: "New Product Launch",
+    background: "SuperSoda is a top-three beverage producer in the United States that has approached McKinsey for help designing its product launch strategy.\n\nAs an integrated beverage company, SuperSoda leads its own brand design, marketing, and sales efforts. The company also owns its entire beverage supply chain, including production of concentrates, bottling and packaging, and distribution to retail outlets. SuperSoda has a considerable number of brands across carbonated and noncarbonated drinks, five large bottling plants throughout the country, and distribution agreements with most major retailers.\n\nSuperSoda is evaluating the launch of a new product, a flavored sports drink called 'Electro-Light.' Sports drinks are usually designed to replenish energy, with sugars, and electrolytes, or salts, in the body. However, Electro-Light has been formulated to focus more on the replenishment of electrolytes and has a lower sugar content compared to most other sports drinks. The company expects this new beverage to capitalize on the recent trend away from high-sugar products.\n\nSuperSoda's vice president of marketing has asked McKinsey to help analyze key factors surrounding the launch of Electro-Light and its own internal capabilities to support that effort.",
+    question: "Multi-part case with 3 questions",
+    questions: [
+      {
+        number: 1,
+        question: "What key factors should SuperSoda consider when deciding whether or not to launch Electro-Light?",
+        hints: [
+          "Take time to organize your thoughts before answering. This tells the interviewer that you think about the problem in a logical way.",
+          "Develop overall approach before diving into details."
+        ],
+        answer: "Some of the factors you might discuss with your interviewer could include:\n\n• Consumers: Who drinks sports drinks? Are there specific market segments to address?\n\n• Cost and price: Is the sports-drinks market more profitable than the markets for SuperSoda's current products? Is it possible to sell Electro-Light profitably at a price set by the market and internal production costs? Given the fixed costs involved, what would be the point for Electro-Light to break even?\n\n• Competitors: Which products will Electro-Light be competing with? Which companies are key in the market, and how will they react?\n\n• Capabilities and capacity: Are the necessary marketing and sales capabilities available within SuperSoda? Does the product require specialized production, packaging, or distribution? Is it possible to accommodate Electro-Light in the current production and distribution facilities? What impact does geography have on plant selection?\n\n• Channels: What is the ideal distribution channel for this product? Are current retail outlets willing to add Electro-Light to those product catalogs?"
+      },
+      {
+        number: 2,
+        question: "After reviewing the key factors that SuperSoda should consider when deciding whether to launch Electro-Light, your team wants to understand the beverage market and consumer preferences to gauge the potential success of Electro-Light.\n\nYour team has gathered the following information about the US sports drink market (shown in the exhibit below). The information shows an estimated share of electrolyte drinks, as well as the current share for the two main electrolyte products: CoolSweat and RecoverPlus.\n\nBased on the target price and upfront fixed costs, what share of the electrolyte drink market would Electro-Light need to capture to break even? Here is some additional information for you to consider as you form your response:\n\n• Electro-Light would launch in a 16-ounce format—or one-eighth of a gallon—at a price of $2 to retailers\n• To be able to launch Electro-Light, SuperSoda needs to bear $40 million in total fixed costs, including marketing expenses and increased costs across its production and distribution network\n• The vice president of operations estimates that each bottle would cost $1.90 to produce and deliver in the new process",
+        hints: [
+          "Don't feel rushed into performing calculations. Take your time.",
+          "Remember that calculators are not allowed—you may want to write out your calculations on paper during the interview.",
+          "Talk your interviewer through your steps so that you can demonstrate an organized approach; the more you talk the easier it will be for your interviewer to help you."
+        ],
+        answer: "One possible approach to discuss with your interviewer could be:\n\nElectro-Light would need to capture a 12.5 percent market share of electrolyte drinks to break even. Therefore, Electro-Light would need to become the number two product on the market.\n\n1. Electro-Light would need to sell 400 million units to break even:\n• Variable profit per unit: $2 minus $1.90 equals $0.10\n• Breakeven units: Total fixed costs and variable profit per unit is approximately $40 million divided by $0.10 per unit equals 400 million units\n\n2. Electro-Light would need to capture a 12.5 percent market share:\n• Electrolyte drinks market: five percent times 8,000 million gallons equals 400 million gallons\n• Electro-Light sales in millions of gallons: 400 million units divided by eight units per gallon equals 50 million gallons\n• Market share: 50 million gallons divided by 400 million gallons equals 12.5 percent",
+        exhibitImage: "electro-light-exhibit"
+      },
+      {
+        number: 3,
+        question: "SuperSoda executives believe that the company's position as a top-three beverage company gives it strategic impetus toward achieving the desired market share. However, they ask the team to outline what would be needed to achieve the target 12.5 percent share of the electrolyte-drinks market.\n\nWhat would SuperSoda need to do to gain the required market share for Electro-Light following its launch?",
+        hints: [
+          "Consider the issues raised in the question and group your thoughts around them. This will ensure that you are giving the most relevant answers."
+        ],
+        answer: "Some of the ideas you might discuss with your interviewer could include:\n\n• Match with consumer preferences: Ensure that the product image, attributes, and quality fulfill the needs of all consumers or a niche segment to reach the desired market share; ensure that the target price is consistent with other products on the market as well as with consumer expectations.\n\n• Strong branding/marketing: Create a successful introductory marketing campaign, including advertising, pricing, and bundling promotions. Leverage the company's top-three producer status and minimal market fragmentation to position the Electro-Light brand within the top three in the market segment. Anticipate competitors' responses—for example, advertising, pricing, and distribution agreements. Ensure that product positioning does not cannibalize other, more profitable SuperSoda products.\n\n• Operational capabilities: Secure access to preferred distribution channels. Ensure that the sales force has the capabilities needed to sell the new product. Ensure that production ramp-up allows for a response when demand increases."
+      }
+    ],
     difficulty: "Intermediate",
-    modelSolution: "Key factors: (1) Consumers - who drinks sports drinks and what segments to address? (2) Cost and price - profitability vs current products, ability to sell at market price given production costs. (3) Competitors - which products will Electro-Light compete with and how will they react? (4) Capabilities - marketing/sales capabilities available, specialized production needs, capacity in current facilities. (5) Channels - ideal distribution channel and retailer willingness. Breakeven analysis: US sports drink market is 8B gallons, electrolyte drinks are 5% (400M gallons). At $2 retail price, $1.90 cost per 16oz bottle, $0.10 profit per unit. Need 400M units to cover $40M fixed costs = 50M gallons = 12.5% market share of electrolyte drinks (would be #2 behind CoolSweat's 20%).",
-    keyFrameworks: ["Product Launch", "Market Sizing", "Breakeven Analysis", "Competitive Analysis"],
-    exhibitImage: "electro-light-exhibit"
+    modelSolution: "This is a multi-part case study covering product launch strategy, market sizing, breakeven analysis, and go-to-market planning. See individual question answers for detailed solutions.",
+    keyFrameworks: ["Product Launch", "Market Sizing", "Breakeven Analysis", "Competitive Analysis"]
   },
   {
     id: "mckinsey-globapharm",
