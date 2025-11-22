@@ -13,6 +13,7 @@ interface Case {
   background: string;
   question: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
+  exhibitImage?: string;
 }
 
 interface CasePracticeProps {
@@ -73,6 +74,17 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
               <strong>Question:</strong> {caseData.question}
             </p>
           </div>
+          
+          {caseData.exhibitImage && (
+            <div className="bg-muted p-4 rounded-lg">
+              <p className="text-sm font-semibold text-foreground mb-2">Case Exhibit:</p>
+              <img 
+                src={`/src/assets/${caseData.exhibitImage}.png`}
+                alt="Case exhibit"
+                className="w-full h-auto rounded border border-border"
+              />
+            </div>
+          )}
         </CardContent>
       </Card>
 

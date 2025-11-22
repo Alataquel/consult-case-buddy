@@ -10,6 +10,7 @@ export interface Case {
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   modelSolution: string;
   keyFrameworks: string[];
+  exhibitImage?: string;
 }
 
 export const cases: Case[] = [
@@ -33,7 +34,8 @@ export const cases: Case[] = [
     question: "McKinsey has been asked to investigate and assess the possibility of using the Diconsa network to provide basic financial services to supplement the limited number of state-owned bank branches. What should the team investigate to determine whether the Diconsa network could and should be leveraged?",
     difficulty: "Advanced",
     modelSolution: "Key investigation areas: (1) Benefits to rural population - time/expense savings, better security, access to broader financial services. Currently costs families 50 pesos/month; Diconsa would reduce by 30%. With 20% rural population (20M people), half receiving benefits, that's 5M families or 2.5M receiving benefits. Annual savings: 2.5M families × 600 pesos × 30% = 450M pesos saved. (2) Benefits to government - lower administration costs, better financial management, increased Diconsa business. (3) Risks - does Diconsa have capacity for financial payments? Greater fraud risk? Survey data shows significant regional differences in trust, security concerns, and cost perceptions, especially in Region B with higher crime.",
-    keyFrameworks: ["Social Impact", "Financial Inclusion", "Stakeholder Analysis", "Risk Assessment"]
+    keyFrameworks: ["Social Impact", "Financial Inclusion", "Stakeholder Analysis", "Risk Assessment"],
+    exhibitImage: "diconsa-exhibit"
   },
   {
     id: "mckinsey-electro-light",
@@ -44,7 +46,8 @@ export const cases: Case[] = [
     question: "SuperSoda's vice president of marketing has asked McKinsey to help analyze key factors surrounding the launch of Electro-Light. What key factors should SuperSoda consider when deciding whether or not to launch Electro-Light?",
     difficulty: "Intermediate",
     modelSolution: "Key factors: (1) Consumers - who drinks sports drinks and what segments to address? (2) Cost and price - profitability vs current products, ability to sell at market price given production costs. (3) Competitors - which products will Electro-Light compete with and how will they react? (4) Capabilities - marketing/sales capabilities available, specialized production needs, capacity in current facilities. (5) Channels - ideal distribution channel and retailer willingness. Breakeven analysis: US sports drink market is 8B gallons, electrolyte drinks are 5% (400M gallons). At $2 retail price, $1.90 cost per 16oz bottle, $0.10 profit per unit. Need 400M units to cover $40M fixed costs = 50M gallons = 12.5% market share of electrolyte drinks (would be #2 behind CoolSweat's 20%).",
-    keyFrameworks: ["Product Launch", "Market Sizing", "Breakeven Analysis", "Competitive Analysis"]
+    keyFrameworks: ["Product Launch", "Market Sizing", "Breakeven Analysis", "Competitive Analysis"],
+    exhibitImage: "electro-light-exhibit"
   },
   {
     id: "mckinsey-globapharm",
@@ -55,7 +58,8 @@ export const cases: Case[] = [
     question: "GlobaPharm has engaged McKinsey to evaluate the BioFuture acquisition and advise on its strategic fit. Should GlobaPharm acquire BioFuture? What factors should the team consider?",
     difficulty: "Advanced",
     modelSolution: "Key evaluation factors: (1) Value of BioFuture's drug pipeline - number of drugs in development, quality/likelihood of success, potential revenues. (2) R&D capabilities - scientific talent, intellectual property, facilities and equipment. (3) Marketing/sales capabilities - relationships with key opinion leaders. (4) Acquisition price relative to value. Drug development analysis: Phase I (70% success) → Phase II (40%) → Phase III (50%) → Filing (90%) = 12.6% overall success rate. If a drug passing Phase II is worth $540M (45% × $1.2B), to justify $150M investment in Phase II, success rate must increase to 80% (40 percentage point increase), which seems very challenging. Integration risks: cultural differences, language barriers, time zone management (9 hour difference), potential departure of key scientific talent.",
-    keyFrameworks: ["M&A Analysis", "Due Diligence", "Risk Assessment", "Probability Analysis"]
+    keyFrameworks: ["M&A Analysis", "Due Diligence", "Risk Assessment", "Probability Analysis"],
+    exhibitImage: "globapharm-exhibit"
   },
   {
     id: "mckinsey-national-education",
@@ -66,7 +70,8 @@ export const cases: Case[] = [
     question: "McKinsey has been asked to support the Loravian department of education in diagnosing the current state of its school system and identifying the most important areas for improvement. What issues would you want to investigate?",
     difficulty: "Intermediate",
     modelSolution: "Key investigation areas: (1) Quantity of education - access by age/region/demographic, supply of teachers and resources, budgets at national/regional/local levels. (2) Quality of education - curriculum quality, teaching quality, teacher qualifications. (3) Broader economic objectives - priority industries/sectors and needed skills, how well current system develops these skills. Data analysis reveals: Loravia spends more per student ($5,000) and has better student-to-teacher ratio (18:1) than most neighbors and economic peers, yet has one of lowest international assessment scores (41). This suggests spending and ratios alone won't improve outcomes - teacher quality and curriculum content are critical. School consolidation analysis: With 15% of 20M population in school (3M students) and current 500 students/school, there are 6,000 schools. Matching Neighbor C's 800 students/school would mean 3,750 schools - a reduction of 2,250 schools (37.5%).",
-    keyFrameworks: ["Public Sector Strategy", "Benchmarking", "Education Policy", "Data Analysis"]
+    keyFrameworks: ["Public Sector Strategy", "Benchmarking", "Education Policy", "Data Analysis"],
+    exhibitImage: "national-education-exhibit"
   },
   {
     id: "mckinsey-talbot-trucks",
@@ -77,7 +82,8 @@ export const cases: Case[] = [
     question: "The CEO of Talbot Trucks has approached McKinsey to help determine the attractiveness of an investment in eTruck manufacturing for its European market. What information would you want to collect?",
     difficulty: "Advanced",
     modelSolution: "Key information to collect: (1) Market - differences between large and small customers, geographic receptivity in Europe, customer perception vs competitors, potential substitutes like rail. (2) Financials - revenue potential across segments, main cost drivers, expected pricing. (3) Risks - Talbot's experience with eTrucks, ability to produce cost-efficiently, impact on current truck sales, legislation forcing change. TCO analysis for diesel truck: Driver €36K + Depreciation €25K (€100K over 4 years) + Fuel €30K (30L/100km × €1/L × 100K km) + Maintenance €5K + Other €10K = €106K annual total. For eTruck to match: €106K total - €36K driver - €15K fuel (100kWh/100km × €0.15/kWh × 100K km) - €3K maintenance - €5K other = €47K annual depreciation needed. Therefore, maximum eTruck price = €47K × 4 years = €188K. Key insight: fuel and depreciation are the major cost drivers, and eTrucks become more attractive the more distance covered annually.",
-    keyFrameworks: ["Total Cost of Ownership", "Sustainability Strategy", "Market Assessment", "Investment Analysis"]
+    keyFrameworks: ["Total Cost of Ownership", "Sustainability Strategy", "Market Assessment", "Investment Analysis"],
+    exhibitImage: "talbot-trucks-exhibit"
   }
 ];
 
