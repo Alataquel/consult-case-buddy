@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Brain } from "lucide-react";
 import CaseSelector from "@/components/CaseSelector";
-import DifficultySelector from "@/components/DifficultySelector";
+import CaseListSelector from "@/components/CaseListSelector";
 import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
-import { getCasesBySelection, getRandomCase, Case } from "@/data/cases";
+import UserStatistics from "@/components/UserStatistics";
+import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
+import { saveCaseScore } from "@/utils/scoreStorage";
 
-type AppState = 'selection' | 'difficulty-selection' | 'case-presentation' | 'practice' | 'feedback';
+type AppState = 'selection' | 'case-list' | 'case-presentation' | 'practice' | 'feedback';
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('selection');
@@ -19,26 +21,14 @@ const Index = () => {
 
   const handleSelectFirm = (firmName: string) => {
     setSelectedFirm(firmName);
-    setCurrentState('difficulty-selection');
+    setCurrentState('case-list');
   };
 
-  const handleSelectDifficulty = (difficulty: string) => {
-    const filteredCases = getCasesBySelection('firm', selectedFirm).filter(
-      case_ => case_.difficulty === difficulty
-    );
-    
-    if (filteredCases.length > 0) {
-      const randomCase = getRandomCase(filteredCases);
-      setSelectedCase(randomCase);
+  const handleSelectCase = (caseId: string) => {
+    const selectedCase = cases.find(c => c.id === caseId);
+    if (selectedCase) {
+      setSelectedCase(selectedCase);
       setCurrentState('case-presentation');
-    } else {
-      // Fallback: get any case from the firm if no cases match difficulty
-      const allFirmCases = getCasesBySelection('firm', selectedFirm);
-      if (allFirmCases.length > 0) {
-        const randomCase = getRandomCase(allFirmCases);
-        setSelectedCase(randomCase);
-        setCurrentState('case-presentation');
-      }
     }
   };
 
@@ -52,6 +42,9 @@ const Index = () => {
     if (selectedCase) {
       const feedback = generateFeedback(answer, selectedCase.type);
       const nextTip = generateNextTip(feedback, selectedCase.type);
+      
+      // Save the score
+      saveCaseScore(selectedCase.id, feedback.overallScore, selectedCase.firm, selectedCase.title);
       
       setCaseFeedback({
         feedback,
@@ -112,21 +105,22 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 space-y-6">
+          <UserStatistics />
           <CaseSelector onSelectFirm={handleSelectFirm} />
         </div>
       </div>
     );
   }
 
-  if (currentState === 'difficulty-selection') {
+  if (currentState === 'case-list') {
     return (
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-8">
-          <DifficultySelector 
+          <CaseListSelector 
             firmName={selectedFirm}
-            onSelectDifficulty={handleSelectDifficulty}
+            onSelectCase={handleSelectCase}
             onBack={handleBackToFirms}
           />
         </div>

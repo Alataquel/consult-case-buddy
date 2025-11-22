@@ -11,6 +11,7 @@ interface Case {
   background: string;
   question: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
+  exhibitImage?: string;
 }
 
 interface CasePresentationProps {
@@ -77,6 +78,20 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
               <p className="text-foreground font-medium leading-relaxed">{caseData.question}</p>
             </div>
           </div>
+
+          {/* Case Exhibit */}
+          {caseData.exhibitImage && (
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-foreground">Case Exhibit</h3>
+              <div className="bg-muted p-4 rounded-lg">
+                <img 
+                  src={`/src/assets/${caseData.exhibitImage}.png`}
+                  alt="Case exhibit"
+                  className="w-full h-auto rounded border border-border"
+                />
+              </div>
+            </div>
+          )}
 
           {/* Instructions */}
           <div className="space-y-3">

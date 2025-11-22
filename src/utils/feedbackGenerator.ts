@@ -11,6 +11,7 @@ interface CaseFeedback {
   structure: FeedbackSection;
   logic: FeedbackSection;
   synthesis: FeedbackSection;
+  overallScore: number;
 }
 
 export const generateFeedback = (userAnswer: string, caseType: string): CaseFeedback => {
@@ -98,10 +99,15 @@ export const generateFeedback = (userAnswer: string, caseType: string): CaseFeed
   logicFeedback.score = Math.min(5, logicFeedback.score);
   synthesisFeedback.score = Math.min(5, synthesisFeedback.score);
 
+  // Calculate overall score (average of all sections, converted to percentage)
+  const averageScore = (structureFeedback.score + logicFeedback.score + synthesisFeedback.score) / 3;
+  const overallScore = Math.round((averageScore / 5) * 100);
+
   return {
     structure: structureFeedback,
     logic: logicFeedback,
-    synthesis: synthesisFeedback
+    synthesis: synthesisFeedback,
+    overallScore
   };
 };
 
