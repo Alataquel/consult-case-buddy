@@ -193,7 +193,7 @@ A strong answer identifies the trade-off between market size (Germany) and marke
 - Annual volume = 1,200,000 bottles
 - Total contribution = 1,200,000 × €0.80 = €960,000
 - Operating profit = €960,000 - €600,000 = €360,000
-- Profit margin ≈ 5%
+- Profit margin ≈ 14.3%
 
 Netherlands Analysis:
 - Net price per bottle = €3.00 × (1 - 20%) = €2.40
@@ -202,9 +202,9 @@ Netherlands Analysis:
 - Annual volume = 900,000 bottles
 - Total contribution = 900,000 × €1.25 = €1,125,000
 - Operating profit = €1,125,000 - €600,000 = €525,000
-- Profit margin ≈ 9%
+- Profit margin ≈ 24.3%
 
-Conclusion: 
+Conclusion:
 The Netherlands yields €165,000 higher profit (+46% vs Germany) despite 25% lower volume, due to:
 - Better pricing power (€3.00 vs €2.80)
 - Lower distributor margin (20% vs 25%)
@@ -226,7 +226,7 @@ The Netherlands offers superior unit economics that more than compensate for sma
         answer: `Recommendation: Enter the Netherlands first as a pilot market
 
 Rationale:
-1. Superior Economics: 46% higher profit in Year 1 (€525k vs €360k) with better margins (9% vs 5%)
+1. Superior Economics: 46% higher profit in Year 1 (€525k vs €360k) with better margins (24% vs 14%)
 2. Lower Complexity: Simpler regulatory requirements, English labeling acceptance, easier logistics via Rotterdam
 3. Faster Learning: Smaller scale allows testing export operations, pricing strategies, and distributor management with lower risk
 4. Strategic Positioning: Early-mover advantage in premium botanical segment before market saturation
@@ -246,7 +246,7 @@ After 12-18 months in Netherlands:
 
 Key Risks & Mitigation:
 - Distributor Dependency: Sign performance-based contracts with minimum volume commitments
-- Currency Fluctuation: Hedge major FX exposure or build 5-10% buffer into pricing
+- Regulatory Fragmentation: Navigate varying deposit schemes (e.g., Pfand in Germany) and labeling requirements
 - Limited Shelf Space: Secure multi-year agreements with anchor retail partners
 - Regulatory Changes: Work with local compliance consultants for labeling and import requirements
 
