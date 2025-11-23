@@ -150,49 +150,41 @@ export const cases: Case[] = [
   },
   {
     id: "mckinsey-novacura",
-    title: "NovaCura — Entering the Biologics Market",
+    title: "HelixBio RNA Therapeutics Case",
     firm: "McKinsey",
     type: "M&A",
-    background: "NovaCura, a global pharmaceutical company generating $10 billion annually, is considering entry into the fast-growing biologics sector.\n\nNovaCura has long specialized in small-molecule drugs such as pain relievers and heart medications. However, growth in this segment has slowed.\n\nTo expand into new therapies, NovaCura aims to enter biological treatments—large, complex molecules (e.g., proteins) that can target conditions not treatable with traditional drugs.\n\nBecause biologics R&D differs substantially from small-molecule research, NovaCura is evaluating whether to acquire BioAxis, a 12-year-old biotech firm based in California. BioAxis employs about 200 people, is publicly traded, and has a market value of $1 billion.\n\nNovaCura's leadership has asked consultants to determine whether acquiring BioAxis makes strategic and financial sense as a pathway into biologics.",
-    question: "Multi-part case with 4 questions",
+    background: "**Client Background**\n\nOur client, HelixBio, is a global pharmaceutical company headquartered in Switzerland, generating about $10 billion per year in revenue. The company's primary R&D hubs are in Basel and Zurich, and it operates regional sales offices worldwide.\n\nHelixBio has built its reputation on developing and commercializing small-molecule drugs—traditional chemical compounds that treat widespread conditions such as hypertension, arthritis, and infections. However, HelixBio now aims to enter the rapidly growing field of RNA therapeutics, including messenger RNA (mRNA) and small interfering RNA (siRNA)–based drugs that can target diseases at the genetic level.\n\nBecause R&D for RNA therapeutics requires a very different scientific foundation, HelixBio is exploring how to build these capabilities. It could develop them internally, form partnerships with smaller firms, or acquire a company with proven RNA expertise.\n\nSince competitors are already several years ahead, HelixBio wants to accelerate its entry by acquiring Genvera Therapeutics, a leading RNA-focused biotech based in the Boston area.\n\n**About Genvera Therapeutics**\n\nFounded 12 years ago by a team of RNA biologists from MIT, Genvera Therapeutics now employs around 200 scientists and staff. The company has developed a proprietary lipid nanoparticle (LNP) delivery system for RNA therapeutics and has a robust early-stage drug pipeline.\n\nGenvera is publicly traded, and its market capitalization is approximately $1 billion.\n\nHelixBio has engaged your consulting team to assess whether acquiring Genvera would be strategically and financially sound.\n\n**McKinsey-style Objective**\n\nMain question: Should HelixBio acquire Genvera Therapeutics?",
+    question: "Multi-part case with 3 questions",
     questions: [
       {
         number: 1,
-        question: "What factors should NovaCura assess before deciding whether to acquire BioAxis?",
+        question: "What factors should HelixBio consider when evaluating whether to acquire Genvera?",
         hints: [
-          "Start with an overall structure before diving into details."
+          "HelixBio should evaluate factors across four key dimensions."
         ],
-        answer: "Drug pipeline: Evaluate number, stage, and quality of BioAxis's drug candidates; success probabilities; and potential long-term revenue.\n\nR&D strengths: Assess scientific talent, proprietary technology, patents, and lab infrastructure.\n\nCommercial assets: Review BioAxis's marketing capabilities and relationships with medical experts and regulators.\n\nAcquisition price: Determine whether the $1 billion valuation accurately reflects expected value.\n\nStrategic fit: Identify overlaps or gaps between BioAxis's capabilities and NovaCura's current portfolio.\n\nAlternatives: Consider partnerships, licensing, or building in-house expertise instead of acquisition."
+        answer: "**Pipeline and Scientific Value**\n\n• Number, stage, and potential of Genvera's RNA drug candidates.\n• Quality of science: success likelihood, differentiation, patent protection.\n• Potential future revenue and profitability of drugs in development.\n\n**R&D and Platform Capabilities**\n\n• Strength of Genvera's proprietary RNA delivery technology.\n• Depth of scientific talent and leadership team.\n• Infrastructure (labs, equipment, manufacturing, and bioinformatics systems).\n\n**Commercial Capabilities**\n\n• Genvera's ability to promote RNA-based treatments.\n• Existing relationships with regulators, hospitals, and thought leaders.\n• Complementarity with HelixBio's global sales and marketing network.\n\n**Financial Considerations**\n\n• Valuation and acquisition price.\n• Expected synergies in R&D or go-to-market activities.\n• Risks versus alternatives (e.g., partnering instead of buying).\n\nA very strong answer might also mention:\n• Genvera's existing partnerships and IP-sharing arrangements.\n• HelixBio's own capability gaps in RNA science.\n• Other potential acquisition or partnership targets.\n• Whether RNA therapeutics fit HelixBio's long-term strategic focus."
       },
       {
         number: 2,
-        question: "The team now wants to assess the value of BioAxis's current drug portfolio.\n\nWhat key factors should be examined?",
+        question: "What issues should the team consider when assessing the value of Genvera's current RNA drug pipeline?",
         hints: [
           "Mention a broad set of factors before narrowing your focus."
         ],
-        answer: "Remaining R&D costs: What investment is required before launch?\n\nMarket potential: Patient population, pricing power, and market size.\n\nCompetition: Number of existing or upcoming rival drugs; comparative side effects; ease of use.\n\nCommercial costs: Manufacturing, distribution, and marketing expenses.\n\nMarket sentiment: Level of clinical or public enthusiasm; differentiation from existing treatments.\n\nRisk factors:\n• Likelihood of passing clinical and regulatory stages.\n• Legal or safety risks.\n• Patent protection and risk of imitation.\n• Pace of innovation—whether faster competitors are emerging."
+        answer: "**Scientific and Clinical Factors**\n\n• Remaining R&D cost to bring each candidate to market.\n• Probability of clinical and regulatory success.\n• Efficacy, safety, and differentiation from competitors.\n\n**Market and Commercial Potential**\n\n• Patient population and market size.\n• Pricing potential of the drug.\n• Competitive dynamics: number of rival drugs, side effects, convenience of use.\n\n**Operational and Cost Factors**\n\n• Manufacturing complexity of RNA formulations.\n• Marketing and distribution costs.\n• Reimbursement dynamics in key markets.\n\n**Risk Factors**\n\n• Scientific and regulatory uncertainty.\n• Strength of IP and risk of imitation.\n• Substitution threats from next-generation modalities.\n\nA top-tier answer could also include:\n• Reputational and media coverage around RNA therapies.\n• Whether prominent scientists or regulators support this therapeutic class.\n• The scalability of Genvera's LNP platform for future candidates."
       },
       {
         number: 3,
-        question: "NovaCura believes that investing $150 million in a larger Phase II trial could raise the probability of success for BioAxis's leading drug candidate.\n\nAssumptions:\n• Expected value of a successful marketed drug: $1.2 billion\n• Current success rates: Phase I: 70%, Phase II: 40%, Phase III + approval: 50% × 90%\n\nBy how much must the Phase II success rate increase for the $150 million investment to break even?",
+        question: "HelixBio believes that the likelihood of success for Genvera's lead RNA drug can be improved by investing an additional $150 million in a larger Phase II trial. This investment is intended to increase the probability that the drug progresses successfully through later stages.\n\nIf the drug reaches the market, its net present value (NPV) of profits is estimated at $1.2 billion.\n\n**Assumptions:**\n• Expected value of a successful marketed drug: $1.2 billion\n• Current success rates: Phase I: 70%, Phase II: 40%, Phase III + approval: 50% × 90%\n\nBy how much would the Phase II success rate need to increase for the $150 million investment to break even?",
         hints: [
           "Explain each step clearly."
         ],
-        answer: "Chance of success after Phase II: 50% × 90% = 45%\n\nCurrent value after Phase II: 45% × $1.2B = $540M\n\nTarget value to break even: $540M + $150M = $690M\n\nIncrease required: $150M ÷ $540M ≈ 28 percentage points\n\nCombined Phase I × II success now: 70% × 40% = 28%, must rise to 56%\n→ Phase II success must rise from 40% to 80%.\n\nResult: Phase II success would need to double—a challenging improvement.",
+        answer: "**Sample Calculation**\n\nAfter Phase II, the combined probability of downstream success is:\n• 50% × 90% = 45%\n\nThus, if a drug passes Phase II, its expected value:\n• 45% × $1.2B = $540M\n\nTo break even, we need an extra $150M in value, so the new value must be:\n• $540M + $150M = $690M\n\n$150M ÷ $540M = 0.28 → a **28 percentage point increase** required in combined Phase I and II success probability.\n\nCurrent combined Phase I × II:\n• 70% × 40% = 28%\n\nIt needs to rise to 56%.\n\nSo **Phase II success probability must increase from 40% to 80%**.\n\n**Result:** Phase II success would need to double—a challenging improvement.",
         exhibitImage: "globapharm-exhibit"
-      },
-      {
-        number: 4,
-        question: "If the acquisition proceeds, NovaCura plans to integrate BioAxis as its new biologics research hub.\n\nWhat are the major risks in merging the two R&D groups?",
-        hints: [
-          "Consider the human and cultural aspects of organizational change."
-        ],
-        answer: "Scientific mismatch: Teams may have different disease-area focus and limited overlap.\n\nCultural friction: A corporate environment could weaken BioAxis's entrepreneurial mindset.\n\nCommunication barriers: Distance, time-zone, or language issues may slow collaboration.\n\nTalent loss: Key scientists could leave post-acquisition due to culture change or financial windfall.\n\nOperational strain: Complex integration and differing systems could slow innovation."
       }
     ],
     difficulty: "Advanced",
-    modelSolution: "This is a multi-part case study covering M&A strategy, due diligence, probability analysis, and integration risk assessment. See individual question answers for detailed solutions.",
-    keyFrameworks: ["M&A Analysis", "Due Diligence", "Risk Assessment", "Probability Analysis"]
+    modelSolution: "This is a multi-part case study covering M&A strategy for RNA therapeutics, platform technology evaluation, pipeline assessment, and probability-weighted investment analysis. See individual question answers for detailed solutions.",
+    keyFrameworks: ["M&A Evaluation Framework", "Drug Development Economics", "RNA Therapeutics Assessment", "Risk-Return Analysis"]
   },
   {
     id: "mckinsey-national-education",
