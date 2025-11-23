@@ -340,6 +340,7 @@ A strong answer identifies 4-5 of these dimensions and discusses trade-offs betw
         ],
         answer: `France Retail Expansion Analysis:
 - Contribution per unit = €950 - (€610 + €25) = €315 per unit
+  (Note: The €25 represents warranty and after-sales service provision per unit, not customer-paid maintenance)
 - Total contribution = 10,000 units × €315 = €3,150,000
 - Annual depreciation = €2.5M ÷ 5 years = €500,000
 - Total costs = €1,200,000 (fixed overhead) + €500,000 (depreciation) = €1,700,000
@@ -349,6 +350,7 @@ A strong answer identifies 4-5 of these dimensions and discusses trade-offs betw
 
 B2B Leasing Service Analysis:
 - Contribution per contract = €1,800 - (€900 + €180) = €720 per contract
+  (Note: For this analysis, the €900 manufacturing cost is treated as an immediate expense to model conservative Year 2 cash impact. The €3.2M CapEx represents service infrastructure: IT systems, warehouse, charging stations.)
 - Total contribution = 3,000 contracts × €720 = €2,160,000
 - Annual depreciation = €3.2M ÷ 5 years = €640,000
 - Total costs = €1,800,000 (fixed overhead) + €640,000 (depreciation) = €2,440,000
@@ -390,6 +392,7 @@ Strategic Advantages:
 - Geographic adjacency: Cultural similarity, manageable logistics, shared time zone
 - Lower execution risk: Proven business model, shorter learning curve
 - Market validation: Test international expansion at moderate scale before bigger commitments
+- Future synergy: Entering France creates a natural springboard for a future leasing launch. Once NovaRide has logistics and brand presence in France, layering on a B2B service becomes cheaper and less risky
 
 Implementation Approach:
 - Phase 1 (Months 1-6): Pilot in 2-3 Southern French cities (Marseille, Nice, Toulouse)
