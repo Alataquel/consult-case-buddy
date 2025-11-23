@@ -8,28 +8,25 @@ interface CaseSelectorProps {
 }
 
 const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
-  const firms = [
-    { name: "McKinsey", description: "Strategy-focused cases with structured frameworks", icon: Building },
-    { name: "BCG", description: "Hypothesis-driven and creative problem solving", icon: Target },
-    { name: "Bain", description: "Results-oriented with strong client focus", icon: TrendingUp },
-    { name: "Deloitte", description: "Digital transformation and technology-driven solutions", icon: Globe },
-    { name: "Accenture", description: "Technology and operations-focused consulting", icon: Briefcase },
-    { name: "OC&C", description: "Retail and consumer-focused strategy", icon: Users },
-    { name: "Oliver Wyman", description: "Deep industry expertise and analytics", icon: LineChart },
-    { name: "A.T. Kearney", description: "Operations and strategic advisory", icon: Building2 },
-    { name: "Strategy& / PWC", description: "Strategy within Big Four network", icon: Award },
-    { name: "L.E.K. Consulting", description: "Corporate strategy and shareholder value", icon: TrendingUp },
-    { name: "Roland Berger", description: "European strategy consultancy", icon: Globe },
-    { name: "EY Parthenon", description: "Corporate finance and strategy", icon: Briefcase },
-    { name: "Consulting Clubs", description: "University case competition practice", icon: Users },
+  const problemTypes = [
+    { name: "Profitability & Cost Optimization", description: "Profit decline, margin improvement, cost structure analysis", icon: TrendingUp },
+    { name: "Market Entry", description: "Assess entry into new markets or regions", icon: Globe },
+    { name: "Growth Strategy", description: "Expansion, scaling, new product launch", icon: LineChart },
+    { name: "Mergers & Acquisitions (M&A)", description: "Acquire, merge, or sell decisions", icon: Building },
+    { name: "Operations & Process Improvement", description: "Efficiency, productivity, supply chain", icon: Target },
+    { name: "Pricing Strategy", description: "Value-based, dynamic, or competitive pricing", icon: Award },
+    { name: "Product & Innovation Strategy", description: "Product launch, market fit, branding", icon: Briefcase },
+    { name: "Public Sector / Policy Cases", description: "Government, nonprofit, social impact", icon: Users },
+    { name: "Turnaround & Transformation", description: "Crisis management, restructuring, digital transformation", icon: Building2 },
+    { name: "Sustainability & ESG", description: "Carbon reduction, circular economy, social inclusion", icon: Users },
   ];
 
   return (
     <div className="space-y-8">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-foreground">Choose a Consulting Firm</h2>
+        <h2 className="text-3xl font-bold text-foreground">Choose a Problem Type</h2>
         <p className="text-description-gray text-lg max-w-2xl mx-auto">
-          Select a consulting firm to practice with their methodology and case style
+          Select a case type to practice and develop your consulting skills
         </p>
       </div>
 
@@ -39,26 +36,26 @@ const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
       <div className="max-w-4xl mx-auto">
         <Card className="shadow-elegant border-0">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-xl font-semibold text-primary">Top Consulting Firms</CardTitle>
+            <CardTitle className="text-xl font-semibold text-primary">Case Problem Types</CardTitle>
             <CardDescription className="text-description-gray">
-              Practice with cases from leading strategy consulting firms worldwide
+              Practice with real consulting case scenarios organized by problem type
             </CardDescription>
           </CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-3">
-            {firms.map((firm) => {
-              const Icon = firm.icon;
+            {problemTypes.map((type) => {
+              const Icon = type.icon;
               return (
                 <Button
-                  key={firm.name}
+                  key={type.name}
                   variant="outline"
                   className="w-full justify-start h-auto p-4 border-border hover:border-accent"
-                  onClick={() => onSelectFirm(firm.name)}
+                  onClick={() => onSelectFirm(type.name)}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className="w-5 h-5 text-accent" />
                     <div className="text-left">
-                      <div className="font-medium text-foreground">{firm.name}</div>
-                      <div className="text-sm text-description-gray">{firm.description}</div>
+                      <div className="font-medium text-foreground">{type.name}</div>
+                      <div className="text-sm text-description-gray">{type.description}</div>
                     </div>
                   </div>
                 </Button>
