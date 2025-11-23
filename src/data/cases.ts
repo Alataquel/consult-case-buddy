@@ -448,6 +448,258 @@ The recommended sequential approach (France first, leasing later) balances growt
       "Strategic Fit Assessment",
       "Risk-Return Trade-off"
     ]
+  },
+
+  // PRICING STRATEGY
+  {
+    id: "verdora-pricing",
+    title: "Verdora Skincare Pricing Strategy",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `Verdora Skincare S.L. is a Seville-based natural cosmetics company founded in 2017. It produces plant-based face creams, serums, and cleansers using locally sourced ingredients. Verdora sells mainly through pharmacies and its own e-commerce site, positioned as an affordable premium brand. The company achieved €22M in revenue in 2024 with 10% EBIT margin.
+
+Verdora recently launched a new product line—"PureBalance Serum", targeting urban professionals seeking eco-conscious skincare. Initial feedback is strong, but sales have plateaued after an early surge. The marketing director believes price perception is constraining growth: Verdora's €38 retail price sits between mass brands (€20–25) and prestige serums (€50–70).
+
+Retail partners are pushing for promotions to stimulate volume, while management worries this could dilute brand equity. The CEO has asked for a structured pricing review to assess price elasticity, margin impact, and competitive dynamics.`,
+    question: "Recommend the optimal pricing strategy for Verdora's PureBalance Serum to maximize profit without eroding brand equity.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What factors influence Verdora's optimal price point? Identify key levers affecting pricing decisions.",
+        hints: [
+          "Consider customer perception and willingness to pay for eco-conscious products",
+          "Analyze competitive benchmarks: mass brands (€20-25) vs prestige serums (€50-70)",
+          "Think about price elasticity and volume sensitivity",
+          "Evaluate cost structure and contribution margins",
+          "Consider channel incentives and retailer requirements"
+        ],
+        answer: `Key Pricing Factors:
+
+Customer Perception and Value:
+- Target segment: Urban professionals seeking eco-conscious, natural skincare
+- Willingness to pay tied to perceived quality, ingredient sourcing story, and brand values
+- Risk of "stuck in the middle" positioning between mass and prestige tiers
+- Premium cues needed: Packaging quality, ingredient transparency, certifications
+
+Competitive Benchmarks:
+- Mass brands (€20-25): High volume, limited natural positioning, pharmacy distribution
+- Prestige serums (€50-70): Department stores, luxury packaging, established brands
+- Current €38 price creates ambiguous positioning—neither clearly affordable nor clearly premium
+
+Price Elasticity:
+- High elasticity risk near mass-market threshold (€30-35 range)
+- At €32, significant volume increase (+29% vs €38) suggests price-sensitive customers
+- At €45, volume declines by only 24%, indicating core premium segment exists
+- Middle positioning may be missing both segments
+
+Cost Structure:
+- Variable costs (€11.50 per unit) are constant across price points
+- Fixed costs (€3.2M annually) require sufficient volume and margin to cover
+- Higher prices improve unit economics but reduce addressable market
+
+Channel Dynamics:
+- Retail partners want 30% margin regardless of price point
+- Pharmacy channel expects promotional support for slower-moving premium items
+- E-commerce offers full margin capture but requires brand-building investment
+- Retailer pushback on current pricing suggests positioning uncertainty
+
+Brand Equity Considerations:
+- Early discounting trains customers to wait for promotions
+- Premium positioning requires consistent messaging and retail experience
+- Natural/eco positioning supports premium pricing if communicated effectively
+
+A strong answer identifies 4-5 factors and discusses the trade-off between volume (lower price) and margin (higher price) in the context of brand positioning.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — How would a price change affect annual profit? Use Exhibit A and assume fixed costs of €3.2M annually, retail margin of 30%, and variable costs from the exhibit.",
+        hints: [
+          "Calculate Verdora's net revenue after retail margin: Net = Retail Price × (1 - 30%)",
+          "Variable cost per unit = Manufacturing Cost + Packaging & Fulfillment",
+          "Unit contribution = Net Revenue - Variable Costs",
+          "Total annual profit = (Unit Contribution × Volume) - Fixed Costs",
+          "Compare all three scenarios for profit and margin percentage"
+        ],
+        answer: `Price Scenario Analysis:
+
+Step 1: Calculate Net Revenue to Verdora (after 30% retail margin)
+- €32 retail → Net to Verdora = €32 × 0.70 = €22.40
+- €38 retail → Net to Verdora = €38 × 0.70 = €26.60
+- €45 retail → Net to Verdora = €45 × 0.70 = €31.50
+
+Step 2: Calculate Variable Cost per Unit
+- Manufacturing + Packaging & Fulfillment = €9.0 + €2.5 = €11.50 (constant)
+
+Step 3: Calculate Unit Contribution Margin
+- €32 price: €22.40 - €11.50 = €10.90 per unit
+- €38 price: €26.60 - €11.50 = €15.10 per unit
+- €45 price: €31.50 - €11.50 = €20.00 per unit
+
+Step 4: Calculate Total Annual Contribution
+- €32 price: €10.90 × 220,000 units = €2,398,000
+- €38 price: €15.10 × 170,000 units = €2,567,000
+- €45 price: €20.00 × 130,000 units = €2,600,000
+
+Step 5: Calculate Annual Profit (Contribution - Fixed Costs of €3.2M)
+- €32 price: €2,398,000 - €3,200,000 = -€802,000 (loss)
+- €38 price: €2,567,000 - €3,200,000 = -€633,000 (loss)
+- €45 price: €2,600,000 - €3,200,000 = -€600,000 (smallest loss)
+
+Summary Table:
+Price | Net Revenue | Volume | Contribution | Profit | Unit Margin %
+€32   | €22.40     | 220k   | €2.40M      | -€0.80M | 48.7%
+€38   | €26.60     | 170k   | €2.57M      | -€0.63M | 56.8%
+€45   | €31.50     | 130k   | €2.60M      | -€0.60M | 63.5%
+
+Key Insights:
+- All scenarios show losses (likely product ramp-up phase)
+- €45 price minimizes loss and has highest unit margin (63.5%)
+- €32 price generates most volume but worst financial outcome (-€802k loss)
+- Current €38 price is middle ground but not optimal
+
+Breakeven Analysis:
+- At €38 price: Breakeven volume = €3.2M ÷ €15.10 = 212,000 units (25% increase needed)
+- At €45 price: Breakeven volume = €3.2M ÷ €20.00 = 160,000 units (23% increase needed)
+
+The €45 price point requires the smallest absolute volume increase to reach profitability while maintaining the strongest margins.`,
+        exhibitImage: "verdora-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — What pricing action should Verdora take? Use Q1-Q2 findings to make a recommendation with rationale, financial impact, and risk management.",
+        hints: [
+          "Consider both short-term profitability and long-term brand positioning",
+          "Think about non-price levers to drive volume at current or higher prices",
+          "Evaluate channel strategy and marketing messaging",
+          "Assess risks of each pricing direction"
+        ],
+        answer: `Recommendation: Increase price to €45 and invest in premium positioning
+
+Financial Rationale:
+- Minimizes losses in Year 1: -€600k vs -€633k (current) or -€802k (lower price)
+- Best unit economics: €20 contribution per unit (63.5% margin)
+- Requires only 160k units for breakeven (vs 212k at €38 price)
+- Volume decline from 170k to 130k is manageable (-24%) given margin improvement
+- Creates financial headroom for brand-building investment
+
+Strategic Rationale:
+
+1. Clear Premium Positioning
+- €45 price firmly positions PureBalance in premium tier, avoiding "stuck in middle" trap
+- Creates distance from mass brands (€20-25) and approaches prestige tier (€50-70)
+- Aligns with eco-conscious, natural ingredient story that commands premium
+- Strong unit margins fund marketing investment needed to support premium perception
+
+2. Brand Equity Protection
+- Avoids discounting spiral that trains customers to wait for promotions
+- Higher price signals quality and efficacy to target urban professionals
+- Protects future pricing power as brand matures
+- Consistent premium messaging across channels
+
+3. Targeted Volume Growth
+- Focus on converting high-value customers rather than chasing volume
+- 23% volume increase (130k → 160k) reaches breakeven with premium economics
+- More achievable than 25% increase needed at €38 price
+
+Implementation Plan:
+
+Phase 1: Premium Repositioning (Months 1-3)
+- Upgrade packaging to signal luxury: Heavier glass, premium pump, botanical illustrations
+- Reformulate brand story: Emphasize rare Mediterranean botanicals, sustainable sourcing, clinical results
+- Launch influencer partnerships with eco-conscious lifestyle bloggers
+- Create premium in-store displays for pharmacy partners
+
+Phase 2: Pricing Rollout (Months 4-6)
+- Communicate price increase as reflecting true ingredient quality and R&D investment
+- Offer loyalty program for existing customers (15% discount on subscription for first 6 months)
+- Introduce smaller trial size (15ml at €22) to reduce barrier to entry
+- Launch gift sets and bundles to maintain price per ml while offering value perception
+
+Phase 3: Performance Marketing (Months 7-12)
+- Digital campaigns targeting "sustainable luxury" and "conscious beauty" keywords
+- Partner with select premium spas for professional endorsements
+- Develop educational content on ingredient efficacy
+- A/B test messaging: sustainability vs. clinical results vs. Mediterranean heritage
+
+Channel Strategy:
+- Selective distribution: Focus on premium pharmacies and concept beauty stores
+- E-commerce emphasis: Higher margins, better brand control, customer data access
+- Reduce reliance on promotional pressure from mass-market pharmacy chains
+- Consider partnership with premium online beauty retailers (Cult Beauty, Space NK)
+
+Risk Management:
+
+Risk 1: Volume Decline Exceeds Projections
+- Mitigation: Monitor weekly sell-through rates; prepare to introduce €38 value size if needed
+- Trigger: If volume falls below 100k units in first 6 months
+
+Risk 2: Retailer Resistance
+- Mitigation: Offer improved margins (35% vs 30%) for premium placement and exclusive displays
+- Alternative: Shift channel mix toward owned e-commerce (currently strong at 60% of sales)
+
+Risk 3: Competitive Response
+- Mitigation: Differentiate on specific ingredient stories and sustainability certifications
+- Monitor: Track competitor pricing and promotional intensity monthly
+
+Risk 4: Consumer Rejection of Price Increase
+- Mitigation: Soft launch with existing customer base; offer transition pricing for loyalists
+- Fallback: Maintain €38 SKU but create clear differentiation (size, formulation) with €45 premium version
+
+Alternative If Premium Strategy Fails:
+If after 6 months, volume falls below 110k units:
+- Maintain €38 price but optimize product line architecture
+- Introduce €28 "essentials" line for volume and €55 "intensive" line for prestige halo effect
+- Focus on winning the middle market with superior value proposition
+
+Why Not Lower to €32?
+- Worst financial outcome: -€802k annual loss
+- Damages brand equity and future pricing power
+- Creates promotion dependency
+- Requires 212k units for breakeven (56% increase from current)—unrealistic
+- Commodity positioning in crowded market
+
+Why Not Stay at €38?
+- "Stuck in middle" positioning lacks clarity
+- Second-worst financial outcome among options
+- Requires significant volume increase (25%) just to break even
+- No competitive advantage vs. mass brands or prestige players
+- Current plateau suggests positioning confusion
+
+Success Metrics (12-month targets):
+- Unit volume: 160,000+ (breakeven threshold)
+- Customer acquisition cost: <€15 per new customer
+- Repeat purchase rate: >35%
+- Premium channel mix: 60%+ through high-end pharmacies and owned e-commerce
+- Net Promoter Score: >40
+
+Next Steps (First 30 days):
+1. Commission packaging redesign with premium aesthetics
+2. Develop premium brand messaging and visual identity
+3. Conduct focus groups with target segment on €45 price acceptance
+4. Negotiate premium placement terms with top-tier pharmacy partners
+5. Plan influencer partnership strategy with 10-15 eco-luxury content creators`
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: `The pricing analysis reveals that Verdora's current €38 price point creates positioning ambiguity and suboptimal financial outcomes. While counterintuitive during a sales plateau, increasing price to €45 offers the best path forward by:
+
+1. Minimizing losses through superior unit economics (€20 vs €15.10 contribution)
+2. Requiring lower absolute volume to reach profitability (160k vs 212k units)
+3. Creating clear premium positioning that aligns with eco-conscious brand values
+4. Funding necessary marketing investment to drive growth
+
+The volume decrease from pricing up (-24%) is more than offset by margin improvement (+32% per unit), resulting in the strongest financial position. More importantly, the €45 price signals quality and efficacy to the target segment of urban professionals willing to pay for sustainable, natural skincare.
+
+Success depends on upgrading the entire brand experience—packaging, messaging, channel strategy—to justify and reinforce premium pricing. The recommendation includes risk mitigation through phased rollout, performance monitoring, and clear fallback options if volume targets aren't met.
+
+This case illustrates the principle that optimal pricing isn't always about maximizing volume—sometimes value extraction from a smaller, high-quality customer base creates better financial outcomes and stronger brand equity.`,
+    keyFrameworks: [
+      "Value-Based Pricing",
+      "Price Elasticity Analysis",
+      "Contribution Margin Optimization",
+      "Brand Positioning Strategy",
+      "Pricing Psychology"
+    ]
   }
 ];
 
