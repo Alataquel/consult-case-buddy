@@ -275,6 +275,179 @@ The key insight is that market attractiveness isn't purely about size—the Neth
       "Go-to-Market Strategy",
       "Market Sizing"
     ]
+  },
+
+  // GROWTH STRATEGY
+  {
+    id: "novaride-growth",
+    title: "NovaRide Mobility Growth Strategy",
+    firm: "Growth Strategy",
+    type: "Growth Strategy",
+    background: `NovaRide Mobility S.L. is a Madrid-based electric scooter manufacturer specializing in compact, mid-range urban mobility vehicles. Founded in 2020, the company sells primarily to city commuters and short-distance delivery services. NovaRide operates through direct online sales (60%) and partnerships with retail chains (40%). With €28M in 2024 revenue and 12% EBIT margin, it has become one of Spain's top three e-scooter brands.
+
+After three years of steady growth, NovaRide's domestic sales have plateaued. Urban market saturation, tighter city regulations on shared scooters, and rising price competition are limiting organic expansion. The CEO believes NovaRide must pursue new growth paths to reach its €50M revenue target by 2027.
+
+The company is evaluating two strategic options:
+1. Expand into Southern France, leveraging geographic proximity and similar urban mobility trends
+2. Launch a B2B leasing service for delivery companies, providing scooters and maintenance under monthly contracts
+
+Each option would require capital investment, new capabilities, and different risk profiles.`,
+    question: "Determine which growth initiative—cross-border expansion or B2B leasing—offers the stronger case for investment over the next two years.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What factors should drive NovaRide's growth decision? Identify the most relevant dimensions for comparing both options.",
+        hints: [
+          "Consider market potential and addressable customer base for each option",
+          "Evaluate investment needs and capital intensity",
+          "Think about operational complexity and required new capabilities",
+          "Assess strategic synergies with existing business model",
+          "Consider risk profiles and scalability"
+        ],
+        answer: `Key Decision Factors:
+
+Market Potential:
+- France expansion: Geographic adjacency, similar urban demographics, growing e-mobility adoption, existing retail infrastructure
+- B2B leasing: Recurring revenue model, delivery market growth (food delivery, logistics), customer lock-in potential
+
+Investment Requirements:
+- France: Lower initial CapEx (€2.5M), moderate fixed overhead (€1.2M), retail and distribution setup
+- Leasing: Higher CapEx (€3.2M) for fleet inventory, higher fixed costs (€1.8M) for service infrastructure, financing requirements
+
+Operational Complexity:
+- France: Easier marketing adaptation, retail logistics and dealer management, regulatory compliance across borders
+- Leasing: Fleet management systems, maintenance service capability, contract management, financing arrangements
+
+Strategic Fit:
+- France: Leverages existing product line and brand, similar go-to-market model, lower learning curve
+- Leasing: New business model, recurring revenue streams, deeper customer relationships, service capability development
+
+Risk Profile:
+- France: Regulatory differences, dealer dependency, currency exposure, slower market adoption than expected
+- Leasing: Cash flow timing (CapEx upfront, revenue over time), maintenance cost volatility, customer creditworthiness, contract disputes
+
+A strong answer identifies 4-5 of these dimensions and discusses trade-offs between short-term profitability (France) vs long-term recurring revenue (leasing).`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which option delivers higher annual profit by Year 2? Use Exhibit A and assume fixed overhead of €1.2M for France entry and €1.8M for leasing service.",
+        hints: [
+          "Calculate contribution margin per unit/contract (revenue minus all variable costs)",
+          "Include depreciation of CapEx using straight-line method over 5 years",
+          "Total profit = Total Contribution - Fixed Overhead - Depreciation",
+          "Compare both profit levels and profit margins"
+        ],
+        answer: `France Retail Expansion Analysis:
+- Contribution per unit = €950 - (€610 + €25) = €315 per unit
+- Total contribution = 10,000 units × €315 = €3,150,000
+- Annual depreciation = €2.5M ÷ 5 years = €500,000
+- Total costs = €1,200,000 (fixed overhead) + €500,000 (depreciation) = €1,700,000
+- Year 2 Profit = €3,150,000 - €1,700,000 = €1,450,000
+- Revenue = 10,000 × €950 = €9.5M
+- Profit margin = €1.45M ÷ €9.5M ≈ 15.3%
+
+B2B Leasing Service Analysis:
+- Contribution per contract = €1,800 - (€900 + €180) = €720 per contract
+- Total contribution = 3,000 contracts × €720 = €2,160,000
+- Annual depreciation = €3.2M ÷ 5 years = €640,000
+- Total costs = €1,800,000 (fixed overhead) + €640,000 (depreciation) = €2,440,000
+- Year 2 Profit = €2,160,000 - €2,440,000 = -€280,000 (loss)
+- Revenue = 3,000 × €1,800 = €5.4M
+- Profit margin = -5.2%
+
+Conclusion:
+France retail expansion delivers €1.73M better financial performance in Year 2 (€1.45M profit vs €280k loss). France offers:
+- Positive profitability from Year 2
+- Higher profit margin (15.3% vs -5.2%)
+- Lower capital intensity per euro of profit
+- Faster payback on investment
+
+The leasing model's higher per-unit contribution (€720 vs €315) cannot overcome its higher fixed costs and CapEx burden at Year 2 volumes. Leasing would require significantly higher contract volumes to reach breakeven.`,
+        exhibitImage: "novaride-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Which path should NovaRide pursue, and why? Base your recommendation on both qualitative and quantitative findings.",
+        hints: [
+          "Integrate financial analysis from Q2 with strategic factors from Q1",
+          "Consider both near-term profitability and long-term strategic positioning",
+          "Think about sequencing: could one option enable the other later?",
+          "Identify critical success factors and major risks for your recommendation"
+        ],
+        answer: `Recommendation: Pursue France retail expansion first, then consider B2B leasing in Year 3-4
+
+Rationale:
+
+Financial Performance:
+- France generates €1.45M profit in Year 2 vs €280k loss for leasing
+- 15.3% profit margin vs negative margin for leasing
+- Lower capital requirements (€2.5M vs €3.2M)
+- Faster cash generation to fund future initiatives
+
+Strategic Advantages:
+- Leverages existing capabilities: Same product line, similar retail model, established brand equity
+- Geographic adjacency: Cultural similarity, manageable logistics, shared time zone
+- Lower execution risk: Proven business model, shorter learning curve
+- Market validation: Test international expansion at moderate scale before bigger commitments
+
+Implementation Approach:
+- Phase 1 (Months 1-6): Pilot in 2-3 Southern French cities (Marseille, Nice, Toulouse)
+- Phase 2 (Months 7-12): Build partnerships with regional e-mobility dealers to minimize logistics costs
+- Phase 3 (Year 2): Scale to 10 cities based on pilot learnings
+- Validate price acceptance and adapt marketing messaging for French consumers
+
+Future Sequencing for B2B Leasing:
+After establishing France operations (Year 3-4):
+- Use improved cash flows to fund leasing infrastructure
+- Apply international expansion learnings to B2B model complexity
+- Consider leasing in both Spain and France for broader market base
+- By Year 3, operational maturity will better support dual business models
+
+Key Risks and Mitigation:
+- Regulatory differences: Hire local compliance consultant, partner with established dealers who understand French regulations
+- Dealer dependency: Structure performance-based agreements with minimum volume commitments and quality standards
+- Slower demand: Start with pilot cities to validate assumptions before full commitment
+- Currency exposure: Price in euros, natural hedge since costs also in euros
+
+Why Not B2B Leasing Now?
+- Negative Year 2 profitability strains cash flows
+- Requires building entirely new capabilities (fleet management, maintenance network, financing)
+- Higher execution risk with unproven business model
+- Would divert management focus from core retail business
+
+Why Not Both Simultaneously?
+- Capital constraints (€5.7M total CapEx)
+- Management bandwidth limitations
+- Risk of execution failure on both fronts
+- Better to prove one path before diversifying
+
+Critical Success Factors for France Expansion:
+- Achieve 70%+ of projected Year 2 volume (7,000+ units)
+- Maintain 12%+ EBIT margin
+- Secure 5+ dealer partnerships across target cities
+- Build efficient cross-border logistics and support infrastructure
+
+Next Steps:
+1. Conduct detailed market research in target French cities
+2. Identify and approach potential dealer partners
+3. Develop French-language marketing materials and e-commerce site
+4. Establish logistics and after-sales support infrastructure
+5. Launch pilot with clear success metrics and go/no-go decision points`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The analysis reveals that France retail expansion offers superior near-term financial returns and lower execution risk compared to B2B leasing. While leasing's per-unit economics are attractive (€720 vs €315 contribution), its higher fixed costs and capital requirements make it unprofitable in Year 2.
+
+France expansion leverages NovaRide's existing strengths—product quality, retail model, brand positioning—while providing geographic diversification. The €1.45M Year 2 profit creates financial capacity to explore leasing or other growth options in subsequent years.
+
+The recommended sequential approach (France first, leasing later) balances growth ambitions with financial prudence and operational capacity. This strategy allows NovaRide to validate international expansion capabilities before taking on the complexity of a new business model, ultimately positioning the company for sustainable multi-year growth toward its €50M revenue target.`,
+    keyFrameworks: [
+      "Growth Strategy Framework (Organic vs Inorganic)",
+      "Investment Analysis & ROI Comparison",
+      "Contribution Margin Analysis",
+      "Strategic Fit Assessment",
+      "Risk-Return Trade-off"
+    ]
   }
 ];
 
