@@ -700,6 +700,52 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Brand Positioning Strategy",
       "Pricing Psychology"
     ]
+  },
+  {
+    id: "mediflow-operations-improvement",
+    title: "Mediflow Devices S.L. — Operational Bottleneck Analysis",
+    firm: "Operations & Process Improvement",
+    type: "Operations & Process Improvement",
+    background: "Mediflow Devices S.L. is a Valencia-based manufacturer of precision plastic tubing and connectors used in hospital IV sets and dialysis machines. Founded in 2008, it supplies large healthcare equipment firms across Europe. Mediflow employs 280 staff and operates a single 24-hour plant with extrusion, molding, and packaging lines. In 2024, it generated €42M in revenue with a 9% EBIT margin. Situation / Challenge: Over the past year, Mediflow has faced rising customer complaints about delayed deliveries and inconsistent product quality. On-time delivery has slipped from 95% to 86%, while scrap rates have nearly doubled. An internal audit found long setup times between production runs and uneven operator productivity. Despite installing new extrusion lines in 2023, throughput has not improved as expected. The COO believes the bottleneck may lie in the molding and assembly stages, but is uncertain where to prioritize improvements. She wants to assess which process step limits capacity and how much output could increase if the constraint were resolved. The management team aims to restore service reliability and recover lost profitability without major capital expenditure. Objective: Identify the main operational bottleneck and quantify its impact on Mediflow's total plant capacity and output.",
+    question: "Identify the main operational bottleneck and quantify its impact on Mediflow's total plant capacity and output.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Where might Mediflow's operational bottleneck lie?\nIdentify symptoms of process inefficiency and potential root causes.\nConsider: equipment utilization, setup time, rework, and labor balance.",
+        hints: [
+          "Look for stages with lowest OEE or highest setup/rework times.",
+          "Consider how sequential processes interact.",
+          "Think about capacity constraints vs. quality issues."
+        ],
+        answer: "Indicators point to inefficiencies in Molding: longest setup time, lowest OEE, highest rework.\nPotential root causes: tooling changeovers, maintenance scheduling, inconsistent operator skill.\nAssembly moderately constrained but likely downstream of molding delays."
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which stage is constraining throughput, and what is the improvement potential?\nUse Exhibit A and assume:\n• A product must pass sequentially through all three stages (Extrusion → Molding → Assembly).\n• Each line operates 20 hours/day for 30 days/month (600 hours total).\n• The slowest stage determines plant output.\n• Target: achieve 20% higher monthly volume without new machines.",
+        hints: [
+          "Adjust effective capacity for OEE, rework, and setup time.",
+          "Identify the stage with the lowest effective throughput.",
+          "Estimate improvement needed to raise total output by 20%.",
+          "Consider lean or TPM methods for root-cause mitigation."
+        ],
+        answer: "Effective available hours: 600 – setup time\nExtrusion = 580h, Molding = 555h, Assembly = 565h\n\nAdjusted hourly throughput = Theoretical Capacity × OEE × (1 – Rework Rate)\nExtrusion = 1,200 × 0.80 × 0.98 = 941\nMolding = 900 × 0.70 × 0.95 = 598\nAssembly = 1,000 × 0.75 × 0.97 = 728\n\nMonthly effective output = Adjusted throughput × available hours\nExtrusion = 941 × 580 = 546,000 units\nMolding = 598 × 555 = 332,000 units\nAssembly = 728 × 565 = 411,000 units\n\n→ Molding is the bottleneck (332k units/month).\n\nTo raise total output by 20%:\nTarget = 332k × 1.2 = 398k units.\nNeeded increase in molding throughput = (398k ÷ 555h) = 717 units/hr (from 598 → +20%).\nAchievable via improving OEE from 70% → ~84%, or reducing setup time by ~25 hours/month.",
+        exhibitImage: "mediflow-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — What actions should management take to improve efficiency?\nRecommend immediate and medium-term process changes.\nDiscuss both operational levers and monitoring metrics.",
+        hints: [],
+        answer: "Short term: implement SMED (Single-Minute Exchange of Dies) to cut setup time; schedule preventive maintenance to boost uptime.\nMedium term: cross-train operators, standardize tooling, and digitize performance dashboards.\nTrack OEE, scrap rate, and changeover time weekly.\nRisks: temporary output dip during process change, workforce adaptation.\nNext steps: pilot lean improvements on one molding line, monitor impact, then scale across plant."
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: "This case assesses operational bottleneck identification, throughput analysis, and process improvement recommendations using OEE and capacity calculations.",
+    keyFrameworks: [
+      "Operations Management",
+      "Theory of Constraints",
+      "Lean Manufacturing",
+      "OEE Analysis"
+    ]
   }
 ];
 
