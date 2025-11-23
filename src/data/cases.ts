@@ -81,7 +81,7 @@ Monthly: [(€120 × 3,200) + (€140 × 2,000) + (€170 × 1,200)] ÷ 6,400 = 
 €2.4M ÷ €134.4 per unit ≈ 17,860 units annually (about 1.5 months of current sales)
 
 **Interpretation:** SolarWave is far above breakeven. The problem is cost efficiency and margin compression, not volume.`,
-        exhibitImage: "coffee-shop-calculation"
+        exhibitImage: "solarwave-exhibit"
       },
       {
         number: 3,
