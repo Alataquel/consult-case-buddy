@@ -44,15 +44,15 @@ Over the past twelve months, SolarWave's operating profit margin fell from 12% t
         ],
         answer: `Margin decline likely stems from multiple sources:
 
-**Input Costs**: Steel and component prices have likely increased due to inflation and supply chain pressures.
+Input Costs: Steel and component prices have likely increased due to inflation and supply chain pressures.
 
-**Plant Efficiency**: Production downtime from equipment maintenance and increased scrap rates are reducing throughput and raising per-unit costs.
+Plant Efficiency: Production downtime from equipment maintenance and increased scrap rates are reducing throughput and raising per-unit costs.
 
-**Product Mix**: Sales may have shifted toward lower-margin EcoLite units as customers become more price-sensitive.
+Product Mix: Sales may have shifted toward lower-margin EcoLite units as customers become more price-sensitive.
 
-**Overhead Structure**: Fixed overhead may have grown faster than revenue, spreading fixed costs less efficiently.
+Overhead Structure: Fixed overhead may have grown faster than revenue, spreading fixed costs less efficiently.
 
-**Pricing Discipline**: SolarWave has likely held prices steady while competitors discounted aggressively, compressing margins.
+Pricing Discipline: SolarWave has likely held prices steady while competitors discounted aggressively, compressing margins.
 
 A strong answer identifies 3-4 of these areas and links them to the 6-percentage-point margin decline.`
       },
@@ -64,23 +64,23 @@ A strong answer identifies 3-4 of these areas and links them to the 6-percentage
           "Compute weighted average contribution based on monthly volumes",
           "Breakeven volume = Fixed Costs ÷ Average Contribution per Unit"
         ],
-        answer: `**Unit Contribution Margins:**
+        answer: `Unit Contribution Margins:
 - EcoLite 120L: €420 – (€210 + €65 + €25) = €120 per unit (28.6% margin)
 - HomePro 180L: €520 – (€270 + €80 + €30) = €140 per unit (26.9% margin)
 - MaxHeat 240L: €640 – (€340 + €95 + €35) = €170 per unit (26.6% margin)
 
-**Weighted Average Contribution:**
+Weighted Average Contribution:
 Monthly: [(€120 × 3,200) + (€140 × 2,000) + (€170 × 1,200)] ÷ 6,400 = €134.4 per unit
 
-**Annual Volume & Contribution:**
+Annual Volume & Contribution:
 - Total annual volume: 6,400 units/month × 12 = 76,800 units
 - Total annual contribution: 76,800 × €134.4 = €10.33M
 - Operating profit: €10.33M – €2.4M fixed costs = €7.93M
 
-**Breakeven Volume:**
+Breakeven Volume:
 €2.4M ÷ €134.4 per unit ≈ 17,860 units annually (about 1.5 months of current sales)
 
-**Interpretation:** SolarWave is far above breakeven. The problem is cost efficiency and margin compression, not volume.`,
+Interpretation: SolarWave is far above breakeven. The problem is cost efficiency and margin compression, not volume.`,
         exhibitImage: "solarwave-exhibit"
       },
       {
@@ -91,33 +91,33 @@ Monthly: [(€120 × 3,200) + (€140 × 2,000) + (€170 × 1,200)] ÷ 6,400 = 
           "Balance cost reduction, pricing strategy, and operational efficiency",
           "Think about which levers have the highest impact with lowest risk"
         ],
-        answer: `**Primary Recommendations:**
+        answer: `Primary Recommendations:
 
-**1. Operational Efficiency (Short-term)**
+1. Operational Efficiency (Short-term)
 - Renegotiate supplier contracts for bulk discounts or alternative sourcing
 - Improve quality control to reduce scrap rates (target 2-3% reduction in material waste)
 - Optimize maintenance scheduling to minimize production downtime
 - Expected impact: 2-3 percentage point margin improvement
 
-**2. Selective Price Increases (Short-term)**
+2. Selective Price Increases (Short-term)
 - Raise prices 3-5% on HomePro and MaxHeat premium lines
 - Maintain EcoLite pricing to protect volume
 - Leverage eco-friendly positioning to justify premium
 - Expected impact: 1-2 percentage point margin improvement
 
-**3. Automation Investment (Medium-term)**
+3. Automation Investment (Medium-term)
 - Invest in automated assembly for high-volume EcoLite line
 - Reduce labor cost per unit by 15-20%
 - Improve throughput and consistency
 - Expected impact: 2-3 percentage point margin improvement (after payback)
 
-**Trade-offs & Risks:**
+Trade-offs & Risks:
 - Supplier negotiations may face resistance or require longer-term commitments
 - Price increases could impact demand elasticity (test with small increases first)
 - Automation requires upfront capital and training time
 - Need to monitor competitor responses to pricing changes
 
-**Implementation Priority:** Start with operational efficiency and selective pricing while planning automation investments for year 2.`
+Implementation Priority: Start with operational efficiency and selective pricing while planning automation investments for year 2.`
       }
     ],
     difficulty: "Intermediate",
@@ -157,22 +157,22 @@ Aurum's board has asked for an assessment of financial viability, competitive in
           "Think about brand positioning potential and competitive intensity",
           "Assess regulatory and operational complexity for market entry"
         ],
-        answer: `**Germany:**
-- **Market Size**: Larger premium soft-drink market (~€1.2B with significant scale potential)
-- **Growth**: High growth in "adult alcohol-free" segment driven by health trends
-- **Competition**: Heavy competition from established brands (Bionade, Fritz-kola, international players)
-- **Distribution**: Complex retail landscape with strong discount chains and premium specialty stores
-- **Positioning**: Requires strong brand differentiation and marketing investment
+        answer: `Germany:
+- Market Size: Larger premium soft-drink market (~€1.2B with significant scale potential)
+- Growth: High growth in "adult alcohol-free" segment driven by health trends
+- Competition: Heavy competition from established brands (Bionade, Fritz-kola, international players)
+- Distribution: Complex retail landscape with strong discount chains and premium specialty stores
+- Positioning: Requires strong brand differentiation and marketing investment
 
-**Netherlands:**
-- **Market Size**: Smaller market (~€400M) but concentrated and accessible
-- **Growth**: Faster growth rate with high openness to new flavors and international brands
-- **Competition**: Less saturated with fewer established premium players
-- **Distribution**: Simpler logistics with Rotterdam port access; English labeling often accepted
-- **Positioning**: Early-mover advantage in botanical/Mediterranean positioning
+Netherlands:
+- Market Size: Smaller market (~€400M) but concentrated and accessible
+- Growth: Faster growth rate with high openness to new flavors and international brands
+- Competition: Less saturated with fewer established premium players
+- Distribution: Simpler logistics with Rotterdam port access; English labeling often accepted
+- Positioning: Early-mover advantage in botanical/Mediterranean positioning
 
-**Comparative Assessment:**
-Germany offers **scale and volume potential** but requires higher investment and faces intense competition. Netherlands offers **faster time-to-market**, lower entry friction, and better margins despite smaller absolute size.
+Comparative Assessment:
+Germany offers scale and volume potential but requires higher investment and faces intense competition. Netherlands offers faster time-to-market, lower entry friction, and better margins despite smaller absolute size.
 
 A strong answer identifies the trade-off between market size (Germany) and market accessibility (Netherlands).`
       },
@@ -185,26 +185,26 @@ A strong answer identifies the trade-off between market size (Germany) and marke
           "Compute contribution margin per bottle, then multiply by volume",
           "Subtract fixed overhead to get operating profit"
         ],
-        answer: `**Germany Analysis:**
+        answer: `Germany Analysis:
 - Net price per bottle = €2.80 × (1 - 25%) = €2.10
 - Total variable cost = €1.10 + €0.20 shipping = €1.30 per bottle
 - Contribution margin = €2.10 - €1.30 = €0.80 per bottle
 - Annual volume = 1,200,000 bottles
-- Total contribution = 1,200,000 × €0.80 = **€960,000**
-- Operating profit = €960,000 - €600,000 = **€360,000**
+- Total contribution = 1,200,000 × €0.80 = €960,000
+- Operating profit = €960,000 - €600,000 = €360,000
 - Profit margin ≈ 5%
 
-**Netherlands Analysis:**
+Netherlands Analysis:
 - Net price per bottle = €3.00 × (1 - 20%) = €2.40
 - Total variable cost = €1.00 + €0.15 shipping = €1.15 per bottle
 - Contribution margin = €2.40 - €1.15 = €1.25 per bottle
 - Annual volume = 900,000 bottles
-- Total contribution = 900,000 × €1.25 = **€1,125,000**
-- Operating profit = €1,125,000 - €600,000 = **€525,000**
+- Total contribution = 900,000 × €1.25 = €1,125,000
+- Operating profit = €1,125,000 - €600,000 = €525,000
 - Profit margin ≈ 9%
 
-**Conclusion:** 
-The Netherlands yields **€165,000 higher profit** (+46% vs Germany) despite 25% lower volume, due to:
+Conclusion: 
+The Netherlands yields €165,000 higher profit (+46% vs Germany) despite 25% lower volume, due to:
 - Better pricing power (€3.00 vs €2.80)
 - Lower distributor margin (20% vs 25%)
 - Lower shipping costs (€0.15 vs €0.20)
@@ -222,43 +222,43 @@ The Netherlands offers superior unit economics that more than compensate for sma
           "Evaluate organizational capacity to manage international expansion",
           "Consider risks and mitigation strategies for market entry"
         ],
-        answer: `**Recommendation: Enter the Netherlands first as a pilot market**
+        answer: `Recommendation: Enter the Netherlands first as a pilot market
 
-**Rationale:**
-1. **Superior Economics**: 46% higher profit in Year 1 (€525k vs €360k) with better margins (9% vs 5%)
-2. **Lower Complexity**: Simpler regulatory requirements, English labeling acceptance, easier logistics via Rotterdam
-3. **Faster Learning**: Smaller scale allows testing export operations, pricing strategies, and distributor management with lower risk
-4. **Strategic Positioning**: Early-mover advantage in premium botanical segment before market saturation
+Rationale:
+1. Superior Economics: 46% higher profit in Year 1 (€525k vs €360k) with better margins (9% vs 5%)
+2. Lower Complexity: Simpler regulatory requirements, English labeling acceptance, easier logistics via Rotterdam
+3. Faster Learning: Smaller scale allows testing export operations, pricing strategies, and distributor management with lower risk
+4. Strategic Positioning: Early-mover advantage in premium botanical segment before market saturation
 
-**Go-to-Market Model:**
-- **Distribution**: Partner with established premium beverage distributor (e.g., Heuschen & Schrouff)
-- **Retail Focus**: Target upscale supermarkets (Albert Heijn Premium), specialty stores, and hospitality venues
-- **Marketing**: Joint promotions with premium retail chains, influencer partnerships, sampling events
-- **Pricing**: Maintain €3.00 price point to reinforce premium positioning
+Go-to-Market Model:
+- Distribution: Partner with established premium beverage distributor (e.g., Heuschen & Schrouff)
+- Retail Focus: Target upscale supermarkets (Albert Heijn Premium), specialty stores, and hospitality venues
+- Marketing: Joint promotions with premium retail chains, influencer partnerships, sampling events
+- Pricing: Maintain €3.00 price point to reinforce premium positioning
 
-**Phase 2: Germany Entry (Year 2)**
+Phase 2: Germany Entry (Year 2)
 After 12-18 months in Netherlands:
 - Apply learnings on packaging, logistics, and distributor management
 - Refine brand messaging and product positioning
 - Negotiate better terms with German distributors using Netherlands success as leverage
 - Consider direct-to-retail model for higher-margin channels
 
-**Key Risks & Mitigation:**
-- **Distributor Dependency**: Sign performance-based contracts with minimum volume commitments
-- **Currency Fluctuation**: Hedge major FX exposure or build 5-10% buffer into pricing
-- **Limited Shelf Space**: Secure multi-year agreements with anchor retail partners
-- **Regulatory Changes**: Work with local compliance consultants for labeling and import requirements
+Key Risks & Mitigation:
+- Distributor Dependency: Sign performance-based contracts with minimum volume commitments
+- Currency Fluctuation: Hedge major FX exposure or build 5-10% buffer into pricing
+- Limited Shelf Space: Secure multi-year agreements with anchor retail partners
+- Regulatory Changes: Work with local compliance consultants for labeling and import requirements
 
-**Critical Success Factors:**
+Critical Success Factors:
 - Achieve 70%+ of projected Netherlands volume in Year 1
 - Maintain 8%+ operating margin
 - Secure 3+ major retail partnerships
 - Build repeatable export playbook for future markets
 
-**Why Not Both Markets Simultaneously?**
+Why Not Both Markets Simultaneously?
 Entering both would require €1.2M in fixed overhead, dilute management focus, and risk execution failures. Sequential entry allows organizational learning and capital efficiency.
 
-**Why Not Delay?**
+Why Not Delay?
 Current distributor interest and market momentum in premium alcohol-free segment create a window of opportunity. Delaying risks competitive entry and loss of first-mover advantages.`
       }
     ],
