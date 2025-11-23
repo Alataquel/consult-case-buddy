@@ -70,15 +70,16 @@ A strong answer identifies 3-4 of these areas and links them to the 6-percentage
 - MaxHeat 240L: €640 – (€340 + €95 + €35) = €170 per unit (26.6% margin)
 
 Weighted Average Contribution:
-Monthly: [(€120 × 3,200) + (€140 × 2,000) + (€170 × 1,200)] ÷ 6,400 = €134.4 per unit
+Total Monthly Contribution: (€120 × 3,200) + (€140 × 2,000) + (€170 × 1,200) = €384,000 + €280,000 + €204,000 = €868,000
+Weighted Average per Unit: €868,000 ÷ 6,400 = €135.625 per unit
 
 Annual Volume & Contribution:
 - Total annual volume: 6,400 units/month × 12 = 76,800 units
-- Total annual contribution: 76,800 × €134.4 = €10.33M
-- Operating profit: €10.33M – €2.4M fixed costs = €7.93M
+- Total annual contribution: €868,000 × 12 = €10,416,000
+- Operating profit: €10,416,000 – €2,400,000 fixed costs = €8,016,000
 
 Breakeven Volume:
-€2.4M ÷ €134.4 per unit ≈ 17,860 units annually (about 1.5 months of current sales)
+€2,400,000 ÷ €135.625 per unit = 17,696 units annually (about 2.75 months of current sales)
 
 Interpretation: SolarWave is far above breakeven. The problem is cost efficiency and margin compression, not volume.`,
         exhibitImage: "solarwave-exhibit"
