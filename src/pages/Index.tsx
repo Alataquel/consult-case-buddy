@@ -13,14 +13,14 @@ type AppState = 'selection' | 'case-list' | 'case-presentation' | 'practice' | '
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('selection');
-  const [selectedFirm, setSelectedFirm] = useState<string>('');
+  const [selectedProblemType, setSelectedProblemType] = useState<string>('');
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
 
-  const handleSelectFirm = (firmName: string) => {
-    setSelectedFirm(firmName);
+  const handleSelectFirm = (problemType: string) => {
+    setSelectedProblemType(problemType);
     setCurrentState('case-list');
   };
 
@@ -45,7 +45,7 @@ const Index = () => {
       const nextTip = generateNextTip(feedback, selectedCase.type);
       
       // Save the score
-      saveCaseScore(selectedCase.id, feedback.overallScore, selectedCase.firm, selectedCase.title);
+      saveCaseScore(selectedCase.id, feedback.overallScore, selectedCase.type, selectedCase.title);
       
       setCaseFeedback({
         feedback,
@@ -60,7 +60,7 @@ const Index = () => {
 
   const handleTryAnother = () => {
     setCurrentState('selection');
-    setSelectedFirm('');
+    setSelectedProblemType('');
     setSelectedCase(null);
     setUserAnswer('');
     setTimeElapsed(0);
@@ -69,7 +69,7 @@ const Index = () => {
 
   const handleGoHome = () => {
     setCurrentState('selection');
-    setSelectedFirm('');
+    setSelectedProblemType('');
     setSelectedCase(null);
     setUserAnswer('');
     setTimeElapsed(0);
@@ -78,12 +78,12 @@ const Index = () => {
 
   const handleRestart = () => {
     setCurrentState('selection');
-    setSelectedFirm('');
+    setSelectedProblemType('');
   };
 
-  const handleBackToFirms = () => {
+  const handleBackToTypes = () => {
     setCurrentState('selection');
-    setSelectedFirm('');
+    setSelectedProblemType('');
   };
 
   // Header Component
@@ -122,9 +122,9 @@ const Index = () => {
         <Header />
         <div className="container mx-auto px-4 py-8">
           <CaseListSelector 
-            firmName={selectedFirm}
+            firmName={selectedProblemType}
             onSelectCase={handleSelectCase}
-            onBack={handleBackToFirms}
+            onBack={handleBackToTypes}
           />
         </div>
       </div>

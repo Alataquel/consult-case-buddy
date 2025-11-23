@@ -12,14 +12,14 @@ interface CaseListSelectorProps {
 }
 
 const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorProps) => {
-  const firmCases = cases.filter(c => c.firm === firmName);
+  const firmCases = cases.filter(c => c.type === firmName);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <Button variant="ghost" onClick={onBack} className="text-description-gray hover:text-foreground">
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Firms
+          Back to Problem Types
         </Button>
         <Badge variant="secondary" className="text-lg px-4 py-2">
           {firmName}
@@ -31,7 +31,11 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
           <CardTitle className="text-2xl font-bold text-foreground">
             Select a Case
           </CardTitle>
-          <p className="text-description-gray">Choose from {firmCases.length} available cases</p>
+          <p className="text-description-gray">
+            {firmCases.length > 0 
+              ? `Choose from ${firmCases.length} available case${firmCases.length !== 1 ? 's' : ''}`
+              : 'No cases available yet. Check back soon!'}
+          </p>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">

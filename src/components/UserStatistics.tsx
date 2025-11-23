@@ -53,11 +53,11 @@ const UserStatistics = () => {
 
         {Object.keys(stats.scoresByFirm).length > 0 && (
           <div className="mt-4 pt-4 border-t border-border">
-            <h4 className="text-sm font-semibold text-foreground mb-3">Performance by Firm</h4>
+            <h4 className="text-sm font-semibold text-foreground mb-3">Performance by Problem Type</h4>
             <div className="flex flex-wrap gap-2">
-              {Object.entries(stats.scoresByFirm).map(([firm, data]) => (
-                <Badge key={firm} variant="secondary" className="px-3 py-1">
-                  {firm}: {data.averageScore}% ({data.attempted} {data.attempted === 1 ? 'attempt' : 'attempts'})
+              {Object.entries(stats.scoresByFirm).map(([type, data]) => (
+                <Badge key={type} variant="secondary" className="px-3 py-1">
+                  {type}: {data.averageScore}% ({data.attempted} {data.attempted === 1 ? 'attempt' : 'attempts'})
                 </Badge>
               ))}
             </div>
