@@ -746,6 +746,52 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Lean Manufacturing",
       "OEE Analysis"
     ]
+  },
+  {
+    id: "helion-ma-acquisition",
+    title: "Helion Energy Systems S.L. — Voltrix Acquisition Analysis",
+    firm: "Mergers & Acquisitions",
+    type: "Mergers & Acquisitions",
+    background: "Helion Energy Systems S.L. is a Madrid-based producer of industrial-grade lithium battery packs used in electric buses and construction machinery. The company has grown rapidly, reaching €85M in revenue and 14% EBIT margin in 2024. Helion's management believes growth is slowing due to limited in-house R&D capacity and dependence on imported cells. The company's strategic plan calls for vertical integration into component manufacturing and expansion into northern Europe. Situation / Challenge: Helion is evaluating the acquisition of Voltrix Components GmbH, a mid-sized German producer of high-density battery cells. Voltrix generates €60M in revenue with a 10% EBIT margin and owns patented cell chemistry that could reduce Helion's material costs by up to 12%. However, Voltrix's plant is underutilized and requires €8M in refurbishment. The deal would also expose Helion to German labor costs and integration risk. The CEO has asked for an assessment of the deal's strategic and financial attractiveness: should Helion proceed with the acquisition, and what synergies are required to make it worthwhile? Objective: Determine whether acquiring Voltrix creates sufficient strategic and financial value for Helion Energy Systems.",
+    question: "Determine whether acquiring Voltrix creates sufficient strategic and financial value for Helion Energy Systems.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What factors determine whether this acquisition is attractive?\nIdentify both strategic and operational considerations.\nConsider: synergy potential, integration complexity, market access, capability fit, and financial return.",
+        hints: [
+          "Think about vertical integration benefits and supply chain control.",
+          "Consider both hard synergies (cost savings) and soft synergies (capabilities, market access).",
+          "Assess integration risks including cultural fit and operational complexity."
+        ],
+        answer: "Key rationale: supply security, IP ownership, cost reduction, and entry into German EV supply chain.\nRisks: cultural integration, capital expenditure, plant turnaround, and technology transfer delays.\nStrategic upside: reduced supplier dependence and enhanced R&D capability."
+      },
+      {
+        number: 2,
+        question: "Quantitative — What is the deal's expected return based on projected synergies?\nUse Exhibit A and assume:\n• Synergy = reduction in material cost for Helion (percentage shown in exhibit).\n• Post-deal fixed cost increase = €6M/year (integration + maintenance).\n• One-time refurbishment cost = €8M (depreciated over 5 years).\n• Ignore taxes and financing costs for simplicity.",
+        hints: [
+          "Compute annual synergy savings from material cost reduction.",
+          "Add synergies to baseline EBIT, then subtract additional fixed costs.",
+          "Include depreciation of refurbishment cost (€8M ÷ 5 years).",
+          "Calculate new EBIT margin for each scenario."
+        ],
+        answer: "Current baseline:\nCombined revenue = €145M\nEBIT (pre-synergy) = 12% → €17.4M\nMaterial cost base = €90M\n\nSynergy savings:\nConservative: 6% × €90M = €5.4M\nBase: 10% × €90M = €9.0M\nOptimistic: 14% × €90M = €12.6M\n\nAdded costs:\n+€6M integration + €8M refurbishment ÷ 5 = €1.6M depreciation → total +€7.6M/year\n\nNew EBIT:\nConservative: €17.4M + €5.4M – €7.6M = €15.2M (10.5%)\nBase: €17.4M + €9.0M – €7.6M = €18.8M (13.0%)\nOptimistic: €17.4M + €12.6M – €7.6M = €22.4M (15.4%)\n\n→ Deal is value-accretive if ≥10% synergy achieved (base/optimistic cases).",
+        exhibitImage: "helion-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Should Helion acquire Voltrix?\nBase your decision on both qualitative and quantitative insights.\nDiscuss key risks, integration focus areas, and next steps.",
+        hints: [],
+        answer: "Proceed if due diligence confirms ≥10% material cost savings and integration feasibility.\nPrioritize early integration of supply chain and R&D teams to realize synergies quickly.\nNegotiate earn-out structure or contingent pricing based on performance to mitigate risk.\nRisks: execution delays, cultural misalignment, overestimation of savings.\nNext steps: conduct technical audit of Voltrix's facility, detailed synergy validation, and scenario-based valuation."
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: "This case assesses M&A strategic rationale, synergy quantification, and deal valuation including integration costs and depreciation.",
+    keyFrameworks: [
+      "M&A Valuation",
+      "Synergy Analysis",
+      "Post-Merger Integration",
+      "Vertical Integration Strategy"
+    ]
   }
 ];
 
