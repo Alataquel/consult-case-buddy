@@ -842,6 +842,53 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Capacity Utilization",
       "Turnaround Management"
     ]
+  },
+  {
+    id: "maison-dubois-ma",
+    title: "Maison Dubois — Concrete Streetwear Acquisition",
+    firm: "Mergers & Acquisitions",
+    type: "Mergers & Acquisitions",
+    background: "Maison Dubois is a 120-year-old Parisian luxury fashion house known for its haute couture, leather goods, and classic elegance. While financially stable with €2.5B in revenue and 22% EBITDA margin, the brand has struggled to connect with Gen Z consumers. The Board feels the brand is aging and missing out on the 'hype economy.' Situation / Challenge: Maison Dubois is considering acquiring 'Concrete,' a London-based streetwear startup that has grown explosively in the last 3 years. Concrete is known for limited 'drops,' celebrity collaborations, and a cult-like digital following. Concrete's Financials: €150M revenue, growing 40% YoY, but currently operating at break-even (0% margin) due to heavy reinvestment. The Deal: Concrete's founders are asking for €600M to sell 100% of the company. The Conflict: The Maison Dubois CFO thinks the price is absurd (4x revenue for a zero-profit company). The CMO believes it's a necessary survival play to capture the next generation. Objective: Evaluate the acquisition of Concrete. Is the €600M valuation justifiable, and what are the risks of integrating such different cultures?",
+    question: "Evaluate the acquisition of Concrete. Is the €600M valuation justifiable, and what are the risks of integrating such different cultures?",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What creates value in this deal?\nIdentify the potential revenue and cost synergies.\nConsider the intangible benefits (Brand Halo) vs. risks (Brand Dilution).",
+        hints: [
+          "Think about operational synergies: supply chain, distribution, manufacturing.",
+          "Consider revenue synergies: cross-selling, market access, customer base expansion.",
+          "Evaluate intangible factors: brand perception, cultural fit, innovation capability.",
+          "Assess risks: cultural clash, brand dilution, execution challenges."
+        ],
+        answer: "Potential Synergies:\n\nCost Synergies:\n- Supply chain integration: Using Maison Dubois's factories and leather sourcing to lower Concrete's COGS (Concrete currently uses expensive contract manufacturers)\n- Operational efficiency: Leverage established manufacturing relationships and economies of scale\n- Reduced procurement costs through combined purchasing power\n\nRevenue Synergies:\n- Distribution expansion: Selling Concrete products in Maison Dubois's global flagship stores\n- Market access: Concrete gains entry to Asian and Middle Eastern luxury markets\n- Cross-brand collaboration: Limited edition luxury streetwear collections\n- Digital capabilities: Concrete's social media and influencer marketing expertise applied to Maison Dubois\n\nIntangible Benefits:\n- Brand halo: Maison Dubois gains 'cool factor' and Gen Z relevance\n- Innovation infusion: Streetwear agility and drop culture energizes traditional brand\n- Talent acquisition: Access to digital-native creative talent\n- Future-proofing: Hedging against luxury market shifts toward casual\n\nKey Risks:\n- Cultural clash: 'Suits vs. Skaters' - corporate bureaucracy could kill Concrete's authenticity and cool factor\n- Brand dilution: High-end luxury customers might be alienated by mass-market streetwear association\n- Integration complexity: Balancing autonomy (preserve culture) vs. integration (capture synergies)\n- Overpayment risk: High valuation for unproven profitability\n- Talent retention: Founders and key designers may leave post-acquisition"
+      },
+      {
+        number: 2,
+        question: "Quantitative — Can we justify the €600M price tag?\nUse the projected financials below and assume:\n• Acquisition leads to cost synergies (supply chain integration) starting in Year 1\n• Revenue continues to grow at projected rates\n• Calculate total EBITDA generated over the next 5 years (cumulative)\n• Does the 5-year cumulative EBITDA cover at least 50% of the purchase price?\n\nConcrete Financial Projections (Post-Acquisition with Synergies):\nYear 1: Revenue €200M, EBITDA Margin 10%\nYear 2: Revenue €250M, EBITDA Margin 15%\nYear 3: Revenue €300M, EBITDA Margin 20%\nYear 4: Revenue €350M, EBITDA Margin 25%\nYear 5: Revenue €400M, EBITDA Margin 25%",
+        hints: [
+          "Calculate EBITDA in Euros for each year (Revenue × Margin).",
+          "Sum the 5 years of EBITDA to get cumulative cash generation.",
+          "Compare the sum to the €600M asking price.",
+          "Consider: does 5-year cash flow justify the valuation, or is a strategic premium required?"
+        ],
+        answer: "EBITDA Calculations:\n\nYear 1: €200M × 10% = €20M\nYear 2: €250M × 15% = €37.5M\nYear 3: €300M × 20% = €60M\nYear 4: €350M × 25% = €87.5M\nYear 5: €400M × 25% = €100M\n\nCumulative 5-Year EBITDA: €20M + €37.5M + €60M + €87.5M + €100M = €305M\n\nValuation Assessment:\n- Cumulative 5-year EBITDA: €305M\n- Purchase price: €600M\n- Coverage ratio: €305M ÷ €600M = 50.8%\n\nConclusion:\nThe cumulative cash flow (€305M) covers only ~51% of the asking price (€600M). Based purely on 5-year EBITDA, the valuation appears stretched.\n\nTo justify €600M, you would need:\n- Significant terminal value beyond Year 5 (assuming continued growth and higher margins)\n- Strategic premium for intangible benefits (brand repositioning, Gen Z access)\n- Additional revenue synergies not captured in base projections\n\nThe €600M price implies either:\n- Very strong growth beyond Year 5, or\n- A substantial strategic premium for non-financial benefits\n\nRisk Assessment: The valuation is aggressive and leaves limited margin for execution risk or market changes."
+      },
+      {
+        number: 3,
+        question: "Recommendation — Buy, Partner, or Build?\nShould Maison Dubois acquire Concrete for €600M?\nIf not, propose an alternative structure (e.g., Minority Stake, Joint Venture).",
+        hints: [],
+        answer: "Recommendation: DO NOT acquire 100% at €600M. Pursue a strategic partnership or minority stake instead.\n\nRationale:\n\nFinancial:\n- Valuation too high: 5-year EBITDA covers only 51% of purchase price\n- Limited margin of safety for execution risks\n- Break-even current profitability increases risk\n- Would require €600M upfront for uncertain returns\n\nStrategic:\n- Cultural integration risk is extremely high (luxury vs. streetwear cultures)\n- Full acquisition could destroy Concrete's authenticity and 'cool factor'\n- Concrete's value depends on maintaining entrepreneurial agility\n- Corporate ownership might alienate Gen Z customer base\n\nCounter-Proposal: Minority Stake (20-30%) + Strategic Partnership\n\nStructure:\n- Investment: €120M-€180M for 20-30% stake (valuing Concrete at €600M)\n- Board seat and strategic input rights\n- Exclusive distribution agreement for Maison Dubois stores\n- Co-development of limited capsule collections\n- Option to acquire majority stake in 3-5 years based on performance milestones\n\nBenefits:\n- Lower capital at risk (€120-180M vs €600M)\n- Preserves Concrete's independence and culture\n- Keeps founders incentivized with significant ownership\n- Tests Gen Z strategy without betting the house\n- Option value: buy more later if successful, walk away if not\n- Maintains Concrete's brand authenticity\n\nAlternative: Build Internal\n- Launch 'Dubois Street' sub-brand internally\n- Hire streetwear design talent\n- Lower cost (~€50M investment over 3 years)\n- Higher execution risk, longer time to market\n\nNext Steps:\n1. Negotiate minority stake structure with Concrete founders\n2. Define collaboration terms (distribution, co-branding)\n3. Establish performance milestones for future acquisition option\n4. Create governance structure that preserves Concrete autonomy\n5. Plan integration safeguards to protect both brand identities"
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: "This case assesses M&A valuation judgment, synergy analysis, cultural integration risks, and strategic alternatives to full acquisition in cross-industry deals.",
+    keyFrameworks: [
+      "M&A Valuation",
+      "Synergy Analysis",
+      "DCF / EBITDA Multiples",
+      "Cultural Integration",
+      "Strategic Alternatives"
+    ]
   }
 ];
 
