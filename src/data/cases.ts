@@ -133,6 +133,148 @@ With current volumes far exceeding breakeven (17,860 vs 76,800 units), the focus
       "Value Chain Analysis",
       "Profitability Tree"
     ]
+  },
+  
+  // MARKET ENTRY
+  {
+    id: "aurum-market-entry",
+    title: "Aurum Beverages International Expansion",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `Aurum Beverages S.L. is a Barcelona-based craft drink company founded in 2019. It produces premium non-alcoholic "botanical spritzers" made from Mediterranean herbs and fruits. The brand has gained strong traction in Spain's upscale cafés, boutique hotels, and gourmet retailers. Aurum outsources production to a co-packer near Girona and manages marketing and distribution in-house. Its annual revenue reached €14 million in 2024 with healthy 15% EBITDA margins.
+
+After establishing a strong domestic presence, Aurum's founders are considering international expansion. They've received distribution interest from partners in Germany and the Netherlands—markets with growing demand for premium alcohol-free beverages. However, each market differs in consumer preferences, logistics costs, and retailer dynamics. The company lacks internal experience with exports, pricing localization, and regulatory labeling requirements.
+
+Aurum's board has asked for an assessment of financial viability, competitive intensity, and go-to-market options in Northern Europe.`,
+    question: "Determine whether and how Aurum should enter Germany or the Netherlands within the next fiscal year.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — How attractive are these target markets? Analyze key demand and competitive factors.",
+        hints: [
+          "Consider market size, growth rate, and consumer trends for premium alcohol-free beverages",
+          "Evaluate distribution channels and retailer dynamics in each country",
+          "Think about brand positioning potential and competitive intensity",
+          "Assess regulatory and operational complexity for market entry"
+        ],
+        answer: `**Germany:**
+- **Market Size**: Larger premium soft-drink market (~€1.2B with significant scale potential)
+- **Growth**: High growth in "adult alcohol-free" segment driven by health trends
+- **Competition**: Heavy competition from established brands (Bionade, Fritz-kola, international players)
+- **Distribution**: Complex retail landscape with strong discount chains and premium specialty stores
+- **Positioning**: Requires strong brand differentiation and marketing investment
+
+**Netherlands:**
+- **Market Size**: Smaller market (~€400M) but concentrated and accessible
+- **Growth**: Faster growth rate with high openness to new flavors and international brands
+- **Competition**: Less saturated with fewer established premium players
+- **Distribution**: Simpler logistics with Rotterdam port access; English labeling often accepted
+- **Positioning**: Early-mover advantage in botanical/Mediterranean positioning
+
+**Comparative Assessment:**
+Germany offers **scale and volume potential** but requires higher investment and faces intense competition. Netherlands offers **faster time-to-market**, lower entry friction, and better margins despite smaller absolute size.
+
+A strong answer identifies the trade-off between market size (Germany) and market accessibility (Netherlands).`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which market offers higher profit potential in Year 1? Use Exhibit A and assume fixed export overhead of €600,000 annually per market with no cannibalization.",
+        hints: [
+          "Calculate net revenue after distributor margin for each market",
+          "Add variable cost per bottle AND shipping/duties to get total variable cost",
+          "Compute contribution margin per bottle, then multiply by volume",
+          "Subtract fixed overhead to get operating profit"
+        ],
+        answer: `**Germany Analysis:**
+- Net price per bottle = €2.80 × (1 - 25%) = €2.10
+- Total variable cost = €1.10 + €0.20 shipping = €1.30 per bottle
+- Contribution margin = €2.10 - €1.30 = €0.80 per bottle
+- Annual volume = 1,200,000 bottles
+- Total contribution = 1,200,000 × €0.80 = **€960,000**
+- Operating profit = €960,000 - €600,000 = **€360,000**
+- Profit margin ≈ 5%
+
+**Netherlands Analysis:**
+- Net price per bottle = €3.00 × (1 - 20%) = €2.40
+- Total variable cost = €1.00 + €0.15 shipping = €1.15 per bottle
+- Contribution margin = €2.40 - €1.15 = €1.25 per bottle
+- Annual volume = 900,000 bottles
+- Total contribution = 900,000 × €1.25 = **€1,125,000**
+- Operating profit = €1,125,000 - €600,000 = **€525,000**
+- Profit margin ≈ 9%
+
+**Conclusion:** 
+The Netherlands yields **€165,000 higher profit** (+46% vs Germany) despite 25% lower volume, due to:
+- Better pricing power (€3.00 vs €2.80)
+- Lower distributor margin (20% vs 25%)
+- Lower shipping costs (€0.15 vs €0.20)
+- Lower variable costs (€1.00 vs €1.10)
+
+The Netherlands offers superior unit economics that more than compensate for smaller scale.`,
+        exhibitImage: "aurum-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Should Aurum enter one market, both, or neither? Use insights from Q1 and Q2 to justify your entry decision and go-to-market model.",
+        hints: [
+          "Consider the financial returns from Q2 alongside strategic factors from Q1",
+          "Think about sequencing: should they test one market first?",
+          "Evaluate organizational capacity to manage international expansion",
+          "Consider risks and mitigation strategies for market entry"
+        ],
+        answer: `**Recommendation: Enter the Netherlands first as a pilot market**
+
+**Rationale:**
+1. **Superior Economics**: 46% higher profit in Year 1 (€525k vs €360k) with better margins (9% vs 5%)
+2. **Lower Complexity**: Simpler regulatory requirements, English labeling acceptance, easier logistics via Rotterdam
+3. **Faster Learning**: Smaller scale allows testing export operations, pricing strategies, and distributor management with lower risk
+4. **Strategic Positioning**: Early-mover advantage in premium botanical segment before market saturation
+
+**Go-to-Market Model:**
+- **Distribution**: Partner with established premium beverage distributor (e.g., Heuschen & Schrouff)
+- **Retail Focus**: Target upscale supermarkets (Albert Heijn Premium), specialty stores, and hospitality venues
+- **Marketing**: Joint promotions with premium retail chains, influencer partnerships, sampling events
+- **Pricing**: Maintain €3.00 price point to reinforce premium positioning
+
+**Phase 2: Germany Entry (Year 2)**
+After 12-18 months in Netherlands:
+- Apply learnings on packaging, logistics, and distributor management
+- Refine brand messaging and product positioning
+- Negotiate better terms with German distributors using Netherlands success as leverage
+- Consider direct-to-retail model for higher-margin channels
+
+**Key Risks & Mitigation:**
+- **Distributor Dependency**: Sign performance-based contracts with minimum volume commitments
+- **Currency Fluctuation**: Hedge major FX exposure or build 5-10% buffer into pricing
+- **Limited Shelf Space**: Secure multi-year agreements with anchor retail partners
+- **Regulatory Changes**: Work with local compliance consultants for labeling and import requirements
+
+**Critical Success Factors:**
+- Achieve 70%+ of projected Netherlands volume in Year 1
+- Maintain 8%+ operating margin
+- Secure 3+ major retail partnerships
+- Build repeatable export playbook for future markets
+
+**Why Not Both Markets Simultaneously?**
+Entering both would require €1.2M in fixed overhead, dilute management focus, and risk execution failures. Sequential entry allows organizational learning and capital efficiency.
+
+**Why Not Delay?**
+Current distributor interest and market momentum in premium alcohol-free segment create a window of opportunity. Delaying risks competitive entry and loss of first-mover advantages.`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The analysis reveals that Netherlands entry offers superior financial returns and strategic positioning despite smaller market size. The combination of better unit economics (€1.25 vs €0.80 contribution margin), lower distributor take, and reduced operational complexity makes it the ideal pilot market.
+
+The recommended approach prioritizes learning and capital efficiency: prove the international expansion model in Netherlands, then leverage those insights for a stronger Germany entry in Year 2. This sequential strategy balances growth ambitions with organizational capacity and risk management.
+
+The key insight is that market attractiveness isn't purely about size—the Netherlands' better economics, faster time-to-market, and lower barriers make it more valuable for Year 1 despite being half Germany's volume.`,
+    keyFrameworks: [
+      "Market Attractiveness Assessment",
+      "Market Entry Strategy (Build/Buy/Partner)",
+      "Contribution Margin Analysis",
+      "Go-to-Market Strategy",
+      "Market Sizing"
+    ]
   }
 ];
 
