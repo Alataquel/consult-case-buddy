@@ -792,6 +792,52 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Post-Merger Integration",
       "Vertical Integration Strategy"
     ]
+  },
+  {
+    id: "castellon-turnaround",
+    title: "Castellon Textiles S.L. — Operational Turnaround",
+    firm: "Turnaround & Transformation",
+    type: "Turnaround & Transformation",
+    background: "Castellon Textiles S.L. is a mid-sized apparel manufacturer located in Castellón, Spain, producing private-label garments for European fashion retailers. The company employs 600 people and runs two production plants specializing in cotton knitwear and denim. Castellon built its reputation on quality and reliability, but over the past three years, it has lost market share to lower-cost Turkish and Moroccan suppliers. In 2024, revenue fell to €55M (–18% YoY), and EBIT margin dropped to 2% from 9% two years earlier. Situation / Challenge: The company's cost base has risen sharply due to wage inflation, energy price increases, and inefficient production scheduling. Utilization now averages only 68%, with frequent idle periods between orders. The CEO—recently appointed by the family owners—believes that Castellon needs a comprehensive operational and commercial turnaround to restore profitability within 18 months. However, the management team is divided on focus: should they prioritize cost restructuring (plant consolidation, process automation) or commercial renewal (shift toward higher-margin niche products and nearshoring clients)? The board seeks a fact-based assessment of root causes, quick wins, and the strategic levers required to stabilize and transform the business. Objective: Develop a turnaround plan that restores Castellon Textiles' EBIT margin to at least 8% within 18 months.",
+    question: "Develop a turnaround plan that restores Castellon Textiles' EBIT margin to at least 8% within 18 months.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What are the key drivers of Castellon's margin erosion?\nAnalyze both internal inefficiencies and external pressures.\nConsider: cost structure, product mix, capacity utilization, and market positioning.",
+        hints: [
+          "Look at both external pressures (competition, input costs) and internal issues (efficiency, utilization).",
+          "Consider how capacity utilization affects unit economics.",
+          "Think about whether the problem is revenue decline, cost increase, or both."
+        ],
+        answer: "Internal: excess capacity (68% utilization), outdated scheduling, high labor cost per unit.\nExternal: energy cost inflation and margin pressure from low-cost imports.\nCommercial weakness: dependence on volume-driven contracts with thin margins."
+      },
+      {
+        number: 2,
+        question: "Quantitative — How much cost reduction is required to reach the 8% target?\nUse Exhibit A and assume:\n• 2024 revenue = €55M\n• Fixed costs remain constant at €10M\n• Target EBIT margin = 8%\n• Variable costs are detailed in Exhibit A",
+        hints: [
+          "Calculate current EBIT from revenue minus total costs.",
+          "Compute target EBIT = 8% × €55M.",
+          "Determine savings required to bridge the gap.",
+          "Assess which cost categories offer the most improvement potential."
+        ],
+        answer: "Current situation:\nTotal costs = 24.0 + 14.5 + 4.5 + 2.0 + 10.0 = €55.0M\nEBIT = €55.0M revenue – €55.0M costs = €0 → 0% margin (near break-even).\n\nTarget EBIT (8%):\nRequired EBIT = 8% × €55M = €4.4M profit\nTherefore, total cost target = €55.0M – €4.4M = €50.6M\nSavings required = €55.0M – €50.6M = €4.4M (8% of revenue).\n\nPotential variable cost reduction (based on Exhibit):\nMaterials: €24.0M × 5% = €1.2M\nLabor: €14.5M × 15% = €2.18M\nEnergy: €4.5M × 20% = €0.9M\nLogistics: €2.0M × 10% = €0.2M\nTotal potential = €4.48M, just enough to reach target.\n\n→ Hitting benchmark efficiency across all categories would restore EBIT to ~8%.",
+        exhibitImage: "castellon-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — What transformation actions should Castellon prioritize?\nUse insights from Q1–Q2 to propose short-term stabilization and medium-term transformation levers.\nDiscuss sequencing and change management implications.",
+        hints: [],
+        answer: "Short-term (3–6 months):\nLaunch efficiency blitz on labor scheduling and maintenance downtime.\nNegotiate new energy contracts and shift production to off-peak hours.\n\nMedium-term (6–18 months):\nConsolidate two plants into one to improve utilization above 85%.\nInvest in partial automation for repetitive processes.\nDevelop a 'sustainable cotton' niche line for premium European retailers.\n\nRisks: workforce resistance, upfront restructuring costs, demand volatility.\nNext steps: validate cost improvement roadmap, design KPI dashboard (OEE, labor cost/unit), and align management incentives with transformation milestones."
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: "This case assesses turnaround strategy through cost structure analysis, efficiency benchmarking, and prioritization of operational and commercial levers.",
+    keyFrameworks: [
+      "Cost Structure Analysis",
+      "Operational Efficiency",
+      "Capacity Utilization",
+      "Turnaround Management"
+    ]
   }
 ];
 
