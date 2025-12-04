@@ -5,6 +5,27 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Send, RotateCcw, Lightbulb } from "lucide-react";
 
+// Import all exhibit images
+import solarwaveExhibit from "@/assets/solarwave-exhibit.png";
+import aurumExhibit from "@/assets/aurum-exhibit.png";
+import novarideExhibit from "@/assets/novaride-exhibit.png";
+import mediflowExhibit from "@/assets/mediflow-exhibit.png";
+import helionExhibit from "@/assets/helion-exhibit.png";
+import castellonExhibit from "@/assets/castellon-exhibit.png";
+import maisonDuboisExhibit from "@/assets/maison-dubois-exhibit.png";
+import aurahomeExhibit from "@/assets/aurahome-exhibit.png";
+
+const exhibitImages: Record<string, string> = {
+  "solarwave-exhibit": solarwaveExhibit,
+  "aurum-exhibit": aurumExhibit,
+  "novaride-exhibit": novarideExhibit,
+  "mediflow-exhibit": mediflowExhibit,
+  "helion-exhibit": helionExhibit,
+  "castellon-exhibit": castellonExhibit,
+  "maison-dubois-exhibit": maisonDuboisExhibit,
+  "aurahome-exhibit": aurahomeExhibit,
+};
+
 interface CaseQuestion {
   number: number;
   question: string;
@@ -156,11 +177,11 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
                   </div>
                   
                   {/* Question-specific exhibit */}
-                  {q.exhibitImage && (
+                  {q.exhibitImage && exhibitImages[q.exhibitImage] && (
                     <div className="mb-3 bg-muted p-4 rounded-lg">
                       <p className="text-sm font-semibold text-foreground mb-2">Exhibit for Question {q.number}:</p>
                       <img 
-                        src={`/src/assets/${q.exhibitImage}.png`}
+                        src={exhibitImages[q.exhibitImage]}
                         alt={`Exhibit for question ${q.number}`}
                         className="w-full h-auto rounded border border-border"
                       />
@@ -200,11 +221,11 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
             </>
           )}
           
-          {caseData.exhibitImage && (
+          {caseData.exhibitImage && exhibitImages[caseData.exhibitImage] && (
             <div className="bg-muted p-4 rounded-lg">
               <p className="text-sm font-semibold text-foreground mb-2">Case Exhibit:</p>
               <img 
-                src={`/src/assets/${caseData.exhibitImage}.png`}
+                src={exhibitImages[caseData.exhibitImage]}
                 alt="Case exhibit"
                 className="w-full h-auto rounded border border-border"
               />
