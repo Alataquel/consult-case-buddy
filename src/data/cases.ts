@@ -262,6 +262,147 @@ The key insight is that high outbound revenue can mask unprofitable routes when 
     ]
   },
   
+  // PROFITABILITY & COST OPTIMIZATION - VitaFresh
+  {
+    id: "vitafresh-profitability",
+    title: "VitaFresh Markets — Channel Profitability Crisis",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `VitaFresh Markets is a premium organic grocery chain in Northern Italy. They operate 40 physical stores and recently launched a rapid "Home Delivery" service to compete with Amazon Fresh and Getir. The brand is strong, known for high-quality local produce and wealthy clientele.
+
+In 2024, VitaFresh grew its total revenue by 20% thanks to the explosion of its online delivery segment. However, the Board is in crisis mode: Overall Operating Profit dropped by 40%.
+
+The CEO doesn't understand. "We are selling more groceries than ever, our basket sizes are huge, and our gross margins on food are stable at 40%. Why are we bleeding cash?"
+
+You have been hired to analyze the profitability of the In-Store vs. Online channels and fix the broken business model.`,
+    question: "Diagnose the source of the profit decline and propose a strategy to make the Online channel sustainable within 12 months.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Where is the leakage?\nAnalyze the cost structure of selling a banana in a store vs. delivering it to a house.\nKey Concept: \"Cost to Serve.\" Identify the additional steps in online fulfillment (picking, packing, last-mile delivery) that do not exist in the physical store model.",
+        hints: [
+          "In a store, the customer does the 'picking' (walking the aisles) and 'delivery' (driving home) for free",
+          "Online, VitaFresh must pay for these services",
+          "Think about which costs are truly variable vs. allocated"
+        ],
+        answer: `The Problem: "Channel Shift." Customers are switching from the high-margin In-Store channel to the Online channel.
+
+Cost Drivers Comparison:
+
+In-Store:
+- Customer does picking (walks aisles) → FREE
+- Customer does delivery (drives home) → FREE
+- VitaFresh pays: COGS, cashier labor, rent
+
+Online:
+- VitaFresh pays for picking (€6/order)
+- VitaFresh pays for delivery (€12/order)
+- VitaFresh pays: COGS, reduced store labor, rent/tech
+
+The Key Insight: Unless VitaFresh charges adequately for these additional services, margins will collapse even as revenue grows. The €3 delivery fee doesn't cover the €12 actual delivery cost.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Is Online actually profitable?\nUse Exhibit A to calculate the Operating Profit (EBIT) per order for both channels.\nDetermine: Is the Online channel simply less profitable, or is it value-destructive (negative profit)?",
+        hints: [
+          "Calculate Total Revenue for Online (Basket + Fee)",
+          "Calculate Gross Profit first (Revenue - COGS)",
+          "Subtract all variable and fixed allocated costs to find Net Operating Profit",
+          "Watch out for: The illusion of the higher basket size (€70 vs €40)"
+        ],
+        answer: `Channel A: In-Store
+
+Revenue: €40.00
+COGS: €40 × 60% = €24.00
+Gross Margin: €16.00
+OpEx: €3.00 (Labor) + €4.00 (Rent) = €7.00
+Operating Profit: €16.00 - €7.00 = €9.00 per order
+Margin %: €9 / €40 = 22.5%
+
+---
+
+Channel B: Online Delivery
+
+Revenue: €70.00 (Basket) + €3.00 (Fee) = €73.00
+COGS: €70 × 60% = €42.00
+Gross Margin: €73 - €42 = €31.00
+OpEx:
+- Store Stocking Labor: €2.00
+- Picking Labor: €6.00
+- Delivery Cost: €12.00
+- Rent/Tech: €2.00
+- Total OpEx: €22.00
+Operating Profit: €31.00 - €22.00 = €9.00 per order
+Margin %: €9 / €73 = 12.3%
+
+---
+
+Variable Contribution Analysis:
+
+In-Store Contribution: €40 - €24 - €3 = €13
+Online Contribution: €73 - €42 - €2 - €6 - €12 = €11
+
+Conclusion: Every time a customer switches from Store to Online, VitaFresh loses €2 in contribution (€13 → €11), despite the basket being €30 larger! This explains the profit decline.
+
+The larger basket creates an illusion of success, but the additional €18 in delivery-related costs more than offsets the volume benefit.`,
+        exhibitImage: "vitafresh-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — How do we fix the mix?\nBased on your math, what should VitaFresh do?\nConsider levers: Pricing (delivery fees), Operational (Click & Collect), or Strategic (minimum order values).",
+        hints: [
+          "Think about ways to reduce the €12 delivery cost or increase delivery revenue",
+          "Consider customer behavior incentives",
+          "Evaluate operational alternatives to home delivery"
+        ],
+        answer: `1. Incentivize "Click & Collect" (Highest Impact)
+
+Offer a €5 coupon if customers pick up their own bags.
+- Removes the €12 delivery cost entirely
+- New Online Contribution: €73 - €42 - €2 - €6 - €2 + €5 coupon cost = €16
+- vs. €11 current Online or €13 In-Store
+- Even with the coupon cost, this is more profitable than home delivery
+
+2. Dynamic Delivery Pricing
+
+The current €3 delivery fee is too low compared to the €12 cost.
+- Raise fee to €7 for small baskets (<€100)
+- Keep €3 for large baskets (€100+) to encourage higher order values
+- At €7 fee: Online profit increases from €9 to €13 per order
+
+3. Minimum Order Value
+
+Implement €50 minimum for home delivery.
+- Larger baskets spread the €12 delivery cost more efficiently
+- Customers below €50 directed to Click & Collect or In-Store
+
+4. Dark Stores (Medium-term)
+
+If online volume is high enough, move picking to a dedicated warehouse.
+- Optimized layout reduces picking time
+- Picking costs could drop from €6 to €3
+- Requires significant volume to justify fixed costs
+
+Implementation Priority:
+1. Launch Click & Collect with €5 incentive (Week 1)
+2. Raise delivery fees to €5-7 based on basket size (Month 1)
+3. Implement €50 minimum order value (Month 2)
+4. Evaluate Dark Store investment at 6-month review`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The profit decline is caused by channel cannibalization. While both channels generate €9 operating profit per order, the Online channel has lower contribution margin (€11 vs €13), meaning every customer switch destroys €2 of value.
+
+The solution involves multiple levers: incentivizing Click & Collect to eliminate delivery costs, raising delivery fees closer to true cost, and implementing minimum order values. The key insight is that higher basket sizes can mask unprofitable unit economics when fulfillment costs are ignored.`,
+    keyFrameworks: [
+      "Channel Profitability Analysis",
+      "Cost to Serve",
+      "Contribution Margin",
+      "Unit Economics",
+      "Channel Mix Optimization"
+    ]
+  },
+  
   // MARKET ENTRY
   {
     id: "aurum-market-entry",
