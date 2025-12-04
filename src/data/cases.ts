@@ -403,6 +403,144 @@ The solution involves multiple levers: incentivizing Click & Collect to eliminat
     ]
   },
   
+  // PROFITABILITY & COST OPTIMIZATION - UrbanBrew
+  {
+    id: "urbanbrew-profitability",
+    title: "UrbanBrew Coffee — Menu Economics Crisis",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `UrbanBrew, a chain of 60 premium coffee shops in London and Manchester, targets busy office workers. They are known for high-quality espresso and speed of service.
+
+Last year, facing stagnation in coffee sales, UrbanBrew launched a new "Fresh Lunch" menu (gourmet sandwiches, salads, and hot wraps) to increase the "Average Ticket Size."
+
+The strategy worked: Average Ticket Size jumped from £4.50 to £7.00. Revenue is up 15%.
+
+However, Net Profit has fallen by 10%. Customer complaints about long wait times have skyrocketed, and the morning "coffee rush" queues are moving slower than ever.
+
+The CEO is confused: "We are selling more expensive items. Why are we making less money?"`,
+    question: "Analyze the unit economics of the new Lunch menu versus the core Coffee product and recommend a strategy to restore profitability.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What are the hidden costs of food?\nBeyond just the cost of ingredients, what impacts the profitability of selling a hot sandwich vs. a latte in a small shop?\nKey Concepts: Throughput (Service Speed), Waste (Perishables), and Labor Intensity.",
+        hints: [
+          "Consider how long each product takes to make",
+          "Think about shelf life differences between coffee beans and fresh sandwiches",
+          "Consider opportunity cost: what else could staff be making?"
+        ],
+        answer: `The "Throughput" Trap:
+The Panini takes 4x longer to make (4 mins vs 1 min). In a busy morning rush, selling one Panini blocks the barista from selling 4 Lattes.
+
+Waste:
+Coffee beans have a long shelf life. Fresh gourmet sandwiches spoil daily. A 15% waste rate is a massive hidden cost that doesn't appear in simple COGS calculations.
+
+Cannibalization:
+Are customers buying a Sandwich instead of a Coffee, or with a Coffee? If they switch from a high-margin drink to a low-margin food item, overall profit drops even if ticket size increases.
+
+Labor Intensity:
+Hot sandwiches require active staff attention (heating, assembly, plating). Espresso machines can work semi-autonomously once the barista initiates the pull.`,
+        exhibitImage: "urbanbrew-bcg-exhibit"
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which customer is more valuable?\nUse Exhibit A to calculate the Net Margin per unit for a \"Signature Latte\" vs. a \"Gourmet Panini.\"\nCrucial Step: Factor in the cost of Waste and Labor Time.",
+        hints: [
+          "Effective COGS with Waste: Actual Ingredient Cost = COGS × (1 + Waste Rate)",
+          "Labor Cost = Prep Time × Cost per Minute",
+          "Contribution Margin = Selling Price - Ingredients (w/ waste) - Packaging - Labor",
+          "Think about Opportunity Cost: How many Lattes could you make in the time it takes to heat one Panini?"
+        ],
+        answer: `Product A: Signature Latte
+
+Revenue: £3.50
+Ingredients (adj. for waste): £0.50 × 1.02 = £0.51
+Packaging: £0.10
+Labor: 1 min × £0.20 = £0.20
+Total Variable Cost: £0.51 + £0.10 + £0.20 = £0.81
+Net Contribution: £3.50 - £0.81 = £2.69
+Margin %: £2.69 / £3.50 = 77%
+
+---
+
+Product B: Gourmet Panini
+
+Revenue: £6.50
+Ingredients (adj. for waste): £2.50 × 1.15 = £2.875 (≈ £2.88)
+Packaging: £0.30
+Labor: 4 mins × £0.20 = £0.80
+Total Variable Cost: £2.88 + £0.30 + £0.80 = £3.98
+Net Contribution: £6.50 - £3.98 = £2.52
+Margin %: £2.52 / £6.50 = 39%
+
+---
+
+The Insight:
+
+Shocking Result: UrbanBrew makes LESS absolute profit (£2.52 vs £2.69) on the £6.50 sandwich than on the £3.50 coffee!
+
+The Throughput Killer: In the 4 minutes it takes to earn £2.52 from a Panini, the staff could have made 4 Lattes, earning 4 × £2.69 = £10.76.
+
+The Panini is destroying value during peak hours by blocking high-margin coffee production.`,
+        exhibitImage: "urbanbrew-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Menu Engineering\nShould UrbanBrew keep the lunch menu?\nPropose 2-3 specific changes to the menu or operations to fix the margin erosion.",
+        hints: [
+          "Consider time-of-day restrictions",
+          "Think about prep time reduction strategies",
+          "Evaluate pricing adjustments"
+        ],
+        answer: `1. "Kill" the Complexity During Peak Hours
+
+Remove the "Hot Panini" from the menu during the morning rush (8 AM - 11 AM).
+- It slows down the line too much
+- Opportunity cost is 4 Lattes (£10.76) vs 1 Panini (£2.52)
+- Staff can focus on high-margin, fast-turnover coffee drinks
+
+2. Pre-Packaged "Grab & Go"
+
+Switch to cold sandwiches or pre-warmed items that require 0 minutes of prep time at the counter.
+- Reduces Labor cost from £0.80 to £0
+- Improves throughput dramatically
+- New contribution: £6.50 - £2.88 - £0.30 = £3.32 (vs £2.52)
+- Now beats the Latte in absolute profit AND doesn't block production
+
+3. Reduce Waste Through Menu Simplification
+
+15% waste is too high.
+- Simplify the menu to 3 core sandwiches (instead of 10 options)
+- Improves inventory turnover and forecasting accuracy
+- Target waste rate: 5-7%
+- At 7% waste: ingredient cost drops from £2.88 to £2.68
+
+4. Pricing Adjustment (If Hot Panini Stays)
+
+If the hot Panini remains on the menu, the price must rise to £8.50 to justify the labor/time usage.
+- At £8.50: Contribution = £8.50 - £3.98 = £4.52
+- Still takes 4 minutes, but now generates more than the Latte
+- Or restrict to "Lunch Only" (12 PM - 2 PM) when coffee rush has passed
+
+Implementation Priority:
+1. Immediate: Remove hot items from AM menu
+2. Week 2: Launch Grab & Go cold sandwich line
+3. Month 1: Simplify menu to reduce waste
+4. Month 2: Test premium pricing for remaining hot items`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The profit decline stems from the "Throughput Trap" - hot food items take 4x longer to prepare than coffee, blocking high-margin production during peak hours. Despite higher ticket prices, the Panini generates less absolute profit (£2.52) than a Latte (£2.69) while consuming 4x the staff time.
+
+The solution involves removing time-intensive items during peak hours, switching to grab-and-go formats, and simplifying the menu to reduce waste. The key insight is that revenue and ticket size can mask throughput-destroying products.`,
+    keyFrameworks: [
+      "Unit Economics Analysis",
+      "Throughput & Capacity",
+      "Waste & Spoilage Costs",
+      "Opportunity Cost",
+      "Menu Engineering"
+    ]
+  },
+  
   // MARKET ENTRY
   {
     id: "aurum-market-entry",

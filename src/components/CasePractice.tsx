@@ -17,6 +17,8 @@ import aurahomeExhibit from "@/assets/aurahome-exhibit.png";
 import aurahomeLifecycleExhibit from "@/assets/aurahome-lifecycle-exhibit.png";
 import freshrouteExhibit from "@/assets/freshroute-exhibit.png";
 import vitafreshExhibit from "@/assets/vitafresh-exhibit.png";
+import urbanbrewExhibit from "@/assets/urbanbrew-exhibit.png";
+import urbanbrewBcgExhibit from "@/assets/urbanbrew-bcg-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -30,6 +32,8 @@ const exhibitImages: Record<string, string> = {
   "aurahome-lifecycle-exhibit": aurahomeLifecycleExhibit,
   "freshroute-exhibit": freshrouteExhibit,
   "vitafresh-exhibit": vitafreshExhibit,
+  "urbanbrew-exhibit": urbanbrewExhibit,
+  "urbanbrew-bcg-exhibit": urbanbrewBcgExhibit,
 };
 
 interface CaseQuestion {
