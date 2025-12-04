@@ -683,6 +683,193 @@ The key insight is that market attractiveness isn't purely about size—the Neth
     ]
   },
 
+  // MARKET ENTRY - DataSafe
+  {
+    id: "datasafe-market-entry",
+    title: "DataSafe Tech — Brazil Market Entry Strategy",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `DataSafe Tech is a successful, high-end secure external hard drive manufacturer based in Seattle, USA. Their products are premium, focusing on military-grade encryption and cloud integration. The company enjoys a robust 35% EBITDA margin domestically.
+
+DataSafe has saturated the US and Western European markets. Their strategic focus is now Brazil, a country with a massive, untapped corporate market and high demand for data security. However, Brazil presents two major hurdles:
+
+High Tariffs: Imported electronics face duties and taxes up to 40% of the product cost.
+Complex Logistics: Navigating local regulations, customs, and distribution is extremely difficult without local expertise.
+
+DataSafe is evaluating two market entry models:
+Model A (Direct Import / D2C): Maintain full control over branding and sales by importing finished units.
+Model B (Local Licensing / Partner): License the technology and design to a local Brazilian electronics manufacturer (Partner) who handles production, distribution, and local compliance, splitting the profit.`,
+    question: "Determine which entry model provides the highest net profit potential within the first three years, justifying the chosen strategy with qualitative factors.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What are the core risks of each model?\nAnalyze the strategic trade-offs between Control (Model A) and Scale/Speed (Model B).\nConsider: Supply chain friction, brand risk, political/regulatory complexity, and required capital investment.",
+        hints: [
+          "Think about FX and tariff risks vs. operational/quality risks",
+          "Consider speed to market for each model",
+          "Evaluate brand control implications",
+          "Assess scale potential given pricing constraints"
+        ],
+        answer: `Model A: Direct Import (D2C)
+
+Risk Profile: High FX/Tariff Risk; Low Operational Risk
+- Currency fluctuations can significantly impact margins
+- 40% tariff creates major cost disadvantage
+- However, DataSafe maintains full quality control
+
+Speed to Market: Slower
+- Customs clearance delays
+- Need to establish warehousing and distribution
+- Regulatory compliance burden falls on DataSafe
+
+Brand Control: High
+- Owns all marketing and pricing decisions
+- Direct customer relationships
+- Consistent brand experience
+
+Scale Potential: Low
+- Tariffs restrict competitive pricing (€250 vs competitors at €150-180)
+- Limited to premium/enterprise segment only
+- Volume constrained by price ceiling
+
+---
+
+Model B: Local Licensing (Partner)
+
+Risk Profile: Low FX/Tariff Risk; High Brand/Quality Risk
+- Local production avoids tariffs entirely
+- But quality control depends on partner's execution
+- Brand reputation at risk if partner underperforms
+
+Speed to Market: Faster
+- Leverages existing partner infrastructure
+- Partner handles local compliance
+- Established distribution channels
+
+Brand Control: Low
+- Dependent on Partner's sales team quality
+- Limited pricing control
+- Risk of brand dilution
+
+Scale Potential: High
+- Competitive price point (€180)
+- Better distribution reach
+- Access to mid-market corporate segment`,
+        exhibitImage: "datasafe-diagnostic-exhibit"
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which model yields higher annual profit?\nUse Exhibit A to calculate the Annual Net Operating Profit for each model, assuming Year 1 volumes are achieved.\nNote: Use the variable costs and the specific royalty structure provided.",
+        hints: [
+          "Model A Total Variable Cost must include COGS, Tariffs, and Shipping",
+          "Model B Total Variable Cost is the Local COGS + Shipping",
+          "The 25% Royalty is subtracted from the Selling Price before DataSafe receives its revenue",
+          "Don't forget to subtract Fixed Overhead from Total Contribution"
+        ],
+        answer: `Model A: Direct Import (D2C)
+
+Total Variable Cost per Unit:
+TVC = COGS + Tariff + Shipping
+TVC = €100 + (€100 × 0.40) + €10 = €150
+
+Contribution per Unit: €250 - €150 = €100
+Total Annual Contribution: 20,000 units × €100 = €2,000,000
+Net Profit (EBIT): €2,000,000 - €1,200,000 (Fixed) = €800,000
+
+---
+
+Model B: Local Licensing (Partner)
+
+Partner Royalty Cost: €180 × 0.25 = €45
+DataSafe Net Revenue per Unit: €180 - €45 = €135
+
+DataSafe Variable Cost per Unit:
+TVC = Local COGS + Shipping = €110 + €5 = €115
+
+Contribution per Unit: €135 - €115 = €20
+Total Annual Contribution: 50,000 units × €20 = €1,000,000
+Net Profit (EBIT): €1,000,000 - €500,000 (Fixed) = €500,000
+
+---
+
+Conclusion:
+
+Model A (Direct Import) yields higher Net Profit: €800,000 vs €500,000
+
+Despite:
+- Heavy 40% tariffs
+- Lower volume (20,000 vs 50,000 units)
+- Higher fixed overhead (€1.2M vs €500K)
+
+Model A wins because:
+- Higher contribution margin (€100 vs €20 per unit)
+- Premium pricing power preserved
+- The 25% partner royalty + higher local COGS erode Model B's scale advantage`,
+        exhibitImage: "datasafe-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Which strategic door should DataSafe open?\nJustify the final choice based on the quantitative result and the qualitative assessment of risk (Q1).\nDiscuss how DataSafe can mitigate the primary drawback of the chosen model.",
+        hints: [
+          "Consider both short-term profitability and long-term strategic positioning",
+          "Think about hybrid approaches or phased strategies",
+          "Address the main risks of your chosen model"
+        ],
+        answer: `Recommendation: Pursue Model A (Direct Import) for the short term
+
+Justification:
+
+Financial: Model A yields 60% higher profit (€800K vs €500K) despite heavy tariffs and lower volume. The math is clear—the high partner royalty (25%) and higher local COGS (€110 vs €100) in Model B erode the financial gain from higher volume.
+
+Strategic Fit: DataSafe's core competency is premium, high-margin products. Model A preserves this positioning and maintains full control over brand, pricing, and customer relationships.
+
+Risk Profile: While Model A has FX/tariff exposure, Model B's quality and brand risks could permanently damage DataSafe's premium reputation—a harder problem to fix.
+
+---
+
+Mitigation Strategy (Addressing Model A's Risks):
+
+1. Tariff/Logistics Optimization
+- Partner with specialized 3rd-party logistics (3PL) firm in Brazil
+- Reduce fixed overhead from €1.2M toward €800K
+- Leverage 3PL's customs expertise for faster clearance
+
+2. Currency Hedging
+- Lock in EUR/BRL rates for 6-12 months
+- Price in USD to reduce conversion risk
+- Build 10-15% currency buffer into pricing
+
+3. Long-Term Hybrid Strategy
+Use Model A's initial profits to fund a deep-dive study on establishing a small local assembly plant ("Model C"):
+- Import core encrypted components (high-value, low-volume)
+- Local assembly of chassis and packaging
+- Avoids most tariffs while maintaining quality control
+- Timeline: Year 2-3 feasibility study, Year 4 pilot
+
+4. Phased Volume Growth
+- Year 1: 20,000 units via D2C
+- Year 2: Expand to 30,000 units with 3PL efficiency gains
+- Year 3: Evaluate local assembly plant based on demand patterns
+
+Why Not Model B?
+The 25% royalty combined with higher local COGS creates a "volume trap"—DataSafe would need 2.5x more volume just to match Model A's profit. The partner also controls the customer relationship, limiting DataSafe's strategic flexibility.`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The quantitative analysis reveals that Model A (Direct Import) yields 60% higher profit (€800K vs €500K) despite heavy tariffs. The partner royalty and higher local production costs in Model B erode the benefits of 2.5x higher volume.
+
+The recommendation is to pursue Model A while mitigating tariff/logistics risks through 3PL partnerships and currency hedging. Long-term, DataSafe should use Model A profits to explore a hybrid local assembly option that preserves quality control while avoiding tariffs.
+
+The key insight is that volume doesn't always compensate for margin erosion—a premium brand should preserve its pricing power rather than chase scale.`,
+    keyFrameworks: [
+      "Market Entry Strategy (Build/Buy/Partner)",
+      "Unit Economics Comparison",
+      "Tariff & Trade Analysis",
+      "Risk Assessment",
+      "Control vs. Scale Trade-offs"
+    ]
+  },
+
   // GROWTH STRATEGY
   {
     id: "novaride-growth",

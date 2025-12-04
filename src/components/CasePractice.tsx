@@ -19,6 +19,8 @@ import freshrouteExhibit from "@/assets/freshroute-exhibit.png";
 import vitafreshExhibit from "@/assets/vitafresh-exhibit.png";
 import urbanbrewExhibit from "@/assets/urbanbrew-exhibit.png";
 import urbanbrewBcgExhibit from "@/assets/urbanbrew-bcg-exhibit.png";
+import datasafeExhibit from "@/assets/datasafe-exhibit.png";
+import datasafeDiagnosticExhibit from "@/assets/datasafe-diagnostic-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -34,6 +36,8 @@ const exhibitImages: Record<string, string> = {
   "vitafresh-exhibit": vitafreshExhibit,
   "urbanbrew-exhibit": urbanbrewExhibit,
   "urbanbrew-bcg-exhibit": urbanbrewBcgExhibit,
+  "datasafe-exhibit": datasafeExhibit,
+  "datasafe-diagnostic-exhibit": datasafeDiagnosticExhibit,
 };
 
 interface CaseQuestion {
