@@ -14,6 +14,7 @@ import helionExhibit from "@/assets/helion-exhibit.png";
 import castellonExhibit from "@/assets/castellon-exhibit.png";
 import maisonDuboisExhibit from "@/assets/maison-dubois-exhibit.png";
 import aurahomeExhibit from "@/assets/aurahome-exhibit.png";
+import aurahomeLifecycleExhibit from "@/assets/aurahome-lifecycle-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -24,6 +25,7 @@ const exhibitImages: Record<string, string> = {
   "castellon-exhibit": castellonExhibit,
   "maison-dubois-exhibit": maisonDuboisExhibit,
   "aurahome-exhibit": aurahomeExhibit,
+  "aurahome-lifecycle-exhibit": aurahomeLifecycleExhibit,
 };
 
 interface CaseQuestion {
