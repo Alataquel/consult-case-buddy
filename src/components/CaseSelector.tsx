@@ -1,25 +1,34 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building, Building2, Briefcase, LineChart, TrendingUp, Target, Award, Globe, Users } from "lucide-react";
+import { Building, Building2, Briefcase, LineChart, TrendingUp, Target, Globe } from "lucide-react";
 import UserStatistics from "@/components/UserStatistics";
+import { cases } from "@/data/cases";
 
 interface CaseSelectorProps {
   onSelectFirm: (firmName: string) => void;
 }
 
 const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
-  const problemTypes = [
-    { name: "Profitability & Cost Optimization", description: "Profit decline, margin improvement, cost structure analysis", icon: TrendingUp },
-    { name: "Market Entry", description: "Assess entry into new markets or regions", icon: Globe },
-    { name: "Growth Strategy", description: "Expansion, scaling, new product launch", icon: LineChart },
-    { name: "Mergers & Acquisitions (M&A)", description: "Acquire, merge, or sell decisions", icon: Building },
-    { name: "Operations & Process Improvement", description: "Efficiency, productivity, supply chain", icon: Target },
-    { name: "Pricing Strategy", description: "Value-based, dynamic, or competitive pricing", icon: Award },
-    { name: "Product & Innovation Strategy", description: "Product launch, market fit, branding", icon: Briefcase },
-    { name: "Public Sector / Policy Cases", description: "Government, nonprofit, social impact", icon: Users },
-    { name: "Turnaround & Transformation", description: "Crisis management, restructuring, digital transformation", icon: Building2 },
-    { name: "Sustainability & ESG", description: "Carbon reduction, circular economy, social inclusion", icon: Users },
-  ];
+  // Get unique case types that actually have cases
+  const existingTypes = [...new Set(cases.map(c => c.type))];
+  
+  const problemTypeConfig: Record<string, { description: string; icon: typeof TrendingUp }> = {
+    "Profitability & Cost Optimization": { description: "Profit decline, margin improvement, cost structure analysis", icon: TrendingUp },
+    "Market Entry": { description: "Assess entry into new markets or regions", icon: Globe },
+    "Growth Strategy": { description: "Expansion, scaling, new product launch", icon: LineChart },
+    "Mergers & Acquisitions": { description: "Acquire, merge, or sell decisions", icon: Building },
+    "Operations & Process Improvement": { description: "Efficiency, productivity, supply chain", icon: Target },
+    "Turnaround & Transformation": { description: "Crisis management, restructuring, digital transformation", icon: Building2 },
+    "Product Innovation & Strategy": { description: "Product launch, market fit, branding", icon: Briefcase },
+    "Pricing Strategy": { description: "Value-based, dynamic, or competitive pricing", icon: TrendingUp },
+  };
+
+  // Only show problem types that have cases
+  const problemTypes = existingTypes.map(type => ({
+    name: type,
+    description: problemTypeConfig[type]?.description || type,
+    icon: problemTypeConfig[type]?.icon || Briefcase,
+  }));
 
   return (
     <div className="space-y-8">
