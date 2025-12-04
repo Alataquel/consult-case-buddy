@@ -122,36 +122,14 @@ const CaseFeedback = ({
         <Card className="border-0 shadow-elegant">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-foreground">
-              Answer Comparison
+              Your Answer
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Your Answer */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 mb-3">
-                  <User className="w-4 h-4 text-blue-600" />
-                  <span className="font-semibold text-blue-700">Your Answer</span>
-                </div>
-                <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 min-h-[200px]">
-                  <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
-                    {userAnswer}
-                  </p>
-                </div>
-              </div>
-              
-              {/* Model Solution */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 mb-3">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="font-semibold text-green-700">Model Solution</span>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 min-h-[200px]">
-                  <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
-                    {modelSolution}
-                  </p>
-                </div>
-              </div>
+            <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
+                {userAnswer}
+              </p>
             </div>
           </CardContent>
         </Card>
