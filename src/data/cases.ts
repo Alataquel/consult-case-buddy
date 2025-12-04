@@ -136,6 +136,132 @@ With current volumes far exceeding breakeven (17,860 vs 76,800 units), the focus
     ]
   },
   
+  // PROFITABILITY & COST OPTIMIZATION - FreshRoute
+  {
+    id: "freshroute-profitability",
+    title: "FreshRoute Logistics — Route Profitability Audit",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `FreshRoute Logistics, based in Lyon, France, operates a fleet of 500 refrigerated trucks. They transport perishable goods (pharmaceuticals and fresh food) for supermarket chains and hospital networks across France and the Benelux region. The company has a reputation for 99% on-time reliability.
+
+FreshRoute's revenue has grown 10% YoY due to high demand for cold-chain transport. However, the Board is alarmed because Net Profit Margin has collapsed from 8% to 1.5% in just 12 months.
+
+The COO blames rising diesel prices and driver wage inflation. The CFO, however, notes that competitors facing the same macro costs have maintained margins of ~6%.
+
+They have hired you to audit their route profitability. They suspect the issue lies in "Operational Efficiency"—specifically, how effectively they utilize the fleet.`,
+    question: "Identify the root cause of the margin collapse and propose specific measures to restore the 8% margin target.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What drives profit in trucking?\nBrainstorm the cost and revenue drivers for a logistics firm.\nKey Concept to explore: \"Utilization\" (is the truck full?) and \"Empty Miles\" (is the truck driving without paying cargo?).",
+        hints: [
+          "Consider revenue drivers: price per km, surcharges, ancillary fees",
+          "Consider cost drivers: fuel, driver wages, tolls, maintenance",
+          "Think about the 'Empty Leg' problem - if a truck drives 500km to deliver but returns 500km empty, revenue must cover 1,000km of costs"
+        ],
+        answer: `Revenue Drivers:
+- Price per km
+- Surcharges (fuel/weekend)
+- Ancillary fees (loading/unloading)
+
+Cost Drivers:
+- Variable: Fuel (highest), Driver Wages (hourly/per km), Tolls, Tires/Maintenance
+- Fixed: Truck lease/depreciation, Insurance, HQ Staff
+
+Efficiency Metric: The "Empty Leg" problem. If a truck drives 500km to deliver goods but returns 500km empty, the revenue must cover 1,000km of costs.
+
+The drop in margin suggests FreshRoute is driving too many empty kilometers. While competitors face the same fuel and wage inflation, they may have better backhaul rates (finding paying cargo for return trips).`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which route type is destroying value?\nUse Exhibit A to calculate the Profit per Round-Trip for the two main route categories.\n\nNote:\n• Trucks must return to the depot\n• Sometimes they find a \"Backhaul\" (paying cargo for the return trip)\n• Sometimes they return \"Empty\" (earning €0 but still incurring costs)",
+        hints: [
+          "Calculate the economics of a Full Round Cycle (Outbound + Return)",
+          "Weighted Return Revenue = (Revenue × Success Rate) + (€0 × Empty Rate)",
+          "Weighted Return Cost = (Cost Loaded × Success Rate) + (Cost Empty × Empty Rate)",
+          "Compare total round-trip profit for each route type"
+        ],
+        answer: `Route Type A: "Regional" (Short-Haul)
+
+Outbound Profit: €600 (Rev) - €450 (Cost) = €150
+
+Return Trip (Weighted):
+- Scenario 1 (90% - Loaded): Profit = €600 - €450 = €150
+- Scenario 2 (10% - Empty): Profit = €0 - €300 = -€300 (Loss)
+- Avg Return Profit: (150 × 0.90) + (-300 × 0.10) = 135 - 30 = €105
+
+Total Round-Trip Profit: €150 (Out) + €105 (Return) = €255 per trip
+Margin: High positive contribution
+
+---
+
+Route Type B: "Long-Haul" (Cross-Country)
+
+Outbound Profit: €1,800 (Rev) - €1,400 (Cost) = €400
+
+Return Trip (Weighted):
+- Scenario 1 (40% - Loaded): Profit = €1,800 - €1,400 = €400
+- Scenario 2 (60% - Empty): Profit = €0 - €1,000 = -€1,000 (Huge Loss)
+- Avg Return Profit: (400 × 0.40) + (-1,000 × 0.60) = 160 - 600 = -€440
+
+Total Round-Trip Profit: €400 (Out) + (-€440 Return) = -€40 per trip
+
+---
+
+Conclusion:
+FreshRoute is losing money on every Long-Haul trip (-€40) because the high outbound revenue (€1,800) cannot subsidize the 60% of the time the truck returns empty. The Short-Haul routes are subsidizing the Long-Haul fleet.`,
+        exhibitImage: "freshroute-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — How do we fix the bleeding?\nBased on Q2, recommend operational or commercial changes.\nConsider trade-offs: Should we raise prices, drop routes, or change operational scheduling?",
+        hints: [
+          "Consider immediate actions vs. strategic shifts",
+          "Think about pricing, operational changes, and technology solutions",
+          "Evaluate the trade-offs of each recommendation"
+        ],
+        answer: `Immediate Action: Stop or Reprice Long-Haul
+
+Option 1 (Pricing): Raise Long-Haul prices by ~20% to cover the empty leg risk.
+- Pros: Maintains volume if customers accept
+- Cons: May lose price-sensitive customers to competitors
+
+Option 2 (Operational - "Triangulation"): Don't come straight back. Find a load from Destination B to City C, then City C to Home.
+- Pros: Utilizes truck capacity, turns empty miles into revenue
+- Cons: Requires coordination, may increase delivery time
+
+Strategic Shift: Focus sales efforts on routes where Backhauls are guaranteed (Regional).
+- Shift fleet allocation from Long-Haul to Regional
+- Regional routes generate €255 profit vs. -€40 loss
+- Target: Reduce Long-Haul from 800 to 400 trips/month
+
+Digital Platform: Invest in a "freight matching" digital marketplace to find spot-market loads for empty return trucks.
+- Even discounted loads (€500 instead of €1,800) would be better than empty
+- At €500 revenue: €500 - €1,400 = -€900 loss vs. -€1,000 empty
+- Over time, improve backhaul success rate from 40% to 60%+
+
+Implementation Priority:
+1. Immediately reprice Long-Haul routes (+15-20%)
+2. Launch triangulation program for top 10 Long-Haul routes
+3. Build/buy freight matching platform (6-month project)
+4. Reallocate fleet capacity toward Regional routes`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The margin collapse is driven by the "Empty Leg" problem on Long-Haul routes. While outbound trips generate €400 profit, the 60% empty return rate creates -€440 average return loss, resulting in -€40 per round trip.
+
+Regional routes with 90% backhaul success generate €255 profit per round trip. The solution requires repricing Long-Haul routes, implementing triangulation (multi-stop returns), and investing in freight matching technology to improve backhaul rates.
+
+The key insight is that high outbound revenue can mask unprofitable routes when return economics are ignored.`,
+    keyFrameworks: [
+      "Route Profitability Analysis",
+      "Utilization & Empty Miles",
+      "Weighted Average Economics",
+      "Operational Efficiency",
+      "Pricing Strategy"
+    ]
+  },
+  
   // MARKET ENTRY
   {
     id: "aurum-market-entry",
