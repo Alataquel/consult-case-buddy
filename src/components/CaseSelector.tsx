@@ -31,8 +31,8 @@ const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
   }));
 
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
+    <div className="h-full flex flex-col space-y-6">
+      <div className="text-center space-y-3">
         <h2 className="text-3xl font-bold text-foreground">Choose a Problem Type</h2>
         <p className="text-description-gray text-lg max-w-2xl mx-auto">
           Select a case type to practice and develop your consulting skills
@@ -42,26 +42,26 @@ const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
       {/* User Statistics */}
       <UserStatistics />
 
-      <div className="max-w-4xl mx-auto">
-        <Card className="shadow-elegant border-0">
-          <CardHeader className="text-center pb-6">
+      <div className="flex-1 w-full">
+        <Card className="shadow-elegant border-0 h-full">
+          <CardHeader className="text-center pb-4">
             <CardTitle className="text-xl font-semibold text-primary">Case Problem Types</CardTitle>
             <CardDescription className="text-description-gray">
               Practice with real consulting case scenarios organized by problem type
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid md:grid-cols-2 gap-3">
+          <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {problemTypes.map((type) => {
               const Icon = type.icon;
               return (
                 <Button
                   key={type.name}
                   variant="outline"
-                  className="w-full justify-start h-auto p-4 border-border hover:border-accent"
+                  className="w-full justify-start h-auto p-5 border-border hover:border-accent"
                   onClick={() => onSelectFirm(type.name)}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5 text-accent" />
+                    <Icon className="w-5 h-5 text-accent flex-shrink-0" />
                     <div className="text-left">
                       <div className="font-medium text-foreground">{type.name}</div>
                       <div className="text-sm text-description-gray">{type.description}</div>
