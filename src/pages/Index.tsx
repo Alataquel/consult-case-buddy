@@ -88,16 +88,16 @@ const Index = () => {
 
   // Header Component
   const Header = () => (
-    <header className="border-b border-border bg-background">
-      <div className="container mx-auto px-6 py-4">
+    <header className="border-b border-border/50 bg-background/80 backdrop-blur-lg sticky top-0 z-50">
+      <div className="w-full px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 hero-gradient rounded-lg flex items-center justify-center">
-              <Brain className="w-6 h-6 text-white" />
+            <div className="w-11 h-11 hero-gradient rounded-xl flex items-center justify-center shadow-elegant">
+              <Brain className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">Case Study Buddy</h1>
-              <p className="text-sm text-description-gray">AI-powered case interview practice</p>
+              <h1 className="text-lg font-bold text-foreground tracking-tight">Case Study Buddy</h1>
+              <p className="text-xs text-description-gray">AI-powered interview prep</p>
             </div>
           </div>
         </div>
