@@ -107,9 +107,9 @@ const Index = () => {
 
   if (currentState === 'selection') {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-8">
+        <div className="flex-1 w-full px-6 py-8">
           <CaseSelector onSelectFirm={handleSelectFirm} />
         </div>
       </div>
