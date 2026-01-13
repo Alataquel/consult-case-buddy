@@ -65,8 +65,7 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
             Back to Cases
           </Button>
           
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-            <div className="flex-1">
+          <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2 mb-3">
                 <Badge className="bg-white/80 text-primary border-0 shadow-sm">
                   <Building className="w-3 h-3 mr-1" />
@@ -95,18 +94,7 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
                 </div>
               </div>
             </div>
-            
-            <Button 
-              onClick={onStartCase} 
-              size="lg" 
-              variant="hero"
-              className="px-8 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
-            >
-              <Sparkles className="w-4 h-4 mr-2 group-hover:animate-pulse" />
-              Start Practice
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
+              
         </div>
       </div>
 
