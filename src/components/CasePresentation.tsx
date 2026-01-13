@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building, ArrowRight, Lightbulb } from "lucide-react";
+import { Building, ArrowRight, Lightbulb, ArrowLeft, FileText, HelpCircle, Image, BookOpen, Clock, Target, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 
 interface CaseQuestion {
   number: number;
@@ -40,155 +40,255 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
     }));
   };
 
-  const difficultyColors = {
-    Beginner: "bg-green-100 text-green-800",
-    Intermediate: "bg-yellow-100 text-yellow-800", 
-    Advanced: "bg-red-100 text-red-800"
+  const difficultyConfig = {
+    Beginner: { color: "bg-green-100 text-green-700 border-green-200", icon: "🟢" },
+    Intermediate: { color: "bg-amber-100 text-amber-700 border-amber-200", icon: "🟡" }, 
+    Advanced: { color: "bg-red-100 text-red-700 border-red-200", icon: "🔴" }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={onGoBack} className="text-description-gray hover:text-foreground">
-          ← Back to Selection
-        </Button>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="font-medium">
-            <Building className="w-3 h-3 mr-1" />
-            {caseData.firm}
-          </Badge>
-          <Badge variant="outline" className="font-medium">
-            {caseData.type}
-          </Badge>
-        </div>
-      </div>
+  const estimatedTime = caseData.questions ? caseData.questions.length * 12 : 15;
 
-      {/* Case Details */}
-      <Card className="shadow-elegant border-0">
-        <CardHeader className="space-y-4">
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
-              <CardTitle className="text-2xl font-bold text-foreground">
-                {caseData.title}
-              </CardTitle>
-              <div className="flex items-center gap-4">
-                <Badge className={difficultyColors[caseData.difficulty]}>
-                  {caseData.difficulty}
+  return (
+    <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
+      {/* Hero Header */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 p-8">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-56 h-56 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+        
+        <div className="relative z-10">
+          <Button 
+            variant="ghost" 
+            onClick={onGoBack} 
+            className="text-description-gray hover:text-foreground hover:bg-white/50 mb-6 -ml-2"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Cases
+          </Button>
+          
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <Badge className="bg-white/80 text-primary border-0 shadow-sm">
+                  <Building className="w-3 h-3 mr-1" />
+                  {caseData.firm}
+                </Badge>
+                <Badge variant="outline" className="bg-white/50 border-white/80">
+                  {caseData.type}
                 </Badge>
               </div>
-            </div>
-          </div>
-        </CardHeader>
-        
-        <CardContent className="space-y-6">
-          {/* Background */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-foreground">Case Background</h3>
-            <div className="bg-light-blue p-4 rounded-lg border-l-4 border-accent">
-              <p className="text-foreground leading-relaxed">{caseData.background}</p>
-            </div>
-          </div>
-
-          {/* Questions */}
-          {caseData.questions && caseData.questions.length > 0 ? (
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-foreground">Case Questions</h3>
-              <div className="space-y-4">
-                {caseData.questions.map((q) => (
-                  <div key={q.number}>
-                    <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
-                      <p className="text-sm font-bold text-accent mb-2">Question {q.number}</p>
-                      <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">{q.question}</p>
-                      {q.hints && q.hints.length > 0 && (
-                        <div className="mt-3">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => toggleHints(q.number)}
-                            className="text-xs text-description-gray hover:text-foreground"
-                          >
-                            <Lightbulb className="w-3 h-3 mr-1" />
-                            {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
-                          </Button>
-                          {visibleHints[q.number] && (
-                            <div className="mt-2 pt-2 border-t border-border">
-                              <ul className="text-xs text-description-gray space-y-1">
-                                {q.hints.map((hint, idx) => (
-                                  <li key={idx}>• {hint}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Question-specific exhibit */}
-                    {q.exhibitImage && (
-                      <div className="mt-3 bg-muted p-4 rounded-lg">
-                        <p className="text-sm font-semibold text-foreground mb-2">Exhibit for Question {q.number}:</p>
-                        <img 
-                          src={`/src/assets/${q.exhibitImage}.png`}
-                          alt={`Exhibit for question ${q.number}`}
-                          className="w-full h-auto rounded border border-border"
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
+              
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                {caseData.title}
+              </h1>
+              
+              <div className="flex flex-wrap items-center gap-4 text-sm">
+                <Badge className={`${difficultyConfig[caseData.difficulty].color} border px-3 py-1`}>
+                  {difficultyConfig[caseData.difficulty].icon} {caseData.difficulty}
+                </Badge>
+                <div className="flex items-center gap-1.5 text-description-gray bg-white/60 px-3 py-1 rounded-full">
+                  <Clock className="w-4 h-4" />
+                  <span>~{estimatedTime} min</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-description-gray bg-white/60 px-3 py-1 rounded-full">
+                  <HelpCircle className="w-4 h-4" />
+                  <span>{caseData.questions?.length || 1} questions</span>
+                </div>
               </div>
             </div>
-          ) : (
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-foreground">Your Challenge</h3>
-              <div className="bg-secondary p-4 rounded-lg border-l-4 border-primary">
-                <p className="text-foreground font-medium leading-relaxed">{caseData.question}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Case Exhibit */}
-          {caseData.exhibitImage && (
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-foreground">Case Exhibit</h3>
-              <div className="bg-muted p-4 rounded-lg">
-                <img 
-                  src={`/src/assets/${caseData.exhibitImage}.png`}
-                  alt="Case exhibit"
-                  className="w-full h-auto rounded border border-border"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Instructions */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-foreground">Instructions</h3>
-            <div className="bg-muted p-4 rounded-lg">
-              <ul className="space-y-2 text-description-gray">
-                <li>• Take your time to structure your approach before diving into details</li>
-                <li>• Think out loud - explain your reasoning as you work through the case</li>
-                <li>• Make realistic assumptions and state them clearly</li>
-                <li>• Synthesize your findings into actionable recommendations</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Action Button */}
-          <div className="pt-4 text-center">
+            
             <Button 
               onClick={onStartCase} 
               size="lg" 
               variant="hero"
-              className="px-8"
+              className="px-8 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
             >
-              Start Case Practice
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <Sparkles className="w-4 h-4 mr-2 group-hover:animate-pulse" />
+              Start Practice
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+
+      {/* Content Grid */}
+      <div className="grid gap-6">
+        {/* Background Section */}
+        <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-stretch">
+            <div className="w-1.5 bg-gradient-to-b from-accent to-accent/50" />
+            <CardContent className="flex-1 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-accent" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Case Background</h3>
+              </div>
+              <p className="text-foreground leading-relaxed text-base">{caseData.background}</p>
+            </CardContent>
+          </div>
+        </Card>
+
+        {/* Questions Section */}
+        {caseData.questions && caseData.questions.length > 0 && (
+          <Card className="border-0 shadow-lg overflow-hidden">
+            <div className="flex items-stretch">
+              <div className="w-1.5 bg-gradient-to-b from-primary to-primary/50" />
+              <CardContent className="flex-1 p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <HelpCircle className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Case Questions</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  {caseData.questions.map((q, index) => (
+                    <div 
+                      key={q.number}
+                      className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-xl p-5 border border-border/50 hover:border-primary/30 transition-colors duration-300 animate-fade-in"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-sm font-bold text-primary">
+                          {q.number}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-foreground font-medium leading-relaxed whitespace-pre-line">
+                            {q.question}
+                          </p>
+                          
+                          {q.hints && q.hints.length > 0 && (
+                            <div className="mt-4">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => toggleHints(q.number)}
+                                className="text-sm text-accent hover:text-accent hover:bg-accent/10 -ml-2"
+                              >
+                                <Lightbulb className="w-4 h-4 mr-2" />
+                                {visibleHints[q.number] ? "Hide Hints" : "Show Hints"}
+                                {visibleHints[q.number] ? (
+                                  <ChevronUp className="w-4 h-4 ml-1" />
+                                ) : (
+                                  <ChevronDown className="w-4 h-4 ml-1" />
+                                )}
+                              </Button>
+                              
+                              {visibleHints[q.number] && (
+                                <div className="mt-3 p-4 bg-accent/5 rounded-lg border border-accent/20 animate-fade-in">
+                                  <ul className="space-y-2">
+                                    {q.hints.map((hint, idx) => (
+                                      <li key={idx} className="flex items-start gap-2 text-sm text-description-gray">
+                                        <span className="text-accent mt-0.5">💡</span>
+                                        {hint}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Question-specific exhibit */}
+                      {q.exhibitImage && (
+                        <div className="mt-4 ml-12 p-4 bg-white rounded-lg border border-border/50">
+                          <p className="text-sm font-medium text-description-gray mb-3 flex items-center gap-2">
+                            <Image className="w-4 h-4" />
+                            Exhibit for Question {q.number}
+                          </p>
+                          <img 
+                            src={`/src/assets/${q.exhibitImage}.png`}
+                            alt={`Exhibit for question ${q.number}`}
+                            className="w-full h-auto rounded-lg border border-border shadow-sm"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </div>
+          </Card>
+        )}
+
+        {/* Case Exhibit */}
+        {caseData.exhibitImage && (
+          <Card className="border-0 shadow-lg overflow-hidden">
+            <div className="flex items-stretch">
+              <div className="w-1.5 bg-gradient-to-b from-purple-500 to-purple-300" />
+              <CardContent className="flex-1 p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                    <Image className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Case Exhibit</h3>
+                </div>
+                <div className="bg-white p-4 rounded-xl border border-border/50">
+                  <img 
+                    src={`/src/assets/${caseData.exhibitImage}.png`}
+                    alt="Case exhibit"
+                    className="w-full h-auto rounded-lg shadow-sm"
+                  />
+                </div>
+              </CardContent>
+            </div>
+          </Card>
+        )}
+
+        {/* Instructions */}
+        <Card className="border-0 shadow-lg overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
+          <div className="flex items-stretch">
+            <div className="w-1.5 bg-gradient-to-b from-emerald-500 to-emerald-300" />
+            <CardContent className="flex-1 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Tips for Success</h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                {[
+                  { icon: Target, text: "Structure your approach before diving into details" },
+                  { icon: "💬", text: "Think out loud - explain your reasoning clearly" },
+                  { icon: "📝", text: "Make realistic assumptions and state them" },
+                  { icon: "🎯", text: "Synthesize findings into actionable recommendations" }
+                ].map((tip, idx) => (
+                  <div 
+                    key={idx}
+                    className="flex items-start gap-3 p-3 bg-white/60 rounded-lg"
+                  >
+                    {typeof tip.icon === 'string' ? (
+                      <span className="text-lg">{tip.icon}</span>
+                    ) : (
+                      <tip.icon className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    )}
+                    <span className="text-sm text-foreground">{tip.text}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </div>
+        </Card>
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="text-center pb-8">
+        <Button 
+          onClick={onStartCase} 
+          size="lg" 
+          variant="hero"
+          className="px-12 py-6 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+        >
+          <Sparkles className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+          Begin Case Practice
+          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+        </Button>
+        <p className="text-sm text-description-gray mt-3">
+          Your answers will be saved and reviewed at the end
+        </p>
+      </div>
     </div>
   );
 };
