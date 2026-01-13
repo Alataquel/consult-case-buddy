@@ -6,6 +6,7 @@ export interface CaseQuestion {
   hints?: string[];
   answer: string;
   exhibitImage?: string;
+  answerImage?: string;
 }
 
 export interface Case {
@@ -805,7 +806,8 @@ Model A wins because:
 - Higher contribution margin (€100 vs €20 per unit)
 - Premium pricing power preserved
 - The 25% partner royalty + higher local COGS erode Model B's scale advantage`,
-        exhibitImage: "datasafe-exhibit"
+        exhibitImage: "datasafe-exhibit",
+        answerImage: "datasafe-answer-exhibit"
       },
       {
         number: 3,

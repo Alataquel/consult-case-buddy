@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, User, Lightbulb, RotateCcw, Home } from "lucide-react";
+import { exhibitImages } from "./CasePractice";
 
 interface CaseQuestion {
   number: number;
@@ -10,6 +11,7 @@ interface CaseQuestion {
   hints?: string[];
   answer: string;
   exhibitImage?: string;
+  answerImage?: string;
 }
 
 interface CaseFeedbackProps {
@@ -111,6 +113,15 @@ const CaseFeedback = ({
                       <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
                         {q.answer}
                       </p>
+                      {q.answerImage && exhibitImages[q.answerImage] && (
+                        <div className="mt-4">
+                          <img 
+                            src={exhibitImages[q.answerImage]} 
+                            alt={`Answer exhibit for Question ${q.number}`}
+                            className="w-full rounded-lg border border-green-200"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
