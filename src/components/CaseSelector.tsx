@@ -50,21 +50,23 @@ const CaseSelector = ({ onSelectFirm }: CaseSelectorProps) => {
               Practice with real consulting case scenarios organized by problem type
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
             {problemTypes.map((type) => {
               const Icon = type.icon;
               return (
                 <Button
                   key={type.name}
                   variant="outline"
-                  className="w-full justify-start h-auto p-5 border-border hover:border-accent"
+                  className="w-full justify-start h-auto p-8 border-border hover:border-accent hover:shadow-lg transition-all duration-200"
                   onClick={() => onSelectFirm(type.name)}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5 text-accent flex-shrink-0" />
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 text-accent" />
+                    </div>
                     <div className="text-left">
-                      <div className="font-medium text-foreground">{type.name}</div>
-                      <div className="text-sm text-description-gray">{type.description}</div>
+                      <div className="font-semibold text-lg text-foreground">{type.name}</div>
+                      <div className="text-sm text-description-gray mt-1">{type.description}</div>
                     </div>
                   </div>
                 </Button>
