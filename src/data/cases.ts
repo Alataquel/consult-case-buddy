@@ -872,6 +872,164 @@ The key insight is that volume doesn't always compensate for margin erosion—a 
     ]
   },
 
+  // MARKET ENTRY - VedaHealth
+  {
+    id: "vedahealth-market-entry",
+    title: "VedaHealth Indonesia Market Entry",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `VedaHealth is a Singapore-based HealthTech firm that has developed an AI-powered diagnostic tool for primary care clinics. Their software analyzes blood samples and patient vitals to predict chronic respiratory conditions with 94% accuracy. In Singapore, they operate on a high-subscription "SaaS" model with premium private hospitals.
+
+VedaHealth wants to enter Indonesia, a country with 275 million people spread across thousands of islands. Indonesia's healthcare system is currently undergoing a massive digital transformation, but rural access remains a challenge.
+
+The CEO is evaluating two distinct entry strategies:
+
+Option A: Private Hospital Partnership (B2B). Partner with the top three private hospital groups in Jakarta and Surabaya. This targets the growing middle class who pay for premium care.
+
+Option B: National Rural Outreach (B2G). Work with the Indonesian Ministry of Health to deploy a "lite" version of the app in 5,000 Puskesmas (government-run community health centers) across rural provinces.`,
+    question: "Evaluate which strategy—Private B2B or Public B2G—is more financially and strategically viable for VedaHealth's first two years in Indonesia.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What are the entry barriers in a fragmented market?\nDiscuss the challenges of entering a market like Indonesia (Geography, Regulation, Infrastructure).\nCompare the \"Sales Cycle\" of a private hospital group versus a national government ministry.",
+        hints: [
+          "Consider infrastructure challenges: internet connectivity, power reliability across islands",
+          "Think about regulatory requirements for medical devices/software in each model",
+          "Evaluate sales cycle length and decision-making complexity",
+          "Consider payment reliability and political risk for government contracts"
+        ],
+        answer: `Option A (Private): Shorter sales cycle, higher tech readiness (better internet in Jakarta), lower support needs. However, the market size is capped.
+
+Option B (Public): Massive scale and social impact. Potential for a "monopoly" position in rural data. However, the sales cycle is long (politics), infrastructure is poor (offline mode needed), and "payment risk" from government budgets is higher.
+
+Key Entry Barriers by Model:
+
+Private B2B:
+- Sales Cycle: 3-6 months (faster decision-making, fewer stakeholders)
+- Tech Readiness: High (reliable internet, modern IT systems)
+- Support Needs: Low (trained staff, existing IT support)
+- Market Cap: Limited to ~400 premium sites in major cities
+- Payment Risk: Low (commercial contracts with private entities)
+
+Public B2G:
+- Sales Cycle: 12-24 months (government procurement, political approvals)
+- Tech Readiness: Variable (need offline mode for rural areas)
+- Support Needs: High (extensive training for community health workers)
+- Market Scale: Massive (5,000+ Puskesmas across archipelago)
+- Payment Risk: Medium-High (government budget cycles, political changes)
+
+Infrastructure Challenge:
+Indonesia's 17,000+ islands create logistical complexity. Option B requires field staff across multiple provinces, driving up fixed costs significantly.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which path offers better Year 2 profitability?\nUse Exhibit A to calculate the Annual Operating Profit for both options.\n\nNote: Assume all implementation costs (CapEx) are amortized/expensed within the year for simplicity.",
+        hints: [
+          "Contribution Margin: (Fee) - (Implementation) - (Training)",
+          "Option B has much lower margins per site but 12.5x the volume",
+          "Option B has double the fixed overhead due to the need for more field staff across multiple islands",
+          "Compare operating margins as a percentage of revenue"
+        ],
+        answer: `Option A: Private B2B
+
+Contribution per Site: €5,000 - (€1,000 + €500) = €3,500
+Total Contribution: 400 × €3,500 = €1,400,000
+Operating Profit: €1,400,000 - €600,000 = €800,000
+Total Revenue: 400 × €5,000 = €2,000,000
+Operating Margin: €800,000 / €2,000,000 = 40%
+
+---
+
+Option B: Public B2G
+
+Contribution per Site: €800 - (€300 + €100) = €400
+Total Contribution: 5,000 × €400 = €2,000,000
+Operating Profit: €2,000,000 - €1,200,000 = €800,000
+Total Revenue: 5,000 × €800 = €4,000,000
+Operating Margin: €800,000 / €4,000,000 = 20%
+
+---
+
+Analysis:
+
+Both options yield the exact same absolute profit (€800k). However, Option A is much more efficient (40% margin) and less complex to manage (400 sites vs. 5,000).
+
+The volume advantage of Option B (12.5x more sites) is offset by:
+1. Much lower contribution per site (€400 vs €3,500)
+2. Double the fixed overhead (€1.2M vs €600K)
+3. Significantly more operational complexity`,
+        exhibitImage: "vedahealth-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Go-to-Market Choice\nWhich path should VedaHealth take?\nConsider the \"Brand Halo\" effect: Does winning a government contract help or hurt private sales?\nWhat are the long-term data advantages of each model?",
+        hints: [
+          "Consider operational complexity of managing 5,000 rural sites as a Singaporean startup",
+          "Think about strategic sequencing: which option builds better foundation for the other?",
+          "Evaluate the data value proposition for each model",
+          "Consider competitive dynamics and first-mover advantages"
+        ],
+        answer: `Decision: Option A (Private B2B)
+
+Justification:
+
+1. Financial Efficiency: While both yield identical absolute profit (€800k), Option A achieves this with 40% margin vs 20%. Managing 400 sites is dramatically simpler than 5,000 rural locations across an archipelago.
+
+2. Operational Fit: A Singaporean startup expanding to Indonesia in Year 2 should not attempt to manage 5,000 rural sites. The logistical, training, and support burden would likely overstretch resources.
+
+3. Strategic Sequencing: Start with Private sector to:
+   - Prove the AI works in the Indonesian context
+   - Build a "Premium Brand" reputation
+   - Demonstrate clinical outcomes with proper data
+   - Use profits and success stories to negotiate better government terms later
+
+---
+
+Brand Halo Effect:
+
+Private → Public: Strong positive halo. "VedaHealth is trusted by Jakarta's best hospitals" strengthens government credibility.
+
+Public → Private: Risky. Being associated with "basic rural healthcare" could position VedaHealth as low-end, making premium hospital sales harder.
+
+---
+
+Data Advantages:
+
+Option A: Higher quality data from well-documented private patients, better for AI model refinement.
+
+Option B: Massive population-level data, valuable for epidemiological insights but lower data quality from resource-constrained settings.
+
+---
+
+Risk Mitigation:
+
+Competition might move into the Public sector first and "lock out" VedaHealth from the rural data pool.
+
+Mitigation: Sign a "Memorandum of Understanding" (MoU) with the government now for a small pilot (50 sites) while focusing commercial effort on private hospitals. This secures future optionality without current operational burden.
+
+---
+
+Implementation Timeline:
+- Year 1-2: Focus 90% on Private B2B (400 sites)
+- Year 2: Run 50-site government pilot alongside
+- Year 3-4: Expand government contract with proven track record and optimized "lite" version`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The quantitative analysis reveals both options yield identical Year 2 profit (€800k), but Option A (Private B2B) achieves this with 40% margin vs 20%, requiring only 400 sites instead of 5,000.
+
+The recommendation is to pursue Private B2B to prove the AI in Indonesian context, build premium brand credibility, and use success to negotiate stronger government terms later. A small government pilot (50 sites) can secure future optionality without current operational burden.
+
+The key insight is that equal profit at dramatically different margins and complexity levels makes the higher-margin option clearly superior for a startup's first international expansion.`,
+    keyFrameworks: [
+      "Market Entry Strategy (B2B vs B2G)",
+      "Unit Economics Comparison",
+      "Operating Margin Analysis",
+      "Strategic Sequencing",
+      "Brand Positioning Trade-offs"
+    ]
+  },
+
   // GROWTH STRATEGY
   {
     id: "novaride-growth",

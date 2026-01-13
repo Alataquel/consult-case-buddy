@@ -22,6 +22,7 @@ import urbanbrewBcgExhibit from "@/assets/urbanbrew-bcg-exhibit.png";
 import datasafeExhibit from "@/assets/datasafe-exhibit.png";
 import datasafeDiagnosticExhibit from "@/assets/datasafe-diagnostic-exhibit.png";
 import datasafeAnswerExhibit from "@/assets/datasafe-answer-exhibit.png";
+import vedahealthExhibit from "@/assets/vedahealth-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -40,6 +41,7 @@ const exhibitImages: Record<string, string> = {
   "datasafe-exhibit": datasafeExhibit,
   "datasafe-diagnostic-exhibit": datasafeDiagnosticExhibit,
   "datasafe-answer-exhibit": datasafeAnswerExhibit,
+  "vedahealth-exhibit": vedahealthExhibit,
 };
 
 export { exhibitImages };
