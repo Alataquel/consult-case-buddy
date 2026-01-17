@@ -1808,6 +1808,227 @@ The recommendation is to pursue EcoWash Pro and use the £10M in saved capital t
     ]
   },
 
+  // GROWTH STRATEGY - SkillStream
+  {
+    id: "skillstream-growth",
+    title: "SkillStream Growth Strategy",
+    firm: "Growth Strategy",
+    type: "Growth Strategy",
+    background: `SkillStream, based in Berlin, is a leading online platform for high-end professional certifications (AI, Data Science, and FinTech). They have a library of 500+ courses and a user base of 5 million "Retail" (B2C) learners. Currently, they sell courses individually at an average price of €400.
+
+It is 2026, and the cost of acquiring a single student (CAC) has risen by 40% due to heavy competition from LinkedIn Learning and Coursera. SkillStream's revenue growth has flattened at €200M.
+
+To hit their target of €350M in revenue by Year 2, the CEO is considering two "New Engine" strategies:
+
+"SkillPass" (Subscription Pivot): Moving from selling individual courses to a "Netflix-style" subscription for individuals.
+
+"SkillStream for Business" (B2B Pivot): Selling bulk licenses to corporations (HR departments) to use the platform for internal employee upskilling.`,
+    question: "Evaluate which strategy offers the most \"Capital Efficient\" path to adding €150M in incremental annual revenue.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Strategic Positioning\nHow does moving from a \"Transactional\" to a \"Subscription\" model change the company's focus?\nWhat are the risks of \"Cannibalization\" if SkillStream launches a B2B platform while still selling to individuals?",
+        hints: [
+          "Think about what metrics matter in transactional vs subscription businesses",
+          "Consider the behavioral difference between acquiring a customer vs retaining one",
+          "Evaluate which existing customers might switch to the cheaper subscription",
+          "Think about pricing conflicts between B2C and B2B channels"
+        ],
+        answer: `Shift in Focus: Transactional vs Subscription
+
+Transactional Model (Current State):
+- Focus: Marketing/Sales (getting the next click/purchase)
+- Key Metrics: Conversion rate, CAC, average order value
+- Success = More new customers buying more courses
+- Revenue: Lumpy, dependent on constant acquisition
+
+Subscription Model (SkillPass):
+- Focus: Engagement/Retention (keeping users active so they don't churn)
+- Key Metrics: Monthly Active Users, churn rate, engagement time
+- Success = Users staying subscribed month after month
+- Revenue: Predictable, recurring, compounds over time
+
+Operational Implications:
+- Product team shifts from "course launches" to "engagement features"
+- Marketing shifts from "acquisition campaigns" to "retention programs"
+- Success metrics change from "new sign-ups" to "monthly active usage"
+
+---
+
+Cannibalization Risks:
+
+Option 1 (Subscription) - HIGH Cannibalization Risk:
+- Power users currently buying 3-4 courses/year at €400 each = €1,200-1,600
+- Subscription at €30/month = €360/year
+- These high-value users will pay 70-80% LESS than before
+- Risk: If subscription is "too good a deal," existing revenue erodes
+
+Option 2 (B2B) - LOW Cannibalization Risk:
+- Selling to HR departments (new buyer persona)
+- Corporate licenses don't compete with individual purchases
+- Employees getting free access through work may actually become evangelists who recommend courses to friends/family
+- "Blue Ocean" strategy—new market, not competing with existing
+
+Key Insight: B2B is additive; Subscription is partially substitutional.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Sizing the Revenue Growth\nUse Exhibit A to calculate the Incremental Annual Revenue for both options.\n\nNote: For Option A, you must subtract the revenue \"lost\" from people who stop buying individual courses to switch to the subscription.",
+        hints: [
+          "Option 1 Gross Revenue: Subscribers × Price × 12 months",
+          "Option 1 Net Growth: Gross Subscription Revenue - Cannibalized Revenue",
+          "Option 2 Revenue: Companies × Employees × Price",
+          "Compare both against the €150M incremental target"
+        ],
+        answer: `Option 1: SkillPass (Individual Subscription)
+
+Gross Subscription Revenue:
+600,000 subscribers × €30/month × 12 months = €216,000,000
+
+Cannibalization Loss:
+100,000 users switch from buying courses
+Lost revenue: 100,000 × €400 = €40,000,000
+
+Net Incremental Revenue:
+€216,000,000 - €40,000,000 = €176,000,000
+
+Result: EXCEEDS the €150M target by €26M
+- Gross: €216M
+- Net (after cannibalization): €176M
+- Target achievement: 117%
+
+---
+
+Option 2: SkillStream for Business (B2B Enterprise)
+
+Total Seats Sold:
+1,000 companies × 1,500 employees = 1,500,000 seats
+
+Total Annual Revenue:
+1,500,000 seats × €120/employee/year = €180,000,000
+
+Cannibalization: €0 (new market, no overlap)
+
+Net Incremental Revenue: €180,000,000
+
+Result: EXCEEDS the €150M target by €30M
+- Gross: €180M
+- Net: €180M (no cannibalization)
+- Target achievement: 120%
+
+---
+
+Comparative Analysis:
+
+| Metric | Option 1 (Subscription) | Option 2 (B2B) |
+|--------|------------------------|----------------|
+| Gross Revenue | €216M | €180M |
+| Cannibalization | -€40M | €0 |
+| Net Incremental | €176M | €180M |
+| Target Achievement | 117% | 120% |
+| Impact on Existing Business | Negative (erodes €40M) | Neutral/Positive |
+
+Key Insight: While Option 1 has higher gross revenue, Option 2 has higher NET revenue and zero risk to the existing €200M business.`,
+        exhibitImage: "skillstream-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Implementation\nWhich path should SkillStream prioritize to reach the €350M total revenue goal?\nSuggest one way to \"Bundle\" these options to maximize value.",
+        hints: [
+          "Consider the risk profile of each option",
+          "Think about which option protects the existing €200M business",
+          "Evaluate 'Land and Expand' strategies",
+          "Consider how B2B data could inform a better B2C subscription later"
+        ],
+        answer: `Recommendation: Prioritize Option 2 (B2B Enterprise)
+
+---
+
+Why B2B First?
+
+1. Zero Cannibalization Risk:
+   - Protects the existing €200M retail business
+   - B2B is additive, not substitutional
+   - If B2B underperforms, fall back to stable B2C revenue
+
+2. Higher Net Revenue:
+   - €180M net vs €176M net
+   - No "leakage" from power users switching
+
+3. "Blue Ocean" Strategy:
+   - New market segment (HR/L&D departments)
+   - Different buyer persona (enterprise procurement)
+   - Less direct competition than consumer ed-tech
+
+4. Predictable Revenue:
+   - Enterprise contracts typically 1-3 years
+   - Lower churn than individual subscriptions
+   - Easier revenue forecasting
+
+5. Strategic Data Asset:
+   - 1.5M corporate learners generate valuable engagement data
+   - Identify which courses/topics have highest completion rates
+   - Use insights to improve B2C offering
+
+---
+
+A+ Bundling Strategy: "Land and Expand"
+
+Phase 1 (Year 1-2): B2B Foundation
+- Launch SkillStream for Business
+- Target 1,000 enterprise accounts
+- Generate €180M in new, protected revenue
+- Collect engagement data from 1.5M corporate users
+
+Phase 2 (Year 3): Premium Subscription Launch
+- Use B2B learner data to identify "power topics" and optimal course bundles
+- Launch "SkillPass Premium" at €50/month (not €30)
+- Target serious career-changers, not casual learners
+- Higher price point reduces cannibalization of €400 course buyers
+- Position as "curated learning path" not "all-you-can-eat"
+
+Phase 3 (Year 3+): B2B → B2C Conversion
+- Offer corporate learners "Alumni Access" when they leave their company
+- Convert B2B users to individual subscribers at discounted rate
+- Built-in lead generation for B2C subscription
+
+---
+
+Revenue Trajectory:
+
+| Year | Existing B2C | B2B Enterprise | Subscription | Total |
+|------|-------------|----------------|--------------|-------|
+| 1 | €200M | €90M (ramp) | €0 | €290M |
+| 2 | €200M | €180M | €0 | €380M |
+| 3 | €180M | €200M | €80M | €460M |
+
+By sequencing properly, SkillStream can exceed €350M while building multiple growth engines and minimizing cannibalization risk.
+
+---
+
+Risk Mitigation:
+
+- B2B Sales Cycle: Hire enterprise sales team 6 months before launch
+- Content Customization: Create corporate "learning paths" for popular skills
+- Platform Scalability: Ensure infrastructure can handle 1.5M+ concurrent users
+- Pricing Pressure: Include usage analytics in enterprise contracts to justify renewal pricing`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The quantitative analysis reveals both options exceed the €150M target: Option 1 (Subscription) delivers €176M net, while Option 2 (B2B) delivers €180M net. However, Option 2 achieves this with zero cannibalization risk, protecting the existing €200M business.
+
+The recommendation is to prioritize B2B Enterprise first, then use the data and cash flows to launch a refined "Premium" subscription in Year 3. This "Land and Expand" approach builds multiple revenue engines while minimizing risk.
+
+The key insight is that subscription models carry hidden cannibalization costs that erode the true incremental value. B2B is a "Blue Ocean" that adds revenue without subtracting from existing streams.`,
+    keyFrameworks: [
+      "Transactional vs Subscription Business Models",
+      "Cannibalization Analysis",
+      "Revenue Incrementality",
+      "Land and Expand Strategy",
+      "B2B vs B2C Go-to-Market"
+    ]
+  },
+
   // PRICING STRATEGY
   {
     id: "verdora-pricing",
