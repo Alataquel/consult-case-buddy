@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Building, ArrowRight, Lightbulb, ArrowLeft, FileText, HelpCircle, Image, BookOpen, Clock, Target, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
+import { exhibitImages } from "./CasePractice";
 
 interface CaseQuestion {
   number: number;
@@ -187,7 +188,7 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
                             Exhibit for Question {q.number}
                           </p>
                           <img 
-                            src={`/src/assets/${q.exhibitImage}.png`}
+                            src={exhibitImages[q.exhibitImage]}
                             alt={`Exhibit for question ${q.number}`}
                             className="w-full h-auto rounded-lg border border-border shadow-sm"
                           />
@@ -215,7 +216,7 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-border/50">
                   <img 
-                    src={`/src/assets/${caseData.exhibitImage}.png`}
+                    src={exhibitImages[caseData.exhibitImage]}
                     alt="Case exhibit"
                     className="w-full h-auto rounded-lg shadow-sm"
                   />
