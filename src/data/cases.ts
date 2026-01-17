@@ -806,8 +806,7 @@ Model A wins because:
 - Higher contribution margin (€100 vs €20 per unit)
 - Premium pricing power preserved
 - The 25% partner royalty + higher local COGS erode Model B's scale advantage`,
-        exhibitImage: "datasafe-exhibit",
-        answerImage: "datasafe-answer-exhibit"
+        answerImage: "datasafe-exhibit"
       },
       {
         number: 3,
