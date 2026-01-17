@@ -24,6 +24,7 @@ import datasafeDiagnosticExhibit from "@/assets/datasafe-diagnostic-exhibit.png"
 import datasafeAnswerExhibit from "@/assets/datasafe-answer-exhibit.png";
 import vedahealthExhibit from "@/assets/vedahealth-exhibit.png";
 import nordpayExhibit from "@/assets/nordpay-exhibit.png";
+import fitstreamExhibit from "@/assets/fitstream-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -44,6 +45,7 @@ const exhibitImages: Record<string, string> = {
   "datasafe-answer-exhibit": datasafeAnswerExhibit,
   "vedahealth-exhibit": vedahealthExhibit,
   "nordpay-exhibit": nordpayExhibit,
+  "fitstream-exhibit": fitstreamExhibit,
 };
 
 export { exhibitImages };
