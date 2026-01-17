@@ -30,7 +30,7 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
   const firmCases = cases.filter(c => c.type === firmName);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
+    <div className="w-full px-6 lg:px-12 space-y-8 animate-fade-in">
       {/* Header with gradient background */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/5 p-8">
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
