@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Image } from "lucide-react";
+import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Image, Award } from "lucide-react";
 import { exhibitImages } from "./CasePractice";
+import SelfAssessmentRubric from "./SelfAssessmentRubric";
 
 interface CaseQuestion {
   number: number;
@@ -21,6 +22,10 @@ interface CaseFeedbackProps {
   correctAnswers?: CaseQuestion[];
   nextTip: string;
   timeElapsed: number;
+  caseId: string;
+  caseTitle: string;
+  caseType: string;
+  onSubmitScore: (score: number) => void;
   onTryAnother: () => void;
   onGoHome: () => void;
 }
@@ -32,9 +37,15 @@ const CaseFeedback = ({
   correctAnswers,
   nextTip, 
   timeElapsed,
+  caseId,
+  caseTitle,
+  caseType,
+  onSubmitScore,
   onTryAnother, 
   onGoHome 
 }: CaseFeedbackProps) => {
+  const [hasSubmittedScore, setHasSubmittedScore] = useState(false);
+  const [finalScore, setFinalScore] = useState<number | null>(null);
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -65,6 +76,35 @@ const CaseFeedback = ({
   
   const userAnswers = parseUserAnswer();
 
+  const handleScoreSubmit = (score: number, ratings: Record<string, number>) => {
+    setFinalScore(score);
+    setHasSubmittedScore(true);
+    onSubmitScore(score);
+    // Scroll to show the result
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
+  const getScoreGrade = (score: number) => {
+    if (score >= 90) return "A+";
+    if (score >= 85) return "A";
+    if (score >= 80) return "A-";
+    if (score >= 75) return "B+";
+    if (score >= 70) return "B";
+    if (score >= 65) return "B-";
+    if (score >= 60) return "C+";
+    if (score >= 55) return "C";
+    if (score >= 50) return "C-";
+    return "D";
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "from-emerald-500 to-green-400";
+    if (score >= 60) return "from-amber-500 to-yellow-400";
+    return "from-red-500 to-orange-400";
+  };
+
   return (
     <div className="h-full flex flex-col space-y-8 animate-fade-in">
       {/* Hero Header - matching CasePractice style */}
@@ -80,13 +120,21 @@ const CaseFeedback = ({
                   <CheckCircle className="w-3 h-3 mr-1" />
                   Completed
                 </Badge>
+                {hasSubmittedScore && finalScore !== null && (
+                  <Badge className={`bg-gradient-to-r ${getScoreColor(finalScore)} text-white border-0 shadow-sm`}>
+                    <Award className="w-3 h-3 mr-1" />
+                    Score: {finalScore} ({getScoreGrade(finalScore)})
+                  </Badge>
+                )}
               </div>
               
               <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-                Answer Review
+                {hasSubmittedScore ? "Performance Review" : "Answer Review"}
               </h1>
               <p className="text-description-gray mt-2">
-                Compare your answer with the correct solution
+                {hasSubmittedScore 
+                  ? `Great job completing ${caseTitle}!` 
+                  : "Compare your answers, then rate your performance"}
               </p>
             </div>
             
@@ -97,6 +145,38 @@ const CaseFeedback = ({
           </div>
         </div>
       </div>
+
+      {/* Final Score Summary - Show after submission */}
+      {hasSubmittedScore && finalScore !== null && (
+        <Card className="border-0 shadow-lg overflow-hidden bg-gradient-to-br from-violet-50 to-purple-50 animate-fade-in">
+          <CardContent className="p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-6">
+                <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${getScoreColor(finalScore)} flex items-center justify-center shadow-lg`}>
+                  <span className="text-4xl font-bold text-white">{finalScore}</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground">Your Final Score</h2>
+                  <p className="text-description-gray">Based on your self-assessment</p>
+                  <Badge className="mt-2 text-lg px-4 py-1 bg-white/80 border-violet-200 text-violet-700">
+                    Grade: {getScoreGrade(finalScore)}
+                  </Badge>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <Button variant="outline" onClick={onGoHome} size="lg" className="px-6">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home
+                </Button>
+                <Button variant="hero" onClick={onTryAnother} size="lg" className="px-6 shadow-xl">
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Try Another
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Side-by-Side Comparison */}
       {correctAnswers && correctAnswers.length > 0 ? (
@@ -203,6 +283,11 @@ const CaseFeedback = ({
         </Card>
       )}
 
+      {/* Self-Assessment Rubric - Show before submission */}
+      {!hasSubmittedScore && (
+        <SelfAssessmentRubric onSubmitScore={handleScoreSubmit} />
+      )}
+
       {/* Next Steps Tip */}
       <Card className="border-0 shadow-lg overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
         <div className="flex items-stretch">
@@ -219,17 +304,19 @@ const CaseFeedback = ({
         </div>
       </Card>
 
-      {/* Action Buttons */}
-      <div className="flex justify-center gap-4 pb-8">
-        <Button variant="outline" onClick={onGoHome} size="lg" className="px-6 py-6">
-          <Home className="w-4 h-4 mr-2" />
-          Back to Home
-        </Button>
-        <Button variant="hero" onClick={onTryAnother} size="lg" className="px-8 py-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-          <RotateCcw className="w-4 h-4 mr-2" />
-          Try Another Case
-        </Button>
-      </div>
+      {/* Action Buttons - Show after submission */}
+      {hasSubmittedScore && (
+        <div className="flex justify-center gap-4 pb-8">
+          <Button variant="outline" onClick={onGoHome} size="lg" className="px-6 py-6">
+            <Home className="w-4 h-4 mr-2" />
+            Back to Home
+          </Button>
+          <Button variant="hero" onClick={onTryAnother} size="lg" className="px-8 py-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <RotateCcw className="w-4 h-4 mr-2" />
+            Try Another Case
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
