@@ -66,7 +66,7 @@ const CaseFeedback = ({
   const userAnswers = parseUserAnswer();
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="w-full px-6 lg:px-12 space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold text-foreground">Answer Review</h2>
