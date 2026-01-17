@@ -1356,6 +1356,233 @@ The recommended sequential approach (France first, leasing later) balances growt
     ]
   },
 
+  // GROWTH STRATEGY - FitStream
+  {
+    id: "fitstream-growth",
+    title: "FitStream Growth Strategy",
+    firm: "Growth Strategy",
+    type: "Growth Strategy",
+    background: `FitStream is a premium mobile app offering on-demand home workouts (Yoga, HIIT, and Pilates). Based in Stockholm, they have 1.2 million active subscribers paying €15/month. They are the #1 fitness app in the Nordics and Germany.
+
+Growth in the "B2C Home Fitness" market has peaked. Their Customer Acquisition Cost (CAC) has risen by 50% because the market is saturated with competitors like Peloton and Apple Fitness+. The Board of Directors has set a goal to increase annual revenue by €100M within the next 24 months.
+
+FitStream is considering two growth "bets":
+
+"FitGear" (Product Development): Developing and selling "Smart Resistance Bands" that sync with the app. This targets their existing users to increase their total spend.
+
+"FitWork" (Market Development): Entering the B2B market by selling "Corporate Wellness Packages" to large enterprises (1,000+ employees) as a subsidized employee benefit.`,
+    question: "Evaluate both strategies and determine which path is most likely to hit the €100M revenue growth target while maintaining a healthy profit margin.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Where does the growth come from?\nMap FitStream's options onto the Ansoff Matrix.\nWhat are the primary risks of a software company moving into physical hardware (Option 1) vs. a B2C company moving into B2B sales (Option 2)?",
+        hints: [
+          "Use the Ansoff Matrix: Existing vs New Products × Existing vs New Markets",
+          "Consider supply chain and inventory risks for hardware",
+          "Think about the sales cycle differences between B2C and B2B",
+          "Evaluate margin profiles: software vs hardware"
+        ],
+        answer: `Ansoff Matrix Mapping:
+
+Option 1 (FitGear - Hardware): Product Development
+- Existing market (current 1.2M users)
+- New product (physical hardware vs software)
+- Strategy: Increase revenue per user through complementary products
+
+Option 2 (FitWork - B2B): Market Development
+- Existing product (fitness content/app)
+- New market (corporate enterprises vs individual consumers)
+- Strategy: Expand addressable market through new customer segment
+
+---
+
+Option 1 (Hardware) Risks:
+
+1. Supply Chain Complexity:
+   - Manufacturing partnerships, quality control
+   - Inventory management and working capital requirements
+   - Shipping, returns, and warranty handling
+
+2. Margin Compression:
+   - Hardware margins (30-40%) far lower than software (70-90%)
+   - One-time revenue vs recurring subscriptions
+   - Price competition from established fitness equipment brands
+
+3. Capability Gap:
+   - Product development expertise (hardware design)
+   - Customer support for physical products
+   - Regulatory compliance (electronics, safety standards)
+
+4. Brand Risk:
+   - Poor product quality could damage premium app brand
+   - Hardware returns and defects create customer friction
+
+---
+
+Option 2 (B2B) Risks:
+
+1. Long Sales Cycles:
+   - Enterprise sales take 6-12 months
+   - Multiple decision-makers (HR, Finance, IT)
+   - Procurement processes and RFPs
+
+2. New Sales Capability:
+   - Need enterprise sales team (different skill set from B2C marketing)
+   - Account management infrastructure
+   - Contract negotiation and legal complexity
+
+3. Lower "Brand Love":
+   - Forced corporate users may not engage as enthusiastically
+   - Usage rates often lower than consumer-driven adoption
+   - Churn risk when contracts expire
+
+4. Customer Concentration:
+   - Losing one large enterprise = significant revenue loss
+   - Negotiation leverage shifts to large buyers`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which bet hits the €100M target?\nUse Exhibit A to calculate the Total Annual Revenue Increase for both options.\nDetermine if either (or both) can meet the €100M goal.",
+        hints: [
+          "Option 1 Revenue: (Existing Users × Penetration Rate) × Price",
+          "Option 2 Revenue: (Companies × Seats per Co) × Price × 12 months",
+          "Don't forget to subtract Total CAC and Variable Costs for profitability",
+          "Compare both against the €100M revenue target"
+        ],
+        answer: `Option 1: FitGear (Hardware)
+
+Units Sold: 1,200,000 users × 20% = 240,000 units
+Gross Revenue: 240,000 × €80 = €19,200,000
+
+Variable Costs: 240,000 × €50 = €12,000,000
+Gross Profit: €19,200,000 - €12,000,000 = €7,200,000
+
+Total CAC: 240,000 × €10 = €2,400,000
+Net Profit: €7,200,000 - €2,400,000 = €4,800,000
+
+Verdict: FAILS the €100M revenue target significantly
+- Revenue: €19.2M (only 19% of target)
+- Net Profit: €4.8M
+- Profit Margin: 25%
+
+---
+
+Option 2: FitWork (B2B)
+
+Total Seats: 500 companies × 2,000 seats = 1,000,000 seats
+Gross Annual Revenue: 1,000,000 × €5 × 12 months = €60,000,000
+
+Variable Costs: 1,000,000 × €1 × 12 = €12,000,000
+Gross Profit: €60,000,000 - €12,000,000 = €48,000,000
+
+Total CAC: 500 × €50,000 = €25,000,000
+Net Profit: €48,000,000 - €25,000,000 = €23,000,000
+
+Verdict: CLOSER but still falls short
+- Revenue: €60M (60% of target)
+- Net Profit: €23M
+- Profit Margin: 38%
+
+---
+
+Strategic Synthesis:
+Neither option alone hits the €100M goal.
+- Option 1: €19.2M revenue
+- Option 2: €60M revenue
+- Combined: €79.2M revenue (still short)
+
+Option 2 is 3x more powerful than Option 1 on revenue and 5x better on profit.`,
+        exhibitImage: "fitstream-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Which strategy is \"smarter\"?\nBased on the math and the operational complexity, which path should the CEO prioritize?\nConsider the impact on Retention (LTV) and Brand Positioning.",
+        hints: [
+          "Consider recurring revenue vs one-time revenue value to investors",
+          "Think about how to close the gap to €100M",
+          "Evaluate whether hardware could serve as a retention tool rather than growth driver",
+          "Consider the lifetime value implications of each model"
+        ],
+        answer: `Recommendation: Prioritize Option 2 (B2B FitWork) with scaled ambitions
+
+---
+
+Primary Strategy: B2B Corporate Wellness
+
+To hit €100M revenue target, FitStream needs to scale Option 2:
+- Current projection: 500 companies = €60M
+- Required: ~835 companies = €100M
+- OR increase price per seat from €5 to €8.50
+
+Why B2B is Superior:
+1. Recurring Revenue: Subscription model more valuable than one-time hardware sales
+2. Higher Profit: €23M net profit vs €4.8M (nearly 5x)
+3. Better Margins: 38% net margin vs 25%
+4. Investor Appeal: Predictable, recurring revenue commands higher valuations
+5. Scalability: Software delivery scales; hardware has physical constraints
+
+---
+
+Secondary Strategy: Use Hardware for Retention
+
+Instead of treating FitGear as a revenue driver, use it as a Retention Tool:
+- Offer Smart Resistance Bands FREE to B2B clients who sign 3-year contracts
+- Cost: ~€50/unit × 1M corporate users = €50M investment
+- Benefit: Lock-in effect, higher engagement, reduced churn
+- Hardware becomes a customer acquisition/retention cost, not a profit center
+
+---
+
+LTV and Retention Impact:
+
+B2B Advantage:
+- Corporate contracts typically 2-3 years
+- Lower churn than individual B2C subscribers
+- Cross-selling opportunities (premium content tiers, wellness programs)
+- HR departments incentivized to maintain employee benefits
+
+Hardware for Retention:
+- Physical products create switching costs
+- Users invested in FitStream ecosystem less likely to switch apps
+- Bands require app to function, creating lock-in
+
+---
+
+Implementation Roadmap:
+
+Year 1:
+- Build B2B sales team (10-15 enterprise reps)
+- Target initial 200 enterprise contracts
+- Develop corporate-specific features (admin dashboards, usage reports)
+
+Year 2:
+- Scale to 500-835 enterprise clients
+- Launch hardware bundle as retention/upsell tool
+- Expand to additional European markets via corporate clients
+
+---
+
+Brand Positioning Consideration:
+
+Risk: Corporate association could dilute "premium fitness" positioning
+Mitigation: Position B2B as "FitStream for Work"—separate branding that preserves consumer brand equity while capturing enterprise revenue`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `The quantitative analysis reveals that neither option alone achieves the €100M target. Option 1 (Hardware) delivers only €19.2M revenue, while Option 2 (B2B) reaches €60M with significantly better economics (€23M profit vs €4.8M).
+
+The recommendation is to prioritize B2B Corporate Wellness with scaled ambitions (~835 companies or higher pricing). Hardware should be repositioned from growth driver to retention tool—offering free Smart Bands to lock in multi-year corporate contracts.
+
+The key insight is that recurring B2B revenue is strategically superior to one-time hardware sales: better margins, predictable cash flows, and higher investor valuations. To hit €100M, FitStream needs to think bigger on B2B scale rather than diversifying into low-margin hardware.`,
+    keyFrameworks: [
+      "Ansoff Matrix (Product vs Market Development)",
+      "Unit Economics Comparison",
+      "Revenue vs Profit Optimization",
+      "B2B vs B2C Sales Strategy",
+      "Hardware as Retention Tool"
+    ]
+  },
+
   // PRICING STRATEGY
   {
     id: "verdora-pricing",
