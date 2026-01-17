@@ -145,26 +145,30 @@ const CaseFeedback = ({
                     </Card>
                     
                     {/* Correct Answer */}
-                    <Card className="border-0 shadow-md overflow-hidden">
+                    <Card className="border-0 shadow-md overflow-hidden bg-gradient-to-br from-green-50 to-emerald-50/50">
                       <div className="flex items-stretch">
-                        <div className="w-1 bg-gradient-to-b from-green-500 to-green-300" />
-                        <CardContent className="flex-1 p-4">
-                          <div className="flex items-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
-                              <CheckCircle className="w-4 h-4 text-green-600" />
+                        <div className="w-1.5 bg-gradient-to-b from-emerald-500 to-green-400" />
+                        <CardContent className="flex-1 p-5">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500 to-green-400 flex items-center justify-center shadow-sm">
+                              <CheckCircle className="w-5 h-5 text-white" />
                             </div>
-                            <span className="font-semibold text-green-700">Correct Answer</span>
+                            <span className="font-bold text-emerald-700 text-lg">Correct Answer</span>
                           </div>
-                          <div className="bg-green-50/50 p-4 rounded-lg min-h-[180px]">
-                            <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
+                          <div className="bg-white/80 backdrop-blur p-5 rounded-xl border border-emerald-200/50 shadow-inner min-h-[180px]">
+                            <p className="text-foreground leading-relaxed whitespace-pre-line">
                               {q.answer}
                             </p>
                             {q.answerImage && exhibitImages[q.answerImage] && (
-                              <div className="mt-4">
+                              <div className="mt-5 p-3 bg-emerald-50/50 rounded-lg border border-emerald-100">
+                                <p className="text-xs font-medium text-emerald-600 mb-2 flex items-center gap-1.5">
+                                  <Image className="w-3.5 h-3.5" />
+                                  Solution Exhibit
+                                </p>
                                 <img 
                                   src={exhibitImages[q.answerImage]} 
                                   alt={`Answer exhibit for Question ${q.number}`}
-                                  className="w-full rounded-lg border border-green-200"
+                                  className="w-full rounded-lg border border-emerald-200 shadow-sm"
                                 />
                               </div>
                             )}
