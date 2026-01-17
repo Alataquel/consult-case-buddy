@@ -26,6 +26,7 @@ import vedahealthExhibit from "@/assets/vedahealth-exhibit.png";
 import nordpayExhibit from "@/assets/nordpay-exhibit.png";
 import fitstreamExhibit from "@/assets/fitstream-exhibit.png";
 import ecowashExhibit from "@/assets/ecowash-exhibit.png";
+import skillstreamExhibit from "@/assets/skillstream-exhibit.png";
 
 const exhibitImages: Record<string, string> = {
   "solarwave-exhibit": solarwaveExhibit,
@@ -48,6 +49,7 @@ const exhibitImages: Record<string, string> = {
   "nordpay-exhibit": nordpayExhibit,
   "fitstream-exhibit": fitstreamExhibit,
   "ecowash-exhibit": ecowashExhibit,
+  "skillstream-exhibit": skillstreamExhibit,
 };
 
 export { exhibitImages };
