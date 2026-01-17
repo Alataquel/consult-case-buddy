@@ -1030,6 +1030,156 @@ The key insight is that equal profit at dramatically different margins and compl
     ]
   },
 
+  // MARKET ENTRY - NordPay
+  {
+    id: "nordpay-market-entry",
+    title: "NordPay Mexico Market Entry",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `NordPay is a highly successful neobank from Iceland with 4 million users across Northern Europe. They offer a slick, mobile-first banking experience with zero fees and high-interest savings accounts. Their tech stack is entirely proprietary, allowing them to launch new features (like crypto trading or micro-loans) in weeks rather than months.
+
+It is 2026, and NordPay has decided to enter Mexico. The Mexican market is attractive: 50% of the population is unbanked, yet smartphone penetration is over 70%. However, Mexico's "Fintech Law" is rigorous. To operate as a full bank, NordPay needs a "Broad Banking License," which takes 24 months to secure and requires significant local capital reserves.
+
+NordPay is choosing between:
+
+Option A: The Long Game (Greenfield). Apply for a full independent license. This gives them total control over the product and 100% of the revenue but delays the full launch.
+
+Option B: The Shortcut (Partnership). Partner with Banco del Sol, a traditional Mexican mid-tier bank. NordPay would provide the app and technology, while Banco del Sol provides the regulatory "umbrella" and banking license.`,
+    question: "Determine which entry path—Independent License or Strategic Partnership—yields the higher Annual Net Profit by Year 3.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What are the structural barriers in Mexico?\nDiscuss the challenges of entering a highly regulated financial market.\nConsider: Trust/Brand perception, Regulatory \"Red Tape,\" and the \"Speed-to-Market\" advantage.",
+        hints: [
+          "Consider the 24-month timeline for independent licensing vs. immediate market entry with a partner",
+          "Think about brand perception: Is a foreign neobank trusted by Mexican consumers?",
+          "Evaluate the competitive landscape: Who else is moving into Mexico?",
+          "Consider the 50% unbanked population—what does this mean for customer acquisition?"
+        ],
+        answer: `Option A (Greenfield):
+Pros: 100% of the data, 100% of the revenue, no "clash of cultures" with a traditional bank. Full control over product roadmap and customer experience.
+
+Cons: 2-year wait time means competitors (like Nubank) might grab the market first. Huge upfront capital requirement. No local brand recognition.
+
+Option B (Partnership):
+Pros: Instant entry, immediate access to 1.8M potential customers through Banco del Sol's existing base, lower regulatory risk. Partner handles compliance complexity.
+
+Cons: Giving away 40% of the revenue is expensive. NordPay is "locked" into the partner's legacy systems, which might slow down their fast-moving tech. Less control over customer relationship.
+
+Key Structural Barriers:
+
+1. Regulatory Complexity:
+   - "Broad Banking License" requires 24 months + significant capital reserves
+   - Fintech Law mandates local data residency and compliance infrastructure
+   - Anti-money laundering (AML) requirements are stringent
+
+2. Trust/Brand Perception:
+   - Icelandic brand unknown in Mexico
+   - Traditional bank partnership provides instant credibility
+   - 50% unbanked population is often skeptical of digital-only solutions
+
+3. Speed-to-Market:
+   - Nubank and other fintechs already expanding in Latin America
+   - 24-month delay could mean losing first-mover advantage
+   - Partner route allows immediate market presence`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Which model wins on the bottom line?\nUse Exhibit A to calculate the Annual Net Profit for Year 3.\nFactor in: The partner's revenue share and the difference in customer acquisition efficiency.",
+        hints: [
+          "Option B has more users because the partner allows for 'cross-selling' to their existing traditional database",
+          "Option B has lower OpEx because the partner handles regulatory reporting and cash-in/cash-out points",
+          "Net Profit Formula: (Users × Net ARPU × 12) - Fixed Costs",
+          "Remember to apply the 40% revenue share before calculating contribution"
+        ],
+        answer: `Option A: Independent License
+
+Monthly Contribution per User: €5.00 - €2.00 = €3.00
+Annual Contribution: 1,000,000 users × €3.00 × 12 months = €36,000,000
+Annual Net Profit: €36,000,000 - €12,000,000 (Fixed) = €24,000,000
+
+---
+
+Option B: Partnership
+
+Net Revenue per User (after 40% share): €5.00 × 0.60 = €3.00
+Monthly Contribution per User: €3.00 - €0.80 (OpEx) = €2.20
+Annual Contribution: 1,800,000 users × €2.20 × 12 months = €47,520,000
+Annual Net Profit: €47,520,000 - €3,000,000 (Fixed) = €44,520,000
+
+---
+
+Analysis:
+
+Option B is nearly 2x as profitable (€44.5M vs €24M).
+
+Key Drivers of Option B's Advantage:
+1. Volume Boost: 80% more users (1.8M vs 1.0M) from partner's existing customer base
+2. Lower OpEx: Partner handles regulatory overhead (€0.80 vs €2.00 per user)
+3. Lower Fixed Costs: €3M vs €12M—partner absorbs compliance infrastructure costs
+
+The 40% revenue share is more than offset by:
+- 1.8x more users
+- 60% lower variable costs
+- 75% lower fixed costs`,
+        exhibitImage: "nordpay-exhibit"
+      },
+      {
+        number: 3,
+        question: "Recommendation — Control vs. Speed\nWhich path should NordPay take?\nDiscuss the \"Exit Strategy\": If they start with a partner, can they eventually move to their own license?",
+        hints: [
+          "Consider 'Land Grab' dynamics in neobanking—scale often matters more than margins early on",
+          "Think about contract structuring: Can NordPay negotiate a 'sunset clause'?",
+          "Evaluate data ownership implications of each model",
+          "Consider what happens to customer relationships if NordPay later wants independence"
+        ],
+        answer: `Verdict: Option B: Strategic Partnership
+
+Reasoning:
+In the fast-moving Neobanking world, "Land Grab" is more important than "Unit Margin" in the early years. Option B allows NordPay to capture 1.8 million users quickly and profitably.
+
+Financial Comparison:
+- Option A: €24M profit, 1.0M users, full control
+- Option B: €44.5M profit, 1.8M users, shared control
+
+Option B delivers 85% higher profit AND 80% more users. The economics strongly favor partnership.
+
+---
+
+Exit Strategy Recommendations:
+
+1. Sunset Clause: Negotiate a "Buy-out" provision in the partnership contract. Once NordPay reaches 5 million users, they should have the right to migrate to their own license, allowing them to stop paying the 40% revenue share once they have sufficient scale.
+
+2. Data Portability: Ensure contract includes data ownership rights. Customer data collected through NordPay's app should belong to NordPay, enabling future migration.
+
+3. License Application: Apply for independent license simultaneously with partnership launch. When the 24-month process completes, NordPay has the option (but not obligation) to transition.
+
+4. Technology Independence: Keep NordPay's core technology separate from Banco del Sol's systems to enable clean separation later.
+
+---
+
+Risk Mitigation:
+
+- Brand Dilution: Ensure NordPay brand is front-and-center in customer experience, not buried under Banco del Sol's branding
+- Partner Lock-in: Cap partnership duration at 5 years with renewal terms favorable to NordPay
+- Competitive Response: Move fast—sign partnership within 6 months before other fintechs secure similar deals`
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: `The quantitative analysis reveals Option B (Partnership) is nearly 2x as profitable as Option A (€44.5M vs €24M) while also capturing 80% more users (1.8M vs 1.0M).
+
+The recommendation is to pursue the Strategic Partnership with Banco del Sol, but negotiate critical exit provisions: a sunset clause at 5M users, data portability rights, and technology separation. Simultaneously apply for an independent license as a long-term hedge.
+
+The key insight is that in "Land Grab" markets like Mexican fintech, speed and scale trump margin optimization. The 40% revenue share is more than compensated by volume, lower OpEx, and reduced fixed costs.`,
+    keyFrameworks: [
+      "Market Entry Strategy (Greenfield vs Partnership)",
+      "Unit Economics Comparison",
+      "Revenue Share Analysis",
+      "Strategic Exit Planning",
+      "Speed-to-Market Trade-offs"
+    ]
+  },
+
   // GROWTH STRATEGY
   {
     id: "novaride-growth",
