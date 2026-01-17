@@ -44,9 +44,6 @@ const Index = () => {
       const feedback = generateFeedback(answer, selectedCase.type);
       const nextTip = generateNextTip(feedback, selectedCase.type);
       
-      // Save the score
-      saveCaseScore(selectedCase.id, feedback.overallScore, selectedCase.type, selectedCase.title);
-      
       setCaseFeedback({
         feedback,
         nextTip,
@@ -55,6 +52,12 @@ const Index = () => {
       });
       
       setCurrentState('feedback');
+    }
+  };
+
+  const handleSubmitScore = (score: number) => {
+    if (selectedCase) {
+      saveCaseScore(selectedCase.id, score, selectedCase.type, selectedCase.title);
     }
   };
 
@@ -173,6 +176,10 @@ const Index = () => {
             correctAnswers={caseFeedback.correctAnswers}
             nextTip={caseFeedback.nextTip}
             timeElapsed={timeElapsed}
+            caseId={selectedCase.id}
+            caseTitle={selectedCase.title}
+            caseType={selectedCase.type}
+            onSubmitScore={handleSubmitScore}
             onTryAnother={handleTryAnother}
             onGoHome={handleGoHome}
           />
