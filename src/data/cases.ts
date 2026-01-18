@@ -3967,6 +3967,230 @@ Weak performance:
       "Break-Even / Payback Analysis",
       "Change Management"
     ]
+  },
+  {
+    id: "hamburg-taxi-startup",
+    title: "Hamburg Taxi Company — Startup Profitability",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `A consultant's friend wants to start a taxi business in Hamburg.
+
+He has clear profit expectations. His target is a profit of €400,000 after taxes.
+
+He now wants to know what resources he needs and what revenue he must achieve to reach the profit goal.`,
+    question: "How much revenue must the company generate to achieve the profit goal of €400,000 after taxes?",
+    difficulty: "Intermediate",
+    questions: [
+      {
+        number: 1,
+        question: "Possible questions from the candidate:\n\n1. Do we know the profit margin of the company?\n2. Can we assume the taxi company already has a license to transport people?\n3. Can the taxi company serve all locations in the city or is it tied to certain districts?",
+        hints: [
+          "Consider what information you need to structure the revenue and cost model",
+          "Think about regulatory requirements for taxi operations",
+          "Consider geographic constraints that might affect the business model"
+        ],
+        answer: `Information from the interviewer:
+
+1. The profit margin is not known since the company doesn't exist yet.
+2. A license was acquired this year. Please estimate the price of the license and include this item in the cost calculation.
+3. The taxi company can serve all locations in the city.`
+      },
+      {
+        number: 2,
+        question: "Derive the potential revenue of the taxi company and the total costs. Calculate the expected profit.",
+        hints: [
+          "Structure your approach into revenue calculation and cost drivers",
+          "Consider utilization rates for the taxi",
+          "Think about different trip types and their duration"
+        ],
+        answer: `Case Objectives:
+• Derive the potential revenue of the taxi company
+• Derive the total costs and calculate profit
+• Provide a conclusion about the achievability of the client's target
+
+---
+
+KEY ASSUMPTIONS FOR REVENUE CALCULATION:
+
+• Base taxi fare: €3.50
+• Price per minute: €1.50/min
+• A taxi can be used 24 hours; but an employee only works 8h/day. So 3 employees are needed to cover 24 hours
+• Assume the vehicle transports passengers 40% of the time. Rest is waiting and returning to taxi stations: 24h × 40% = ~10h driving time
+• Two types of trips:
+  - Short trips (inner-city): ~15 min
+  - Long trips (suburban): ~30 min
+• Inner-city trips make up 80% and suburban trips 20% of driving time
+
+---
+
+KEY COST DRIVERS:
+
+• Taxi license (concession)
+• Leasing costs per vehicle: €1,000/month
+• Salary per employee: €30,000/year (gross)
+• Fuel consumption: 8 liters/100 km
+• Average speed: 60 km/h`
+      },
+      {
+        number: 3,
+        question: "Perform the detailed calculations for revenue, costs, and profit. Determine how many taxis are needed to reach the €400,000 after-tax profit target.",
+        hints: [
+          "Calculate number of trips per day based on driving time and trip duration",
+          "Remember to include both base fare and per-minute revenue",
+          "Account for taxes when calculating final profit",
+          "Consider that the license may need to be amortized over multiple years"
+        ],
+        answer: `REVENUE CALCULATION:
+
+Number of Trips per Day:
+• Total driving time: 10 hours = 600 minutes
+• Inner-city trips: 600 min × 0.8 ÷ 15 min = 32 trips
+• Suburban trips: 600 min × 0.2 ÷ 30 min = 4 trips
+• Total trips: 36 trips per day
+
+Daily Revenue:
+• Base fare revenue: 36 trips × €3.50 = €126
+• Minute-based revenue: 600 min × €1.50 = €900
+• Total daily revenue: €126 + €900 = €1,026
+
+Annual Revenue:
+• Working days: 350 days/year
+• Annual revenue: €1,026 × 350 = €359,100 → ~€360,000/year
+
+---
+
+COST CALCULATION:
+
+Leasing Costs:
+• €1,000/month × 12 months = €12,000/year
+
+Personnel Costs:
+• 3 employees × €30,000/year = €90,000/year
+
+Fuel Costs:
+• Distance per day: 60 km/h × 15 hours = 900 km/day
+• Distance per year: 900 km × 350 days = 315,000 km/year
+• Fuel needed: 315,000 km ÷ 100 km × 8 liters = 25,200 liters
+• Wait, let's recalculate: 3,150 × €1.20 = €3,780/year
+• (At 8 liters/100km and €1.20/liter)
+
+Taxi Concession (License):
+• Estimated cost: €30,000
+• Amortized over 30 years: €30,000 ÷ 30 = €1,000/year
+
+Total Annual Costs:
+€12,000 + €90,000 + €3,780 + €1,000 = €106,780
+
+---
+
+PROFIT CALCULATION:
+
+Annual Profit (before tax):
+€360,000 - €106,780 = €253,220 → ~€250,000
+
+After-Tax Profit:
+• Corporate and trade tax: 25%
+• After-tax profit: €250,000 × (1 - 0.25) = €187,500
+
+---
+
+NUMBER OF TAXIS NEEDED:
+
+Profit Target: €400,000 after tax
+Profit per Taxi: €187,500 after tax
+
+Number of Taxis = €400,000 ÷ €187,500 = 2.13 taxis
+
+→ The friend needs approximately 3 taxis to achieve the €400,000 after-tax profit goal.`
+      }
+    ],
+    modelSolution: `HAMBURG TAXI COMPANY — STARTUP PROFITABILITY ANALYSIS
+
+CASE OVERVIEW:
+A consultant's friend wants to start a taxi business in Hamburg with a target of €400,000 after-tax profit. The analysis requires building a complete P&L model from scratch, calculating per-taxi economics, and determining the fleet size needed.
+
+---
+
+1. REVENUE MODEL (PER TAXI)
+
+Key Assumptions:
+• Base fare: €3.50 per trip
+• Price per minute: €1.50
+• Operating hours: 24h/day (requires 3 drivers at 8h shifts each)
+• Utilization rate: 40% (10 hours actual driving time)
+• Trip mix: 80% inner-city (15 min), 20% suburban (30 min)
+• Operating days: 350 days/year
+
+Daily Trip Calculation:
+• Inner-city: 600 min × 80% ÷ 15 min = 32 trips
+• Suburban: 600 min × 20% ÷ 30 min = 4 trips
+• Total: 36 trips/day
+
+Daily Revenue:
+• Base fares: 36 × €3.50 = €126
+• Time charges: 600 min × €1.50 = €900
+• Total: €1,026/day
+
+Annual Revenue: €1,026 × 350 = ~€360,000 per taxi
+
+---
+
+2. COST MODEL (PER TAXI)
+
+Fixed Costs:
+• Vehicle leasing: €1,000/month × 12 = €12,000/year
+• Personnel: 3 drivers × €30,000 = €90,000/year
+• License amortization: €30,000 ÷ 30 years = €1,000/year
+
+Variable Costs:
+• Distance/year: 60 km/h × 15h/day × 350 days = 315,000 km
+• Fuel: 315,000 km × 8L/100km × €1.20/L = €3,780/year
+
+Total Annual Costs: €106,780 per taxi
+
+---
+
+3. PROFITABILITY ANALYSIS
+
+Pre-Tax Profit per Taxi:
+€360,000 - €106,780 = €253,220 (~€250,000)
+
+After-Tax Profit per Taxi:
+€250,000 × (1 - 25%) = €187,500
+
+---
+
+4. FLEET SIZE REQUIREMENT
+
+Target after-tax profit: €400,000
+Profit per taxi: €187,500
+
+Required taxis: €400,000 ÷ €187,500 = 2.13 → 3 taxis
+
+---
+
+RECOMMENDATION:
+
+The friend needs to operate approximately 3 taxis to achieve the €400,000 after-tax profit target.
+
+Key Success Factors:
+• Maintaining high utilization (40%+)
+• Efficient driver scheduling across 24-hour operation
+• Controlling fuel and maintenance costs
+• Securing the taxi license at reasonable cost
+
+Risk Considerations:
+• Driver availability and retention
+• Fuel price volatility
+• Competition from ride-sharing services
+• Regulatory changes affecting taxi licenses`,
+    keyFrameworks: [
+      "Revenue Modeling",
+      "Cost Structure Analysis",
+      "Unit Economics",
+      "Break-Even Analysis",
+      "Capacity Utilization"
+    ]
   }
 ];
 
