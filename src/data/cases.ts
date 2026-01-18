@@ -122,7 +122,7 @@ Trade-offs & Risks:
 Implementation Priority: Start with operational efficiency and selective pricing while planning automation investments for year 2.`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The profit decline stems from a combination of rising input costs, operational inefficiencies, and competitive pricing pressure. Analysis reveals that while all product lines are profitable, the weighted average contribution margin of €134.4 per unit leaves little buffer when fixed costs and inefficiencies are factored in.
 
 The immediate priority is addressing operational waste—reducing scrap rates and optimizing maintenance schedules can deliver quick wins. Simultaneously, selective price increases on premium models protect positioning while improving margins. Medium-term automation investments will sustainably reduce per-unit costs and improve competitiveness.
@@ -248,7 +248,7 @@ Implementation Priority:
 4. Reallocate fleet capacity toward Regional routes`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The margin collapse is driven by the "Empty Leg" problem on Long-Haul routes. While outbound trips generate €400 profit, the 60% empty return rate creates -€440 average return loss, resulting in -€40 per round trip.
 
 Regional routes with 90% backhaul success generate €255 profit per round trip. The solution requires repricing Long-Haul routes, implementing triangulation (multi-stop returns), and investing in freight matching technology to improve backhaul rates.
@@ -391,7 +391,7 @@ Implementation Priority:
 4. Evaluate Dark Store investment at 6-month review`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The profit decline is caused by channel cannibalization. While both channels generate €9 operating profit per order, the Online channel has lower contribution margin (€11 vs €13), meaning every customer switch destroys €2 of value.
 
 The solution involves multiple levers: incentivizing Click & Collect to eliminate delivery costs, raising delivery fees closer to true cost, and implementing minimum order values. The key insight is that higher basket sizes can mask unprofitable unit economics when fulfillment costs are ignored.`,
@@ -529,7 +529,7 @@ Implementation Priority:
 4. Month 2: Test premium pricing for remaining hot items`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The profit decline stems from the "Throughput Trap" - hot food items take 4x longer to prepare than coffee, blocking high-margin production during peak hours. Despite higher ticket prices, the Panini generates less absolute profit (£2.52) than a Latte (£2.69) while consuming 4x the staff time.
 
 The solution involves removing time-intensive items during peak hours, switching to grab-and-go formats, and simplifying the menu to reduce waste. The key insight is that revenue and ticket size can mask throughput-destroying products.`,
@@ -669,7 +669,7 @@ Why Not Delay?
 Current distributor interest and market momentum in premium alcohol-free segment create a window of opportunity. Delaying risks competitive entry and loss of first-mover advantages.`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The analysis reveals that Netherlands entry offers superior financial returns and strategic positioning despite smaller market size. The combination of better unit economics (€1.25 vs €0.80 contribution margin), lower distributor take, and reduced operational complexity makes it the ideal pilot market.
 
 The recommended approach prioritizes learning and capital efficiency: prove the international expansion model in Netherlands, then leverage those insights for a stronger Germany entry in Year 2. This sequential strategy balances growth ambitions with organizational capacity and risk management.
@@ -856,7 +856,7 @@ Why Not Model B?
 The 25% royalty combined with higher local COGS creates a "volume trap"—DataSafe would need 2.5x more volume just to match Model A's profit. The partner also controls the customer relationship, limiting DataSafe's strategic flexibility.`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals that Model A (Direct Import) yields 60% higher profit (€800K vs €500K) despite heavy tariffs. The partner royalty and higher local production costs in Model B erode the benefits of 2.5x higher volume.
 
 The recommendation is to pursue Model A while mitigating tariff/logistics risks through 3PL partnerships and currency hedging. Long-term, DataSafe should use Model A profits to explore a hybrid local assembly option that preserves quality control while avoiding tariffs.
@@ -1014,7 +1014,7 @@ Implementation Timeline:
 - Year 3-4: Expand government contract with proven track record and optimized "lite" version`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals both options yield identical Year 2 profit (€800k), but Option A (Private B2B) achieves this with 40% margin vs 20%, requiring only 400 sites instead of 5,000.
 
 The recommendation is to pursue Private B2B to prove the AI in Indonesian context, build premium brand credibility, and use success to negotiate stronger government terms later. A small government pilot (50 sites) can secure future optionality without current operational burden.
@@ -1164,7 +1164,7 @@ Risk Mitigation:
 - Competitive Response: Move fast—sign partnership within 6 months before other fintechs secure similar deals`
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals Option B (Partnership) is nearly 2x as profitable as Option A (€44.5M vs €24M) while also capturing 80% more users (1.8M vs 1.0M).
 
 The recommendation is to pursue the Strategic Partnership with Banco del Sol, but negotiate critical exit provisions: a sunset clause at 5M users, data portability rights, and technology separation. Simultaneously apply for an independent license as a long-term hedge.
@@ -1340,7 +1340,7 @@ Next Steps:
 5. Launch pilot with clear success metrics and go/no-go decision points`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The analysis reveals that France retail expansion offers superior near-term financial returns and lower execution risk compared to B2B leasing. While leasing's per-unit economics are attractive (€720 vs €315 contribution), its higher fixed costs and capital requirements make it unprofitable in Year 2.
 
 France expansion leverages NovaRide's existing strengths—product quality, retail model, brand positioning—while providing geographic diversification. The €1.45M Year 2 profit creates financial capacity to explore leasing or other growth options in subsequent years.
@@ -1567,7 +1567,7 @@ Risk: Corporate association could dilute "premium fitness" positioning
 Mitigation: Position B2B as "FitStream for Work"—separate branding that preserves consumer brand equity while capturing enterprise revenue`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals that neither option alone achieves the €100M target. Option 1 (Hardware) delivers only €19.2M revenue, while Option 2 (B2B) reaches €60M with significantly better economics (€23M profit vs €4.8M).
 
 The recommendation is to prioritize B2B Corporate Wellness with scaled ambitions (~835 companies or higher pricing). Hardware should be repositioned from growth driver to retention tool—offering free Smart Bands to lock in multi-year corporate contracts.
@@ -1792,7 +1792,7 @@ EcoWash should pursue Option 2 (EcoWash Pro) as the primary growth strategy:
 Future consideration: Once B2B operations are profitable and stable (Year 3-4), selectively evaluate 1-2 European cities for B2C expansion using proven playbook and generated cash flows.`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals Option 2 (EcoWash Pro B2B) exceeds the £50M target with £54M in revenue, while Option 1 (Euro-Growth) falls short at £37.8M. More importantly, Option 2 achieves this with only £5M investment vs £15M—4x better capital efficiency.
 
 Beyond the numbers, B2B is more sustainable: consistent year-round demand (hotels don't have "laundry seasons"), dramatically lower churn (contracted businesses vs fickle app users), and 90x higher customer lifetime value.
@@ -2013,7 +2013,7 @@ Risk Mitigation:
 - Pricing Pressure: Include usage analytics in enterprise contracts to justify renewal pricing`
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: `The quantitative analysis reveals both options exceed the €150M target: Option 1 (Subscription) delivers €176M net, while Option 2 (B2B) delivers €180M net. However, Option 2 achieves this with zero cannibalization risk, protecting the existing €200M business.
 
 The recommendation is to prioritize B2B Enterprise first, then use the data and cash flows to launch a refined "Premium" subscription in Year 3. This "Land and Expand" approach builds multiple revenue engines while minimizing risk.
@@ -2258,7 +2258,7 @@ Next Steps (First 30 days):
 5. Plan influencer partnership strategy with 10-15 eco-luxury content creators`
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: `The pricing analysis reveals that Verdora's current €38 price point creates positioning ambiguity and suboptimal financial outcomes. While counterintuitive during a sales plateau, increasing price to €45 offers the best path forward by:
 
 1. Minimizing losses through superior unit economics (€20 vs €15.10 contribution)
@@ -2316,7 +2316,7 @@ This case illustrates the principle that optimal pricing isn't always about maxi
         answer: "Short term: implement SMED (Single-Minute Exchange of Dies) to cut setup time; schedule preventive maintenance to boost uptime.\nMedium term: cross-train operators, standardize tooling, and digitize performance dashboards.\nTrack OEE, scrap rate, and changeover time weekly.\nRisks: temporary output dip during process change, workforce adaptation.\nNext steps: pilot lean improvements on one molding line, monitor impact, then scale across plant."
       }
     ],
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     modelSolution: "This case assesses operational bottleneck identification, throughput analysis, and process improvement recommendations using OEE and capacity calculations.",
     keyFrameworks: [
       "Operations Management",
@@ -2362,7 +2362,7 @@ This case illustrates the principle that optimal pricing isn't always about maxi
         answer: "Proceed if due diligence confirms ≥10% material cost savings and integration feasibility.\nPrioritize early integration of supply chain and R&D teams to realize synergies quickly.\nNegotiate earn-out structure or contingent pricing based on performance to mitigate risk.\nRisks: execution delays, cultural misalignment, overestimation of savings.\nNext steps: conduct technical audit of Voltrix's facility, detailed synergy validation, and scenario-based valuation."
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: "This case assesses M&A strategic rationale, synergy quantification, and deal valuation including integration costs and depreciation.",
     keyFrameworks: [
       "M&A Valuation",
@@ -2408,7 +2408,7 @@ This case illustrates the principle that optimal pricing isn't always about maxi
         answer: "Short-term (3–6 months):\nLaunch efficiency blitz on labor scheduling and maintenance downtime.\nNegotiate new energy contracts and shift production to off-peak hours.\n\nMedium-term (6–18 months):\nConsolidate two plants into one to improve utilization above 85%.\nInvest in partial automation for repetitive processes.\nDevelop a 'sustainable cotton' niche line for premium European retailers.\n\nRisks: workforce resistance, upfront restructuring costs, demand volatility.\nNext steps: validate cost improvement roadmap, design KPI dashboard (OEE, labor cost/unit), and align management incentives with transformation milestones."
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: "This case assesses turnaround strategy through cost structure analysis, efficiency benchmarking, and prioritization of operational and commercial levers.",
     keyFrameworks: [
       "Cost Structure Analysis",
@@ -2455,7 +2455,7 @@ This case illustrates the principle that optimal pricing isn't always about maxi
         answer: "Recommendation: DO NOT acquire 100% at €600M. Pursue a strategic partnership or minority stake instead.\n\nRationale:\n\nFinancial:\n- Valuation too high: 5-year EBITDA covers only 51% of purchase price\n- Limited margin of safety for execution risks\n- Break-even current profitability increases risk\n- Would require €600M upfront for uncertain returns\n\nStrategic:\n- Cultural integration risk is extremely high (luxury vs. streetwear cultures)\n- Full acquisition could destroy Concrete's authenticity and 'cool factor'\n- Concrete's value depends on maintaining entrepreneurial agility\n- Corporate ownership might alienate Gen Z customer base\n\nCounter-Proposal: Minority Stake (20-30%) + Strategic Partnership\n\nStructure:\n- Investment: €120M-€180M for 20-30% stake (valuing Concrete at €600M)\n- Board seat and strategic input rights\n- Exclusive distribution agreement for Maison Dubois stores\n- Co-development of limited capsule collections\n- Option to acquire majority stake in 3-5 years based on performance milestones\n\nBenefits:\n- Lower capital at risk (€120-180M vs €600M)\n- Preserves Concrete's independence and culture\n- Keeps founders incentivized with significant ownership\n- Tests Gen Z strategy without betting the house\n- Option value: buy more later if successful, walk away if not\n- Maintains Concrete's brand authenticity\n\nAlternative: Build Internal\n- Launch 'Dubois Street' sub-brand internally\n- Hire streetwear design talent\n- Lower cost (~€50M investment over 3 years)\n- Higher execution risk, longer time to market\n\nNext Steps:\n1. Negotiate minority stake structure with Concrete founders\n2. Define collaboration terms (distribution, co-branding)\n3. Establish performance milestones for future acquisition option\n4. Create governance structure that preserves Concrete autonomy\n5. Plan integration safeguards to protect both brand identities"
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: "This case assesses M&A valuation judgment, synergy analysis, cultural integration risks, and strategic alternatives to full acquisition in cross-industry deals.",
     keyFrameworks: [
       "M&A Valuation",
@@ -2504,7 +2504,7 @@ This case illustrates the principle that optimal pricing isn't always about maxi
         answer: "Recommendation: Launch Option B (Aura Hub - Hardware + SaaS)\n\nRationale:\n\nFinancial:\n- 4.3x higher customer lifetime value (€320 vs. €75)\n- Superior unit economics justify higher customer acquisition investment\n- Lower churn (2% vs. 5%) creates predictable, defensible recurring revenue\n- Hardware margin provides immediate cash flow to fund growth\n\nStrategic:\n- Defensible moat: Integrated hardware-software experience is harder to replicate\n- Premium positioning: Protects against commoditization from Asian competitors\n- Data ownership: Full control of sensors and usage data enables continuous AI improvement\n- Platform potential: Can layer additional services (security, HVAC optimization) on hardware base\n- Customer lock-in: Physical installation creates switching costs\n\nCompetitive Positioning:\n- Differentiates from 'app-only' competitors who lack hardware integration\n- Builds on existing hardware manufacturing capabilities and brand\n- Creates barrier against low-cost hardware competitors who lack software sophistication\n\nKey Risk: High Upfront Cost (€180)\n\nThe €180 hardware price creates significant customer acquisition friction and limits market penetration.\n\nMitigation Strategy: Hardware-as-a-Service Model\n\nStructure:\n- Offer customers: €0 upfront + €15/month subscription (24-month contract)\n- This bundles hardware cost into subscription: €180 ÷ 24 = €7.50/month hardware + €7.50/month service\n- Customer perceives as €15/month (vs. €180 upfront shock)\n\nBenefits:\n- Removes upfront barrier while maintaining hardware lock-in\n- Accelerates customer acquisition\n- Improves cash flow predictability\n- 24-month contract reduces effective churn\n- Customer still physically owns hardware (psychological lock-in)\n\nAlternative: Try-Before-You-Buy\n- 30-day free trial with hardware\n- Customers pay €50 deposit (refundable)\n- After trial, either return hardware or commit to subscription\n- Reduces risk perception while maintaining premium positioning\n\nPhased Rollout:\n\nPhase 1 (Months 1-6): Launch in Germany with Hardware-as-a-Service model\n- Target: 5,000 customers (proof of concept)\n- Focus: Premium homeowners with existing high energy bills\n- Validate: Churn assumptions, customer satisfaction, AI effectiveness\n\nPhase 2 (Months 7-12): Expand to adjacent markets (Austria, Switzerland)\n- Scale manufacturing partnerships\n- Refine customer onboarding and support processes\n- Build case studies demonstrating 20% energy savings\n\nPhase 3 (Year 2+): European expansion + Product line extensions\n- Launch additional hardware modules (security, water management)\n- Build ecosystem of interconnected smart home devices\n- Increase CLTV through cross-selling\n\nWhy Not Option A (SaaS Only)?\nWhile Option A scales faster, it is a 'leaky bucket' strategy. High churn (5%) means constant customer replacement. Software-only services are vulnerable to:\n- Competition from free or bundled alternatives\n- Price compression\n- API changes from hardware partners\n- Lack of defensible competitive advantage\n\nNext Steps:\n1. Finalize Hardware-as-a-Service pricing and contract terms\n2. Build inventory for 5,000 unit pilot (Germany)\n3. Create customer acquisition campaign emphasizing energy savings ROI\n4. Establish customer success team to minimize churn\n5. Monitor unit economics and adjust pricing if needed"
       }
     ],
-    difficulty: "Advanced",
+    difficulty: "Beginner",
     modelSolution: "This case assesses product strategy through customer lifetime value analysis, business model trade-offs (open vs. closed ecosystem), and creative solutions to overcome market barriers.",
     keyFrameworks: [
       "Customer Lifetime Value (CLTV)",
