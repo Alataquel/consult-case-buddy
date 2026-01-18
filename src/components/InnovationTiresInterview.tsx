@@ -436,7 +436,7 @@ Calculate the customer's total fuel savings over the tire's lifetime.`,
         "hint"
       );
     } else {
-      // Hint 3: Coach Mode - full walkthrough
+      // Hint 3: Coach Mode - full walkthrough and complete the case
       addInterviewerMessage(
         `**Coach Mode — Full Calculation:**
 • 960 L/year × €1.20 = €1,152/year
@@ -446,6 +446,11 @@ Calculate the customer's total fuel savings over the tire's lifetime.`,
 • Maximum price = €40 + €75 = **€115**`,
         "info"
       );
+      setPhase("calculation_feedback");
+      
+      setTimeout(() => {
+        showConclusion(false);
+      }, 3000);
     }
   };
 
