@@ -68,6 +68,11 @@ const AllPurposeTiresInterview = ({ caseData, onComplete, onRequestRating, onRes
   const [calculationAttempts, setCalculationAttempts] = useState(0);
   const [finalScore, setFinalScore] = useState<number | null>(null);
   const [revealedInfo, setRevealedInfo] = useState({ profitability: false, timeline: false, market: false });
+  // Track hints used at time of completing each milestone (for scoring)
+  const [structureHintsAtCompletion, setStructureHintsAtCompletion] = useState<number | null>(null);
+  const [calculationHintsAtCompletion, setCalculationHintsAtCompletion] = useState<number | null>(null);
+  const [volumeHintsAtCompletion, setVolumeHintsAtCompletion] = useState<number | null>(null);
+  const [synthesisHintsAtCompletion, setSynthesisHintsAtCompletion] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Handle leaving the case
@@ -305,6 +310,9 @@ To determine feasibility, we calculate the volume needed to cover fixed costs.
 Now calculate the break-even volume.`,
       "info"
     );
+    if (structureHintsAtCompletion === null) {
+      setStructureHintsAtCompletion(structureHintLevel + 1); // +1 because walkthrough counts as using all hints
+    }
     setHasIdentifiedBreakEven(true);
     setPhase("awaiting_calculation");
   };
@@ -325,6 +333,12 @@ Now calculate the break-even volume.`,
 Now we need to determine: Is 10 Million tires/year realistic in the German market?`,
       "info"
     );
+    if (calculationHintsAtCompletion === null) {
+      setCalculationHintsAtCompletion(calculationHintLevel + 1);
+    }
+    if (volumeHintsAtCompletion === null) {
+      setVolumeHintsAtCompletion(calculationHintLevel + 1);
+    }
     setHasCalculatedContribution(true);
     setHasCalculatedVolume(true);
     setPhase("awaiting_market");
@@ -349,6 +363,9 @@ Now we need to determine: Is 10 Million tires/year realistic in the German marke
 **Conclusion:** Capturing 12.5% market share in year one as a new entrant is **unrealistic**. The recommendation is to NOT enter the market under these conditions.`,
       "success"
     );
+    if (synthesisHintsAtCompletion === null) {
+      setSynthesisHintsAtCompletion(marketHintLevel + 1);
+    }
     setHasReachedConclusion(true);
     setPhase("calculation_feedback");
     
@@ -394,6 +411,9 @@ Now we need to determine: Is 10 Million tires/year realistic in the German marke
 Now, what analytical framework makes sense for this problem?`,
         "info"
       );
+      if (structureHintsAtCompletion === null) {
+        setStructureHintsAtCompletion(3); // Used all hints
+      }
       setRevealedInfo({ profitability: true, timeline: true, market: true });
       setPhase("awaiting_structure");
     }
@@ -428,6 +448,9 @@ Formula: Fixed Costs ÷ Contribution Margin = Volume needed
 Calculate the break-even volume.`,
         "info"
       );
+      if (structureHintsAtCompletion === null) {
+        setStructureHintsAtCompletion(3); // Used all hints
+      }
       setHasIdentifiedBreakEven(true);
       setPhase("awaiting_calculation");
     }
@@ -466,6 +489,12 @@ Calculate the break-even volume.`,
 What market share would 10 million tires represent? Is this realistic for a new entrant?`,
         "info"
       );
+      if (calculationHintsAtCompletion === null) {
+        setCalculationHintsAtCompletion(3);
+      }
+      if (volumeHintsAtCompletion === null) {
+        setVolumeHintsAtCompletion(3);
+      }
       setHasCalculatedContribution(true);
       setHasCalculatedVolume(true);
       setPhase("awaiting_market");
@@ -498,6 +527,9 @@ What percentage is that?`,
 • Verdict: **Unrealistic** for a new entrant`,
         "info"
       );
+      if (synthesisHintsAtCompletion === null) {
+        setSynthesisHintsAtCompletion(3);
+      }
       setHasReachedConclusion(true);
       setPhase("calculation_feedback");
       setTimeout(() => {
@@ -698,6 +730,9 @@ Given the 3-year profitability requirement, what analytical framework would you 
     // Priority 1: Check for break-even or data keywords
     const keywordCheck = checkKeywordUnlock(input, "awaiting_structure");
     if (keywordCheck.hasKeyword || structureKeywords.some(kw => inputLower.includes(kw))) {
+      if (structureHintsAtCompletion === null) {
+        setStructureHintsAtCompletion(structureHintLevel);
+      }
       setHasIdentifiedBreakEven(true);
       addInterviewerMessage(
         `Excellent! **Break-even analysis** is exactly right.
@@ -797,6 +832,12 @@ Now calculate the break-even volume.`,
     const hasAnnualVolume = inputLower.includes("10 million") || inputLower.includes("10m") || inputLower.includes("10,000,000");
 
     if (hasAnnualVolume) {
+      if (calculationHintsAtCompletion === null) {
+        setCalculationHintsAtCompletion(calculationHintLevel);
+      }
+      if (volumeHintsAtCompletion === null) {
+        setVolumeHintsAtCompletion(calculationHintLevel);
+      }
       setHasCalculatedContribution(true);
       setHasCalculatedVolume(true);
       addInterviewerMessage(
@@ -881,6 +922,9 @@ Show me your work.`,
       inputLower.includes("too high") || inputLower.includes("too ambitious") || inputLower.includes("should not enter");
 
     if (hasMarketShare || hasConclusion) {
+      if (synthesisHintsAtCompletion === null) {
+        setSynthesisHintsAtCompletion(marketHintLevel);
+      }
       setHasReachedConclusion(true);
       addInterviewerMessage(
         `✓ **Excellent analysis!**
@@ -986,10 +1030,53 @@ Click **"Back to Library"** when you're ready to continue.`,
   const calculateScore = (wasCorrect: boolean): number => {
     let score = 0;
     
-    if (hasIdentifiedBreakEven) score += 25;
-    if (hasCalculatedContribution) score += 25;
-    if (hasCalculatedVolume) score += 25;
-    if (hasReachedConclusion) score += 25;
+    // Milestone 1: Structure (Break-Even Analysis)
+    // No Hint: 25 pts | Hint 1: 15 pts | Hint 2+: 0 pts
+    if (hasIdentifiedBreakEven) {
+      const hintsUsed = structureHintsAtCompletion ?? structureHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 15;
+      }
+      // 2+ hints = 0 pts
+    }
+    
+    // Milestone 2: Unit Profit (Contribution Margin €2)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasCalculatedContribution) {
+      const hintsUsed = calculationHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+      // 2+ hints = 0 pts
+    }
+    
+    // Milestone 3: Volume (10M tires/year)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasCalculatedVolume) {
+      const hintsUsed = volumeHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+      // 2+ hints = 0 pts
+    }
+    
+    // Milestone 4: Synthesis (12.5% unrealistic conclusion)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasReachedConclusion) {
+      const hintsUsed = synthesisHintsAtCompletion ?? marketHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+      // 2+ hints = 0 pts
+    }
     
     return Math.min(100, score);
   };
