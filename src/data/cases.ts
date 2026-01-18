@@ -2522,32 +2522,41 @@ This case illustrates the principle that optimal pricing isn't always about maxi
     title: "Luxury Car Rental — Mileage Pricing Strategy",
     firm: "Pricing Strategy",
     type: "Pricing Strategy",
-    background: `The client is an international luxury car rental company.
+    background: `I. Case Background & Initial Information
 
-Current Pricing:
-• Daily rental rate: €220 per day with "unlimited" kilometers advertised
-• Internal calculation: Costs are based on an assumed limit of 300 km per day
+Customer Situation:
+The client is an international car rental company that provides vehicles in the luxury segment for €220/day with advertised "unlimited" mileage.
+
+Internal Calculation:
+Internally, the client calculates their costs based on the assumption that customers do not exceed 300 km/day.
 
 Problem:
-Customers are increasingly driving more than 300 km per day, which erodes the company's margins. The rental company has decided to charge for kilometers driven above the 300 km limit.
+Currently, customers are increasingly driving more than 300 km/day, which erodes margins.
 
-Your task is to determine the appropriate price per additional kilometer.`,
+The Task:
+Determine what price should be charged for every additional kilometer driven above the 300 km limit.`,
     question: "Determine the price that should be charged for every additional kilometer driven above the 300 km limit.",
     difficulty: "Intermediate",
     questions: [
       {
         number: 1,
-        question: `Clarifying Questions:
+        question: `II. Candidate's Strategic Questions
 
-Before diving into calculations, what questions would you ask about profitability expectations, current margins, and the scope of this analysis?
+Before diving into calculations, consider what questions you should ask to clarify the objective and constraints:
+
+• Does the client have a specific profitability expectation?
+• What is the current margin, and is the goal to maintain this specific margin?
+• Are there other aspects beyond the pricing problem (e.g., marketing, operations) that should be considered in this analysis?
 
 ---
 
-INFORMATION FROM THE INTERVIEWER:
+III. Interviewer's Guidance
 
-• The general profitability expectation of the company is 9%
-• The current margin of 9% should be maintained for additional kilometers
-• The focus of the analysis is strictly on pricing; other business aspects can be ignored`,
+Information revealed by the interviewer after the candidate asks the strategic questions above:
+
+• Profitability Goal: The general profitability expectation for the company is 9%
+• Target Margin: The current margin of 9% must be maintained for the additional kilometers
+• Focus: This analysis is strictly limited to pricing; other business aspects can be ignored for now`,
         hints: [
           "Consider what margin target is required for the pricing decision",
           "Think about whether fixed or variable costs are relevant for additional km",
@@ -2566,20 +2575,31 @@ This tells us we need to:
       },
       {
         number: 2,
-        question: `Approach & Cost Structure:
+        question: `IV. Proposed Approach & Brainstorming
 
-What method would you use to determine the price per additional kilometer? 
+The candidate should structure their thoughts and identify relevant cost drivers before calculating.
 
-Brainstorm the relevant cost categories for a car rental company, distinguishing between fixed and variable costs.
+1. Strategic Approach
+Cost-based pricing should be investigated first. Since the price, cost structure, and target margin are already known, benchmarking or customer surveys are less necessary in this specific scenario.
+
+2. Cost Structure Brainstorming
+Identify which costs are fixed versus variable to determine what actually changes when extra kilometers are driven.
+
+| Fixed Costs | Variable Costs |
+|-------------|----------------|
+| Personnel costs (permanent staff) | Maintenance and Repairs |
+| Rent for buildings, parking garages, rental stations | Depreciation / Wear and Tear |
+| Leasing or purchase price of vehicles | Utilities |
+| Insurance | |
+| Marketing | |
 
 ---
 
 INFORMATION FROM THE INTERVIEWER:
 
-Cost Data Provided:
-• Fixed costs: €50 per rental (personnel, rent, insurance, marketing allocation)
-• Variable costs: €0.50 per km (maintenance, repairs, wear and tear, fuel)
-• Depreciation: Cars are purchased for €100,000 and sold for €90,000 after 20,000 km`,
+Additional Data Provided:
+• Fixed Costs: €50 per rental/vehicle
+• Vehicle Value: Vehicles are purchased for €100,000 and sold after 20,000 km for €90,000`,
         hints: [
           "Cost-based pricing: Price = Cost + Margin",
           "For additional km beyond 300, only variable costs matter (fixed costs already covered)",
@@ -2591,7 +2611,7 @@ Since we know our costs and have a clear margin target (9%), cost-based pricing 
 
 ---
 
-Cost Categories:
+Cost Categories Identified:
 
 Fixed Costs (per rental):
 • Personnel costs
@@ -2603,7 +2623,6 @@ Fixed Costs (per rental):
 Variable Costs (per km):
 • Maintenance and repairs
 • Tire wear and replacement
-• Fuel (if included)
 • Depreciation per km
 
 ---
@@ -2614,8 +2633,6 @@ Depreciation Calculation:
 • Sale price after 20,000 km: €90,000
 • Depreciation: €100,000 - €90,000 = €10,000
 • Depreciation per km: €10,000 ÷ 20,000 km = €0.50/km
-
-Note: The €0.50/km variable cost provided already includes depreciation and other variable expenses.
 
 ---
 
@@ -2629,7 +2646,9 @@ Fixed costs (€50/rental) are already covered by the base €220/day rate.`
       },
       {
         number: 3,
-        question: `Calculation:
+        question: `V. Detailed Solution & Calculations
+
+The candidate must use the data provided by the interviewer to arrive at the final price.
 
 Using the cost data provided, calculate:
 1. Verify the current profit and margin on a standard rental (300 km)
@@ -2641,7 +2660,14 @@ Show your work step by step.`,
           "For margin pricing: Price = Cost ÷ (1 - Margin%), NOT Cost × (1 + Margin%)",
           "This is because margin is calculated on price, not on cost"
         ],
-        answer: `STEP 1: Verify Current Profit (Base Case: 300 km)
+        answer: `STEP 1: Calculate Variable Costs per Kilometer
+
+Depreciation = €100,000 - €90,000 = €10,000
+Variable Cost per km = €10,000 ÷ 20,000 km = €0.50/km
+
+---
+
+STEP 2: Verify Current Profitability (Base Case: 300 km)
 
 Revenue: €220
 Variable costs: €0.50/km × 300 km = €150
@@ -2656,22 +2682,23 @@ The current pricing achieves the 9% target margin.
 
 ---
 
-STEP 2: Price per Additional Kilometer
+STEP 3: Determine Price for Additional Kilometers
 
-For additional km beyond 300:
-• Only variable costs apply: €0.50/km
-• Fixed costs are already covered
-• Target margin: 9%
+The goal is to maintain the 9% margin on the price.
+
+Note: Fixed costs are ignored for additional kilometers because they are already covered by the base price of the first 300 km.
 
 Formula:
-Price = Variable Cost ÷ (1 - Margin%)
+Price = Variable Cost ÷ (1 - Margin)
+
+Calculation:
 Price = €0.50 ÷ (1 - 0.09)
 Price = €0.50 ÷ 0.91
 Price = €0.5495
 
 ---
 
-FINAL ANSWER: €0.55 per additional kilometer (54.95 cents)
+FINAL ANSWER: 54.95 cents per additional kilometer
 
 ---
 
@@ -2702,8 +2729,7 @@ SITUATION:
 
 COST STRUCTURE:
 • Fixed costs: €50/rental
-• Variable costs: €0.50/km (includes depreciation)
-• Depreciation: €10,000 over 20,000 km = €0.50/km
+• Variable costs: €0.50/km (depreciation: €10,000 ÷ 20,000 km)
 
 ---
 
@@ -2725,7 +2751,7 @@ Price = €0.50 ÷ 0.91 = €0.5495
 ---
 
 RECOMMENDATION:
-Charge €0.55 per kilometer for all km driven beyond 300 km/day.
+Charge 54.95 cents per kilometer for all km driven beyond 300 km/day.
 
 This maintains the company's 9% profitability target while fairly allocating costs to high-usage customers.`,
     keyFrameworks: [
