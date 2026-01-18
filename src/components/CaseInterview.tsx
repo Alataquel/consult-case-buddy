@@ -73,7 +73,12 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
   // Check if hints are available (max 3 per phase)
   const canUseHint = (): boolean => {
     if (phase === "complete" || phase === "calculation_feedback" || phase === "clarifying_revealed") return false;
-    return getCurrentHintLevel() < 3;
+    return true; // Always allow - will show walkthrough after 3 hints
+  };
+
+  // Check if walkthrough mode is available (all hints exhausted)
+  const isWalkthroughAvailable = (): boolean => {
+    return getCurrentHintLevel() >= 3;
   };
 
   // Initialize with opening message
@@ -184,22 +189,127 @@ Determine the price that should be charged for every additional kilometer driven
 
   // Handle the Hint button click
   const handleHintRequest = () => {
-    if (!canUseHint() || isTyping) return;
+    if (isTyping || phase === "complete" || phase === "calculation_feedback") return;
 
-    // Add a system message showing the hint request
+    const isWalkthrough = isWalkthroughAvailable();
+    
+    // Add a system message showing the request
     setMessages(prev => [...prev, {
       id: `msg-${Date.now()}`,
       role: "student",
-      content: "💡 I'd like a hint, please.",
+      content: isWalkthrough ? "🎓 Please show me the solution walkthrough." : "💡 I'd like a hint, please.",
       timestamp: Date.now()
     }]);
 
     setHintsUsedTotal(prev => prev + 1);
 
-    // Process hint based on current phase
+    // Process hint or walkthrough based on current phase
     setTimeout(() => {
-      processHintRequest();
+      if (isWalkthrough) {
+        processWalkthrough();
+      } else {
+        processHintRequest();
+      }
     }, 300);
+  };
+
+  const processWalkthrough = () => {
+    if (phase === "opening" || phase === "awaiting_clarifying") {
+      provideClarifyingWalkthrough();
+    } else if (phase === "awaiting_structure") {
+      provideStructureWalkthrough();
+    } else if (phase === "awaiting_calculation" || phase === "data_revealed") {
+      provideCalculationWalkthrough();
+    }
+  };
+
+  const provideClarifyingWalkthrough = () => {
+    addInterviewerMessage(
+      `🎓 **Coach Mode — Clarifying Questions Walkthrough**
+
+Since you're stuck, here is the key strategic information:
+
+In a pricing case like this, the **first thing to establish is the financial goal**. Our client expects a **9% profit margin**. They want to ensure this new "extra kilometer" price doesn't dilute that margin.
+
+**Why this matters:**
+Without knowing the target margin, you'd have no way to calculate the final price. The margin requirement is the constraint that drives the entire calculation.
+
+**Key Takeaway:** Always ask about profitability targets, return expectations, or financial goals before diving into analysis.
+
+Now, let's look at the costs. What categories of costs do you think will change as the customer drives more?`,
+      "info"
+    );
+    setHasRevealedMargin(true);
+    setPhase("awaiting_structure");
+  };
+
+  const provideStructureWalkthrough = () => {
+    addInterviewerMessage(
+      `🎓 **Coach Mode — Cost Structure Walkthrough**
+
+Let's break down the costs together:
+
+**Fixed Costs** (stay the same regardless of km):
+• Personnel, rent, base insurance, marketing
+• These are already covered by the €220/day base rate for 300 km
+
+**Variable Costs** (increase with each km driven):
+• Maintenance, repairs, depreciation/wear & tear
+• These are the ONLY costs we need to price for extra kilometers
+
+**Why fixed costs don't matter here:**
+Because the customer already paid €220 for the first 300 km, fixed costs are covered. We only need to recover the *additional* variable costs for km beyond 300.
+
+📊 **The Data:**
+• Fixed Costs: **€50** per rental
+• Vehicle Purchase: **€100,000**
+• Vehicle Resale: **€90,000** (after 20,000 km)
+
+**Your Next Step:** Calculate the variable cost per km using the depreciation data, then apply the 9% margin.`,
+      "info"
+    );
+    setHasProvidedStructure(true);
+    setPhase("awaiting_calculation");
+  };
+
+  const provideCalculationWalkthrough = () => {
+    addInterviewerMessage(
+      `🎓 **Coach Mode — Full Calculation Walkthrough**
+
+Here is the complete step-by-step solution:
+
+**Step 1: Calculate Variable Cost per km**
+• Depreciation = €100,000 - €90,000 = €10,000
+• Variable Cost = €10,000 ÷ 20,000 km = **€0.50/km**
+
+**Step 2: Verify the Baseline (300 km)**
+• Variable costs: €0.50 × 300 = €150
+• Fixed costs: €50
+• Total costs: €200
+• Revenue: €220
+• Profit: €20 → **9.09% margin** ✓
+
+**Step 3: Apply the Margin Formula**
+⚠️ **Common Mistake:** €0.50 × 1.09 = €0.545 ❌
+This is a *markup on cost*, not a margin on price!
+
+✅ **Correct Formula:** Price = Cost ÷ (1 - Margin)
+• Price = €0.50 ÷ 0.91 = **€0.5495**
+
+**Final Answer: 54.95 cents per additional kilometer**
+
+**Why the Formula Matters:**
+• Markup: Profit as % of *cost* → Cost × (1 + %)
+• Margin: Profit as % of *price* → Cost ÷ (1 - %)
+
+The client wants 9% of the *selling price* as profit, so we use the margin formula.`,
+      "success"
+    );
+    setPhase("calculation_feedback");
+    
+    setTimeout(() => {
+      showConclusion(false); // Walkthrough completion - lower score
+    }, 3000);
   };
 
   const processHintRequest = () => {
@@ -1011,19 +1121,32 @@ Well done completing this pricing case!`,
 
           {/* Input Area */}
           <div className="p-4 border-t border-border/50 bg-muted/20">
-            {/* Hint Button Row */}
+            {/* Hint / Walkthrough Button Row */}
             {canUseHint() && (
               <div className="flex items-center justify-between mb-3">
-                <Button
-                  onClick={handleHintRequest}
-                  disabled={isTyping}
-                  variant="outline"
-                  size="sm"
-                  className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
-                >
-                  <HelpCircle className="w-4 h-4 mr-2" />
-                  Need a Hint? ({3 - getCurrentHintLevel()} remaining)
-                </Button>
+                {isWalkthroughAvailable() ? (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300"
+                  >
+                    <Lightbulb className="w-4 h-4 mr-2" />
+                    Show me the solution walkthrough
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                  >
+                    <HelpCircle className="w-4 h-4 mr-2" />
+                    Need a Hint? ({3 - getCurrentHintLevel()} remaining)
+                  </Button>
+                )}
                 <span className="text-xs text-muted-foreground">
                   Hints used: {hintsUsedTotal}
                 </span>
