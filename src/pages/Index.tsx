@@ -29,6 +29,7 @@ const Index = () => {
   const [showRatingDialog, setShowRatingDialog] = useState(false);
   const [pendingRatingCaseId, setPendingRatingCaseId] = useState<string>('');
   const [pendingRatingCaseTitle, setPendingRatingCaseTitle] = useState<string>('');
+  const [pendingRatingScore, setPendingRatingScore] = useState<number | undefined>(undefined);
 
   const handleSelectCase = (caseId: string) => {
     // Check if this is an interview-mode case
@@ -90,6 +91,7 @@ const Index = () => {
     setCurrentState('library');
     setPendingRatingCaseId('');
     setPendingRatingCaseTitle('');
+    setPendingRatingScore(undefined);
   };
 
   const handleRatingSkip = () => {
@@ -97,6 +99,7 @@ const Index = () => {
     setCurrentState('library');
     setPendingRatingCaseId('');
     setPendingRatingCaseTitle('');
+    setPendingRatingScore(undefined);
   };
 
   const handleSubmitScore = (score: number) => {
@@ -167,6 +170,7 @@ const Index = () => {
         <CaseRatingDialog
           isOpen={showRatingDialog}
           caseTitle={pendingRatingCaseTitle}
+          score={pendingRatingScore}
           onSubmit={handleRatingSubmit}
           onSkip={handleRatingSkip}
         />
@@ -179,9 +183,10 @@ const Index = () => {
       // Save the score first
       saveCaseScore('car-rental-mileage-pricing', score, 'Pricing Strategy', 'Luxury Car Rental — Mileage Pricing Strategy');
       
-      // Show rating dialog
+      // Show rating dialog with score
       setPendingRatingCaseId('car-rental-mileage-pricing');
       setPendingRatingCaseTitle('Luxury Car Rental — Mileage Pricing Strategy');
+      setPendingRatingScore(score);
       setShowRatingDialog(true);
     };
 
@@ -201,6 +206,7 @@ const Index = () => {
         <CaseRatingDialog
           isOpen={showRatingDialog}
           caseTitle={pendingRatingCaseTitle}
+          score={pendingRatingScore}
           onSubmit={handleRatingSubmit}
           onSkip={handleRatingSkip}
         />
@@ -213,6 +219,7 @@ const Index = () => {
       saveCaseScore('innovation-tires-pricing', score, 'Pricing Strategy', 'Innovation Tires — Value-Based Pricing');
       setPendingRatingCaseId('innovation-tires-pricing');
       setPendingRatingCaseTitle('Innovation Tires — Value-Based Pricing');
+      setPendingRatingScore(score);
       setShowRatingDialog(true);
     };
 
@@ -230,6 +237,7 @@ const Index = () => {
         <CaseRatingDialog
           isOpen={showRatingDialog}
           caseTitle={pendingRatingCaseTitle}
+          score={pendingRatingScore}
           onSubmit={handleRatingSubmit}
           onSkip={handleRatingSkip}
         />
