@@ -133,12 +133,51 @@ Determine the price that should be charged for every additional kilometer driven
     }, delay);
   };
 
-  const isLowEffortResponse = (input: string): boolean => {
+  // Key Concepts for each phase - hitting these bypasses length requirements
+  const clarifyingKeyConcepts = [
+    "profitability", "margin", "goal", "objective", "expectation", "target",
+    "profit", "return", "percentage", "how much", "requirement"
+  ];
+  
+  const structureKeyConcepts = [
+    "variable", "fixed", "cost", "depreciation", "maintenance", "wear",
+    "tear", "personnel", "rent", "insurance"
+  ];
+  
+  const calculationKeyConcepts = [
+    "0.50", "0.5", "50 cent", "€0.50", "54.95", "54,95", "0.5495",
+    "55 cent", "formula", "divide", "0.91", "1 - 0.09"
+  ];
+
+  // Smart validation: Check if input contains key concepts for current phase
+  const hasKeyConcept = (input: string, phase: Phase): boolean => {
+    const inputLower = input.toLowerCase();
+    
+    if (phase === "opening" || phase === "awaiting_clarifying") {
+      return clarifyingKeyConcepts.some(kw => inputLower.includes(kw));
+    }
+    if (phase === "awaiting_structure" || phase === "clarifying_revealed") {
+      return structureKeyConcepts.some(kw => inputLower.includes(kw));
+    }
+    if (phase === "awaiting_calculation" || phase === "data_revealed") {
+      return calculationKeyConcepts.some(kw => inputLower.includes(kw));
+    }
+    return false;
+  };
+
+  // Smart Response Gate: Low-effort only if NO key concepts AND too short
+  const isLowEffortResponse = (input: string, currentPhase: Phase): boolean => {
+    // Priority 1: If key concept detected, always allow
+    if (hasKeyConcept(input, currentPhase)) {
+      return false;
+    }
+    
+    // Priority 2: Check length/pattern only if no key concepts
     const trimmed = input.trim().toLowerCase();
     const lowEffortPatterns = [
       /^[a-z]$/,           // Single letter
       /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey|sure|yep|yeah|k|y|n)$/i,
-      /^.{1,15}$/,         // Very short responses (less than 15 chars)
+      /^.{1,10}$/,         // Very short responses (less than 10 chars) without key concepts
     ];
     return lowEffortPatterns.some(pattern => pattern.test(trimmed));
   };
@@ -379,7 +418,7 @@ Now give me the final answer.`,
 
   const handleOpeningPhase = (input: string) => {
     // Check for low-effort response - friendly guidance
-    if (isLowEffortResponse(input)) {
+    if (isLowEffortResponse(input, "opening")) {
       addInterviewerMessage(
         `To get the most out of this practice, please try to explain your reasoning. 
 
@@ -409,7 +448,7 @@ However, I'd encourage you to think more strategically. *What clarifying questio
 
   const handleClarifyingPhase = (input: string) => {
     // Friendly guidance for low-effort responses
-    if (isLowEffortResponse(input)) {
+    if (isLowEffortResponse(input, "awaiting_clarifying")) {
       addInterviewerMessage(
         `To get the most out of this practice, please try to explain your reasoning.
 
@@ -494,7 +533,7 @@ Now, how would you structure your approach to find this price? What types of cos
 
   const handleStructurePhase = (input: string) => {
     // Friendly guidance for low-effort responses
-    if (isLowEffortResponse(input)) {
+    if (isLowEffortResponse(input, "awaiting_structure")) {
       addInterviewerMessage(
         `To get the most out of this practice, please try to explain your reasoning.
 
@@ -592,7 +631,7 @@ Can you categorize the relevant costs into **Fixed** and **Variable** categories
 
   const handleCalculationPhase = (input: string) => {
     // Friendly guidance for low-effort responses
-    if (isLowEffortResponse(input)) {
+    if (isLowEffortResponse(input, "awaiting_calculation")) {
       addInterviewerMessage(
         `To get the most out of this practice, please show your step-by-step calculations.
 
