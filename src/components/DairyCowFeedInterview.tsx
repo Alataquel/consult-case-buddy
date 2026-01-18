@@ -786,14 +786,14 @@ ${score >= 80 ? "🌟 Outstanding performance! You demonstrated strong market si
 
   const getPhaseProgress = (): number => {
     switch (phase) {
-      case "opening": return 10;
-      case "awaiting_clarifying": return 15;
-      case "clarifying_revealed": return 25;
-      case "awaiting_framework": return 30;
-      case "awaiting_cows_calculation": return 45;
-      case "cows_feedback": return 55;
-      case "awaiting_feed_calculation": return 60;
-      case "feed_feedback": return 70;
+      case "opening": return 5;
+      case "awaiting_clarifying": return 10;
+      case "clarifying_revealed": return 20;
+      case "awaiting_framework": return 25;
+      case "awaiting_cows_calculation": return 35;
+      case "cows_feedback": return 45;
+      case "awaiting_feed_calculation": return 55;
+      case "feed_feedback": return 65;
       case "awaiting_revenue_calculation": return 75;
       case "revenue_feedback": return 85;
       case "awaiting_recommendation": return 90;
@@ -801,6 +801,40 @@ ${score >= 80 ? "🌟 Outstanding performance! You demonstrated strong market si
       default: return 0;
     }
   };
+
+  const difficultyConfig = {
+    Beginner: { color: "bg-green-100 text-green-700 border-green-200", icon: "🟢" },
+    Intermediate: { color: "bg-amber-100 text-amber-700 border-amber-200", icon: "🟡" }, 
+    Advanced: { color: "bg-red-100 text-red-700 border-red-200", icon: "🔴" }
+  };
+
+  const getPhaseNumber = (): number => {
+    switch (phase) {
+      case "opening":
+      case "awaiting_clarifying": return 1;
+      case "clarifying_revealed":
+      case "awaiting_framework": return 2;
+      case "awaiting_cows_calculation":
+      case "cows_feedback": return 3;
+      case "awaiting_feed_calculation":
+      case "feed_feedback": return 4;
+      case "awaiting_revenue_calculation":
+      case "revenue_feedback": return 5;
+      case "awaiting_recommendation": return 6;
+      case "complete": return 7;
+      default: return 1;
+    }
+  };
+
+  const phases = [
+    { num: 1, label: "Clarify" },
+    { num: 2, label: "Framework" },
+    { num: 3, label: "Cows" },
+    { num: 4, label: "Feed" },
+    { num: 5, label: "Revenue" },
+    { num: 6, label: "Recommend" },
+    { num: 7, label: "Done" }
+  ];
 
   const getPhaseName = (): string => {
     switch (phase) {
@@ -828,174 +862,218 @@ ${score >= 80 ? "🌟 Outstanding performance! You demonstrated strong market si
     }
   };
 
-  const renderMessage = (message: Message) => {
-    if (message.role === "system") {
-      const bgColor = message.type === "hint" ? "bg-amber-50 border-amber-200" :
-                      message.type === "success" ? "bg-green-50 border-green-200" :
-                      message.type === "warning" ? "bg-red-50 border-red-200" :
-                      "bg-blue-50 border-blue-200";
-      
-      const icon = message.type === "hint" ? <Lightbulb className="w-4 h-4 text-amber-500" /> :
-                   message.type === "success" ? <CheckCircle className="w-4 h-4 text-green-500" /> :
-                   message.type === "warning" ? <AlertTriangle className="w-4 h-4 text-red-500" /> :
-                   <HelpCircle className="w-4 h-4 text-blue-500" />;
-      
-      return (
-        <div className={`flex justify-center my-4`}>
-          <div className={`max-w-2xl px-4 py-3 rounded-lg border ${bgColor}`}>
-            <div className="flex items-start gap-2">
-              {icon}
-              <div className="text-sm whitespace-pre-wrap" dangerouslySetInnerHTML={{ 
-                __html: message.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') 
-              }} />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    
-    const isInterviewer = message.role === "interviewer";
-    
-    return (
-      <div className={`flex ${isInterviewer ? 'justify-start' : 'justify-end'} mb-4`}>
-        <div className={`flex items-start gap-3 max-w-[80%] ${isInterviewer ? '' : 'flex-row-reverse'}`}>
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-            isInterviewer ? 'bg-primary/10' : 'bg-secondary'
-          }`}>
-            {isInterviewer ? (
-              <Building className="w-4 h-4 text-primary" />
-            ) : (
-              <User className="w-4 h-4 text-foreground" />
-            )}
-          </div>
-          <div className={`px-4 py-3 rounded-2xl ${
-            isInterviewer 
-              ? 'bg-muted rounded-tl-sm' 
-              : 'bg-primary text-primary-foreground rounded-tr-sm'
-          }`}>
-            <div 
-              className="text-sm whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ 
-                __html: message.content
-                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\n/g, '<br/>')
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="h-full flex flex-col animate-fade-in">
       {/* Header */}
-      <Card className="mb-4">
-        <CardContent className="py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div>
-                <h1 className="text-xl font-bold">{caseData.title}</h1>
-                <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="outline">{caseData.type}</Badge>
-                  <Badge variant="secondary">{caseData.difficulty}</Badge>
-                </div>
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 p-6 mb-6">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-56 h-56 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+        
+        <div className="relative z-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <Badge className="bg-white/80 text-primary border-0 shadow-sm">
+                  <Building className="w-3 h-3 mr-1" />
+                  {caseData.firm}
+                </Badge>
+                <Badge className={`${difficultyConfig[caseData.difficulty].color} border`}>
+                  {difficultyConfig[caseData.difficulty].icon} {caseData.difficulty}
+                </Badge>
+                <Badge variant="outline" className="bg-violet-100 border-violet-200 text-violet-700">
+                  <MessageSquare className="w-3 h-3 mr-1" />
+                  Interview Mode
+                </Badge>
               </div>
+              <h1 className="text-xl md:text-2xl font-bold text-foreground">
+                {caseData.title}
+              </h1>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span className="font-mono">{formatTime(timeElapsed)}</span>
+            
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-lg shadow-sm">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="text-lg font-mono font-bold text-foreground">{formatTime(timeElapsed)}</span>
               </div>
-              <Button variant="outline" size="sm" onClick={handleLeaveCase}>
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Leave Case
+              <Button 
+                variant="ghost" 
+                onClick={handleLeaveCase} 
+                className="text-muted-foreground hover:text-foreground hover:bg-white/50"
+                size="sm"
+              >
+                <RotateCcw className="w-4 h-4 mr-1" />
+                {phase === "complete" ? "Back to Library" : "Exit Case"}
               </Button>
             </div>
           </div>
           
-          {/* Progress */}
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-sm mb-1">
-              <span className="text-muted-foreground">Progress: {getPhaseName()}</span>
-              <span className="font-medium">{getPhaseProgress()}%</span>
-            </div>
-            <div className="w-full bg-secondary rounded-full h-2">
-              <div 
-                className="bg-primary h-2 rounded-full transition-all duration-500"
-                style={{ width: `${getPhaseProgress()}%` }}
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Chat Area */}
-      <Card className="mb-4">
-        <CardContent className="p-4">
-          <div className="h-[500px] overflow-y-auto pr-2">
-            {messages.map(message => (
-              <div key={message.id}>
-                {renderMessage(message)}
+          {/* Phase Progress */}
+          <div className="flex items-center gap-1 mt-4 overflow-x-auto">
+            {phases.map((p, idx) => (
+              <div key={p.num} className="flex items-center">
+                <div className={`flex flex-col items-center`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                    p.num < getPhaseNumber() 
+                      ? 'bg-green-500 text-white' 
+                      : p.num === getPhaseNumber() 
+                        ? 'bg-primary text-white ring-2 ring-primary/30 ring-offset-2' 
+                        : 'bg-white/60 text-muted-foreground'
+                  }`}>
+                    {p.num < getPhaseNumber() ? <CheckCircle className="w-4 h-4" /> : p.num}
+                  </div>
+                  <span className={`text-[10px] mt-1 ${p.num <= getPhaseNumber() ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+                    {p.label}
+                  </span>
+                </div>
+                {idx < phases.length - 1 && (
+                  <div className={`w-4 md:w-6 h-0.5 mb-4 ${p.num < getPhaseNumber() ? 'bg-green-500' : 'bg-white/40'}`} />
+                )}
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Chat Area */}
+      <Card className="flex-1 border-0 shadow-lg overflow-hidden flex flex-col min-h-[500px]">
+        <CardContent className="flex-1 p-0 flex flex-col">
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {messages.map((msg) => (
+              <div 
+                key={msg.id}
+                className={`flex ${msg.role === 'student' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+              >
+                <div className={`flex items-start gap-3 max-w-[88%] ${msg.role === 'student' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    msg.role === 'interviewer' 
+                      ? msg.type === 'warning' 
+                        ? 'bg-amber-100 text-amber-600'
+                        : msg.type === 'success'
+                          ? 'bg-green-100 text-green-600'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-100 text-blue-600'
+                            : 'bg-primary/10 text-primary'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {msg.role === 'interviewer' ? (
+                      msg.type === 'warning' ? <AlertTriangle className="w-4 h-4" /> :
+                      msg.type === 'success' ? <CheckCircle className="w-4 h-4" /> :
+                      msg.type === 'hint' ? <Lightbulb className="w-4 h-4" /> :
+                      <MessageSquare className="w-4 h-4" />
+                    ) : (
+                      <User className="w-4 h-4" />
+                    )}
+                  </div>
+                  <div className={`rounded-2xl px-5 py-3 ${
+                    msg.role === 'interviewer'
+                      ? msg.type === 'warning'
+                        ? 'bg-amber-50 border border-amber-200'
+                        : msg.type === 'success'
+                          ? 'bg-green-50 border border-green-200'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-50 border border-blue-200'
+                            : 'bg-muted/50 border border-border/50'
+                      : 'bg-primary text-primary-foreground'
+                  }`}>
+                    <p className={`text-sm leading-relaxed whitespace-pre-line ${
+                      msg.role === 'interviewer' ? 'text-foreground' : ''
+                    }`} dangerouslySetInnerHTML={{ 
+                      __html: msg.content
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/\n/g, '<br/>')
+                    }} />
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Typing Indicator */}
             {isTyping && (
-              <div className="flex justify-start mb-4">
-                <div className="flex items-center gap-2 px-4 py-3 bg-muted rounded-2xl rounded-tl-sm">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="flex justify-start animate-fade-in">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div className="bg-muted/50 border border-border/50 rounded-2xl px-5 py-3">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
                   </div>
                 </div>
               </div>
             )}
+            
             <div ref={messagesEndRef} />
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Input Area */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex gap-3">
-            <div className="flex-1">
+          {/* Input Area */}
+          <div className="p-4 border-t border-border/50 bg-muted/20">
+            {/* Hint / Walkthrough Button Row */}
+            {canUseHint() && (
+              <div className="flex items-center justify-between mb-3">
+                {isWalkthroughAvailable() ? (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300"
+                  >
+                    <Lightbulb className="w-4 h-4 mr-2" />
+                    Show me the solution walkthrough
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                  >
+                    <HelpCircle className="w-4 h-4 mr-2" />
+                    Need a Hint? ({3 - getCurrentHintLevel()} remaining)
+                  </Button>
+                )}
+                <span className="text-xs text-muted-foreground">
+                  Hints used: {hintsUsedTotal}
+                </span>
+              </div>
+            )}
+            
+            <div className="flex gap-3">
               <Textarea
+                placeholder={phase === "complete" ? "Case completed!" : "Type your response... Explain your reasoning."}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder={phase === "complete" ? "Case complete! Click Leave Case to continue." : "Type your response..."}
-                className="min-h-[80px] resize-none"
-                disabled={phase === "complete" || isTyping}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     handleSendMessage();
                   }
                 }}
+                disabled={isTyping || phase === "complete"}
+                className="min-h-[80px] resize-none bg-white border-border focus:border-primary"
               />
+              <div className="flex flex-col gap-2 self-end">
+                <Button
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || isTyping || phase === "complete"}
+                  size="lg"
+                  className="px-6"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Send
+                </Button>
+              </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <Button 
-                onClick={handleSendMessage}
-                disabled={!inputValue.trim() || isTyping || phase === "complete"}
-                className="h-10"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleHintRequest}
-                disabled={!canUseHint() || isTyping}
-                className="h-10"
-                title={isWalkthroughAvailable() ? "Get walkthrough" : "Get hint"}
-              >
-                <Lightbulb className={`w-4 h-4 ${isWalkthroughAvailable() ? 'text-amber-500' : ''}`} />
-              </Button>
-            </div>
-          </div>
-          <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
-            <span>Press Enter to send, Shift+Enter for new line</span>
-            <span>Hints used: {hintsUsedTotal}</span>
+            <p className="text-xs text-muted-foreground mt-2">
+              Press Enter to send • Shift+Enter for new line • Use the Hint button if you're stuck
+            </p>
           </div>
         </CardContent>
       </Card>
