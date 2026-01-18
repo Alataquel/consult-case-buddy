@@ -1,4 +1,4 @@
-// Utility for managing case scores in localStorage
+// Utility for managing case scores and ratings in localStorage
 
 export interface CaseScore {
   caseId: string;
@@ -6,6 +6,12 @@ export interface CaseScore {
   date: string;
   firm: string;
   caseTitle: string;
+}
+
+export interface CaseRating {
+  caseId: string;
+  rating: number; // 1-5 stars
+  date: string;
 }
 
 export interface UserStats {
@@ -49,6 +55,47 @@ export const getCaseScore = (caseId: string): number | null => {
   )[0];
   
   return mostRecent.score;
+};
+
+// Case Rating Functions (quality feedback)
+export const saveCaseRating = (caseId: string, rating: number) => {
+  const ratings = getCaseRatings();
+  const existingIndex = ratings.findIndex(r => r.caseId === caseId);
+  
+  const newRating: CaseRating = {
+    caseId,
+    rating,
+    date: new Date().toISOString()
+  };
+  
+  if (existingIndex >= 0) {
+    // Update existing rating
+    ratings[existingIndex] = newRating;
+  } else {
+    // Add new rating
+    ratings.push(newRating);
+  }
+  
+  localStorage.setItem('caseRatings', JSON.stringify(ratings));
+};
+
+export const getCaseRatings = (): CaseRating[] => {
+  const ratings = localStorage.getItem('caseRatings');
+  return ratings ? JSON.parse(ratings) : [];
+};
+
+export const getCaseRating = (caseId: string): number | null => {
+  const ratings = getCaseRatings();
+  const rating = ratings.find(r => r.caseId === caseId);
+  return rating ? rating.rating : null;
+};
+
+export const getAverageCaseRating = (caseId: string): { rating: number; count: number } | null => {
+  // For now, we just return the user's own rating
+  // In a real app with a database, this would aggregate all user ratings
+  const rating = getCaseRating(caseId);
+  if (rating === null) return null;
+  return { rating, count: 1 };
 };
 
 const getGradeFromScore = (score: number): string => {
