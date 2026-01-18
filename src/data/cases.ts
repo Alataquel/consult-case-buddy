@@ -2280,6 +2280,179 @@ This case illustrates the principle that optimal pricing isn't always about maxi
     ]
   },
   {
+    id: "car-rental-pricing",
+    title: "Luxury Car Rental — Mileage Pricing Strategy",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `The client is an international car rental company offering luxury segment vehicles for €220/day with unlimited mileage. Internally, the company calculates its costs based on the assumption that customers will not exceed 300 km/day.
+
+Because customers have increasingly been driving more than 300 km/day, the rental company has decided to charge for kilometers driven above the 300 km limit. The company needs to determine the optimal price per additional kilometer that maintains their target profitability.
+
+Key Business Context:
+• Current pricing: €220/day with unlimited mileage
+• Cost assumption: Customers drive ≤300 km/day
+• Problem: Customers increasingly exceed 300 km/day
+• Company's general profitability expectation: 9% margin
+• The current margin of 9% should be maintained
+• Focus is purely on pricing—other operational aspects can be ignored`,
+    question: "At what price should each additional kilometer above the 300 km limit be priced to maintain the company's 9% margin?",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What cost structure should inform the pricing decision?\nIdentify the fixed and variable costs of the car rental business model.\nConsider: Which costs are already covered in the base 300 km, and which increase with additional kilometers?",
+        hints: [
+          "Fixed costs are incurred regardless of kilometers driven",
+          "Variable costs increase proportionally with usage/mileage",
+          "For pricing additional kilometers, only marginal costs matter—fixed costs are already covered",
+          "Think about what happens to a vehicle as it accumulates more kilometers"
+        ],
+        answer: `Cost Structure Analysis:
+
+Fixed Costs (already covered in base €220/day rate):
+• Personnel costs (permanent staff at rental stations)
+• Rent for buildings, parking garages, and rental stations
+• Lease or purchase price of vehicles (acquisition cost)
+• Insurance premiums
+• Marketing and overhead
+
+Variable Costs (increase with kilometers driven):
+• Maintenance and repairs (more km = more wear)
+• Vehicle depreciation (wear & tear reduces resale value)
+• Utilities (minimal impact)
+
+Key Insight for Pricing:
+For pricing kilometers ABOVE the 300 km limit, we only need to consider variable costs. Fixed costs are already covered within the first 300 km and do not increase with additional kilometers driven.
+
+The primary variable cost driver is vehicle depreciation—as customers drive more kilometers, the resale value of the vehicle decreases proportionally.
+
+Pricing Framework:
+Cost-based pricing is appropriate here because:
+• Clear cost structure exists
+• Target margin is defined (9%)
+• Competitive benchmarking or customer surveys are less relevant for this operational decision`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the price per additional kilometer.\n\nUse this information:\n• Fixed costs: €50 per rental per vehicle\n• Vehicles are purchased for €100,000 and resold for €90,000 after 20,000 km\n• Daily rental rate: €220\n• Target margin: 9%",
+        hints: [
+          "First calculate the variable cost per km from depreciation",
+          "Verify the base case profitability (300 km included)",
+          "For additional km pricing: Variable Cost + Margin",
+          "Remember: The margin percentage is applied to the final price, not added to costs"
+        ],
+        answer: `Step 1: Calculate Variable Cost per Kilometer
+
+Vehicle Depreciation:
+• Purchase price: €100,000
+• Resale value: €90,000 (after 20,000 km)
+• Total depreciation: €100,000 - €90,000 = €10,000
+• Depreciation per km: €10,000 ÷ 20,000 km = €0.50/km
+
+Variable Cost = €0.50 per kilometer
+
+---
+
+Step 2: Verify Base Case Profitability (300 km)
+
+Variable Costs (300 km): €0.50/km × 300 km = €150
+Fixed Costs: €50 per rental
+Total Costs: €150 + €50 = €200
+Revenue: €220
+Profit: €220 - €200 = €20
+Margin: €20 ÷ €220 = 9.1% ✓
+
+The base case confirms the 9% margin target is being met.
+
+---
+
+Step 3: Calculate Price for Additional Kilometers
+
+For kilometers beyond 300, only variable costs apply (fixed costs already covered).
+
+The €0.50 variable cost represents 91% of the final price (since 9% is the margin):
+
+Price per additional km = Variable Cost ÷ (1 - Margin)
+Price per additional km = €0.50 ÷ 0.91 = €0.5495
+
+Verification:
+• Price: €0.5495/km
+• Cost: €0.50/km
+• Profit: €0.0495/km
+• Margin: €0.0495 ÷ €0.5495 = 9% ✓
+
+---
+
+Final Answer: €0.55 per kilometer (or 54.95 cents rounded)
+
+Important Note: A common mistake is calculating €0.50 × 1.09 = €0.545. This is mathematically incorrect because the 9% margin is calculated on the selling price, not on the cost. The difference is small but conceptually important.`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Present the final pricing recommendation and discuss implementation considerations.",
+        hints: [
+          "Consider how to communicate the change to customers",
+          "Think about competitive positioning",
+          "Discuss any operational implications"
+        ],
+        answer: `Recommendation: Price additional kilometers at €0.55/km
+
+This maintains the company's 9% profit margin while fairly allocating the incremental costs of higher-mileage usage to the customers who cause them.
+
+---
+
+Implementation Considerations:
+
+1. Customer Communication:
+• Frame positively: "Unlimited mileage for typical usage (up to 300 km/day)"
+• Transparent pricing: Clearly state the per-km charge upfront
+• Provide trip planning tools so customers can estimate total costs
+
+2. Competitive Positioning:
+• Compare to competitors' mileage policies
+• 300 km/day is generous for most use cases (city driving, business trips)
+• Premium positioning justifies the structure
+
+3. Operational Implications:
+• Update booking systems to track mileage at return
+• Train staff on calculating and explaining charges
+• Consider implementing GPS tracking for accurate measurement
+
+4. Strategic Options:
+• Tiered pricing: €0.50/km for 301-500 km, €0.60/km for 500+ km
+• Pre-purchased mileage packages at slight discount
+• Loyalty program members could get higher base mileage (e.g., 400 km)
+
+5. Risk Mitigation:
+• Monitor customer satisfaction and churn after implementation
+• Track competitor responses
+• A/B test messaging approaches
+
+---
+
+Financial Impact (Example):
+
+If a customer drives 400 km instead of 300 km:
+• Additional km: 100 km
+• Additional charge: 100 × €0.55 = €55
+• Total rental: €220 + €55 = €275
+• Additional profit: 100 × €0.0495 = €4.95 (maintaining 9% margin on extra revenue)`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `This pricing case demonstrates cost-based pricing principles for usage-based charging. The key insight is that when pricing incremental usage above a base level, only variable (marginal) costs are relevant—fixed costs are already covered in the base price.
+
+The calculation requires understanding that a 9% margin means the cost represents 91% of price, so: Price = Cost ÷ 0.91, not Cost × 1.09. This is a common mathematical trap in margin calculations.
+
+The final recommendation of €0.55/km maintains the company's profitability target while creating a fair system where high-mileage customers pay for the additional depreciation they cause.`,
+    keyFrameworks: [
+      "Cost-Based Pricing",
+      "Fixed vs Variable Costs",
+      "Margin Calculation",
+      "Incremental Pricing",
+      "Usage-Based Pricing"
+    ]
+  },
+  {
     id: "mediflow-operations-improvement",
     title: "Mediflow Devices S.L. — Operational Bottleneck Analysis",
     firm: "Operations & Process Improvement",
