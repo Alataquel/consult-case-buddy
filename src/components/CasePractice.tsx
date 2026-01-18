@@ -3,56 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Send, RotateCcw, Lightbulb, FileText, HelpCircle, Image, BookOpen, ChevronDown, ChevronUp, Building, ArrowRight } from "lucide-react";
-
-// Import all exhibit images
-import solarwaveExhibit from "@/assets/solarwave-exhibit.png";
-import aurumExhibit from "@/assets/aurum-exhibit.png";
-import novarideExhibit from "@/assets/novaride-exhibit.png";
-import mediflowExhibit from "@/assets/mediflow-exhibit.png";
-import helionExhibit from "@/assets/helion-exhibit.png";
-import castellonExhibit from "@/assets/castellon-exhibit.png";
-import maisonDuboisExhibit from "@/assets/maison-dubois-exhibit.png";
-import aurahomeExhibit from "@/assets/aurahome-exhibit.png";
-import aurahomeLifecycleExhibit from "@/assets/aurahome-lifecycle-exhibit.png";
-import freshrouteExhibit from "@/assets/freshroute-exhibit.png";
-import vitafreshExhibit from "@/assets/vitafresh-exhibit.png";
-import urbanbrewExhibit from "@/assets/urbanbrew-exhibit.png";
-import urbanbrewBcgExhibit from "@/assets/urbanbrew-bcg-exhibit.png";
-import datasafeExhibit from "@/assets/datasafe-exhibit.png";
-import datasafeDiagnosticExhibit from "@/assets/datasafe-diagnostic-exhibit.png";
-import datasafeAnswerExhibit from "@/assets/datasafe-answer-exhibit.png";
-import vedahealthExhibit from "@/assets/vedahealth-exhibit.png";
-import nordpayExhibit from "@/assets/nordpay-exhibit.png";
-import fitstreamExhibit from "@/assets/fitstream-exhibit.png";
-import ecowashExhibit from "@/assets/ecowash-exhibit.png";
-import skillstreamExhibit from "@/assets/skillstream-exhibit.png";
-
-const exhibitImages: Record<string, string> = {
-  "solarwave-exhibit": solarwaveExhibit,
-  "aurum-exhibit": aurumExhibit,
-  "novaride-exhibit": novarideExhibit,
-  "mediflow-exhibit": mediflowExhibit,
-  "helion-exhibit": helionExhibit,
-  "castellon-exhibit": castellonExhibit,
-  "maison-dubois-exhibit": maisonDuboisExhibit,
-  "aurahome-exhibit": aurahomeExhibit,
-  "aurahome-lifecycle-exhibit": aurahomeLifecycleExhibit,
-  "freshroute-exhibit": freshrouteExhibit,
-  "vitafresh-exhibit": vitafreshExhibit,
-  "urbanbrew-exhibit": urbanbrewExhibit,
-  "urbanbrew-bcg-exhibit": urbanbrewBcgExhibit,
-  "datasafe-exhibit": datasafeExhibit,
-  "datasafe-diagnostic-exhibit": datasafeDiagnosticExhibit,
-  "datasafe-answer-exhibit": datasafeAnswerExhibit,
-  "vedahealth-exhibit": vedahealthExhibit,
-  "nordpay-exhibit": nordpayExhibit,
-  "fitstream-exhibit": fitstreamExhibit,
-  "ecowash-exhibit": ecowashExhibit,
-  "skillstream-exhibit": skillstreamExhibit,
-};
-
-export { exhibitImages };
+import { Clock, Send, RotateCcw, Lightbulb, FileText, HelpCircle, BookOpen, ChevronDown, ChevronUp, Building, ArrowRight, FileSpreadsheet } from "lucide-react";
+import ExhibitTable, { hasExhibitTableData } from "@/components/ExhibitTable";
 
 interface CaseQuestion {
   number: number;
@@ -269,17 +221,9 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
                   </div>
                   
                   {/* Question-specific exhibit */}
-                  {q.exhibitImage && exhibitImages[q.exhibitImage] && (
-                    <div className="mb-6 p-4 bg-white rounded-xl border border-border/50">
-                      <p className="text-sm font-medium text-description-gray mb-3 flex items-center gap-2">
-                        <Image className="w-4 h-4" />
-                        Exhibit for Question {q.number}
-                      </p>
-                      <img 
-                        src={exhibitImages[q.exhibitImage]}
-                        alt={`Exhibit for question ${q.number}`}
-                        className="w-full h-auto rounded-lg border border-border shadow-sm"
-                      />
+                  {q.exhibitImage && hasExhibitTableData(q.exhibitImage) && (
+                    <div className="mb-6">
+                      <ExhibitTable exhibitKey={q.exhibitImage} />
                     </div>
                   )}
                   
@@ -337,24 +281,18 @@ const CasePractice = ({ caseData, onSubmitAnswer, onRestart }: CasePracticeProps
         )}
         
         {/* Case Exhibit */}
-        {caseData.exhibitImage && exhibitImages[caseData.exhibitImage] && (
+        {caseData.exhibitImage && hasExhibitTableData(caseData.exhibitImage) && (
           <Card className="border-0 shadow-lg overflow-hidden">
             <div className="flex items-stretch">
               <div className="w-1.5 bg-gradient-to-b from-purple-500 to-purple-300" />
               <CardContent className="flex-1 p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                    <Image className="w-5 h-5 text-purple-600" />
+                    <FileSpreadsheet className="w-5 h-5 text-purple-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">Case Exhibit</h3>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-border/50">
-                  <img 
-                    src={exhibitImages[caseData.exhibitImage]}
-                    alt="Case exhibit"
-                    className="w-full h-auto rounded-lg shadow-sm"
-                  />
-                </div>
+                <ExhibitTable exhibitKey={caseData.exhibitImage} />
               </CardContent>
             </div>
           </Card>
