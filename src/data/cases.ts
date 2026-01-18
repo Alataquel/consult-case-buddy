@@ -1426,6 +1426,243 @@ This case teaches candidates to:
     ]
   },
 
+  // MARKET ENTRY - Cattle Feed India
+  {
+    id: "cattle-feed-india-market-entry",
+    title: "Cattle Feed — India Market Entry",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `The client is a German feed manufacturer who, due to the saturated market in Germany, is looking for expansion opportunities abroad. The client specializes in compound feed for dairy cows (a concentrated feed consisting of wheat, soy, and corn to stimulate milk production).
+
+The company is planning a market entry into India.
+
+Key Business Context:
+• Product: Specialized compound feed for dairy cows
+• Current market: Germany (saturated)
+• Target market: India
+• India context: Large dairy industry with both domestic consumption and significant exports (export share amounts to 20% of domestic consumption)
+• Assessment criteria: Market should be judged based on achievable revenue`,
+    question: "How large is the market for dairy-cow feed in India? Is a market entry attractive from an economic point of view?",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What is the structure for sizing the Indian dairy cow feed market?\nDevelop a logical framework to estimate the total market size.\nConsider: How do you get from population to number of cows to feed demand?",
+        hints: [
+          "Start with milk consumption to derive number of dairy cows needed",
+          "Think about: milk per cow → people per cow → total cows needed",
+          "Don't forget that India exports milk, so production exceeds domestic demand",
+          "Feed market = Number of cows × Feed per cow per year"
+        ],
+        answer: `Market Sizing Framework:
+
+Step 1: Milk Production per Cow
+• Estimate daily milk production per cow
+• Calculate annual production (accounting for rest days)
+
+Step 2: People Supplied per Cow
+• Estimate annual milk consumption per person
+• Divide annual cow production by per-person consumption
+• Result: Number of people one cow can supply
+
+Step 3: Total Dairy Cows for Domestic Demand
+• Start with India's population
+• Adjust for percentage who drink milk (~80%)
+• Divide milk consumers by people-per-cow
+• Result: Cows needed for domestic consumption
+
+Step 4: Adjust for Exports
+• India exports milk in addition to domestic consumption
+• Multiply domestic cows by export factor (1.2x)
+• Result: Total dairy cows in India
+
+Step 5: Feed Market Volume
+• Estimate daily feed consumption per cow
+• Calculate annual feed per cow
+• Multiply by total number of cows
+• Result: Total feed market in kg/tons
+
+Step 6: Revenue Estimation
+• Assume realistic market share for foreign entrant
+• Apply price per kg of feed
+• Result: Potential annual revenue
+
+This structure moves logically from consumption patterns to production requirements to market opportunity.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the total feed market size and potential revenue.\n\nUse these assumptions:\n• India population: 1 billion\n• 80% of population drinks milk\n• Indian cows produce ~10 liters/day (half of German cows due to less professionalized farming)\n• Production days: 350/year (15 days rest)\n• Milk consumption: ~100 liters per person per year\n• Export factor: 1.2x domestic demand\n• Daily feed per cow: 400g of compound feed\n• Feed price: €0.20/kg\n• Target market share: 5%",
+        hints: [
+          "First calculate how many people one cow can supply annually",
+          "Then work out total cows needed for 800M milk consumers",
+          "Don't forget to multiply by 1.2 for export production",
+          "Convert daily feed to annual feed, then to total market volume"
+        ],
+        answer: `Step 1: Annual Milk Production per Cow
+
+Daily production: 10 liters
+Production days: 350 days/year
+
+Annual production = 10 L × 350 days = 3,500 liters per cow per year
+
+---
+
+Step 2: People Supplied per Cow
+
+Annual consumption per person: 100 liters
+
+People per cow = 3,500 L ÷ 100 L = 35 people per cow
+
+---
+
+Step 3: Cows Needed for Domestic Consumption
+
+Population: 1 billion
+Milk drinkers (80%): 800 million
+
+Cows for domestic demand = 800M ÷ 35 = 22.9 million ≈ 23 million cows
+
+---
+
+Step 4: Total Dairy Cows (Including Exports)
+
+Export factor: 1.2x
+
+Total cows = 23 million × 1.2 = 27.6 million ≈ 30 million cows
+
+---
+
+Step 5: Annual Feed Market Volume
+
+Daily feed per cow: 400g = 0.4 kg
+Annual feed per cow: 0.4 kg × 365 days = 146 kg
+
+Total feed market = 30 million cows × 146 kg = 4.38 billion kg
+                  ≈ 4.4 billion kg = 4.4 million tons per year
+
+---
+
+Step 6: Client Revenue Potential
+
+Target market share: 5%
+Feed price: €0.20/kg
+
+Client volume = 4.4 billion kg × 5% = 220 million kg
+Client revenue = 220 million kg × €0.20/kg = €44 million per year
+
+---
+
+Summary:
+| Metric | Value |
+|--------|-------|
+| Milk per cow/year | 3,500 L |
+| People per cow | 35 |
+| Milk consumers | 800M |
+| Cows (domestic) | 23M |
+| Cows (total) | 30M |
+| Feed per cow/year | 146 kg |
+| Total feed market | 4.4B kg |
+| Client market share | 5% |
+| **Potential revenue** | **€44 million/year** |`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Is market entry into India attractive?\nBased on the €44M revenue potential, assess whether the client should enter the Indian market.\nConsider: market attractiveness factors, risks, and strategic fit.",
+        hints: [
+          "Compare €44M potential to typical market entry costs and effort",
+          "Consider competitive landscape in Indian feed market",
+          "Think about distribution challenges in a geographically dispersed market",
+          "Evaluate whether 5% market share is realistic for a foreign entrant"
+        ],
+        answer: `Recommendation: CONDITIONAL YES — Enter with Strategic Partnership
+
+---
+
+Market Attractiveness Assessment:
+
+Positive Factors:
+• Large absolute market: 4.4 billion kg / 4.4 million tons annually
+• Revenue potential: €44M at conservative 5% share
+• Growth trajectory: Indian dairy sector growing 4-5% annually
+• Export orientation: India is a major milk exporter, indicating quality focus
+• Professionalization trend: Shift from traditional to commercial farming increases demand for specialized feed
+
+Concerns:
+• Fragmented market: Many local and regional feed producers
+• Price sensitivity: Indian farmers are cost-conscious
+• Distribution complexity: 30 million cows spread across vast geography
+• Local competition: Established Indian feed manufacturers with cost advantages
+• Regulatory hurdles: Import regulations, quality certifications required
+
+---
+
+Revenue vs. Investment Analysis:
+
+€44M annual revenue is attractive IF:
+• Entry costs (facilities, distribution, marketing) < €20-30M
+• Operating margins can reach 15-20%
+• Potential profit: €44M × 15% = €6.6M annually
+• Payback period: 3-5 years (reasonable for market entry)
+
+€44M may be insufficient IF:
+• Entry requires building manufacturing facilities (€50M+)
+• Distribution network setup costs exceed €20M
+• Margin compression from price competition
+
+---
+
+Strategic Recommendations:
+
+1. Partnership Model (Recommended):
+• Partner with established Indian feed manufacturer
+• License technology and formulations
+• Avoid heavy capital investment
+• Share revenue but reduce risk
+
+2. If Greenfield Entry:
+• Start in high-value segments (premium farms, export-focused dairies)
+• Target 2-3 states initially (Punjab, Gujarat, Maharashtra)
+• Price at premium with quality differentiation
+• Build manufacturing only after proving market acceptance
+
+3. Key Success Factors:
+• Demonstrate feed-to-milk conversion efficiency
+• Offer technical support and farmer education
+• Adapt formulations to local cow breeds and conditions
+• Build relationships with dairy cooperatives (Amul model)
+
+---
+
+Final Verdict:
+
+ENTER via partnership or licensing model. The €44M revenue opportunity is attractive for a specialized German manufacturer, but the risks of full greenfield entry (investment, distribution, competition) suggest a capital-light approach is wiser.
+
+Alternative: If client requires 100% ownership, consider entering through acquisition of a mid-sized Indian feed company rather than building from scratch.`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `This case demonstrates bottom-up market sizing for an agricultural commodity. The key insight is building the market estimate from fundamental consumption patterns: milk consumption → cows needed → feed required.
+
+The calculation yields a 4.4 billion kg annual feed market, with €44M revenue potential at 5% market share. This is attractive but requires careful entry strategy given:
+1. Fragmented competitive landscape
+2. Price-sensitive customer base
+3. Complex distribution across vast geography
+
+The recommendation is to enter via partnership or licensing rather than greenfield investment, balancing the revenue opportunity against execution risk.
+
+This case teaches candidates to:
+1. Structure a market sizing problem using logical building blocks
+2. Make reasonable assumptions and articulate their basis
+3. Connect market size to business opportunity (revenue potential)
+4. Evaluate market entry attractiveness beyond just size`,
+    keyFrameworks: [
+      "Bottom-Up Market Sizing",
+      "Supply Chain Analysis",
+      "Market Entry Mode Selection",
+      "Revenue Estimation",
+      "Go/No-Go Decision Framework"
+    ]
+  },
+
   // GROWTH STRATEGY
   {
     id: "novaride-growth",
