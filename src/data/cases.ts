@@ -3624,6 +3624,209 @@ The real opportunity likely lies in optimizing the €0.33/bar of 'other' manufa
       "Unit Economics",
       "Benchmarking"
     ]
+  },
+  {
+    id: "bavarian-brewery-distribution",
+    title: "Bavarian Brewery — Distribution Cost Analysis",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `The client is a traditional Bavarian brewery that produces and distributes its own beer to local bars and restaurants.
+
+The owner fears that distribution costs are too high and has engaged our firm to evaluate this concern. The brewery handles all distribution internally using its own trucks and employees.
+
+Key operational context:
+• Distribution is done using company-owned trucks
+• Barrels are loaded by two dedicated distribution employees and delivered directly to bars and restaurants
+• Distribution is carried out entirely in-house (not outsourced)
+• The brewery supplies 5 local bars/restaurants
+
+The owner wants to understand what proportion of total costs is consumed by distribution activities, and whether this represents an opportunity for cost optimization.`,
+    question: "Evaluate distribution costs using the KPI: Distribution costs / Total costs. Calculate the KPI and determine whether distribution costs are indeed 'too high.'",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Understanding the Distribution Model\nBefore diving into calculations, explore the distribution setup. What questions would you ask to understand the cost drivers? What are the implications of running distribution in-house vs. outsourcing?",
+        hints: [
+          "Consider the fixed vs. variable nature of distribution costs",
+          "Think about what drives distribution costs: labor, vehicles, fuel, routes, drop sizes",
+          "In-house distribution has different cost dynamics than third-party logistics"
+        ],
+        answer: `Key Questions to Understand Distribution:
+
+1. Which distribution channels are used?
+   - Direct delivery via company trucks to bars/restaurants
+   - No wholesalers or third-party distributors involved
+
+2. Is distribution handled internally or outsourced?
+   - Fully internal: company owns trucks and employs dedicated distribution staff
+   - This means distribution costs are largely FIXED (salaries, truck depreciation) rather than variable
+
+3. What constitutes distribution costs?
+   - Truck costs (depreciation, fuel, maintenance, insurance)
+   - Personnel costs (2 employees dedicated to loading and delivery)
+   - Potential: route planning, scheduling, order management overhead
+
+4. What benchmark exists for 'too high'?
+   - The KPI "Distribution costs / Total costs" will be used
+   - Industry benchmarks for beverage distribution typically range 10-25%
+   - Higher ratios suggest inefficiency or sub-scale operations
+
+Implications of In-House Distribution:
+
+Advantages:
+• Direct customer relationships
+• Quality control of delivery
+• Flexibility in scheduling
+• No third-party margins
+
+Disadvantages:
+• Fixed cost base regardless of volume
+• Sub-optimal route density if few customers
+• Capital tied up in trucks
+• Expertise may not be core competency
+
+Key Insight: For a small brewery with only 5 customers, in-house distribution may be inherently inefficient due to lack of scale and route density.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the Distribution Cost KPI\n\nUse the following data to calculate the KPI:\n\n**Distribution costs:**\n• Truck costs: €18,000/year (including fuel and maintenance)\n• Distribution employees: 2\n• Personnel cost per employee: €25,000/year\n\n**Sales volume (to derive total costs):**\n• Number of bars supplied: 5\n• Average seating capacity per bar: 100 seats\n• Average occupancy: 40%\n• Opening days: 340 days/year\n• Beer consumption: 2 liters per guest per visit\n• Price per liter in the bar: €10 (end customer price)\n• Bar markup: 250% on purchase price\n• Brewery profit margin: 10%\n\nCalculate: (1) Annual distribution costs, (2) Annual volume sold, (3) Total costs, (4) The KPI.",
+        hints: [
+          "Distribution costs = Truck costs + Personnel costs",
+          "Work backwards from bar price: if markup is 250%, then bar price = purchase price × 3.5",
+          "Brewery's total cost per liter = Selling price × (1 - profit margin)",
+          "Total annual costs = Cost per liter × Annual volume"
+        ],
+        answer: `Step 1: Calculate Annual Distribution Costs
+
+Truck costs: €18,000/year
+Personnel costs: 2 employees × €25,000 = €50,000/year
+
+Total distribution costs = €18,000 + €50,000 = €68,000/year
+
+---
+
+Step 2: Calculate Annual Volume Sold
+
+Seats per bar: 100
+Number of bars: 5
+Total seats: 5 × 100 = 500 seats
+
+Average occupancy: 40%
+Occupied seats per day: 500 × 0.40 = 200 guests/day
+
+Beer consumption: 2 liters/guest
+Daily volume: 200 × 2 = 400 liters/day
+
+Annual volume: 400 × 340 days = 136,000 liters/year
+
+---
+
+Step 3: Calculate Total Costs
+
+First, find the brewery's selling price to bars:
+• Bar sells at €10/liter to customers
+• Bar markup is 250% on purchase price
+• Bar price = Purchase price × (1 + 2.5) = Purchase price × 3.5
+• Purchase price = €10 ÷ 3.5 = €2.86/liter (brewery's selling price)
+
+Brewery's cost per liter:
+• Brewery profit margin: 10%
+• Profit per liter = €2.86 × 10% = €0.29
+• Total cost per liter = €2.86 - €0.29 = €2.57/liter
+
+Annual total costs:
+Total costs = €2.57/liter × 136,000 liters = €349,520/year
+
+---
+
+Step 4: Calculate the KPI
+
+KPI = Distribution costs / Total costs
+KPI = €68,000 / €349,520 = 0.195 ≈ 19.5%
+
+---
+
+Summary:
+| Metric | Value |
+|--------|-------|
+| Annual distribution costs | €68,000 |
+| Annual volume | 136,000 liters |
+| Total cost per liter | €2.57 |
+| Annual total costs | €349,520 |
+| KPI (Distribution / Total) | ~19.5% |`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Are distribution costs too high?\n\nInterpret the ~20% distribution cost ratio. Is the owner's concern justified? What alternatives should the brewery consider to reduce distribution costs?",
+        hints: [
+          "Consider industry benchmarks for beverage distribution (typically 10-25%)",
+          "Think about the fixed cost nature of in-house distribution with only 5 customers",
+          "Consider alternatives: outsourcing, route optimization, minimum order sizes, customer consolidation"
+        ],
+        answer: `Interpretation of the ~20% KPI:
+
+Distribution costs represent approximately 20% of total costs (or ~€0.50 per liter of €2.57 total cost per liter).
+
+Is This Too High?
+
+The answer is nuanced:
+
+Industry Context:
+• Beverage distribution typically ranges 10-25% of costs
+• At 20%, the brewery is on the higher end but within normal range
+• For a SMALL brewery with only 5 customers, this ratio is actually not surprising
+
+Key Concern — Fixed Cost Structure:
+The real issue is that distribution costs (€68,000) are almost entirely FIXED:
+• €50,000 in salaries (fixed regardless of volume)
+• €18,000 in truck costs (largely fixed)
+
+With only 136,000 liters sold, distribution cost = €0.50/liter
+If volume doubled to 272,000 liters, distribution cost would drop to ~€0.25/liter
+
+The problem is not that distribution is inherently expensive—it's that the brewery lacks SCALE to spread fixed costs.
+
+Recommendations:
+
+1. Route Optimization (Short-term)
+   • Analyze delivery frequency—can 5 bars be served with fewer trips?
+   • Consolidate deliveries to reduce fuel and time costs
+   • Impact: Could reduce truck costs by 10-20%
+
+2. Minimum Order Sizes (Short-term)
+   • Require minimum barrel quantities per delivery
+   • Reduces cost per liter delivered
+   • Impact: Improves efficiency without adding customers
+
+3. Expand Customer Base (Medium-term)
+   • The core problem is only 5 customers
+   • Adding 5 more bars would nearly halve cost per liter
+   • Key lever for sustainable cost reduction
+
+4. Partial Outsourcing (Consider carefully)
+   • Third-party logistics might be cheaper per delivery
+   • BUT: Brewery loses direct customer relationship
+   • May make sense for distant customers only
+
+5. Shared Distribution (Creative option)
+   • Partner with other local breweries/producers
+   • Share truck and driver costs
+   • Increases route density without adding headcount
+
+Conclusion:
+
+The owner's concern has merit—20% is on the higher end. However, the solution is not cost-cutting but VOLUME GROWTH. The fixed-cost distribution model only works at scale. The brewery should focus on adding customers to leverage its existing distribution infrastructure before considering outsourcing.`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: "This case tests multi-step quantitative reasoning (working backwards from retail price through markup and margin to derive costs) and volume calculations. Strong candidates will recognize that the ~20% distribution cost ratio, while elevated, is driven by a fixed-cost distribution model serving too few customers. The strategic insight is that volume growth—not cost-cutting—is the primary lever for improvement.",
+    keyFrameworks: [
+      "Cost Structure Analysis",
+      "Fixed vs. Variable Costs",
+      "KPI Interpretation",
+      "Distribution Strategy",
+      "Economies of Scale"
+    ]
   }
 ];
 
