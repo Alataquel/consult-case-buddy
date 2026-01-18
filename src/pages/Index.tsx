@@ -7,18 +7,20 @@ import CaseFeedback from "@/components/CaseFeedback";
 import CaseInterview, { luxuryCarRentalCase } from "@/components/CaseInterview";
 import InnovationTiresInterview, { innovationTiresCase } from "@/components/InnovationTiresInterview";
 import AllPurposeTiresInterview, { allPurposeTiresCase } from "@/components/AllPurposeTiresInterview";
+import DairyCowFeedInterview, { dairyCowFeedCase } from "@/components/DairyCowFeedInterview";
 import CaseRatingDialog from "@/components/CaseRatingDialog";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore, saveCaseRating } from "@/utils/scoreStorage";
 
-type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'interview-tires' | 'interview-allpurpose' | 'feedback';
+type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'interview-tires' | 'interview-allpurpose' | 'interview-dairyfeed' | 'feedback';
 
 // Special interview-mode case IDs
 const INTERVIEW_MODE_CASES = {
   'car-rental-mileage-pricing': 'car-rental',
   'innovation-tires-pricing': 'innovation-tires',
-  'all-purpose-tires-market-entry': 'all-purpose-tires'
+  'all-purpose-tires-market-entry': 'all-purpose-tires',
+  'dairy-cow-feed-india-entry': 'dairy-feed'
 };
 
 const Index = () => {
@@ -41,6 +43,8 @@ const Index = () => {
         setCurrentState('interview-tires');
       } else if (caseId === 'all-purpose-tires-market-entry') {
         setCurrentState('interview-allpurpose');
+      } else if (caseId === 'dairy-cow-feed-india-entry') {
+        setCurrentState('interview-dairyfeed');
       } else {
         setCurrentState('interview');
       }
@@ -266,6 +270,37 @@ const Index = () => {
             caseData={allPurposeTiresCase}
             onComplete={handleInterviewComplete}
             onRequestRating={handleAllPurposeRequestRating}
+            onRestart={handleRestart}
+          />
+        </div>
+        <CaseRatingDialog
+          isOpen={showRatingDialog}
+          caseTitle={pendingRatingCaseTitle}
+          score={pendingRatingScore}
+          onSubmit={handleRatingSubmit}
+          onSkip={handleRatingSkip}
+        />
+      </div>
+    );
+  }
+
+  if (currentState === 'interview-dairyfeed') {
+    const handleDairyFeedRequestRating = (score: number) => {
+      saveCaseScore('dairy-cow-feed-india-entry', score, 'Market Entry', 'Dairy Cow Feed — Indian Market Entry');
+      setPendingRatingCaseId('dairy-cow-feed-india-entry');
+      setPendingRatingCaseTitle('Dairy Cow Feed — Indian Market Entry');
+      setPendingRatingScore(score);
+      setShowRatingDialog(true);
+    };
+
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <div className="flex-1 container mx-auto px-4 py-6">
+          <DairyCowFeedInterview 
+            caseData={dairyCowFeedCase}
+            onComplete={handleInterviewComplete}
+            onRequestRating={handleDairyFeedRequestRating}
             onRestart={handleRestart}
           />
         </div>
