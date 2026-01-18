@@ -3,24 +3,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Send, RotateCcw, FileText, Building, ArrowRight, User, MessageSquare, Lightbulb, CheckCircle, AlertCircle, FileSpreadsheet } from "lucide-react";
+import { Clock, Send, RotateCcw, Building, User, MessageSquare, Lightbulb, CheckCircle, AlertTriangle, FileSpreadsheet } from "lucide-react";
 import ExhibitTable, { hasExhibitTableData } from "@/components/ExhibitTable";
 
-interface InterviewPhase {
+interface Message {
   id: string;
-  type: "briefing" | "inquiry" | "structure" | "quantitative" | "conclusion";
-  title: string;
-  interviewerMessage: string;
-  requiredKeywords?: string[]; // Keywords student should mention to progress
-  revealOnKeywords?: string[]; // Keywords that trigger additional info reveal
-  revealedInfo?: string; // Info revealed when keywords are mentioned
-  exhibitKey?: string; // Exhibit to show in this phase
-  expectedPoints?: string[]; // Points student should cover
-  feedback?: {
-    success: string;
-    partial: string;
-    needsWork: string;
-  };
+  role: "interviewer" | "student" | "system";
+  content: string;
+  timestamp: number;
+  type?: "info" | "warning" | "success" | "hint";
 }
 
 interface InterviewCase {
@@ -29,18 +20,6 @@ interface InterviewCase {
   firm: string;
   type: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
-  phases: InterviewPhase[];
-  finalAnswer: string;
-  evaluationCriteria: string[];
-}
-
-interface Message {
-  id: string;
-  role: "interviewer" | "student";
-  content: string;
-  timestamp: number;
-  phaseId?: string;
-  isReveal?: boolean;
 }
 
 interface CaseInterviewProps {
@@ -49,175 +28,57 @@ interface CaseInterviewProps {
   onRestart: () => void;
 }
 
-// Luxury Car Rental case with phased structure
+type Phase = 
+  | "opening" 
+  | "awaiting_clarifying" 
+  | "clarifying_revealed" 
+  | "awaiting_structure" 
+  | "data_revealed" 
+  | "awaiting_calculation" 
+  | "calculation_feedback"
+  | "complete";
+
+// Luxury Car Rental case configuration
 export const luxuryCarRentalCase: InterviewCase = {
   id: "car-rental-mileage-pricing",
   title: "Luxury Car Rental — Mileage Pricing Strategy",
   firm: "Pricing Strategy",
   type: "Pricing Strategy",
   difficulty: "Intermediate",
-  phases: [
-    {
-      id: "briefing",
-      type: "briefing",
-      title: "Case Opening",
-      interviewerMessage: `Welcome to this pricing case. Let me give you the situation.
-
-Your client is an **international luxury car rental company**. They charge **€220 per day** with advertised "unlimited" mileage.
-
-However, here's the issue: **internally**, all costs are calculated based on the assumption that customers drive no more than **300 km per day**. 
-
-Recently, customers have been exceeding this limit more frequently, which is eroding margins.
-
-**Your task:** Determine the price that should be charged for every additional kilometer driven above the 300 km limit.
-
-Before we dive into calculations, what questions would you like to ask me to clarify the objectives and constraints?`,
-    },
-    {
-      id: "inquiry",
-      type: "inquiry", 
-      title: "Clarifying Questions",
-      interviewerMessage: `Good questions. Let me provide some key information:
-
-• **Profitability Target:** The company expects a **9% profit margin** and wants to maintain this level.
-• **Current Performance:** The existing 300 km pricing achieves this 9% margin.
-• **Scope:** Focus strictly on **pricing** — you can ignore marketing, operations, and competitive factors for this analysis.
-
-Now, how would you structure your approach to find this price? What types of costs should we consider?`,
-      requiredKeywords: ["margin", "profit", "goal", "target", "expectation", "profitability"],
-      revealOnKeywords: ["margin", "profit", "goal", "target", "9%"],
-      revealedInfo: "The target margin is 9% and must be maintained for additional kilometers.",
-    },
-    {
-      id: "structure",
-      type: "structure",
-      title: "Cost Structure",
-      interviewerMessage: `Good thinking on the cost categories. You correctly identified that we need to separate:
-
-**Fixed Costs** (per rental): Personnel, rent, insurance, marketing — these don't change with kilometers driven.
-
-**Variable Costs** (per km): Maintenance, repairs, depreciation/wear and tear — these scale with usage.
-
-Now let me give you the quantitative data:
-
-• **Fixed Costs:** €50 per rental/vehicle
-• **Vehicle Purchase Price:** €100,000
-• **Vehicle Resale Value:** €90,000 (after 20,000 km of total usage)
-
-Using this data, calculate:
-1. The variable cost per kilometer
-2. Verify the current profitability at 300 km
-3. The price per additional kilometer that maintains 9% margin
-
-Show me your calculations.`,
-      requiredKeywords: ["fixed", "variable", "depreciation", "maintenance", "cost"],
-      expectedPoints: ["Fixed vs variable cost distinction", "Depreciation as key variable cost", "Only variable costs apply beyond 300km"],
-    },
-    {
-      id: "quantitative",
-      type: "quantitative",
-      title: "Calculation Phase",
-      interviewerMessage: `Let me check your math...`,
-      exhibitKey: undefined, // No exhibit needed for this phase
-      feedback: {
-        success: `✓ Excellent work! Your calculation is correct.
-
-**Variable Cost:** (€100,000 - €90,000) ÷ 20,000 km = **€0.50/km**
-
-**Current Profit Check:**
-• Revenue: €220
-• Variable costs: €0.50 × 300 = €150
-• Fixed costs: €50
-• Profit: €220 - €200 = €20 → **9.09% margin** ✓
-
-**Additional KM Price:**
-Using Price = Cost ÷ (1 - Margin):
-€0.50 ÷ 0.91 = **€0.5495 per km**
-
-→ **Final Answer: 54.95 cents per additional kilometer**`,
-        partial: `You're on the right track, but let me help you with one detail...
-
-⚠️ **Common Mistake:** If you calculated €0.50 × 1.09 = €0.545, that gives you a 9% *markup on cost*, not a 9% *margin on price*.
-
-**The Correct Method:**
-For margin on selling price, use: **Price = Cost ÷ (1 - Margin)**
-
-Calculation: €0.50 ÷ 0.91 = **€0.5495**
-
-This ensures the 9% is calculated on the final price, not the cost.`,
-        needsWork: `Let me walk you through the correct approach:
-
-**Step 1: Variable Cost per km**
-Depreciation = €100,000 - €90,000 = €10,000
-Variable cost = €10,000 ÷ 20,000 km = **€0.50/km**
-
-**Step 2: Verify Current Margin**
-Revenue: €220
-Costs: (€0.50 × 300) + €50 = €200
-Profit: €20 → Margin: 9% ✓
-
-**Step 3: Price Additional KM**
-Price = €0.50 ÷ (1 - 0.09) = €0.50 ÷ 0.91 = **€0.5495**
-
-**Answer: 54.95 cents per km**`
-      }
-    },
-    {
-      id: "conclusion",
-      type: "conclusion",
-      title: "Case Summary",
-      interviewerMessage: `Excellent work on this pricing case! Let me summarize your performance:
-
-**Case Summary:**
-The luxury car rental company should charge **54.95 cents (≈55 cents)** for each kilometer driven above the 300 km daily limit.
-
-**Key Insights:**
-1. Only variable costs (€0.50/km depreciation) apply to additional kilometers
-2. Fixed costs are already covered by the base rate
-3. The division method (Cost ÷ 0.91) ensures margin is on price, not markup on cost
-
-**Your Performance:**
-• Structured approach to clarifying objectives ✓
-• Correct cost categorization (fixed vs variable) ✓
-• Accurate mathematical calculation ✓
-• Understanding of margin vs markup distinction ✓
-
-Well done! You've completed this pricing case.`,
-    }
-  ],
-  finalAnswer: "54.95 cents per additional kilometer (€0.5495)",
-  evaluationCriteria: [
-    "Asked about profitability/margin targets before calculating",
-    "Correctly categorized fixed vs variable costs",
-    "Calculated variable cost as €0.50/km",
-    "Verified current 9% margin at 300km baseline",
-    "Used correct formula: Price = Cost ÷ (1 - Margin)",
-    "Arrived at 54.95 cents (not 54.5 cents)"
-  ]
 };
 
 const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) => {
-  const [currentPhaseIndex, setCurrentPhaseIndex] = useState(0);
+  const [phase, setPhase] = useState<Phase>("opening");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
-  const [phaseAnswers, setPhaseAnswers] = useState<Record<string, string>>({});
-  const [revealedInfo, setRevealedInfo] = useState<Set<string>>(new Set());
+  const [hintLevel, setHintLevel] = useState(0);
+  const [hasRevealedMargin, setHasRevealedMargin] = useState(false);
+  const [hasProvidedStructure, setHasProvidedStructure] = useState(false);
+  const [calculationAttempts, setCalculationAttempts] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const currentPhase = caseData.phases[currentPhaseIndex];
-  const isComplete = currentPhaseIndex >= caseData.phases.length;
-
-  // Initialize with first interviewer message
+  // Initialize with opening message
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    if (caseData.phases.length > 0) {
-      setTimeout(() => {
-        addInterviewerMessage(caseData.phases[0].interviewerMessage, caseData.phases[0].id);
-      }, 500);
-    }
+    setTimeout(() => {
+      addInterviewerMessage(
+        `Welcome. Let me present your case.
+
+**Situation:**
+An international luxury car rental company charges **€220 per day** with advertised "unlimited" mileage.
+
+**The Problem:**
+Internally, all costs are calculated based on the assumption that customers drive no more than **300 km per day**. Recently, customers have been exceeding this limit more frequently.
+
+**Your Task:**
+Determine the price that should be charged for every additional kilometer driven above the 300 km limit.
+
+*Before we proceed, what would you like to ask me?*`
+      );
+    }, 500);
   }, []);
 
   // Timer
@@ -228,7 +89,7 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-scroll to bottom
+  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -239,103 +100,390 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const addInterviewerMessage = (content: string, phaseId?: string, isReveal = false) => {
+  const addInterviewerMessage = (content: string, type?: "info" | "warning" | "success" | "hint") => {
     setIsTyping(true);
+    const delay = 600 + Math.random() * 400;
+    
     setTimeout(() => {
       setMessages(prev => [...prev, {
         id: `msg-${Date.now()}`,
         role: "interviewer",
         content,
         timestamp: Date.now(),
-        phaseId,
-        isReveal
+        type
       }]);
       setIsTyping(false);
-    }, 800 + Math.random() * 400);
+    }, delay);
   };
 
-  const checkKeywordsAndProgress = (studentInput: string) => {
-    const inputLower = studentInput.toLowerCase();
-    const phase = currentPhase;
+  const isLowEffortResponse = (input: string): boolean => {
+    const trimmed = input.trim().toLowerCase();
+    const lowEffortPatterns = [
+      /^[a-z]$/,           // Single letter
+      /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey)$/i,
+      /^.{1,10}$/,         // Very short responses (less than 10 chars)
+    ];
+    return lowEffortPatterns.some(pattern => pattern.test(trimmed));
+  };
 
-    // Check for keyword reveals
-    if (phase.revealOnKeywords && phase.revealedInfo && !revealedInfo.has(phase.id)) {
-      const hasKeyword = phase.revealOnKeywords.some(kw => inputLower.includes(kw.toLowerCase()));
-      if (hasKeyword) {
-        setRevealedInfo(prev => new Set([...prev, phase.id]));
-      }
-    }
+  const checkForProfitabilityQuestion = (input: string): boolean => {
+    const keywords = [
+      "profit", "margin", "goal", "target", "expect", "profitability",
+      "return", "percentage", "how much", "objective", "requirement"
+    ];
+    const inputLower = input.toLowerCase();
+    return keywords.some(kw => inputLower.includes(kw));
+  };
 
-    // For quantitative phase, check for specific calculations
-    if (phase.type === "quantitative") {
-      const hasCorrectAnswer = inputLower.includes("0.5495") || inputLower.includes("54.95") || inputLower.includes("55 cent");
-      const hasIncorrectMethod = inputLower.includes("0.545") || inputLower.includes("54.5 cent");
-      
-      if (phase.feedback) {
-        if (hasCorrectAnswer) {
-          return { proceed: true, feedback: phase.feedback.success };
-        } else if (hasIncorrectMethod) {
-          return { proceed: true, feedback: phase.feedback.partial };
-        } else if (inputLower.includes("0.50") || inputLower.includes("€0.5")) {
-          return { proceed: true, feedback: phase.feedback.needsWork };
-        }
-      }
-    }
+  const checkForCostStructure = (input: string): boolean => {
+    const inputLower = input.toLowerCase();
+    const hasFixed = inputLower.includes("fixed");
+    const hasVariable = inputLower.includes("variable");
+    const hasDepreciation = inputLower.includes("depreciation") || inputLower.includes("wear");
+    const hasMaintenance = inputLower.includes("maintenance") || inputLower.includes("repair");
+    
+    // Must mention both fixed AND variable, plus at least one specific cost type
+    return (hasFixed && hasVariable) && (hasDepreciation || hasMaintenance);
+  };
 
-    // Default: always proceed after student input
-    return { proceed: true, feedback: null };
+  const analyzeCalculation = (input: string): { correct: boolean; hasIncorrectMethod: boolean; hasVariableCost: boolean } => {
+    const inputLower = input.toLowerCase();
+    
+    // Check for correct answer (54.95, 0.5495, 55 cents rounded)
+    const hasCorrectAnswer = 
+      inputLower.includes("54.95") || 
+      inputLower.includes("0.5495") ||
+      inputLower.includes("54,95") ||
+      (inputLower.includes("55") && inputLower.includes("cent"));
+    
+    // Check for incorrect method (multiplying by 1.09)
+    const hasIncorrectMethod = 
+      inputLower.includes("54.5") || 
+      inputLower.includes("0.545") ||
+      inputLower.includes("54,5") ||
+      (inputLower.includes("1.09") && inputLower.includes("0.5"));
+    
+    // Check if they at least got the variable cost right
+    const hasVariableCost = 
+      inputLower.includes("0.50") || 
+      inputLower.includes("0.5 eur") ||
+      inputLower.includes("50 cent") ||
+      inputLower.includes("€0.50");
+    
+    return { correct: hasCorrectAnswer, hasIncorrectMethod, hasVariableCost };
   };
 
   const handleSendMessage = () => {
-    if (!inputValue.trim() || isTyping || isComplete) return;
+    if (!inputValue.trim() || isTyping || phase === "complete") return;
 
+    const studentInput = inputValue.trim();
+    
     // Add student message
-    const studentMessage: Message = {
+    setMessages(prev => [...prev, {
       id: `msg-${Date.now()}`,
       role: "student",
-      content: inputValue,
-      timestamp: Date.now(),
-      phaseId: currentPhase?.id
-    };
-    setMessages(prev => [...prev, studentMessage]);
+      content: studentInput,
+      timestamp: Date.now()
+    }]);
     
-    // Save answer for this phase
-    setPhaseAnswers(prev => ({
-      ...prev,
-      [currentPhase.id]: inputValue
-    }));
-
-    const currentInput = inputValue;
     setInputValue("");
 
-    // Check keywords and determine response
-    const { proceed, feedback } = checkKeywordsAndProgress(currentInput);
-
+    // Process based on current phase
     setTimeout(() => {
-      if (feedback) {
-        addInterviewerMessage(feedback, currentPhase.id);
-      }
-
-      // Move to next phase after delay
-      setTimeout(() => {
-        const nextIndex = currentPhaseIndex + 1;
-        if (nextIndex < caseData.phases.length) {
-          setCurrentPhaseIndex(nextIndex);
-          const nextPhase = caseData.phases[nextIndex];
-          addInterviewerMessage(nextPhase.interviewerMessage, nextPhase.id);
-        } else {
-          // Case complete
-          onComplete(phaseAnswers, timeElapsed, calculateScore());
-        }
-      }, feedback ? 2000 : 500);
-    }, 500);
+      processResponse(studentInput);
+    }, 300);
   };
 
-  const calculateScore = () => {
-    // Basic scoring based on phase completion
-    const completedPhases = Object.keys(phaseAnswers).length;
-    const totalPhases = caseData.phases.length - 1; // Exclude conclusion
-    return Math.round((completedPhases / totalPhases) * 100);
+  const processResponse = (input: string) => {
+    switch (phase) {
+      case "opening":
+        handleOpeningPhase(input);
+        break;
+      case "awaiting_clarifying":
+        handleClarifyingPhase(input);
+        break;
+      case "clarifying_revealed":
+        handlePostClarifyingPhase(input);
+        break;
+      case "awaiting_structure":
+        handleStructurePhase(input);
+        break;
+      case "data_revealed":
+        handlePreCalculationPhase(input);
+        break;
+      case "awaiting_calculation":
+        handleCalculationPhase(input);
+        break;
+      case "calculation_feedback":
+        handlePostCalculationPhase(input);
+        break;
+    }
+  };
+
+  const handleOpeningPhase = (input: string) => {
+    // Check for low-effort response
+    if (isLowEffortResponse(input)) {
+      addInterviewerMessage(
+        `Before we begin, I'd like you to think about what information you need to solve this problem.
+
+*What clarifying questions do you have regarding the client's goals or the scope of this project?*`,
+        "hint"
+      );
+      setPhase("awaiting_clarifying");
+      return;
+    }
+
+    // Check if they asked about profitability
+    if (checkForProfitabilityQuestion(input)) {
+      revealMarginInfo();
+    } else {
+      // Good effort but didn't ask the key question
+      addInterviewerMessage(
+        `Good thinking. Those are valid considerations.
+
+However, think about what a business owner would care about most before setting a new price. Is there something specific about the company's financial expectations you'd want to know?`,
+        "hint"
+      );
+      setPhase("awaiting_clarifying");
+      setHintLevel(1);
+    }
+  };
+
+  const handleClarifyingPhase = (input: string) => {
+    if (checkForProfitabilityQuestion(input)) {
+      revealMarginInfo();
+    } else {
+      setHintLevel(prev => prev + 1);
+      
+      if (hintLevel >= 2) {
+        // Direct hint after multiple attempts
+        addInterviewerMessage(
+          `Let me help you: Would you want to know if there is a **specific profit goal** the company is aiming for?`,
+          "hint"
+        );
+      } else {
+        addInterviewerMessage(
+          `Think about what financial metrics a company typically optimizes for. What targets might drive their pricing decisions?`,
+          "hint"
+        );
+      }
+    }
+  };
+
+  const revealMarginInfo = () => {
+    setHasRevealedMargin(true);
+    addInterviewerMessage(
+      `Good question. Here's the key information:
+
+• **Profitability Target:** The company expects a **9% profit margin** and wants to maintain this level.
+• **Current State:** The existing €220/day rate for 300 km achieves this 9% margin.
+• **Scope:** Focus strictly on **pricing** — you can ignore marketing, operations, and competitive factors.
+
+Now, how would you structure your approach to find this price? What types of costs should we consider?`,
+      "info"
+    );
+    setPhase("awaiting_structure");
+  };
+
+  const handlePostClarifyingPhase = (input: string) => {
+    // They got the margin info, now checking for structure
+    handleStructurePhase(input);
+  };
+
+  const handleStructurePhase = (input: string) => {
+    if (checkForCostStructure(input)) {
+      setHasProvidedStructure(true);
+      addInterviewerMessage(
+        `Excellent cost categorization. You correctly identified:
+
+**Fixed Costs** (per rental): Personnel, rent, insurance, marketing — don't change with km driven.
+**Variable Costs** (per km): Maintenance, repairs, depreciation/wear — scale with usage.
+
+Here is the quantitative data you'll need:
+
+📊 **Cost Data:**
+• Fixed Costs: **€50** per rental/vehicle
+• Vehicle Purchase Price: **€100,000**
+• Vehicle Resale Value: **€90,000** (after 20,000 km of usage)
+
+Using this data, please calculate:
+1. The variable cost per kilometer
+2. Verify the current profitability at 300 km
+3. The price per additional kilometer that maintains the 9% margin
+
+*Show me your step-by-step calculations.*`,
+        "success"
+      );
+      setPhase("awaiting_calculation");
+    } else {
+      // They haven't properly structured the costs
+      addInterviewerMessage(
+        `You're on the right track, but I need you to be more specific.
+
+Think about which costs change when someone drives more kilometers vs. which costs stay the same regardless of distance driven.
+
+Can you categorize the relevant costs into **Fixed** and **Variable** categories? What specific cost items fall into each?`,
+        "hint"
+      );
+    }
+  };
+
+  const handlePreCalculationPhase = (input: string) => {
+    // Move to calculation phase
+    handleCalculationPhase(input);
+  };
+
+  const handleCalculationPhase = (input: string) => {
+    const { correct, hasIncorrectMethod, hasVariableCost } = analyzeCalculation(input);
+    setCalculationAttempts(prev => prev + 1);
+
+    if (correct) {
+      // Correct answer!
+      addInterviewerMessage(
+        `✓ **Excellent work!** Your calculation is correct.
+
+Let me verify your steps:
+
+**Step 1: Variable Cost per km**
+Depreciation = €100,000 - €90,000 = €10,000
+Variable Cost = €10,000 ÷ 20,000 km = **€0.50/km** ✓
+
+**Step 2: Current Profit Verification**
+Revenue: €220
+Variable costs: €0.50 × 300 = €150
+Fixed costs: €50
+Profit: €220 - €200 = €20 → **9.09% margin** ✓
+
+**Step 3: Additional KM Price**
+Price = Cost ÷ (1 - Margin)
+Price = €0.50 ÷ 0.91 = **€0.5495** ✓
+
+**Final Answer: 54.95 cents per additional kilometer**
+
+Key insight: Fixed costs are ignored for additional km because they're already covered by the base 300 km rate.`,
+        "success"
+      );
+      setPhase("calculation_feedback");
+      
+      setTimeout(() => {
+        showConclusion(true);
+      }, 3000);
+      
+    } else if (hasIncorrectMethod) {
+      // They made the common mistake
+      addInterviewerMessage(
+        `⚠️ **Almost there, but there's an important error.**
+
+Your variable cost calculation is correct (€0.50/km). However, you've applied a **markup to cost** rather than calculating a **margin on price**.
+
+• **Your method:** €0.50 × 1.09 = €0.545 ❌
+• This gives 9% *above cost*, not 9% *of price*
+
+**The Correct Formula:**
+When the margin must be on the **selling price**, use:
+$$\\text{Price} = \\text{Cost} \\div (1 - \\text{Margin})$$
+
+Please recalculate using this formula.`,
+        "warning"
+      );
+      
+    } else if (hasVariableCost) {
+      // They got variable cost but need help with the margin
+      addInterviewerMessage(
+        `You've correctly identified the variable cost. Now for the final step:
+
+The company needs a **9% margin on the selling price** (not on cost).
+
+Remember:
+• Margin = Profit ÷ Price
+• So: Price = Cost ÷ (1 - Margin)
+
+Apply this formula to your €0.50 variable cost with a 9% margin requirement.`,
+        "hint"
+      );
+      
+    } else {
+      // Need more help
+      if (calculationAttempts >= 2) {
+        addInterviewerMessage(
+          `Let me guide you through the calculation:
+
+**Step 1:** What is the depreciation per km?
+• Depreciation = Purchase - Resale = €100,000 - €90,000 = €10,000
+• Per km = €10,000 ÷ 20,000 km = ?
+
+**Step 2:** Once you have the variable cost, apply the margin formula.
+
+Try again with these hints.`,
+          "hint"
+        );
+      } else {
+        addInterviewerMessage(
+          `I need to see your mathematical reasoning. Please show me:
+
+1. How you calculated the variable cost per km (using the vehicle purchase/resale data)
+2. How you applied the 9% margin to get the final price
+
+Walk me through each step.`,
+          "hint"
+        );
+      }
+    }
+  };
+
+  const handlePostCalculationPhase = (input: string) => {
+    // Already completed, just acknowledge
+    showConclusion(true);
+  };
+
+  const showConclusion = (wasCorrect: boolean) => {
+    setPhase("complete");
+    
+    const score = calculateScore(wasCorrect);
+    
+    setTimeout(() => {
+      addInterviewerMessage(
+        `**Case Complete — Performance Summary**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Final Answer:** The luxury car rental company should charge **54.95 cents (≈€0.55)** for each kilometer driven above the 300 km daily limit.
+
+**Key Insights Demonstrated:**
+${hasRevealedMargin ? "✓" : "○"} Asked about profitability targets before calculating
+${hasProvidedStructure ? "✓" : "○"} Correctly categorized fixed vs. variable costs
+${wasCorrect ? "✓" : "○"} Applied correct margin formula (Cost ÷ 0.91)
+${wasCorrect ? "✓" : "○"} Understood that fixed costs are already covered
+
+**Important Distinction:**
+• Markup on cost: €0.50 × 1.09 = €0.545 ❌
+• Margin on price: €0.50 ÷ 0.91 = €0.5495 ✓
+
+**Your Score: ${score}%**
+
+Well done completing this pricing case!`,
+        "success"
+      );
+      
+      // Trigger completion after showing summary
+      setTimeout(() => {
+        onComplete({}, timeElapsed, score);
+      }, 2000);
+      
+    }, 1000);
+  };
+
+  const calculateScore = (wasCorrect: boolean): number => {
+    let score = 0;
+    
+    if (hasRevealedMargin) score += 25;      // Asked good clarifying questions
+    if (hasProvidedStructure) score += 25;   // Structured costs properly
+    if (wasCorrect) score += 50;             // Got the right answer
+    
+    // Bonus for efficiency
+    if (calculationAttempts === 1 && wasCorrect) score = Math.min(100, score + 10);
+    
+    return Math.min(100, score);
   };
 
   const difficultyConfig = {
@@ -343,6 +491,28 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
     Intermediate: { color: "bg-amber-100 text-amber-700 border-amber-200", icon: "🟡" }, 
     Advanced: { color: "bg-red-100 text-red-700 border-red-200", icon: "🔴" }
   };
+
+  const getPhaseNumber = (): number => {
+    switch (phase) {
+      case "opening": return 1;
+      case "awaiting_clarifying": return 1;
+      case "clarifying_revealed": return 2;
+      case "awaiting_structure": return 2;
+      case "data_revealed": return 3;
+      case "awaiting_calculation": return 3;
+      case "calculation_feedback": return 4;
+      case "complete": return 5;
+      default: return 1;
+    }
+  };
+
+  const phases = [
+    { num: 1, label: "Opening" },
+    { num: 2, label: "Clarify" },
+    { num: 3, label: "Calculate" },
+    { num: 4, label: "Review" },
+    { num: 5, label: "Complete" }
+  ];
 
   return (
     <div className="h-full flex flex-col animate-fade-in">
@@ -362,7 +532,7 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
                 <Badge className={`${difficultyConfig[caseData.difficulty].color} border`}>
                   {difficultyConfig[caseData.difficulty].icon} {caseData.difficulty}
                 </Badge>
-                <Badge variant="outline" className="bg-white/50 border-white/80">
+                <Badge variant="outline" className="bg-violet-100 border-violet-200 text-violet-700">
                   <MessageSquare className="w-3 h-3 mr-1" />
                   Interview Mode
                 </Badge>
@@ -390,20 +560,25 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
           </div>
           
           {/* Phase Progress */}
-          <div className="flex items-center gap-2 mt-4">
-            {caseData.phases.map((phase, idx) => (
-              <div key={phase.id} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                  idx < currentPhaseIndex 
-                    ? 'bg-green-500 text-white' 
-                    : idx === currentPhaseIndex 
-                      ? 'bg-primary text-white ring-2 ring-primary/30' 
-                      : 'bg-white/60 text-muted-foreground'
-                }`}>
-                  {idx < currentPhaseIndex ? <CheckCircle className="w-4 h-4" /> : idx + 1}
+          <div className="flex items-center gap-1 mt-4">
+            {phases.map((p, idx) => (
+              <div key={p.num} className="flex items-center">
+                <div className={`flex flex-col items-center`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                    p.num < getPhaseNumber() 
+                      ? 'bg-green-500 text-white' 
+                      : p.num === getPhaseNumber() 
+                        ? 'bg-primary text-white ring-2 ring-primary/30 ring-offset-2' 
+                        : 'bg-white/60 text-muted-foreground'
+                  }`}>
+                    {p.num < getPhaseNumber() ? <CheckCircle className="w-4 h-4" /> : p.num}
+                  </div>
+                  <span className={`text-[10px] mt-1 ${p.num <= getPhaseNumber() ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+                    {p.label}
+                  </span>
                 </div>
-                {idx < caseData.phases.length - 1 && (
-                  <div className={`w-8 h-0.5 ${idx < currentPhaseIndex ? 'bg-green-500' : 'bg-white/40'}`} />
+                {idx < phases.length - 1 && (
+                  <div className={`w-6 md:w-10 h-0.5 mb-4 ${p.num < getPhaseNumber() ? 'bg-green-500' : 'bg-white/40'}`} />
                 )}
               </div>
             ))}
@@ -412,7 +587,7 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
       </div>
 
       {/* Chat Area */}
-      <Card className="flex-1 border-0 shadow-lg overflow-hidden flex flex-col">
+      <Card className="flex-1 border-0 shadow-lg overflow-hidden flex flex-col min-h-[500px]">
         <CardContent className="flex-1 p-0 flex flex-col">
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -421,32 +596,46 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
                 key={msg.id}
                 className={`flex ${msg.role === 'student' ? 'justify-end' : 'justify-start'} animate-fade-in`}
               >
-                <div className={`flex items-start gap-3 max-w-[85%] ${msg.role === 'student' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-start gap-3 max-w-[88%] ${msg.role === 'student' ? 'flex-row-reverse' : ''}`}>
                   <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
                     msg.role === 'interviewer' 
-                      ? 'bg-primary/10 text-primary' 
-                      : 'bg-blue-100 text-blue-600'
+                      ? msg.type === 'warning' 
+                        ? 'bg-amber-100 text-amber-600'
+                        : msg.type === 'success'
+                          ? 'bg-green-100 text-green-600'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-100 text-blue-600'
+                            : 'bg-primary/10 text-primary'
+                      : 'bg-slate-100 text-slate-600'
                   }`}>
-                    {msg.role === 'interviewer' ? <MessageSquare className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                    {msg.role === 'interviewer' ? (
+                      msg.type === 'warning' ? <AlertTriangle className="w-4 h-4" /> :
+                      msg.type === 'success' ? <CheckCircle className="w-4 h-4" /> :
+                      msg.type === 'hint' ? <Lightbulb className="w-4 h-4" /> :
+                      <MessageSquare className="w-4 h-4" />
+                    ) : (
+                      <User className="w-4 h-4" />
+                    )}
                   </div>
-                  <div className={`rounded-2xl px-4 py-3 ${
+                  <div className={`rounded-2xl px-5 py-3 ${
                     msg.role === 'interviewer'
-                      ? msg.isReveal 
+                      ? msg.type === 'warning'
                         ? 'bg-amber-50 border border-amber-200'
-                        : 'bg-muted/50 border border-border/50'
+                        : msg.type === 'success'
+                          ? 'bg-green-50 border border-green-200'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-50 border border-blue-200'
+                            : 'bg-muted/50 border border-border/50'
                       : 'bg-primary text-primary-foreground'
                   }`}>
-                    {msg.isReveal && (
-                      <div className="flex items-center gap-1.5 text-amber-600 text-xs font-medium mb-2">
-                        <Lightbulb className="w-3 h-3" />
-                        Information Revealed
-                      </div>
-                    )}
                     <p className={`text-sm leading-relaxed whitespace-pre-line ${
                       msg.role === 'interviewer' ? 'text-foreground' : ''
-                    }`}>
-                      {msg.content}
-                    </p>
+                    }`} dangerouslySetInnerHTML={{ 
+                      __html: msg.content
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/\n/g, '<br/>')
+                    }} />
                   </div>
                 </div>
               </div>
@@ -459,8 +648,8 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
                   <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center">
                     <MessageSquare className="w-4 h-4" />
                   </div>
-                  <div className="bg-muted/50 border border-border/50 rounded-2xl px-4 py-3">
-                    <div className="flex items-center gap-1">
+                  <div className="bg-muted/50 border border-border/50 rounded-2xl px-5 py-3">
+                    <div className="flex items-center gap-1.5">
                       <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                       <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                       <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
@@ -473,24 +662,11 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Exhibit Display */}
-          {currentPhase?.exhibitKey && hasExhibitTableData(currentPhase.exhibitKey) && (
-            <div className="px-6 pb-4">
-              <div className="p-4 bg-purple-50 rounded-xl border border-purple-200">
-                <div className="flex items-center gap-2 text-purple-700 text-sm font-medium mb-3">
-                  <FileSpreadsheet className="w-4 h-4" />
-                  Case Exhibit
-                </div>
-                <ExhibitTable exhibitKey={currentPhase.exhibitKey} />
-              </div>
-            </div>
-          )}
-
           {/* Input Area */}
           <div className="p-4 border-t border-border/50 bg-muted/20">
             <div className="flex gap-3">
               <Textarea
-                placeholder={isComplete ? "Case completed!" : "Type your response..."}
+                placeholder={phase === "complete" ? "Case completed!" : "Type your response..."}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
@@ -499,12 +675,12 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
                     handleSendMessage();
                   }
                 }}
-                disabled={isTyping || isComplete}
+                disabled={isTyping || phase === "complete"}
                 className="min-h-[80px] resize-none bg-white border-border focus:border-primary"
               />
               <Button
                 onClick={handleSendMessage}
-                disabled={!inputValue.trim() || isTyping || isComplete}
+                disabled={!inputValue.trim() || isTyping || phase === "complete"}
                 size="lg"
                 variant="hero"
                 className="px-6 self-end"
