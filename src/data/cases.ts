@@ -3827,6 +3827,146 @@ The owner's concern has merit—20% is on the higher end. However, the solution 
       "Distribution Strategy",
       "Economies of Scale"
     ]
+  },
+  {
+    id: "insurance-branch-consolidation",
+    title: "Insurance Branch Consolidation — Munich vs. Berlin",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `An insurance company operates two sales branches: one in Munich and one in Berlin. Both branches generate the same revenue and offer the full portfolio of insurance products with no location-specific restrictions.
+
+To reduce costs, leadership is considering closing one of the two branches and consolidating operations.
+
+You have been engaged to determine whether branch consolidation makes economic sense, and if so, which location should be closed.
+
+The interviewer will provide cost data as you structure your analysis. You are expected to identify the relevant decision factors, request appropriate data, perform the quantitative analysis, and deliver a recommendation with supporting rationale.`,
+    question: "Determine whether the insurance company should close one of its two branches. If consolidation is advisable, recommend which location to close and calculate the expected savings and payback period.",
+    difficulty: "Advanced",
+    modelSolution: `EXPECTED CANDIDATE APPROACH:
+
+A strong candidate should independently identify the key analytical dimensions before receiving data:
+
+1. STRUCTURING THE PROBLEM
+
+Key factors to evaluate:
+• Cost comparison between locations (rent, utilities, overhead)
+• Personnel implications (headcount, salaries, relocation feasibility)
+• Customer impact (location of customer base, service delivery model)
+• Service considerations (competitive parity, channel preferences)
+• Implementation costs (relocation, severance, transition)
+
+The interviewer confirms the focus should be on costs and provides the following data:
+
+---
+
+COST DATA PROVIDED:
+
+Rent Information:
+| City   | Office Space/Employee | Employees | Rent €/m² |
+|--------|----------------------|-----------|-----------|
+| Berlin | 21 m²                | 1,000     | €15/m²    |
+| Munich | 32 m²                | 1,000     | €24/m²    |
+
+Personnel Information:
+• Total employees across both branches: 2,000 (1,000 per location)
+• Administrative staff: 20% of total (400 employees)
+• Admin consolidation potential: 50% reduction when merged
+• Average salary: €40,000/year
+
+Relocation Cost:
+• Moving cost: €70,000 per relocated employee
+• Assume 100 employees would need to relocate
+
+---
+
+2. CALCULATING PERSONNEL SAVINGS
+
+Administrative staff that can be consolidated:
+• Total admin employees: 2,000 × 20% = 400
+• Reduction from consolidation: 400 × 50% = 200 employees
+• However, model assumes 100 employees saved (conservative)
+
+Annual personnel savings:
+100 employees × €40,000 = €4,000,000/year
+
+---
+
+3. CALCULATING RENT SAVINGS
+
+Berlin Annual Rent:
+• Space: 21 m² × 1,000 employees = 21,000 m²
+• Cost: 21,000 × €15 = €315,000/year
+
+Munich Annual Rent:
+• Space: 32 m² × 1,000 employees = 32,000 m²
+• Cost: 32,000 × €24 = €768,000/year
+
+Rent Differential:
+€768,000 - €315,000 = €453,000/year
+
+Closing Munich saves €453,000 more annually than closing Berlin.
+
+---
+
+4. TOTAL SAVINGS & PAYBACK ANALYSIS
+
+Annual Savings (if Munich closed):
+• Personnel: €4,000,000
+• Rent differential: €453,000
+• Total: €4,453,000/year
+
+One-Time Moving Costs:
+• 100 employees × €70,000 = €7,000,000
+
+Payback Period:
+€7,000,000 ÷ €4,453,000 = 1.57 years (~19 months)
+
+---
+
+5. RECOMMENDATION
+
+Close the Munich branch and consolidate to Berlin.
+
+Rationale:
+• Munich has significantly higher rent (€24/m² vs €15/m²)
+• Munich uses more space per employee (32m² vs 21m²)
+• Combined rent disadvantage: 2.4x higher annual cost
+• Personnel savings are location-independent
+• Payback period of ~1.6 years is attractive
+
+Risk Considerations:
+• Employee retention during relocation
+• Customer relationships in Munich market
+• One-time disruption to operations
+• Contractual obligations (leases, employment)
+
+The consolidation is economically justified with a short payback period, after which €4.4M+ in annual savings become permanent.
+
+---
+
+EVALUATION CRITERIA FOR ADVANCED CASE:
+
+Strong performance:
+• Independently structures the problem before receiving data
+• Asks clarifying questions about customer base, service channels
+• Performs calculations accurately under time pressure
+• Identifies that rent AND space efficiency both favor Berlin
+• Considers risks and implementation challenges
+• Delivers clear, confident recommendation
+
+Weak performance:
+• Waits passively for data without structuring
+• Makes calculation errors in multi-step math
+• Fails to consider both rent rate AND space per employee
+• Ignores implementation risks
+• Provides hedged, unclear recommendation`,
+    keyFrameworks: [
+      "Cost-Benefit Analysis",
+      "Fixed Cost Optimization",
+      "Location Strategy",
+      "Break-Even / Payback Analysis",
+      "Change Management"
+    ]
   }
 ];
 
