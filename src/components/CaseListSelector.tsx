@@ -13,6 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type SortOption = "default" | "difficulty-asc" | "difficulty-desc" | "rating-desc" | "rating-asc";
 
@@ -304,13 +310,33 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
               {/* Meta Row */}
               <div className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground mb-4">
                 <span>Type:</span>
-                <span className={`font-medium ${
-                  caseItem.difficulty === 'Beginner' 
-                    ? 'text-blue-600' 
-                    : 'text-violet-600'
-                }`}>
-                  {caseItem.difficulty === 'Beginner' ? '📝 Solo Practice' : '🎙️ Interview Mode'}
-                </span>
+                {caseItem.difficulty === 'Beginner' ? (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="font-medium text-blue-600 cursor-help underline decoration-dotted underline-offset-2">
+                          📝 Solo Practice
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>Work through the case at your own pace with guided prompts. No interviewer pressure — perfect for building foundational skills.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ) : (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="font-medium text-violet-600 cursor-help underline decoration-dotted underline-offset-2">
+                          🎙️ Interview Mode
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>Simulates a real interviewer-led case with strict phase gating. You must answer correctly to progress — just like the real thing.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
                 <span className="mx-2 hidden sm:inline">|</span>
                 <span className="hidden sm:inline">Difficulty:</span>
                 <span className={`font-medium ${diffStyle.color}`}>{diffStyle.label}</span>
