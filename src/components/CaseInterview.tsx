@@ -60,8 +60,15 @@ const CaseInterview = ({ caseData, onComplete, onRequestRating, onRestart }: Cas
   const [hintsUsedTotal, setHintsUsedTotal] = useState(0);
   const [hasRevealedMargin, setHasRevealedMargin] = useState(false);
   const [hasProvidedStructure, setHasProvidedStructure] = useState(false);
+  const [hasAppliedFormula, setHasAppliedFormula] = useState(false);
+  const [hasUnderstoodLogicTrap, setHasUnderstoodLogicTrap] = useState(false);
   const [calculationAttempts, setCalculationAttempts] = useState(0);
   const [finalScore, setFinalScore] = useState<number | null>(null);
+  // Track hints used at time of completing each milestone (for scoring)
+  const [clarifyHintsAtCompletion, setClarifyHintsAtCompletion] = useState<number | null>(null);
+  const [structureHintsAtCompletion, setStructureHintsAtCompletion] = useState<number | null>(null);
+  const [formulaHintsAtCompletion, setFormulaHintsAtCompletion] = useState<number | null>(null);
+  const [logicTrapHintsAtCompletion, setLogicTrapHintsAtCompletion] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Handle leaving the case - triggers rating popup
@@ -263,6 +270,9 @@ Without knowing the target margin, you'd have no way to calculate the final pric
 Now, let's look at the costs. What categories of costs do you think will change as the customer drives more?`,
       "info"
     );
+    if (clarifyHintsAtCompletion === null) {
+      setClarifyHintsAtCompletion(3); // Walkthrough = used all hints
+    }
     setHasRevealedMargin(true);
     setPhase("awaiting_structure");
   };
@@ -292,7 +302,14 @@ Because the customer already paid €220 for the first 300 km, fixed costs are c
 **Your Next Step:** Calculate the variable cost per km using the depreciation data, then apply the 9% margin.`,
       "info"
     );
+    if (structureHintsAtCompletion === null) {
+      setStructureHintsAtCompletion(3);
+    }
+    if (logicTrapHintsAtCompletion === null) {
+      setLogicTrapHintsAtCompletion(3); // Logic trap revealed in walkthrough
+    }
     setHasProvidedStructure(true);
+    setHasUnderstoodLogicTrap(true);
     setPhase("awaiting_calculation");
   };
 
@@ -329,10 +346,18 @@ This is a *markup on cost*, not a margin on price!
 The client wants 9% of the *selling price* as profit, so we use the margin formula.`,
       "success"
     );
+    if (formulaHintsAtCompletion === null) {
+      setFormulaHintsAtCompletion(3);
+    }
+    if (logicTrapHintsAtCompletion === null) {
+      setLogicTrapHintsAtCompletion(3);
+    }
+    setHasAppliedFormula(true);
+    setHasUnderstoodLogicTrap(true);
     setPhase("calculation_feedback");
     
     setTimeout(() => {
-      showConclusion(false); // Walkthrough completion - lower score
+      showConclusion(false);
     }, 3000);
   };
 
@@ -370,8 +395,11 @@ The client wants 9% of the *selling price* as profit, so we use the margin formu
 The company expects a **9% profit margin** and wants to maintain this level for the extra kilometers.
 
 Now, let's look at the costs. How would you structure your approach? What types of costs should we consider?`,
-        "info"
+      "info"
       );
+      if (clarifyHintsAtCompletion === null) {
+        setClarifyHintsAtCompletion(3);
+      }
       setHasRevealedMargin(true);
       setPhase("awaiting_structure");
     }
@@ -409,6 +437,9 @@ Here is the quantitative data:
 Now calculate the variable cost per km and the final price that maintains 9% margin.`,
         "info"
       );
+      if (structureHintsAtCompletion === null) {
+        setStructureHintsAtCompletion(3);
+      }
       setHasProvidedStructure(true);
       setPhase("awaiting_calculation");
     }
@@ -618,6 +649,9 @@ The company expects a **9% profit margin**. This is the key constraint for your 
 Now, let's look at the costs. How would you structure your approach?`,
           "info"
         );
+        if (clarifyHintsAtCompletion === null) {
+          setClarifyHintsAtCompletion(3);
+        }
         setHasRevealedMargin(true);
         setPhase("awaiting_structure");
       }
@@ -642,6 +676,9 @@ Now, let's look at the costs. How would you structure your approach?`,
   };
 
   const revealMarginInfo = () => {
+    if (clarifyHintsAtCompletion === null) {
+      setClarifyHintsAtCompletion(clarifyingHintLevel);
+    }
     setHasRevealedMargin(true);
     addInterviewerMessage(
       `Good question. Here's the key information:
@@ -664,6 +701,9 @@ Now, how would you structure your approach to find this price? What types of cos
   const handleStructurePhase = (input: string) => {
     // Priority 1 (Fast Track): Check for key concepts first - bypass all length requirements
     if (checkForCostStructure(input)) {
+      if (structureHintsAtCompletion === null) {
+        setStructureHintsAtCompletion(structureHintLevel);
+      }
       setHasProvidedStructure(true);
       addInterviewerMessage(
         `Excellent cost categorization. You correctly identified:
@@ -789,6 +829,14 @@ Please recalculate using the correct margin formula.`,
     if (correct) {
       // Correct answer!
       setCalculationAttempts(prev => prev + 1);
+      if (formulaHintsAtCompletion === null) {
+        setFormulaHintsAtCompletion(calculationHintLevel);
+      }
+      if (logicTrapHintsAtCompletion === null) {
+        setLogicTrapHintsAtCompletion(calculationHintLevel);
+      }
+      setHasAppliedFormula(true);
+      setHasUnderstoodLogicTrap(true);
       addInterviewerMessage(
         `✓ **Excellent work!** Your calculation is correct.
 
@@ -956,12 +1004,49 @@ Well done completing this pricing case! Click **"Back to Library"** when you're 
   const calculateScore = (wasCorrect: boolean): number => {
     let score = 0;
     
-    if (hasRevealedMargin) score += 25;      // Asked good clarifying questions
-    if (hasProvidedStructure) score += 25;   // Structured costs properly
-    if (wasCorrect) score += 50;             // Got the right answer
+    // Milestone 1: Clarify (Ask about profitability/margin)
+    // No Hint: 25 pts | Hint 1: 15 pts | Hint 2+: 0 pts
+    if (hasRevealedMargin) {
+      const hintsUsed = clarifyHintsAtCompletion ?? clarifyingHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 15;
+      }
+    }
     
-    // Bonus for efficiency
-    if (calculationAttempts === 1 && wasCorrect) score = Math.min(100, score + 10);
+    // Milestone 2: Structure (Fixed vs Variable costs)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasProvidedStructure) {
+      const hintsUsed = structureHintsAtCompletion ?? structureHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+    }
+    
+    // Milestone 3: Pricing Logic (Margin Formula: Cost ÷ 0.91)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasAppliedFormula || wasCorrect) {
+      const hintsUsed = formulaHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+    }
+    
+    // Milestone 4: Logic Trap (Understand fixed costs are ignored)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasUnderstoodLogicTrap || wasCorrect) {
+      const hintsUsed = logicTrapHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+    }
     
     return Math.min(100, score);
   };
