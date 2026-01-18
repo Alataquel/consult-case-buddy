@@ -1000,135 +1000,154 @@ Click **"Back to Library"** when you're ready to continue.`,
     }
   };
 
-  const getPhaseLabel = (): string => {
-    switch (phase) {
-      case "opening": 
-      case "awaiting_clarifying": 
-        return "Clarifying Questions";
-      case "clarifying_revealed":
-      case "awaiting_structure": 
-      case "awaiting_data":
-        return "Structure & Framework";
-      case "data_revealed":
-      case "awaiting_calculation": 
-        return "Break-Even Calculation";
-      case "awaiting_market":
-      case "market_revealed":
-        return "Market Feasibility";
-      case "calculation_feedback":
-      case "complete": 
-        return "Conclusion";
-      default: 
-        return "Interview";
-    }
-  };
+  const phases = [
+    { num: 1, label: "Clarify" },
+    { num: 2, label: "Structure" },
+    { num: 3, label: "Calculate" },
+    { num: 4, label: "Market" },
+    { num: 5, label: "Complete" }
+  ];
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="h-full flex flex-col animate-fade-in">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">{caseData.title}</h1>
-            <div className="flex items-center gap-3 mt-2">
-              <Badge variant="outline" className={difficultyConfig[caseData.difficulty].color}>
-                {difficultyConfig[caseData.difficulty].icon} {caseData.difficulty}
-              </Badge>
-              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                <Building className="w-3 h-3 mr-1" />
-                {caseData.type}
-              </Badge>
-              <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
-                <MessageSquare className="w-3 h-3 mr-1" />
-                Interview Mode
-              </Badge>
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 p-6 mb-6">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-56 h-56 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+        
+        <div className="relative z-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <Badge className="bg-white/80 text-primary border-0 shadow-sm">
+                  <Building className="w-3 h-3 mr-1" />
+                  {caseData.firm}
+                </Badge>
+                <Badge className={`${difficultyConfig[caseData.difficulty].color} border`}>
+                  {difficultyConfig[caseData.difficulty].icon} {caseData.difficulty}
+                </Badge>
+                <Badge variant="outline" className="bg-violet-100 border-violet-200 text-violet-700">
+                  <MessageSquare className="w-3 h-3 mr-1" />
+                  Interview Mode
+                </Badge>
+              </div>
+              <h1 className="text-xl md:text-2xl font-bold text-foreground">
+                {caseData.title}
+              </h1>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-lg shadow-sm">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="text-lg font-mono font-bold text-foreground">{formatTime(timeElapsed)}</span>
+              </div>
+              <Button 
+                variant="ghost" 
+                onClick={handleLeaveCase} 
+                className="text-description-gray hover:text-foreground hover:bg-white/50"
+                size="sm"
+              >
+                <RotateCcw className="w-4 h-4 mr-1" />
+                {phase === "complete" ? "Back to Library" : "Exit Case"}
+              </Button>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Clock className="w-4 h-4" />
-              <span className="font-mono">{formatTime(timeElapsed)}</span>
-            </div>
-            <Button variant="outline" size="sm" onClick={handleLeaveCase}>
-              <RotateCcw className="w-4 h-4 mr-2" />
-              {finalScore !== null ? "Back to Library" : "Exit Case"}
-            </Button>
-          </div>
-        </div>
-
-        {/* Phase Progress */}
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-muted-foreground">Phase {getPhaseNumber()}/5:</span>
-          <span className="font-medium text-foreground">{getPhaseLabel()}</span>
-          <div className="flex-1 h-2 bg-muted rounded-full ml-4">
-            <div 
-              className="h-full bg-primary rounded-full transition-all duration-500"
-              style={{ width: `${(getPhaseNumber() / 5) * 100}%` }}
-            />
+          
+          {/* Phase Progress */}
+          <div className="flex items-center gap-1 mt-4">
+            {phases.map((p, idx) => (
+              <div key={p.num} className="flex items-center">
+                <div className={`flex flex-col items-center`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                    p.num < getPhaseNumber() 
+                      ? 'bg-green-500 text-white' 
+                      : p.num === getPhaseNumber() 
+                        ? 'bg-primary text-white ring-2 ring-primary/30 ring-offset-2' 
+                        : 'bg-white/60 text-muted-foreground'
+                  }`}>
+                    {p.num < getPhaseNumber() ? <CheckCircle className="w-4 h-4" /> : p.num}
+                  </div>
+                  <span className={`text-[10px] mt-1 ${p.num <= getPhaseNumber() ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+                    {p.label}
+                  </span>
+                </div>
+                {idx < phases.length - 1 && (
+                  <div className={`w-6 md:w-10 h-0.5 mb-4 ${p.num < getPhaseNumber() ? 'bg-green-500' : 'bg-white/40'}`} />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Chat Container */}
-      <Card className="border-2 border-border/50 shadow-lg">
-        <CardContent className="p-0">
+      {/* Chat Area */}
+      <Card className="flex-1 border-0 shadow-lg overflow-hidden flex flex-col min-h-[500px]">
+        <CardContent className="flex-1 p-0 flex flex-col">
           {/* Messages */}
-          <div className="h-[500px] overflow-y-auto p-6 space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.role === 'student' ? 'justify-end' : 'justify-start'}`}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {messages.map((msg) => (
+              <div 
+                key={msg.id}
+                className={`flex ${msg.role === 'student' ? 'justify-end' : 'justify-start'} animate-fade-in`}
               >
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    message.role === 'student'
-                      ? 'bg-primary text-primary-foreground'
-                      : message.type === 'success'
-                        ? 'bg-green-50 border border-green-200 text-green-900'
-                        : message.type === 'hint'
-                          ? 'bg-amber-50 border border-amber-200 text-amber-900'
-                          : message.type === 'info'
-                            ? 'bg-blue-50 border border-blue-200 text-blue-900'
-                            : 'bg-muted text-foreground'
-                  }`}
-                >
-                  <div className="flex items-start gap-2">
-                    {message.role === 'interviewer' && (
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        message.type === 'success' ? 'bg-green-200' :
-                        message.type === 'hint' ? 'bg-amber-200' :
-                        message.type === 'info' ? 'bg-blue-200' :
-                        'bg-primary/20'
-                      }`}>
-                        {message.type === 'success' ? <CheckCircle className="w-3 h-3" /> :
-                         message.type === 'hint' ? <Lightbulb className="w-3 h-3" /> :
-                         message.type === 'info' ? <HelpCircle className="w-3 h-3" /> :
-                         <User className="w-3 h-3" />}
-                      </div>
+                <div className={`flex items-start gap-3 max-w-[88%] ${msg.role === 'student' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    msg.role === 'interviewer' 
+                      ? msg.type === 'warning' 
+                        ? 'bg-amber-100 text-amber-600'
+                        : msg.type === 'success'
+                          ? 'bg-green-100 text-green-600'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-100 text-blue-600'
+                            : 'bg-primary/10 text-primary'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {msg.role === 'interviewer' ? (
+                      msg.type === 'warning' ? <AlertTriangle className="w-4 h-4" /> :
+                      msg.type === 'success' ? <CheckCircle className="w-4 h-4" /> :
+                      msg.type === 'hint' ? <Lightbulb className="w-4 h-4" /> :
+                      <MessageSquare className="w-4 h-4" />
+                    ) : (
+                      <User className="w-4 h-4" />
                     )}
-                    <div className="prose prose-sm max-w-none">
-                      {message.content.split('\n').map((line, i) => (
-                        <p key={i} className="mb-1 last:mb-0">
-                          {line.split(/(\*\*.*?\*\*)/).map((part, j) => 
-                            part.startsWith('**') && part.endsWith('**') 
-                              ? <strong key={j}>{part.slice(2, -2)}</strong>
-                              : part
-                          )}
-                        </p>
-                      ))}
-                    </div>
+                  </div>
+                  <div className={`rounded-2xl px-5 py-3 ${
+                    msg.role === 'interviewer'
+                      ? msg.type === 'warning'
+                        ? 'bg-amber-50 border border-amber-200'
+                        : msg.type === 'success'
+                          ? 'bg-green-50 border border-green-200'
+                          : msg.type === 'hint'
+                            ? 'bg-blue-50 border border-blue-200'
+                            : 'bg-muted/50 border border-border/50'
+                      : 'bg-primary text-primary-foreground'
+                  }`}>
+                    <p className={`text-sm leading-relaxed whitespace-pre-line ${
+                      msg.role === 'interviewer' ? 'text-foreground' : ''
+                    }`} dangerouslySetInnerHTML={{ 
+                      __html: msg.content
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/\n/g, '<br/>')
+                    }} />
                   </div>
                 </div>
               </div>
             ))}
             
+            {/* Typing Indicator */}
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-muted rounded-2xl px-4 py-3">
-                  <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                    <div className="w-2 h-2 bg-primary/50 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+              <div className="flex justify-start animate-fade-in">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div className="bg-muted/50 border border-border/50 rounded-2xl px-5 py-3">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1138,50 +1157,69 @@ Click **"Back to Library"** when you're ready to continue.`,
           </div>
 
           {/* Input Area */}
-          <div className="border-t border-border p-4">
-            <div className="flex gap-3">
-              <div className="flex-1">
-                <Textarea
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={phase === "complete" ? "Case complete! Click 'Back to Library' to continue." : "Type your response..."}
-                  className="min-h-[60px] resize-none"
-                  disabled={phase === "complete" || isTyping}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendMessage();
-                    }
-                  }}
-                />
+          <div className="p-4 border-t border-border/50 bg-muted/20">
+            {/* Hint / Walkthrough Button Row */}
+            {canUseHint() && (
+              <div className="flex items-center justify-between mb-3">
+                {isWalkthroughAvailable() ? (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300"
+                  >
+                    <Lightbulb className="w-4 h-4 mr-2" />
+                    Show me the solution walkthrough
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleHintRequest}
+                    disabled={isTyping}
+                    variant="outline"
+                    size="sm"
+                    className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                  >
+                    <HelpCircle className="w-4 h-4 mr-2" />
+                    Need a Hint? ({3 - getCurrentHintLevel()} remaining)
+                  </Button>
+                )}
+                <span className="text-xs text-muted-foreground">
+                  Hints used: {hintsUsedTotal}
+                </span>
               </div>
-              <div className="flex flex-col gap-2">
-                <Button 
+            )}
+            
+            <div className="flex gap-3">
+              <Textarea
+                placeholder={phase === "complete" ? "Case completed!" : "Type your response... Explain your reasoning."}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+                disabled={isTyping || phase === "complete"}
+                className="min-h-[80px] resize-none bg-white border-border focus:border-primary"
+              />
+              <div className="flex flex-col gap-2 self-end">
+                <Button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isTyping || phase === "complete"}
-                  size="icon"
-                  className="h-[60px] w-[60px]"
+                  size="lg"
+                  variant="hero"
+                  className="px-6"
                 >
-                  <Send className="w-5 h-5" />
+                  <Send className="w-4 h-4 mr-2" />
+                  Send
                 </Button>
               </div>
             </div>
-            
-            {/* Hint Button */}
-            {canUseHint() && (
-              <div className="mt-3 flex justify-center">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={handleHintRequest}
-                  disabled={isTyping}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <Lightbulb className="w-4 h-4 mr-2" />
-                  {isWalkthroughAvailable() ? "🎓 Coach Mode" : `💡 Hint (${getCurrentHintLevel() + 1}/3)`}
-                </Button>
-              </div>
-            )}
+            <p className="text-xs text-muted-foreground mt-2">
+              Press Enter to send • Shift+Enter for new line • Use the Hint button if you're stuck
+            </p>
           </div>
         </CardContent>
       </Card>
