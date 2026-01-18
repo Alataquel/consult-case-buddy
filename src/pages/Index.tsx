@@ -6,17 +6,19 @@ import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
 import CaseInterview, { luxuryCarRentalCase } from "@/components/CaseInterview";
 import InnovationTiresInterview, { innovationTiresCase } from "@/components/InnovationTiresInterview";
+import AllPurposeTiresInterview, { allPurposeTiresCase } from "@/components/AllPurposeTiresInterview";
 import CaseRatingDialog from "@/components/CaseRatingDialog";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore, saveCaseRating } from "@/utils/scoreStorage";
 
-type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'interview-tires' | 'feedback';
+type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'interview-tires' | 'interview-allpurpose' | 'feedback';
 
 // Special interview-mode case IDs
 const INTERVIEW_MODE_CASES = {
   'car-rental-mileage-pricing': 'car-rental',
-  'innovation-tires-pricing': 'innovation-tires'
+  'innovation-tires-pricing': 'innovation-tires',
+  'all-purpose-tires-market-entry': 'all-purpose-tires'
 };
 
 const Index = () => {
@@ -37,6 +39,8 @@ const Index = () => {
       setIsInterviewMode(true);
       if (caseId === 'innovation-tires-pricing') {
         setCurrentState('interview-tires');
+      } else if (caseId === 'all-purpose-tires-market-entry') {
+        setCurrentState('interview-allpurpose');
       } else {
         setCurrentState('interview');
       }
@@ -231,6 +235,37 @@ const Index = () => {
             caseData={innovationTiresCase}
             onComplete={handleInterviewComplete}
             onRequestRating={handleTiresRequestRating}
+            onRestart={handleRestart}
+          />
+        </div>
+        <CaseRatingDialog
+          isOpen={showRatingDialog}
+          caseTitle={pendingRatingCaseTitle}
+          score={pendingRatingScore}
+          onSubmit={handleRatingSubmit}
+          onSkip={handleRatingSkip}
+        />
+      </div>
+    );
+  }
+
+  if (currentState === 'interview-allpurpose') {
+    const handleAllPurposeRequestRating = (score: number) => {
+      saveCaseScore('all-purpose-tires-market-entry', score, 'Market Entry', 'All-Purpose Tires — Market Entry Break-Even');
+      setPendingRatingCaseId('all-purpose-tires-market-entry');
+      setPendingRatingCaseTitle('All-Purpose Tires — Market Entry Break-Even');
+      setPendingRatingScore(score);
+      setShowRatingDialog(true);
+    };
+
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <div className="flex-1 container mx-auto px-4 py-6">
+          <AllPurposeTiresInterview 
+            caseData={allPurposeTiresCase}
+            onComplete={handleInterviewComplete}
+            onRequestRating={handleAllPurposeRequestRating}
             onRestart={handleRestart}
           />
         </div>
