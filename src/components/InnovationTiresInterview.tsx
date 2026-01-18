@@ -626,20 +626,31 @@ Calculate the customer's total fuel savings over the tire's lifetime.`,
   const handleStructurePhase = (input: string) => {
     const inputLower = input.toLowerCase();
     
-    // Priority 1: Check for value-based pricing keywords (Fast Track)
-    if (structureKeywords.some(kw => inputLower.includes(kw))) {
+    // Priority 1: Check for value-based pricing keywords OR data request → IMMEDIATELY provide data
+    const wantsData = dataKeywords.some(kw => inputLower.includes(kw));
+    const identifiedValuePricing = structureKeywords.some(kw => inputLower.includes(kw));
+    
+    if (identifiedValuePricing || wantsData) {
       setHasIdentifiedValuePricing(true);
+      setHasIdentifiedAssumptions(true);
       addInterviewerMessage(
-        `Excellent! **Value-based pricing** is exactly right.
+        `${identifiedValuePricing ? "Excellent! **Value-based pricing** is exactly right." : "Good — you're ready for the quantitative phase."}
 
-Since we don't know manufacturing costs and the product is unique, we must price based on the **value delivered to the customer** — in this case, **fuel savings**.
+Since we don't know manufacturing costs and the product is unique, we price based on the **value delivered to the customer** — fuel savings.
 
-**Next step:** What assumptions do you need to make to calculate the fuel savings for a customer?
+📊 **Here is your data:**
+• Annual Mileage: **12,000 km**
+• Fuel Consumption: **8 L / 100 km**
+• Fuel Price: **€1.20 / Liter**
+• Standard Tire Price: **€40**
+• Tire Lifespan: **5 years** (4 tires per car)
 
-Think about: annual driving habits, fuel consumption, and the tire's lifespan.`,
+**Your Task:** Calculate the maximum price a customer would be willing to pay for this fuel-saving tire.
+
+*Show me your step-by-step calculation.*`,
         "success"
       );
-      setPhase("awaiting_assumptions");
+      setPhase("awaiting_calculation");
       return;
     }
 
