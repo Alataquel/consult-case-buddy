@@ -2533,6 +2533,25 @@ This case uses Interview Mode: a turn-based conversational experience where you'
       "Margin vs Markup Calculation",
       "Fixed vs Variable Cost Analysis"
     ]
+  },
+
+  // PRICING STRATEGY - Intermediate (Interview Mode) - Value-Based
+  {
+    id: "innovation-tires-pricing",
+    title: "Innovation Tires — Value-Based Pricing",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `A French tire manufacturer has developed an innovation: tires with lower rolling resistance that reduce fuel consumption by 5%. The company is new to the tire market and has no comparable products.
+
+This case uses Interview Mode: a turn-based conversational experience where you'll derive a launch price based on customer value rather than cost-plus methods.`,
+    question: "Determine the optimal launch price for the innovative fuel-saving tire.",
+    difficulty: "Intermediate",
+    modelSolution: "The tire should be priced at €115 (maximum) or slightly below. Calculation: €40 standard price + €75 fuel savings value over 5 years.",
+    keyFrameworks: [
+      "Value-Based Pricing",
+      "Customer Value Analysis",
+      "Fuel Savings Calculation"
+    ]
   }
 ];
 

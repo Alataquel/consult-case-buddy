@@ -5,15 +5,19 @@ import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
 import CaseInterview, { luxuryCarRentalCase } from "@/components/CaseInterview";
+import InnovationTiresInterview, { innovationTiresCase } from "@/components/InnovationTiresInterview";
 import CaseRatingDialog from "@/components/CaseRatingDialog";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore, saveCaseRating } from "@/utils/scoreStorage";
 
-type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'feedback';
+type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'interview-tires' | 'feedback';
 
 // Special interview-mode case IDs
-const INTERVIEW_MODE_CASES = ['car-rental-mileage-pricing'];
+const INTERVIEW_MODE_CASES = {
+  'car-rental-mileage-pricing': 'car-rental',
+  'innovation-tires-pricing': 'innovation-tires'
+};
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('library');
@@ -28,9 +32,13 @@ const Index = () => {
 
   const handleSelectCase = (caseId: string) => {
     // Check if this is an interview-mode case
-    if (INTERVIEW_MODE_CASES.includes(caseId)) {
+    if (caseId in INTERVIEW_MODE_CASES) {
       setIsInterviewMode(true);
-      setCurrentState('interview');
+      if (caseId === 'innovation-tires-pricing') {
+        setCurrentState('interview-tires');
+      } else {
+        setCurrentState('interview');
+      }
       return;
     }
 
@@ -190,6 +198,35 @@ const Index = () => {
         </div>
         
         {/* Rating Dialog */}
+        <CaseRatingDialog
+          isOpen={showRatingDialog}
+          caseTitle={pendingRatingCaseTitle}
+          onSubmit={handleRatingSubmit}
+          onSkip={handleRatingSkip}
+        />
+      </div>
+    );
+  }
+
+  if (currentState === 'interview-tires') {
+    const handleTiresRequestRating = (score: number) => {
+      saveCaseScore('innovation-tires-pricing', score, 'Pricing Strategy', 'Innovation Tires — Value-Based Pricing');
+      setPendingRatingCaseId('innovation-tires-pricing');
+      setPendingRatingCaseTitle('Innovation Tires — Value-Based Pricing');
+      setShowRatingDialog(true);
+    };
+
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <div className="flex-1 container mx-auto px-4 py-6">
+          <InnovationTiresInterview 
+            caseData={innovationTiresCase}
+            onComplete={handleInterviewComplete}
+            onRequestRating={handleTiresRequestRating}
+            onRestart={handleRestart}
+          />
+        </div>
         <CaseRatingDialog
           isOpen={showRatingDialog}
           caseTitle={pendingRatingCaseTitle}
