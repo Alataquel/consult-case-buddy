@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Brain } from "lucide-react";
-import CaseSelector from "@/components/CaseSelector";
 import CaseListSelector from "@/components/CaseListSelector";
 import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
@@ -9,25 +8,19 @@ import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore } from "@/utils/scoreStorage";
 
-type AppState = 'selection' | 'case-list' | 'case-presentation' | 'practice' | 'feedback';
+type AppState = 'library' | 'case-presentation' | 'practice' | 'feedback';
 
 const Index = () => {
-  const [currentState, setCurrentState] = useState<AppState>('selection');
-  const [selectedProblemType, setSelectedProblemType] = useState<string>('');
+  const [currentState, setCurrentState] = useState<AppState>('library');
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
 
-  const handleSelectFirm = (problemType: string) => {
-    setSelectedProblemType(problemType);
-    setCurrentState('case-list');
-  };
-
   const handleSelectCase = (caseId: string) => {
-    const selectedCase = cases.find(c => c.id === caseId);
-    if (selectedCase) {
-      setSelectedCase(selectedCase);
+    const selected = cases.find(c => c.id === caseId);
+    if (selected) {
+      setSelectedCase(selected);
       setCurrentState('case-presentation');
     }
   };
@@ -62,8 +55,7 @@ const Index = () => {
   };
 
   const handleTryAnother = () => {
-    setCurrentState('selection');
-    setSelectedProblemType('');
+    setCurrentState('library');
     setSelectedCase(null);
     setUserAnswer('');
     setTimeElapsed(0);
@@ -71,8 +63,7 @@ const Index = () => {
   };
 
   const handleGoHome = () => {
-    setCurrentState('selection');
-    setSelectedProblemType('');
+    setCurrentState('library');
     setSelectedCase(null);
     setUserAnswer('');
     setTimeElapsed(0);
@@ -80,13 +71,7 @@ const Index = () => {
   };
 
   const handleRestart = () => {
-    setCurrentState('selection');
-    setSelectedProblemType('');
-  };
-
-  const handleBackToTypes = () => {
-    setCurrentState('selection');
-    setSelectedProblemType('');
+    setCurrentState('library');
   };
 
   // Header Component
@@ -94,41 +79,29 @@ const Index = () => {
     <header className="border-b border-border bg-background">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <button 
+            onClick={handleGoHome}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
             <div className="w-12 h-12 hero-gradient rounded-lg flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="text-left">
               <h1 className="text-xl font-bold text-foreground">Case Study Buddy</h1>
               <p className="text-sm text-description-gray">AI-powered case interview practice</p>
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </header>
   );
 
-  if (currentState === 'selection') {
+  if (currentState === 'library') {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="flex-1 w-full px-6 py-8">
-          <CaseSelector onSelectFirm={handleSelectFirm} />
-        </div>
-      </div>
-    );
-  }
-
-  if (currentState === 'case-list') {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="container mx-auto px-4 py-8">
-          <CaseListSelector 
-            firmName={selectedProblemType}
-            onSelectCase={handleSelectCase}
-            onBack={handleBackToTypes}
-          />
+        <div className="flex-1 container mx-auto px-6 py-8">
+          <CaseListSelector onSelectCase={handleSelectCase} />
         </div>
       </div>
     );
@@ -142,7 +115,7 @@ const Index = () => {
           <CasePresentation 
             caseData={selectedCase}
             onStartCase={handleStartCase}
-            onGoBack={() => setCurrentState('selection')}
+            onGoBack={() => setCurrentState('library')}
           />
         </div>
       </div>
