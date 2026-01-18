@@ -3997,7 +3997,28 @@ He now wants to know what resources he needs and what revenue he must achieve to
       },
       {
         number: 2,
-        question: "Derive the potential revenue of the taxi company and the total costs. Calculate the expected profit.",
+        question: `Derive the potential revenue of the taxi company and the total costs. Calculate the expected profit.
+
+---
+
+INFORMATION FROM THE INTERVIEWER:
+
+Key Assumptions for Revenue Calculation:
+• Base taxi fare: €3.50
+• Price per minute: €1.50/min
+• A taxi can be used 24 hours; but an employee only works 8h/day. So 3 employees are needed to cover 24 hours
+• Assume the vehicle transports passengers 40% of the time. Rest is waiting and returning to taxi stations: 24h × 40% = ~10h driving time
+• Two types of trips:
+  - Short trips (inner-city): ~15 min
+  - Long trips (suburban): ~30 min
+• Inner-city trips make up 80% and suburban trips 20% of driving time
+
+Key Cost Drivers:
+• Taxi license (concession)
+• Leasing costs per vehicle: €1,000/month
+• Salary per employee: €30,000/year (gross)
+• Fuel consumption: 8 liters/100 km
+• Average speed: 60 km/h`,
         hints: [
           "Structure your approach into revenue calculation and cost drivers",
           "Consider utilization rates for the taxi",
@@ -4008,28 +4029,7 @@ He now wants to know what resources he needs and what revenue he must achieve to
 • Derive the total costs and calculate profit
 • Provide a conclusion about the achievability of the client's target
 
----
-
-KEY ASSUMPTIONS FOR REVENUE CALCULATION:
-
-• Base taxi fare: €3.50
-• Price per minute: €1.50/min
-• A taxi can be used 24 hours; but an employee only works 8h/day. So 3 employees are needed to cover 24 hours
-• Assume the vehicle transports passengers 40% of the time. Rest is waiting and returning to taxi stations: 24h × 40% = ~10h driving time
-• Two types of trips:
-  - Short trips (inner-city): ~15 min
-  - Long trips (suburban): ~30 min
-• Inner-city trips make up 80% and suburban trips 20% of driving time
-
----
-
-KEY COST DRIVERS:
-
-• Taxi license (concession)
-• Leasing costs per vehicle: €1,000/month
-• Salary per employee: €30,000/year (gross)
-• Fuel consumption: 8 liters/100 km
-• Average speed: 60 km/h`
+The candidate should use the provided data to build a revenue and cost model for a single taxi operation.`
       },
       {
         number: 3,
