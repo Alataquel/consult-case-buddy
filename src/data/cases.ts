@@ -2571,6 +2571,23 @@ This case uses Interview Mode: a turn-based conversational experience where you'
       "Market Sizing",
       "Contribution Margin"
     ]
+  },
+  {
+    id: "dairy-cow-feed-india-entry",
+    title: "Dairy Cow Feed — Indian Market Entry",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `A German company specializing in high-performance feed for dairy cows is facing a saturated domestic market. They are considering expanding into India, one of the world's largest dairy markets.
+
+This case uses Interview Mode: a turn-based conversational experience where you'll size the Indian market for dairy cow feed and assess economic attractiveness.`,
+    question: "Determine the size of the Indian market for dairy cow feed and whether entry is economically attractive.",
+    difficulty: "Intermediate",
+    modelSolution: "India has ~35M dairy cows needing ~485B kg feed/year. At 5% market share and €0.10/kg, client revenue potential is ~€2.4B/year — a highly attractive entry.",
+    keyFrameworks: [
+      "Top-Down Market Sizing",
+      "Revenue Estimation",
+      "Market Entry Analysis"
+    ]
   }
 ];
 
