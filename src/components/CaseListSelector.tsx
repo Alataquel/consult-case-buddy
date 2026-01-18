@@ -304,7 +304,13 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
               {/* Meta Row */}
               <div className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground mb-4">
                 <span>Type:</span>
-                <span className="font-medium text-foreground">Interviewer-led</span>
+                <span className={`font-medium ${
+                  caseItem.difficulty === 'Beginner' 
+                    ? 'text-blue-600' 
+                    : 'text-violet-600'
+                }`}>
+                  {caseItem.difficulty === 'Beginner' ? '📝 Solo Practice' : '🎙️ Interview Mode'}
+                </span>
                 <span className="mx-2 hidden sm:inline">|</span>
                 <span className="hidden sm:inline">Difficulty:</span>
                 <span className={`font-medium ${diffStyle.color}`}>{diffStyle.label}</span>
