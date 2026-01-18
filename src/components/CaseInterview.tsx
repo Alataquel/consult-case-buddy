@@ -53,7 +53,9 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
   const [inputValue, setInputValue] = useState("");
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
-  const [hintLevel, setHintLevel] = useState(0);
+  const [clarifyingHintLevel, setClarifyingHintLevel] = useState(0);
+  const [structureHintLevel, setStructureHintLevel] = useState(0);
+  const [calculationHintLevel, setCalculationHintLevel] = useState(0);
   const [hasRevealedMargin, setHasRevealedMargin] = useState(false);
   const [hasProvidedStructure, setHasProvidedStructure] = useState(false);
   const [calculationAttempts, setCalculationAttempts] = useState(0);
@@ -120,10 +122,15 @@ Determine the price that should be charged for every additional kilometer driven
     const trimmed = input.trim().toLowerCase();
     const lowEffortPatterns = [
       /^[a-z]$/,           // Single letter
-      /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey)$/i,
-      /^.{1,10}$/,         // Very short responses (less than 10 chars)
+      /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey|sure|yep|yeah|k|y|n)$/i,
+      /^.{1,15}$/,         // Very short responses (less than 15 chars)
     ];
     return lowEffortPatterns.some(pattern => pattern.test(trimmed));
+  };
+
+  const isHelpRequest = (input: string): boolean => {
+    const trimmed = input.trim().toLowerCase();
+    return /\b(help|hint|stuck|don'?t know|idk|no idea|not sure|confused|lost)\b/i.test(trimmed);
   };
 
   const checkForProfitabilityQuestion = (input: string): boolean => {
@@ -221,13 +228,13 @@ Determine the price that should be charged for every additional kilometer driven
   };
 
   const handleOpeningPhase = (input: string) => {
-    // Check for low-effort response
+    // Check for low-effort response - strict rejection
     if (isLowEffortResponse(input)) {
       addInterviewerMessage(
-        `Before we begin, I'd like you to think about what information you need to solve this problem.
+        `I need to see your initial thoughts on the current phase before we can move forward.
 
 *What clarifying questions do you have regarding the client's goals or the scope of this project?*`,
-        "hint"
+        "warning"
       );
       setPhase("awaiting_clarifying");
       return;
@@ -237,36 +244,77 @@ Determine the price that should be charged for every additional kilometer driven
     if (checkForProfitabilityQuestion(input)) {
       revealMarginInfo();
     } else {
-      // Good effort but didn't ask the key question
+      // Good effort but didn't ask the key question - move to clarifying phase
       addInterviewerMessage(
-        `Good thinking. Those are valid considerations.
+        `Good start. Those are reasonable considerations.
 
-However, think about what a business owner would care about most before setting a new price. Is there something specific about the company's financial expectations you'd want to know?`,
+However, I'd encourage you to think more strategically. *What clarifying questions do you have regarding the client's goals or the scope of this project?*`,
         "hint"
       );
       setPhase("awaiting_clarifying");
-      setHintLevel(1);
     }
   };
 
   const handleClarifyingPhase = (input: string) => {
+    // Strict rejection for low-effort responses
+    if (isLowEffortResponse(input)) {
+      addInterviewerMessage(
+        `I need to see your initial thoughts on the current phase before we can move forward.`,
+        "warning"
+      );
+      return;
+    }
+
+    // Check if they asked about profitability
     if (checkForProfitabilityQuestion(input)) {
       revealMarginInfo();
-    } else {
-      setHintLevel(prev => prev + 1);
+      return;
+    }
+
+    // Handle help requests with hint ladder
+    if (isHelpRequest(input)) {
+      setClarifyingHintLevel(prev => prev + 1);
       
-      if (hintLevel >= 2) {
-        // Direct hint after multiple attempts
+      if (clarifyingHintLevel === 0) {
+        // Hint 1: Conceptual nudge
         addInterviewerMessage(
-          `Let me help you: Would you want to know if there is a **specific profit goal** the company is aiming for?`,
+          `Think about what a business owner would care about before setting a new price. What financial outcomes matter most to them?`,
+          "hint"
+        );
+      } else if (clarifyingHintLevel === 1) {
+        // Hint 2: Structural hint
+        addInterviewerMessage(
+          `Consider this: Would you want to know if there is a **specific profit goal** the company is aiming for?`,
           "hint"
         );
       } else {
+        // Hint 3: The reveal
         addInterviewerMessage(
-          `Think about what financial metrics a company typically optimizes for. What targets might drive their pricing decisions?`,
-          "hint"
+          `I'll share this with you: The company expects a **9% profit margin**. This is the key constraint for your pricing calculation.
+
+Now, how would you structure your approach to find this price? What types of costs should we consider?`,
+          "info"
         );
+        setHasRevealedMargin(true);
+        setPhase("awaiting_structure");
       }
+      return;
+    }
+
+    // Not a help request, but also not asking about profitability
+    setClarifyingHintLevel(prev => prev + 1);
+    
+    if (clarifyingHintLevel >= 2) {
+      // After multiple attempts, give the direct hint
+      addInterviewerMessage(
+        `Let me help you: Would you want to know if there is a **specific profit goal** the company is aiming for?`,
+        "hint"
+      );
+    } else {
+      addInterviewerMessage(
+        `Think about what financial metrics a company typically optimizes for. What targets might drive their pricing decisions?`,
+        "hint"
+      );
     }
   };
 
@@ -291,6 +339,47 @@ Now, how would you structure your approach to find this price? What types of cos
   };
 
   const handleStructurePhase = (input: string) => {
+    // Strict rejection for low-effort responses
+    if (isLowEffortResponse(input)) {
+      addInterviewerMessage(
+        `I need to see your initial thoughts on the current phase before we can move forward.`,
+        "warning"
+      );
+      return;
+    }
+
+    // Handle help requests with hint ladder
+    if (isHelpRequest(input)) {
+      setStructureHintLevel(prev => prev + 1);
+      
+      if (structureHintLevel === 0) {
+        // Hint 1: Conceptual nudge
+        addInterviewerMessage(
+          `Think about different categories of business costs. Some costs stay the same regardless of how much the car is driven. Others increase specifically when the car is driven more.`,
+          "hint"
+        );
+      } else if (structureHintLevel === 1) {
+        // Hint 2: Structural hint
+        addInterviewerMessage(
+          `You're looking for costs that increase specifically when the car is driven more. Think about **maintenance** and **depreciation/wear & tear** — these are variable costs that scale with kilometers.`,
+          "hint"
+        );
+      } else {
+        // Hint 3: The reveal
+        addInterviewerMessage(
+          `Here's the structure you need:
+
+**Fixed Costs** (don't change with km): Personnel, rent, insurance
+**Variable Costs** (scale with km): Maintenance, depreciation/wear & tear
+
+Now categorize the costs in your own words, then I'll give you the data.`,
+          "info"
+        );
+      }
+      return;
+    }
+
+    // Check if they properly structured costs
     if (checkForCostStructure(input)) {
       setHasProvidedStructure(true);
       addInterviewerMessage(
@@ -308,8 +397,7 @@ Here is the quantitative data you'll need:
 
 Using this data, please calculate:
 1. The variable cost per kilometer
-2. Verify the current profitability at 300 km
-3. The price per additional kilometer that maintains the 9% margin
+2. The price per additional kilometer that maintains the 9% margin
 
 *Show me your step-by-step calculations.*`,
         "success"
@@ -317,14 +405,27 @@ Using this data, please calculate:
       setPhase("awaiting_calculation");
     } else {
       // They haven't properly structured the costs
-      addInterviewerMessage(
-        `You're on the right track, but I need you to be more specific.
+      setStructureHintLevel(prev => prev + 1);
+      
+      if (structureHintLevel >= 2) {
+        addInterviewerMessage(
+          `I need you to explicitly categorize costs into **Fixed** and **Variable**. 
+
+Which costs stay the same regardless of distance driven? Which costs increase as more kilometers are driven?
+
+Specifically mention: depreciation, maintenance, personnel, and rent.`,
+          "hint"
+        );
+      } else {
+        addInterviewerMessage(
+          `You're on the right track, but I need you to be more specific.
 
 Think about which costs change when someone drives more kilometers vs. which costs stay the same regardless of distance driven.
 
 Can you categorize the relevant costs into **Fixed** and **Variable** categories? What specific cost items fall into each?`,
-        "hint"
-      );
+          "hint"
+        );
+      }
     }
   };
 
@@ -334,6 +435,55 @@ Can you categorize the relevant costs into **Fixed** and **Variable** categories
   };
 
   const handleCalculationPhase = (input: string) => {
+    // Strict rejection for low-effort responses
+    if (isLowEffortResponse(input)) {
+      addInterviewerMessage(
+        `I need to see your initial thoughts on the current phase before we can move forward.`,
+        "warning"
+      );
+      return;
+    }
+
+    // Handle help requests with hint ladder
+    if (isHelpRequest(input)) {
+      setCalculationHintLevel(prev => prev + 1);
+      
+      if (calculationHintLevel === 0) {
+        // Hint 1: Conceptual nudge
+        addInterviewerMessage(
+          `Start by figuring out how much it costs the company each time a car is driven one kilometer. Think about what happens to the car's value as it's driven.`,
+          "hint"
+        );
+      } else if (calculationHintLevel === 1) {
+        // Hint 2: Structural hint
+        addInterviewerMessage(
+          `**Step 1:** Calculate depreciation per km using:
+(Purchase Price - Resale Value) ÷ Total km driven
+
+**Step 2:** Then apply the margin formula to get the final price.
+
+Now try the calculation.`,
+          "hint"
+        );
+      } else {
+        // Hint 3: The reveal
+        addInterviewerMessage(
+          `Here's the calculation:
+
+**Variable Cost per km:**
+Depreciation = €100,000 - €90,000 = €10,000
+Variable Cost = €10,000 ÷ 20,000 km = **€0.50/km**
+
+**Price Formula (for margin on price):**
+Price = Cost ÷ (1 - Margin) = €0.50 ÷ 0.91 = ?
+
+Now apply this formula and give me the final answer.`,
+          "info"
+        );
+      }
+      return;
+    }
+
     const { correct, hasIncorrectMethod, hasVariableCost } = analyzeCalculation(input);
     setCalculationAttempts(prev => prev + 1);
 
@@ -348,13 +498,7 @@ Let me verify your steps:
 Depreciation = €100,000 - €90,000 = €10,000
 Variable Cost = €10,000 ÷ 20,000 km = **€0.50/km** ✓
 
-**Step 2: Current Profit Verification**
-Revenue: €220
-Variable costs: €0.50 × 300 = €150
-Fixed costs: €50
-Profit: €220 - €200 = €20 → **9.09% margin** ✓
-
-**Step 3: Additional KM Price**
+**Step 2: Additional KM Price**
 Price = Cost ÷ (1 - Margin)
 Price = €0.50 ÷ 0.91 = **€0.5495** ✓
 
@@ -370,18 +514,18 @@ Key insight: Fixed costs are ignored for additional km because they're already c
       }, 3000);
       
     } else if (hasIncorrectMethod) {
-      // They made the common mistake
+      // They made the common markup vs margin mistake - REJECT IT
       addInterviewerMessage(
-        `⚠️ **Almost there, but there's an important error.**
+        `⚠️ **That is a markup on cost, not a margin on price.**
 
 Your variable cost calculation is correct (€0.50/km). However, you've applied a **markup to cost** rather than calculating a **margin on price**.
 
 • **Your method:** €0.50 × 1.09 = €0.545 ❌
-• This gives 9% *above cost*, not 9% *of price*
+• This gives 9% *above cost*, not 9% *of the final selling price*
 
 **The Correct Formula:**
-When the margin must be on the **selling price**, use:
-$$\\text{Price} = \\text{Cost} \\div (1 - \\text{Margin})$$
+The client requires a 9% margin on the **final price**. Use:
+$$\\text{Price} = \\text{Variable Cost} \\div (1 - \\text{Margin})$$
 
 Please recalculate using this formula.`,
         "warning"
@@ -390,7 +534,7 @@ Please recalculate using this formula.`,
     } else if (hasVariableCost) {
       // They got variable cost but need help with the margin
       addInterviewerMessage(
-        `You've correctly identified the variable cost. Now for the final step:
+        `You've correctly identified the variable cost (€0.50/km). Now for the final step:
 
 The company needs a **9% margin on the selling price** (not on cost).
 
@@ -403,8 +547,10 @@ Apply this formula to your €0.50 variable cost with a 9% margin requirement.`,
       );
       
     } else {
-      // Need more help
-      if (calculationAttempts >= 2) {
+      // Need more help - use hint ladder approach
+      setCalculationHintLevel(prev => prev + 1);
+      
+      if (calculationHintLevel >= 2) {
         addInterviewerMessage(
           `Let me guide you through the calculation:
 
@@ -412,7 +558,8 @@ Apply this formula to your €0.50 variable cost with a 9% margin requirement.`,
 • Depreciation = Purchase - Resale = €100,000 - €90,000 = €10,000
 • Per km = €10,000 ÷ 20,000 km = ?
 
-**Step 2:** Once you have the variable cost, apply the margin formula.
+**Step 2:** Once you have the variable cost, apply the margin formula:
+• Price = Cost ÷ (1 - Margin)
 
 Try again with these hints.`,
           "hint"
@@ -448,6 +595,9 @@ Walk me through each step.`,
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 **Final Answer:** The luxury car rental company should charge **54.95 cents (≈€0.55)** for each kilometer driven above the 300 km daily limit.
+
+**Why Fixed Costs Are Ignored:**
+Fixed costs (€50 per rental) are already covered by the base €220/day rate for the first 300 km. Additional kilometers only incur variable costs (depreciation/wear), so only those costs need to be recovered in the per-km price.
 
 **Key Insights Demonstrated:**
 ${hasRevealedMargin ? "✓" : "○"} Asked about profitability targets before calculating
