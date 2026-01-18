@@ -2504,6 +2504,240 @@ The case teaches candidates to:
     ]
   },
   {
+    id: "innovation-tires-pricing",
+    title: "Innovation Tires — Value-Based Pricing",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `A French tire manufacturer has developed an innovation in the car tire market. Due to lower rolling resistance of its tire, it is possible to reduce fuel consumption by 5%.
+
+The company is new to the tire market and currently has no comparable products. The tire is unique in the market—there are no comparable products with this fuel-saving feature.
+
+Key Business Context:
+• Innovation: 5% fuel consumption reduction through reduced rolling resistance
+• Market position: New entrant with no existing product line
+• Competitive landscape: No comparable fuel-saving tires exist
+• Cost information: Manufacturing costs are unknown
+• Goal: Determine how much more than a conventional tire to charge for the innovation
+• Profitability expectation: Unknown—goal is to skim as much as possible of the potential sales price`,
+    question: "How much more than a conventional tire should the company charge for the new innovation tire?",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What pricing approach should be used?\nEvaluate different pricing frameworks and determine which is most appropriate for this situation.\nConsider: Cost-based pricing, value-based pricing, and competitive benchmarking.",
+        hints: [
+          "Think about what information is available vs. unavailable",
+          "Consider whether cost information or customer value should drive pricing",
+          "The product has a unique feature with measurable customer benefit",
+          "How can you quantify the value of 5% fuel savings to customers?"
+        ],
+        answer: `Pricing Framework Analysis:
+
+1. Cost-Based Pricing: NOT APPLICABLE
+• No manufacturing cost information available
+• Cannot calculate margin or markup
+• Ruled out for this case
+
+2. Competitive Benchmarking: PARTIALLY APPLICABLE
+• No direct competitors with fuel-saving feature
+• However, conventional tire prices provide a baseline
+• Can use as anchor point for premium calculation
+
+3. Value-Based Pricing: RECOMMENDED APPROACH
+• Customer's willingness to pay increases by the amount of fuel savings
+• The value can be quantified in monetary terms
+• Price = Standard tire price + Value of fuel savings over tire lifetime
+
+Why Value-Based Pricing Works Here:
+
+The 5% fuel savings translates directly into euros saved by the customer. By calculating the lifetime fuel savings, we can determine how much additional value the tire provides compared to conventional alternatives.
+
+Key Insight:
+The customer is willing to pay more because they will save money over time. The pricing question becomes: "How much of those savings should we capture vs. pass on to the customer?"
+
+Approach:
+1. Estimate annual fuel consumption per vehicle
+2. Calculate 5% savings in fuel costs per year
+3. Determine savings per tire over tire lifespan
+4. Add savings value to conventional tire price`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the price premium for the innovation tire.\n\nYou will need to estimate or use the following:\n• Number of tires per car: 4\n• Annual mileage per car: 12,000 km\n• Fuel consumption: 8 liters per 100 km\n• Fuel price: €1.20 per liter (given by interviewer)\n• Standard tire price: €40\n• Tire lifespan: 3 years",
+        hints: [
+          "Start with annual fuel consumption: (Distance ÷ 100) × Liters per 100 km",
+          "Calculate annual fuel cost, then apply 5% savings",
+          "Remember: Savings per tire = Total savings ÷ 4 tires",
+          "Lifetime value = Annual savings per tire × Years of tire life"
+        ],
+        answer: `Step 1: Calculate Annual Fuel Consumption
+
+Annual mileage: 12,000 km
+Consumption rate: 8 liters per 100 km
+
+Annual fuel consumption = (12,000 km ÷ 100) × 8 liters
+                        = 120 × 8
+                        = 960 liters per year
+
+---
+
+Step 2: Calculate Annual Fuel Costs
+
+Fuel price: €1.20 per liter
+
+Annual fuel costs = 960 liters × €1.20
+                  = €1,152 per year
+
+---
+
+Step 3: Calculate Annual Fuel Savings (5%)
+
+Savings rate: 5%
+
+Annual fuel savings = €1,152 × 0.05
+                    = €57.60
+                    ≈ €60 per year per vehicle
+
+---
+
+Step 4: Calculate Savings per Tire per Year
+
+Number of tires: 4
+
+Savings per tire per year = €60 ÷ 4
+                          = €15 per tire per year
+
+---
+
+Step 5: Calculate Lifetime Value per Tire
+
+Tire lifespan: 3 years
+
+Lifetime savings per tire = €15 × 3 years
+                          = €45 per tire
+
+---
+
+Step 6: Calculate Innovation Tire Price
+
+Standard tire price: €40
+Fuel savings value: €45
+
+Innovation tire price = €40 + €45 = €85 per tire
+
+---
+
+Summary:
+| Component | Value |
+|-----------|-------|
+| Annual mileage | 12,000 km |
+| Fuel consumption | 8 L/100 km |
+| Annual fuel cost | €1,152 |
+| 5% annual savings | €60 |
+| Savings per tire/year | €15 |
+| Tire lifespan | 3 years |
+| Lifetime savings per tire | €45 |
+| Standard tire price | €40 |
+| **Innovation tire price** | **€85** |`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Present the final pricing recommendation.\nConsider: At what price is the customer indifferent? How should the company position the price to ensure customer acceptance?",
+        hints: [
+          "At €85, the customer captures zero savings—they pay €45 extra but save €45 in fuel",
+          "Consider whether capturing 100% of customer value is optimal for a new market entrant",
+          "Think about the role of marketing in communicating the value proposition",
+          "Consider how to share value with customers to drive adoption"
+        ],
+        answer: `Pricing Recommendation:
+
+Maximum Price (Customer Indifference Point): €85 per tire
+
+At this price, the customer breaks even—they pay €45 more but save €45 in fuel over 3 years. This is the theoretical ceiling where customers have no economic incentive to switch.
+
+---
+
+Recommended Launch Price: €65-€75 per tire
+
+Rationale:
+• €65 price = Customer captures €20 of the €45 savings (44% value share to customer)
+• €75 price = Customer captures €10 of the €45 savings (22% value share to customer)
+• This creates a clear value proposition: "Pay €25-35 more, save €45"
+• Lower barrier to trial for new brand entering market
+• Allows premium positioning without appearing exploitative
+
+---
+
+Value Sharing Strategy:
+
+| Price Point | Premium over €40 | Customer Savings | Company Capture |
+|-------------|------------------|------------------|-----------------|
+| €85 | €45 | €0 (indifferent) | 100% |
+| €75 | €35 | €10 | 78% |
+| €65 | €25 | €20 | 56% |
+| €55 | €15 | €30 | 33% |
+
+---
+
+Customer Acceptance:
+
+At a price around €85, the customer is indifferent—they gain nothing from switching. To drive adoption, part of the savings must be passed on to the customer.
+
+Recommended approach:
+• Launch at €70-75 to capture majority of value while giving customers a reason to buy
+• As brand recognition grows, consider price increases toward €85
+• Never exceed €85 as customers would lose money vs. conventional tires
+
+---
+
+Marketing Requirements:
+
+Marketing is crucial to communicate the tire's USP effectively:
+
+1. Clear Value Communication:
+• "Save €60/year on fuel" messaging
+• Side-by-side cost comparisons over 3 years
+• Fuel savings calculator on website
+
+2. Proof Points:
+• Independent testing results showing 5% fuel reduction
+• Fuel economy certifications
+• Customer testimonials and case studies
+
+3. Channel Strategy:
+• Target environmentally conscious consumers first
+• Partner with eco-friendly car dealerships
+• Consider fleet sales where fuel savings are tracked and valued
+
+4. Risk Reduction:
+• Money-back guarantee if savings not realized
+• Partnership with fuel tracking apps for verification
+• Offer trial programs for fleet operators
+
+---
+
+Long-Term Pricing Evolution:
+• Launch at €70-75 to build market share and brand recognition
+• Increase toward €80-85 as brand awareness grows
+• Consider premium variants with enhanced features at €90+`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: `This case demonstrates value-based pricing when cost information is unavailable. The key insight is that customer willingness to pay is driven by the quantifiable benefit (5% fuel savings), not by production costs.
+
+The calculation translates the percentage savings into annual euros saved (€60/vehicle), allocates per tire (€15/tire/year), and multiplies across the tire's lifespan (€45 total). Adding this to the conventional tire price (€40) gives a theoretical maximum of €85.
+
+However, capturing 100% of customer value leaves customers indifferent—they have no incentive to switch. The recommendation is to price at €65-75, sharing value with customers to drive adoption, especially as a new market entrant with no brand recognition.
+
+Marketing is essential to communicate the fuel savings USP and justify the premium over conventional tires.`,
+    keyFrameworks: [
+      "Value-Based Pricing",
+      "Customer Willingness to Pay",
+      "Market Sizing (Bottom-Up)",
+      "Value Sharing Strategy",
+      "New Product Pricing"
+    ]
+  },
+  {
     id: "mediflow-operations-improvement",
     title: "Mediflow Devices S.L. — Operational Bottleneck Analysis",
     firm: "Operations & Process Improvement",
