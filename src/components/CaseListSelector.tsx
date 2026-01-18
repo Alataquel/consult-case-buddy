@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Star, HelpCircle, ChevronRight, BookOpen, Filter, CheckCircle } from "lucide-react";
+import { Search, Star, HelpCircle, ChevronRight, BookOpen, Filter, CheckCircle, ArrowUpDown } from "lucide-react";
 import { cases } from "@/data/cases";
 import { getCaseScore, getCaseRating } from "@/utils/scoreStorage";
 import UserStatistics from "@/components/UserStatistics";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+type SortOption = "default" | "difficulty-asc" | "difficulty-desc" | "rating-desc" | "rating-asc";
+
+const difficultyOrder: Record<string, number> = {
+  beginner: 1,
+  easy: 1,
+  intermediate: 2,
+  medium: 2,
+  advanced: 3,
+  hard: 3,
+};
 
 interface CaseListSelectorProps {
   onSelectCase: (caseId: string) => void;
@@ -32,23 +50,64 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
+  const [sortOption, setSortOption] = useState<SortOption>("default");
   
   // Get unique problem types
   const problemTypes = [...new Set(cases.map(c => c.type))];
   
-  // Apply filters
-  const filteredCases = cases.filter(caseItem => {
-    const matchesSearch = searchQuery === "" || 
-      caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      caseItem.background.toLowerCase().includes(searchQuery.toLowerCase());
+  // Apply filters and sorting
+  const filteredAndSortedCases = useMemo(() => {
+    // First filter
+    const filtered = cases.filter(caseItem => {
+      const matchesSearch = searchQuery === "" || 
+        caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        caseItem.background.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesDifficulty = !difficultyFilter || 
+        caseItem.difficulty.toLowerCase() === difficultyFilter.toLowerCase();
+      
+      const matchesType = !typeFilter || caseItem.type === typeFilter;
+      
+      return matchesSearch && matchesDifficulty && matchesType;
+    });
+
+    // Then sort
+    const sorted = [...filtered];
     
-    const matchesDifficulty = !difficultyFilter || 
-      caseItem.difficulty.toLowerCase() === difficultyFilter.toLowerCase();
-    
-    const matchesType = !typeFilter || caseItem.type === typeFilter;
-    
-    return matchesSearch && matchesDifficulty && matchesType;
-  });
+    switch (sortOption) {
+      case "difficulty-asc":
+        sorted.sort((a, b) => 
+          (difficultyOrder[a.difficulty.toLowerCase()] || 0) - 
+          (difficultyOrder[b.difficulty.toLowerCase()] || 0)
+        );
+        break;
+      case "difficulty-desc":
+        sorted.sort((a, b) => 
+          (difficultyOrder[b.difficulty.toLowerCase()] || 0) - 
+          (difficultyOrder[a.difficulty.toLowerCase()] || 0)
+        );
+        break;
+      case "rating-desc":
+        sorted.sort((a, b) => {
+          const ratingA = getCaseRating(a.id) || 0;
+          const ratingB = getCaseRating(b.id) || 0;
+          return ratingB - ratingA;
+        });
+        break;
+      case "rating-asc":
+        sorted.sort((a, b) => {
+          const ratingA = getCaseRating(a.id) || 0;
+          const ratingB = getCaseRating(b.id) || 0;
+          return ratingA - ratingB;
+        });
+        break;
+      default:
+        // Keep original order (recently added = last in array shown first)
+        break;
+    }
+
+    return sorted;
+  }, [searchQuery, difficultyFilter, typeFilter, sortOption]);
 
   const difficulties = ["Beginner", "Intermediate", "Advanced"];
 
@@ -140,6 +199,23 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
           Clear all
         </Button>
 
+        {/* Sort Dropdown */}
+        <div className="flex items-center gap-2">
+          <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
+          <Select value={sortOption} onValueChange={(value: SortOption) => setSortOption(value)}>
+            <SelectTrigger className="w-[160px] h-8 text-sm">
+              <SelectValue placeholder="Sort by..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="default">Default order</SelectItem>
+              <SelectItem value="difficulty-asc">Difficulty: Easy first</SelectItem>
+              <SelectItem value="difficulty-desc">Difficulty: Hard first</SelectItem>
+              <SelectItem value="rating-desc">Rating: High to Low</SelectItem>
+              <SelectItem value="rating-asc">Rating: Low to High</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Search */}
         <div className="flex-1 flex justify-end min-w-[200px]">
           <div className="relative w-full max-w-xs">
@@ -161,7 +237,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
 
       {/* Results count */}
       <div className="text-sm text-muted-foreground">
-        Showing {filteredCases.length} of {cases.length} cases
+        Showing {filteredAndSortedCases.length} of {cases.length} cases
         {(typeFilter || difficultyFilter) && (
           <span className="ml-2">
             {typeFilter && <Badge variant="secondary" className="mr-2">{typeFilter}</Badge>}
@@ -172,7 +248,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
 
       {/* Case Cards */}
       <div className="flex-1 space-y-4 overflow-auto pb-8">
-        {filteredCases.map((caseItem, index) => {
+        {filteredAndSortedCases.map((caseItem, index) => {
           const previousScore = getCaseScore(caseItem.id);
           const caseRating = getCaseRating(caseItem.id);
           const diffStyle = getDifficultyStyle(caseItem.difficulty);
@@ -271,7 +347,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
           );
         })}
         
-        {filteredCases.length === 0 && (
+        {filteredAndSortedCases.length === 0 && (
           <div className="text-center py-16">
             <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-xl font-semibold text-foreground mb-2">No Cases Found</h3>
