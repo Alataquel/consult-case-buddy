@@ -40,23 +40,23 @@ const CaseRatingDialog = ({ isOpen, caseTitle, onSubmit, onSkip }: CaseRatingDia
         onPointerDownOutside={(e) => e.preventDefault()}
       >
         {/* Soft glowing background accents */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl" />
         
         {/* Main content - centered vertically */}
         <div className="relative z-10 flex flex-col items-center justify-center py-8 px-4">
           {/* Celebration icon */}
           <div className="mb-6">
             <div className="relative">
-              <Sparkles className="w-8 h-8 text-amber-400 absolute -top-2 -left-4 animate-pulse" />
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/30">
+              <Sparkles className="w-8 h-8 text-sky-400 absolute -top-2 -left-4 animate-pulse" />
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-400 via-sky-500 to-blue-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
                 <Star className="w-8 h-8 text-white fill-white" />
               </div>
-              <Sparkles className="w-6 h-6 text-amber-400 absolute -bottom-1 -right-3 animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <Sparkles className="w-6 h-6 text-sky-400 absolute -bottom-1 -right-3 animate-pulse" style={{ animationDelay: '0.5s' }} />
             </div>
           </div>
           
           {/* Title */}
-          <h2 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-amber-200 via-amber-300 to-amber-200 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-sky-200 via-sky-300 to-sky-200 bg-clip-text text-transparent">
             Case Complete!
           </h2>
           
@@ -79,12 +79,12 @@ const CaseRatingDialog = ({ isOpen, caseTitle, onSubmit, onSkip }: CaseRatingDia
                 onMouseEnter={() => setHoveredRating(star)}
                 onMouseLeave={() => setHoveredRating(0)}
                 onClick={() => setSelectedRating(star)}
-                className="transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-full"
+                className="transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-sky-400/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-full"
               >
                 <Star
                   className={`w-14 h-14 transition-all duration-200 ${
                     star <= (hoveredRating || selectedRating)
-                      ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]"
+                      ? "fill-sky-400 text-sky-400 drop-shadow-[0_0_12px_rgba(56,189,248,0.6)]"
                       : "text-slate-600 hover:text-slate-500"
                   }`}
                 />
@@ -95,9 +95,9 @@ const CaseRatingDialog = ({ isOpen, caseTitle, onSubmit, onSkip }: CaseRatingDia
           {/* Rating Label */}
           <p className="text-center text-lg font-medium h-7 mb-8">
             {hoveredRating > 0 
-              ? <span className="text-amber-400">{ratingLabels[hoveredRating]}</span>
+              ? <span className="text-sky-400">{ratingLabels[hoveredRating]}</span>
               : selectedRating > 0 
-                ? <span className="text-amber-400">{ratingLabels[selectedRating]}</span>
+                ? <span className="text-sky-400">{ratingLabels[selectedRating]}</span>
                 : <span className="text-slate-500">Tap a star to rate</span>}
           </p>
         </div>
@@ -113,7 +113,7 @@ const CaseRatingDialog = ({ isOpen, caseTitle, onSubmit, onSkip }: CaseRatingDia
           <Button 
             onClick={handleSubmit} 
             disabled={selectedRating === 0}
-            className="flex-1 text-base py-5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-lg shadow-amber-500/25 disabled:opacity-50 disabled:shadow-none"
+            className="flex-1 text-base py-5 bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-400 hover:to-blue-400 text-white font-semibold shadow-lg shadow-sky-500/25 disabled:opacity-50 disabled:shadow-none"
           >
             <Star className="w-4 h-4 mr-2 fill-current" />
             Submit Rating
