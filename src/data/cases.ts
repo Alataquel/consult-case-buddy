@@ -2515,6 +2515,227 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Subscription Business Models"
     ]
   },
+  
+  // PRICING STRATEGY - Intermediate
+  {
+    id: "car-rental-mileage-pricing",
+    title: "Luxury Car Rental — Mileage Pricing Strategy",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `The client is an international luxury car rental company.
+
+Current Pricing:
+• Daily rental rate: €220 per day with "unlimited" kilometers advertised
+• Internal calculation: Costs are based on an assumed limit of 300 km per day
+
+Problem:
+Customers are increasingly driving more than 300 km per day, which erodes the company's margins. The rental company has decided to charge for kilometers driven above the 300 km limit.
+
+Your task is to determine the appropriate price per additional kilometer.`,
+    question: "Determine the price that should be charged for every additional kilometer driven above the 300 km limit.",
+    difficulty: "Intermediate",
+    questions: [
+      {
+        number: 1,
+        question: `Clarifying Questions:
+
+Before diving into calculations, what questions would you ask about profitability expectations, current margins, and the scope of this analysis?
+
+---
+
+INFORMATION FROM THE INTERVIEWER:
+
+• The general profitability expectation of the company is 9%
+• The current margin of 9% should be maintained for additional kilometers
+• The focus of the analysis is strictly on pricing; other business aspects can be ignored`,
+        hints: [
+          "Consider what margin target is required for the pricing decision",
+          "Think about whether fixed or variable costs are relevant for additional km",
+          "Ask about the current cost structure (fixed vs variable)"
+        ],
+        answer: `Key Clarifications Obtained:
+
+1. Profitability Target: 9% margin must be maintained
+2. Scope: Focus strictly on pricing—no need to consider marketing, competition, or customer behavior
+3. Approach: Cost-based pricing is appropriate since we know costs and target margin
+
+This tells us we need to:
+• Identify the variable costs per additional km
+• Add the target margin to derive the price
+• Fixed costs can be ignored because they are already covered by the base 300 km included in the €220/day rate`
+      },
+      {
+        number: 2,
+        question: `Approach & Cost Structure:
+
+What method would you use to determine the price per additional kilometer? 
+
+Brainstorm the relevant cost categories for a car rental company, distinguishing between fixed and variable costs.
+
+---
+
+INFORMATION FROM THE INTERVIEWER:
+
+Cost Data Provided:
+• Fixed costs: €50 per rental (personnel, rent, insurance, marketing allocation)
+• Variable costs: €0.50 per km (maintenance, repairs, wear and tear, fuel)
+• Depreciation: Cars are purchased for €100,000 and sold for €90,000 after 20,000 km`,
+        hints: [
+          "Cost-based pricing: Price = Cost + Margin",
+          "For additional km beyond 300, only variable costs matter (fixed costs already covered)",
+          "Calculate depreciation per km from purchase/sale prices and total km lifespan"
+        ],
+        answer: `Pricing Approach: Cost-Based Pricing
+
+Since we know our costs and have a clear margin target (9%), cost-based pricing is the appropriate method.
+
+---
+
+Cost Categories:
+
+Fixed Costs (per rental):
+• Personnel costs
+• Rent for buildings/parking
+• Leasing/purchase price allocation
+• Insurance
+• Marketing
+
+Variable Costs (per km):
+• Maintenance and repairs
+• Tire wear and replacement
+• Fuel (if included)
+• Depreciation per km
+
+---
+
+Depreciation Calculation:
+
+• Purchase price: €100,000
+• Sale price after 20,000 km: €90,000
+• Depreciation: €100,000 - €90,000 = €10,000
+• Depreciation per km: €10,000 ÷ 20,000 km = €0.50/km
+
+Note: The €0.50/km variable cost provided already includes depreciation and other variable expenses.
+
+---
+
+Key Insight:
+
+For kilometers beyond 300, we only need to cover:
+• Variable costs: €0.50/km
+• Target margin: 9%
+
+Fixed costs (€50/rental) are already covered by the base €220/day rate.`
+      },
+      {
+        number: 3,
+        question: `Calculation:
+
+Using the cost data provided, calculate:
+1. Verify the current profit and margin on a standard rental (300 km)
+2. Determine the exact price per additional kilometer that maintains the 9% margin
+
+Show your work step by step.`,
+        hints: [
+          "Current profit verification: Revenue - (Fixed + Variable costs) = Profit",
+          "For margin pricing: Price = Cost ÷ (1 - Margin%), NOT Cost × (1 + Margin%)",
+          "This is because margin is calculated on price, not on cost"
+        ],
+        answer: `STEP 1: Verify Current Profit (Base Case: 300 km)
+
+Revenue: €220
+Variable costs: €0.50/km × 300 km = €150
+Fixed costs: €50
+
+Total costs: €150 + €50 = €200
+Profit: €220 - €200 = €20
+
+Margin: €20 ÷ €220 = 9.09% ≈ 9% ✓
+
+The current pricing achieves the 9% target margin.
+
+---
+
+STEP 2: Price per Additional Kilometer
+
+For additional km beyond 300:
+• Only variable costs apply: €0.50/km
+• Fixed costs are already covered
+• Target margin: 9%
+
+Formula:
+Price = Variable Cost ÷ (1 - Margin%)
+Price = €0.50 ÷ (1 - 0.09)
+Price = €0.50 ÷ 0.91
+Price = €0.5495
+
+---
+
+FINAL ANSWER: €0.55 per additional kilometer (54.95 cents)
+
+---
+
+Important Note on Margin Calculation:
+
+❌ INCORRECT: €0.50 × 1.09 = €0.545
+This calculates markup on cost, not margin on price.
+
+✓ CORRECT: €0.50 ÷ 0.91 = €0.5495
+This ensures the 9% margin is calculated on the selling price.
+
+Verification:
+• Price: €0.5495
+• Cost: €0.50
+• Profit: €0.0495
+• Margin: €0.0495 ÷ €0.5495 = 9% ✓`
+      }
+    ],
+    modelSolution: `LUXURY CAR RENTAL — MILEAGE PRICING ANALYSIS
+
+SITUATION:
+• International luxury car rental company
+• Current rate: €220/day with "unlimited" km (internally assumes ≤300 km/day)
+• Problem: Customers exceeding 300 km, eroding margins
+• Goal: Price additional km to maintain 9% margin
+
+---
+
+COST STRUCTURE:
+• Fixed costs: €50/rental
+• Variable costs: €0.50/km (includes depreciation)
+• Depreciation: €10,000 over 20,000 km = €0.50/km
+
+---
+
+CURRENT STATE VERIFICATION:
+• Revenue: €220
+• Costs: €150 (variable) + €50 (fixed) = €200
+• Profit: €20 (9% margin) ✓
+
+---
+
+ADDITIONAL KM PRICING:
+• Only variable costs (€0.50/km) are relevant
+• Fixed costs already covered by base rate
+
+Calculation:
+Price = Variable Cost ÷ (1 - Margin)
+Price = €0.50 ÷ 0.91 = €0.5495
+
+---
+
+RECOMMENDATION:
+Charge €0.55 per kilometer for all km driven beyond 300 km/day.
+
+This maintains the company's 9% profitability target while fairly allocating costs to high-usage customers.`,
+    keyFrameworks: [
+      "Cost-Based Pricing",
+      "Margin vs Markup Calculation",
+      "Fixed vs Variable Cost Analysis",
+      "Unit Economics",
+      "Contribution Margin"
+    ]
+  }
 ];
 
 export const getCasesBySelection = (type: string, value: string): Case[] => {
