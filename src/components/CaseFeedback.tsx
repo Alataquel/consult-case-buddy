@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Image, Award } from "lucide-react";
+import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Image, Award, Star } from "lucide-react";
 import { exhibitImages } from "./CasePractice";
 import SelfAssessmentRubric from "./SelfAssessmentRubric";
+import { saveCaseRating, getCaseRating } from "@/utils/scoreStorage";
 
 interface CaseQuestion {
   number: number;
@@ -46,6 +47,18 @@ const CaseFeedback = ({
 }: CaseFeedbackProps) => {
   const [hasSubmittedScore, setHasSubmittedScore] = useState(false);
   const [finalScore, setFinalScore] = useState<number | null>(null);
+  const [caseRating, setCaseRating] = useState<number>(0);
+  const [hasSubmittedRating, setHasSubmittedRating] = useState(false);
+  const [hoveredStar, setHoveredStar] = useState<number>(0);
+  
+  // Check if user has already rated this case
+  useEffect(() => {
+    const existingRating = getCaseRating(caseId);
+    if (existingRating) {
+      setCaseRating(existingRating);
+      setHasSubmittedRating(true);
+    }
+  }, [caseId]);
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -84,6 +97,12 @@ const CaseFeedback = ({
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
+  };
+
+  const handleRatingSubmit = (rating: number) => {
+    setCaseRating(rating);
+    setHasSubmittedRating(true);
+    saveCaseRating(caseId, rating);
   };
 
   const getScoreGrade = (score: number) => {
@@ -172,6 +191,59 @@ const CaseFeedback = ({
                   <RotateCcw className="w-4 h-4 mr-2" />
                   Try Another
                 </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Case Quality Rating - Show after score submission */}
+      {hasSubmittedScore && (
+        <Card className="border-0 shadow-lg overflow-hidden bg-gradient-to-br from-amber-50 to-yellow-50 animate-fade-in">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
+                  <Star className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {hasSubmittedRating ? "Thanks for your feedback!" : "Rate this case"}
+                  </h3>
+                  <p className="text-sm text-description-gray">
+                    {hasSubmittedRating 
+                      ? "Your rating helps other students find great cases" 
+                      : "How would you rate the quality of this case study?"}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    onClick={() => !hasSubmittedRating && handleRatingSubmit(star)}
+                    onMouseEnter={() => !hasSubmittedRating && setHoveredStar(star)}
+                    onMouseLeave={() => !hasSubmittedRating && setHoveredStar(0)}
+                    disabled={hasSubmittedRating}
+                    className={`transition-all duration-200 ${
+                      hasSubmittedRating ? 'cursor-default' : 'cursor-pointer hover:scale-110'
+                    }`}
+                  >
+                    <Star 
+                      className={`w-8 h-8 transition-colors ${
+                        star <= (hoveredStar || caseRating)
+                          ? 'fill-amber-400 text-amber-400' 
+                          : 'text-gray-300 hover:text-amber-200'
+                      }`} 
+                    />
+                  </button>
+                ))}
+                {caseRating > 0 && (
+                  <span className="ml-2 text-lg font-semibold text-amber-700">
+                    {caseRating}.0
+                  </span>
+                )}
               </div>
             </div>
           </CardContent>

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Star, HelpCircle, ChevronRight, BookOpen, Filter } from "lucide-react";
+import { Search, Star, HelpCircle, ChevronRight, BookOpen, Filter, CheckCircle } from "lucide-react";
 import { cases } from "@/data/cases";
-import { getCaseScore } from "@/utils/scoreStorage";
+import { getCaseScore, getCaseRating } from "@/utils/scoreStorage";
 import UserStatistics from "@/components/UserStatistics";
 
 interface CaseListSelectorProps {
@@ -27,11 +27,6 @@ const getDifficultyStyle = (difficulty: string) => {
   }
 };
 
-const getScoreStars = (score: number | null) => {
-  if (score === null) return null;
-  const stars = Math.round((score / 100) * 5 * 10) / 10;
-  return stars.toFixed(1);
-};
 
 const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -179,9 +174,9 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
       <div className="flex-1 space-y-4 overflow-auto pb-8">
         {filteredCases.map((caseItem, index) => {
           const previousScore = getCaseScore(caseItem.id);
+          const caseRating = getCaseRating(caseItem.id);
           const diffStyle = getDifficultyStyle(caseItem.difficulty);
-          const starRating = getScoreStars(previousScore);
-          const isNew = previousScore === null;
+          const hasCompleted = previousScore !== null;
           
           const description = caseItem.background.split('.')[0] + '.';
           
@@ -197,29 +192,35 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
                   <h3 className="text-xl font-semibold text-foreground">
                     {caseItem.title}
                   </h3>
-                  {isNew && (
+                  {!hasCompleted && (
                     <Badge className="bg-amber-400 text-amber-900 hover:bg-amber-400 text-xs font-semibold px-2 py-0.5">
                       NEW!
                     </Badge>
                   )}
+                  {hasCompleted && (
+                    <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50 text-xs">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Completed
+                    </Badge>
+                  )}
                 </div>
                 
-                {starRating && (
+                {caseRating && (
                   <div className="flex items-center gap-2 text-sm flex-shrink-0">
-                    <span className="font-semibold text-foreground">{starRating}</span>
+                    <span className="font-semibold text-foreground">{caseRating}.0</span>
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                           key={star} 
                           className={`w-4 h-4 ${
-                            star <= Math.round(parseFloat(starRating)) 
+                            star <= caseRating 
                               ? 'fill-amber-400 text-amber-400' 
                               : 'text-gray-300'
                           }`} 
                         />
                       ))}
                     </div>
-                    <span className="text-muted-foreground hidden sm:inline">• {previousScore}%</span>
+                    <span className="text-muted-foreground hidden sm:inline">• Your rating</span>
                   </div>
                 )}
               </div>
