@@ -130,7 +130,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="text-teal-600 hover:text-teal-700"
+          className="text-primary hover:text-primary/80"
           onClick={() => {
             setSearchQuery("");
             setDifficultyFilter(null);
@@ -151,7 +151,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
             />
             <Button 
               size="sm" 
-              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0 bg-teal-600 hover:bg-teal-700"
+              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0 bg-primary hover:bg-primary/90"
             >
               <Search className="w-4 h-4" />
             </Button>
@@ -260,7 +260,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
                 </div>
                 
                 <Button 
-                  className="bg-teal-600 hover:bg-teal-700 text-white px-6"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6"
                   onClick={() => onSelectCase(caseItem.id)}
                 >
                   View case
