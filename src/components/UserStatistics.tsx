@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trophy, Target, Award, Flame, Sparkles, TrendingUp, BarChart3, Briefcase, DollarSign, Rocket, Settings, Package, Building, RefreshCw, Leaf, Filter, ChevronDown } from "lucide-react";
+import { Trophy, Target, Award, Sparkles, TrendingUp, BarChart3, Briefcase, DollarSign, Rocket, Settings, Package, Building, RefreshCw, Leaf, Filter, ChevronDown } from "lucide-react";
 import { getUserStats } from "@/utils/scoreStorage";
 import {
   DropdownMenu,
@@ -95,56 +95,58 @@ const UserStatistics = () => {
         </div>
         
         {/* Compact Stats Grid */}
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-5 gap-3">
           {/* Overall Grade */}
-          <div className="group flex flex-col items-center p-3 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-accent/20">
-            <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mb-1.5 group-hover:bg-accent/20 transition-colors">
-              <Award className="w-4 h-4 text-accent" />
+          <div className="group flex flex-col items-center p-4 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-accent/20">
+            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+              <Award className="w-5 h-5 text-accent" />
             </div>
-            <div className="text-xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-foreground">
               {stats.totalCasesAttempted === 0 ? "-" : stats.overallGrade}
             </div>
-            <div className="text-[10px] text-muted-foreground font-medium text-center">Overall</div>
+            <div className="text-xs text-muted-foreground font-medium text-center">Overall</div>
           </div>
           
           {/* Beginner Grade */}
-          <div className="group flex flex-col items-center p-3 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-green-200">
-            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mb-1.5 group-hover:bg-green-200 transition-colors">
-              <span className="text-xs font-bold text-green-600">🟢</span>
+          <div className="group flex flex-col items-center p-4 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-green-200">
+            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-2 group-hover:bg-green-200 transition-colors">
+              <span className="text-sm font-bold text-green-600">🟢</span>
             </div>
-            <div className="text-xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-foreground">
               {stats.beginnerGrade === "N/A" ? "-" : stats.beginnerGrade}
             </div>
-            <div className="text-[10px] text-muted-foreground font-medium text-center">Beginner</div>
+            <div className="text-xs text-muted-foreground font-medium text-center">Beginner</div>
           </div>
           
           {/* Intermediate Grade */}
-          <div className="group flex flex-col items-center p-3 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-amber-200">
-            <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mb-1.5 group-hover:bg-amber-200 transition-colors">
-              <span className="text-xs font-bold text-amber-600">🟡</span>
+          <div className="group flex flex-col items-center p-4 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-amber-200">
+            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-2 group-hover:bg-amber-200 transition-colors">
+              <span className="text-sm font-bold text-amber-600">🟡</span>
             </div>
-            <div className="text-xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-foreground">
               {stats.intermediateGrade === "N/A" ? "-" : stats.intermediateGrade}
             </div>
-            <div className="text-[10px] text-muted-foreground font-medium text-center">Intermediate</div>
+            <div className="text-xs text-muted-foreground font-medium text-center">Intermediate</div>
+          </div>
+          
+          {/* Advanced Grade */}
+          <div className="group flex flex-col items-center p-4 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-red-200">
+            <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-2 group-hover:bg-red-200 transition-colors">
+              <span className="text-sm font-bold text-red-600">🔴</span>
+            </div>
+            <div className="text-2xl font-bold text-foreground">
+              {stats.advancedGrade === "N/A" ? "-" : stats.advancedGrade}
+            </div>
+            <div className="text-xs text-muted-foreground font-medium text-center">Advanced</div>
           </div>
           
           {/* Total Attempts */}
-          <div className="group flex flex-col items-center p-3 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-primary/20">
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-1.5 group-hover:bg-primary/20 transition-colors">
-              <Target className="w-4 h-4 text-primary" />
+          <div className="group flex flex-col items-center p-4 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-primary/20">
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:bg-primary/20 transition-colors">
+              <Target className="w-5 h-5 text-primary" />
             </div>
-            <div className="text-xl font-bold text-foreground">{stats.totalAttempts}</div>
-            <div className="text-[10px] text-muted-foreground font-medium text-center">Attempts</div>
-          </div>
-          
-          {/* Day Streak */}
-          <div className="group flex flex-col items-center p-3 bg-background/80 backdrop-blur rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-orange-200">
-            <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mb-1.5 group-hover:bg-orange-200 transition-colors">
-              <Flame className="w-4 h-4 text-orange-500" />
-            </div>
-            <div className="text-xl font-bold text-foreground">{stats.currentStreak}</div>
-            <div className="text-[10px] text-muted-foreground font-medium text-center">Streak</div>
+            <div className="text-2xl font-bold text-foreground">{stats.totalAttempts}</div>
+            <div className="text-xs text-muted-foreground font-medium text-center">Attempts</div>
           </div>
         </div>
 
