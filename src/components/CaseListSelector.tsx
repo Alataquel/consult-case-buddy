@@ -2,14 +2,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search, Star, HelpCircle, ChevronRight, Clock, BookOpen, Filter } from "lucide-react";
+import { Search, Star, HelpCircle, ChevronRight, BookOpen, Filter } from "lucide-react";
 import { cases } from "@/data/cases";
 import { getCaseScore } from "@/utils/scoreStorage";
+import UserStatistics from "@/components/UserStatistics";
 
 interface CaseListSelectorProps {
-  firmName: string;
   onSelectCase: (caseId: string) => void;
-  onBack: () => void;
 }
 
 const getDifficultyStyle = (difficulty: string) => {
@@ -30,19 +29,20 @@ const getDifficultyStyle = (difficulty: string) => {
 
 const getScoreStars = (score: number | null) => {
   if (score === null) return null;
-  // Convert 0-100 score to 0-5 stars
   const stars = Math.round((score / 100) * 5 * 10) / 10;
   return stars.toFixed(1);
 };
 
-const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorProps) => {
+const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState<string | null>(null);
   
-  const firmCases = cases.filter(c => c.type === firmName);
+  // Get unique problem types
+  const problemTypes = [...new Set(cases.map(c => c.type))];
   
   // Apply filters
-  const filteredCases = firmCases.filter(caseItem => {
+  const filteredCases = cases.filter(caseItem => {
     const matchesSearch = searchQuery === "" || 
       caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       caseItem.background.toLowerCase().includes(searchQuery.toLowerCase());
@@ -50,7 +50,9 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
     const matchesDifficulty = !difficultyFilter || 
       caseItem.difficulty.toLowerCase() === difficultyFilter.toLowerCase();
     
-    return matchesSearch && matchesDifficulty;
+    const matchesType = !typeFilter || caseItem.type === typeFilter;
+    
+    return matchesSearch && matchesDifficulty && matchesType;
   });
 
   const difficulties = ["Beginner", "Intermediate", "Advanced"];
@@ -59,39 +61,65 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
     <div className="h-full flex flex-col space-y-6 animate-fade-in">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            onClick={onBack} 
-            size="sm"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              Case Library
-              <button className="text-muted-foreground hover:text-foreground">
-                <HelpCircle className="w-5 h-5" />
-              </button>
-            </h1>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+            Case Library
+            <button className="text-muted-foreground hover:text-foreground">
+              <HelpCircle className="w-5 h-5" />
+            </button>
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            {cases.length} cases available • Practice consulting interviews
+          </p>
         </div>
       </div>
 
+      {/* User Statistics */}
+      <UserStatistics />
+
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center gap-3">
-        <Button 
-          variant="outline" 
-          size="sm"
-          className={`rounded-lg ${!difficultyFilter ? 'bg-muted' : ''}`}
-          onClick={() => setDifficultyFilter(null)}
-        >
-          <Filter className="w-4 h-4 mr-2" />
-          All Types
-        </Button>
+        {/* Type Filter Dropdown */}
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className={`rounded-lg ${!typeFilter ? 'bg-muted' : ''}`}
+            onClick={() => setTypeFilter(null)}
+          >
+            <Filter className="w-4 h-4 mr-2" />
+            All Types
+          </Button>
+          
+          {problemTypes.slice(0, 4).map((type) => (
+            <Button
+              key={type}
+              variant="outline"
+              size="sm"
+              className={`rounded-lg text-xs ${typeFilter === type ? 'bg-muted border-primary' : ''}`}
+              onClick={() => setTypeFilter(typeFilter === type ? null : type)}
+            >
+              {type.length > 15 ? type.split(' ')[0] : type}
+            </Button>
+          ))}
+          
+          {problemTypes.length > 4 && (
+            <select
+              className="h-8 px-3 text-sm rounded-lg border border-input bg-background"
+              value={typeFilter || ""}
+              onChange={(e) => setTypeFilter(e.target.value || null)}
+            >
+              <option value="">More...</option>
+              {problemTypes.slice(4).map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          )}
+        </div>
         
+        <div className="h-6 w-px bg-border" />
+        
+        {/* Difficulty Filter */}
         {difficulties.map((diff) => (
           <Button
             key={diff}
@@ -104,10 +132,6 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
           </Button>
         ))}
         
-        <Badge variant="secondary" className="ml-2 bg-primary/10 text-primary">
-          {firmName}
-        </Badge>
-        
         <Button 
           variant="ghost" 
           size="sm" 
@@ -115,6 +139,7 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
           onClick={() => {
             setSearchQuery("");
             setDifficultyFilter(null);
+            setTypeFilter(null);
           }}
         >
           Clear all
@@ -139,26 +164,36 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
         </div>
       </div>
 
+      {/* Results count */}
+      <div className="text-sm text-muted-foreground">
+        Showing {filteredCases.length} of {cases.length} cases
+        {(typeFilter || difficultyFilter) && (
+          <span className="ml-2">
+            {typeFilter && <Badge variant="secondary" className="mr-2">{typeFilter}</Badge>}
+            {difficultyFilter && <Badge variant="secondary">{difficultyFilter}</Badge>}
+          </span>
+        )}
+      </div>
+
       {/* Case Cards */}
-      <div className="flex-1 space-y-4 overflow-auto">
+      <div className="flex-1 space-y-4 overflow-auto pb-8">
         {filteredCases.map((caseItem, index) => {
           const previousScore = getCaseScore(caseItem.id);
           const diffStyle = getDifficultyStyle(caseItem.difficulty);
           const starRating = getScoreStars(previousScore);
           const isNew = previousScore === null;
           
-          // Extract first sentence of background for description
           const description = caseItem.background.split('.')[0] + '.';
           
           return (
             <div 
               key={caseItem.id}
               className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 animate-fade-in"
-              style={{ animationDelay: `${index * 50}ms` }}
+              style={{ animationDelay: `${index * 30}ms` }}
             >
               {/* Top Row: Title + Rating */}
               <div className="flex items-start justify-between gap-4 mb-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
                   <h3 className="text-xl font-semibold text-foreground">
                     {caseItem.title}
                   </h3>
@@ -170,7 +205,7 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
                 </div>
                 
                 {starRating && (
-                  <div className="flex items-center gap-2 text-sm">
+                  <div className="flex items-center gap-2 text-sm flex-shrink-0">
                     <span className="font-semibold text-foreground">{starRating}</span>
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -184,7 +219,7 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
                         />
                       ))}
                     </div>
-                    <span className="text-muted-foreground">• Your score: {previousScore}%</span>
+                    <span className="text-muted-foreground hidden sm:inline">• {previousScore}%</span>
                   </div>
                 )}
               </div>
@@ -193,18 +228,15 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
               <div className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground mb-4">
                 <span>Type:</span>
                 <span className="font-medium text-foreground">Interviewer-led</span>
-                <span className="mx-2">|</span>
-                <span>Difficulty:</span>
+                <span className="mx-2 hidden sm:inline">|</span>
+                <span className="hidden sm:inline">Difficulty:</span>
                 <span className={`font-medium ${diffStyle.color}`}>{diffStyle.label}</span>
                 <span className="mx-2">|</span>
                 <span>Function:</span>
                 <span className="font-medium text-foreground">{caseItem.type}</span>
-                <span className="mx-2">|</span>
-                <span>Questions:</span>
-                <span className="font-medium text-foreground">{caseItem.questions?.length || 3}</span>
-                <span className="mx-2">|</span>
-                <span>Frameworks:</span>
-                <span className="font-medium text-foreground">{caseItem.keyFrameworks?.[0] || 'Various'}</span>
+                <span className="mx-2 hidden md:inline">|</span>
+                <span className="hidden md:inline">Questions:</span>
+                <span className="font-medium text-foreground hidden md:inline">{caseItem.questions?.length || 3}</span>
               </div>
               
               {/* Description */}
@@ -214,10 +246,17 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
               
               {/* Bottom Row: Actions */}
               <div className="flex items-center justify-between">
-                <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  <HelpCircle className="w-4 h-4" />
-                  <span>Read Q&A</span>
-                </button>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <BookOpen className="w-4 h-4" />
+                    {caseItem.questions?.length || 3} questions
+                  </span>
+                  {caseItem.keyFrameworks?.[0] && (
+                    <Badge variant="outline" className="text-xs">
+                      {caseItem.keyFrameworks[0]}
+                    </Badge>
+                  )}
+                </div>
                 
                 <Button 
                   className="bg-teal-600 hover:bg-teal-700 text-white px-6"
@@ -236,7 +275,7 @@ const CaseListSelector = ({ firmName, onSelectCase, onBack }: CaseListSelectorPr
             <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-xl font-semibold text-foreground mb-2">No Cases Found</h3>
             <p className="text-muted-foreground">
-              {searchQuery ? 'Try adjusting your search or filters' : 'Cases for this problem type are coming soon!'}
+              Try adjusting your search or filters
             </p>
           </div>
         )}
