@@ -148,40 +148,75 @@ The company wants to find out **how much the tire should cost at product launch*
     }, delay);
   };
 
-  // Key concept detection for each phase
-  const clarifyingKeyConcepts = ["competition", "competitor", "costs", "cost", "goal", "objective", "target", "profit"];
-  const structureKeyConcepts = ["value", "value-based", "customer value", "savings", "benefit", "willingness to pay"];
-  const assumptionKeyConcepts = ["mileage", "km", "fuel", "consumption", "liters", "price", "years", "lifespan"];
-  const calculationKeyConcepts = ["115", "€115", "115€", "75", "960", "1152", "57.6", "57,6", "15"];
+  // ========== SMART GATE LOGIC ==========
+  // Phase 1: Clarifying - keywords unlock specific info
+  const clarifyingKeywords = {
+    competition: ["competition", "competitor", "unique", "market", "alternative"],
+    costs: ["costs", "cost", "manufacturing", "production", "expense"],
+    goals: ["goals", "goal", "objective", "target", "profit", "profitability"]
+  };
+  
+  // Phase 2: Structure - value-based pricing keywords
+  const structureKeywords = ["value", "value-based", "customer value", "savings", "saving", "benefit", "willingness", "consumption", "fuel"];
+  
+  // Phase 3: Quantitative - data request keywords
+  const dataKeywords = ["data", "numbers", "assumptions", "liters", "km", "mileage", "kilometers", "fuel price", "lifespan"];
+  
+  // Calculation keywords
+  const calculationKeywords = ["115", "€115", "115€", "75", "960", "1152", "57.6", "57,6", "15", "60"];
 
-  const hasKeyConcept = (input: string, phaseType: Phase): boolean => {
+  // Priority 1: Check for keyword unlock (bypasses ALL length requirements)
+  const checkKeywordUnlock = (input: string, phaseType: Phase): { hasKeyword: boolean; type?: string } => {
     const inputLower = input.toLowerCase();
     
     if (phaseType === "opening" || phaseType === "awaiting_clarifying") {
-      return clarifyingKeyConcepts.some(kw => inputLower.includes(kw));
+      if (clarifyingKeywords.competition.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "competition" };
+      }
+      if (clarifyingKeywords.costs.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "costs" };
+      }
+      if (clarifyingKeywords.goals.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "goals" };
+      }
     }
     if (phaseType === "awaiting_structure") {
-      return structureKeyConcepts.some(kw => inputLower.includes(kw));
+      if (structureKeywords.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "structure" };
+      }
     }
     if (phaseType === "awaiting_assumptions") {
-      return assumptionKeyConcepts.some(kw => inputLower.includes(kw));
+      if (dataKeywords.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "data" };
+      }
     }
     if (phaseType === "awaiting_calculation" || phaseType === "data_revealed") {
-      return calculationKeyConcepts.some(kw => inputLower.includes(kw));
+      if (calculationKeywords.some(kw => inputLower.includes(kw))) {
+        return { hasKeyword: true, type: "calculation" };
+      }
     }
-    return false;
+    return { hasKeyword: false };
   };
 
+  // Priority 2: Engagement nudge for low-effort responses (only if NO keywords)
   const isLowEffortResponse = (input: string, currentPhase: Phase): boolean => {
-    if (hasKeyConcept(input, currentPhase)) return false;
+    // Priority 1 check first - keywords bypass everything
+    if (checkKeywordUnlock(input, currentPhase).hasKeyword) return false;
     
-    const trimmed = input.trim().toLowerCase();
+    const trimmed = input.trim();
+    
+    // Under 10 characters without keywords = engagement nudge
+    if (trimmed.length < 10) return true;
+    
+    // Common low-effort patterns
     const lowEffortPatterns = [
-      /^[a-z]$/,
-      /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey|sure|yep|yeah|k|y|n)$/i,
-      /^.{1,10}$/,
+      /^(ok|okay|yes|no|start|begin|go|next|continue|hi|hello|hey|sure|yep|yeah|k|y|n|idk|dunno)$/i,
     ];
-    return lowEffortPatterns.some(pattern => pattern.test(trimmed));
+    return lowEffortPatterns.some(pattern => pattern.test(trimmed.toLowerCase()));
+  };
+
+  const getEngagementNudgeMessage = (): string => {
+    return `To help you prepare, please explain your reasoning or ask a specific question. If you are stuck, ask for a **Hint**!`;
   };
 
   const isHelpRequest = (input: string): boolean => {
@@ -318,22 +353,25 @@ At €115, the customer is **indifferent** — they save exactly what they pay e
     setClarifyingHintLevel(prev => prev + 1);
 
     if (level === 0) {
+      // Hint 1: Suggest the category
       addInterviewerMessage(
-        `**Hint 1/3:** Think about what information you'd need to set a price. What about the competitive landscape, the company's cost structure, or their pricing objectives?`,
+        `**Hint 1/3:** Think about the **competitive landscape**, the company's **cost structure**, or their **pricing objectives**.`,
         "hint"
       );
     } else if (level === 1) {
+      // Hint 2: Provide the keywords
       addInterviewerMessage(
-        `**Hint 2/3:** Ask about: (1) Are there competing products? (2) What are the manufacturing costs? (3) What is the client's profitability target?`,
+        `**Hint 2/3:** Ask about: **competition** (Are there alternatives?), **costs** (What are production costs?), or **goals** (What's the target profitability?).`,
         "hint"
       );
     } else {
+      // Hint 3: Coach Mode - direct reveal
       addInterviewerMessage(
-        `**Hint 3/3 — Information Revealed:**
+        `**Coach Mode — Since you're stuck, here is the information:**
 
 • **Competition:** No comparable tires exist — the product is unique.
 • **Costs:** Manufacturing costs are unknown.
-• **Goal:** Derive price based on **customer value**, not cost.
+• **Goal:** Derive price from **customer value**, not cost.
 
 Now, what pricing strategy makes sense given these constraints?`,
         "info"
@@ -348,30 +386,29 @@ Now, what pricing strategy makes sense given these constraints?`,
     setStructureHintLevel(prev => prev + 1);
 
     if (level === 0) {
+      // Hint 1: Focus on value
       addInterviewerMessage(
-        `**Hint 1/3:** If we don't know production costs, how can we determine a price? Think about what the customer gains from this tire.`,
+        `**Hint 1/3:** Focus on **Value-based pricing**. What is the 5% fuel saving worth in Euros?`,
         "hint"
       );
     } else if (level === 1) {
+      // Hint 2: Calculate fuel cost first
       addInterviewerMessage(
-        `**Hint 2/3:** The tire saves fuel. What assumptions would you need to calculate how much money a customer saves over the tire's lifetime?`,
+        `**Hint 2/3:** Calculate the **total annual fuel cost** for the car first. Then find 5% of that.`,
         "hint"
       );
     } else {
+      // Hint 3: Coach Mode - reveal data
       addInterviewerMessage(
-        `**Hint 3/3 — Structure Revealed:**
+        `**Coach Mode — Here's the structure and data:**
 
 **Value-Based Pricing** is the correct approach.
-
-Assumptions needed:
-• Annual mileage, fuel consumption, fuel price
-• Tire lifespan, number of tires per car
 
 📊 **Data:**
 • 12,000 km/year | 8 L/100km | €1.20/L
 • Standard tire: €40 | Lifespan: 5 years | 4 tires/car
 
-Calculate the customer's total fuel savings.`,
+Calculate the customer's total fuel savings over the tire's lifetime.`,
         "info"
       );
       setHasIdentifiedValuePricing(true);
@@ -385,25 +422,27 @@ Calculate the customer's total fuel savings.`,
     setCalculationHintLevel(prev => prev + 1);
 
     if (level === 0) {
+      // Hint 1: Focus on value
       addInterviewerMessage(
-        `**Hint 1/3:** Start by calculating total annual fuel consumption, then find the annual fuel cost. The tire saves 5% of that.`,
+        `**Hint 1/3:** Focus on **Value-based pricing**. What is the 5% fuel saving worth in Euros?`,
         "hint"
       );
     } else if (level === 1) {
+      // Hint 2: Calculate fuel cost first
       addInterviewerMessage(
-        `**Hint 2/3:** 
+        `**Hint 2/3:** Calculate the **total annual fuel cost** for the car first.
 • Annual fuel: (12,000 ÷ 100) × 8 = ? liters
-• Annual cost: ? liters × €1.20 = ?
-• 5% savings: ? × 0.05 = ?
-• Per tire over 5 years: ? ÷ 4 × 5 = ?`,
+• Annual cost: ? liters × €1.20 = ?`,
         "hint"
       );
     } else {
+      // Hint 3: Coach Mode - full walkthrough
       addInterviewerMessage(
-        `**Hint 3/3 — Calculation Guide:**
+        `**Coach Mode — Full Calculation:**
 • 960 L/year × €1.20 = €1,152/year
-• 5% savings = €57.60 ≈ €60/year
-• Per tire: €15/year × 5 years = **€75 value**
+• 5% savings = €57.60 ≈ €60/year (for the whole car)
+• Per tire: €60 ÷ 4 = €15/year
+• Over 5 years: €15 × 5 = **€75 extra value**
 • Maximum price = €40 + €75 = **€115**`,
         "info"
       );
@@ -454,11 +493,46 @@ Calculate the customer's total fuel savings.`,
   };
 
   const handleOpeningPhase = (input: string) => {
+    const inputLower = input.toLowerCase();
+    
+    // Priority 1: Check for keyword unlocks FIRST (bypasses length requirements)
+    const keywordCheck = checkKeywordUnlock(input, "opening");
+    
+    if (keywordCheck.hasKeyword) {
+      let response = "Good question. Here's what I can tell you:\n\n";
+      let hasNewInfo = false;
+      
+      // Competition keyword
+      if (clarifyingKeywords.competition.some(kw => inputLower.includes(kw)) && !revealedInfo.competition) {
+        response += "• **Competition:** No comparable tires with this fuel-saving feature exist. The tire is **unique** in the market.\n\n";
+        setRevealedInfo(prev => ({ ...prev, competition: true }));
+        hasNewInfo = true;
+      }
+      // Costs keyword
+      if (clarifyingKeywords.costs.some(kw => inputLower.includes(kw)) && !revealedInfo.costs) {
+        response += "• **Costs:** There is **no information available** on manufacturing costs.\n\n";
+        setRevealedInfo(prev => ({ ...prev, costs: true }));
+        hasNewInfo = true;
+      }
+      // Goals keyword
+      if (clarifyingKeywords.goals.some(kw => inputLower.includes(kw)) && !revealedInfo.goal) {
+        response += "• **Goal:** The target profitability is unknown. The goal is to derive the selling price based on **customer value**.\n\n";
+        setRevealedInfo(prev => ({ ...prev, goal: true }));
+        hasNewInfo = true;
+      }
+      
+      if (hasNewInfo) {
+        response += "*Any other questions, or are you ready to structure your approach?*";
+        addInterviewerMessage(response, "info");
+        setPhase("awaiting_clarifying");
+        return;
+      }
+    }
+
+    // Priority 2: Engagement nudge for low-effort responses
     if (isLowEffortResponse(input, "opening")) {
       addInterviewerMessage(
-        `To get the most out of this practice, please explain your reasoning.
-
-If you're stuck, use the **"Need a Hint?"** button!
+        `${getEngagementNudgeMessage()}
 
 *What clarifying questions do you have about the client's objectives or competitive environment?*`,
         "hint"
@@ -467,58 +541,56 @@ If you're stuck, use the **"Need a Hint?"** button!
       return;
     }
 
-    // Check for specific keyword unlocks
-    const inputLower = input.toLowerCase();
-    let revealed = false;
-    
-    if (inputLower.includes("competition") || inputLower.includes("competitor")) {
-      setRevealedInfo(prev => ({ ...prev, competition: true }));
-      revealed = true;
-    }
-    if (inputLower.includes("cost")) {
-      setRevealedInfo(prev => ({ ...prev, costs: true }));
-      revealed = true;
-    }
-    if (inputLower.includes("goal") || inputLower.includes("objective") || inputLower.includes("target") || inputLower.includes("profit")) {
-      setRevealedInfo(prev => ({ ...prev, goal: true }));
-      revealed = true;
-    }
-
-    if (revealed) {
-      let response = "Good questions. Here's what I can tell you:\n\n";
-      if (inputLower.includes("competition") || inputLower.includes("competitor")) {
-        response += "• **Competition:** No comparable tires with this fuel-saving feature exist. The tire is unique in the market.\n\n";
-      }
-      if (inputLower.includes("cost")) {
-        response += "• **Costs:** There is no information available on manufacturing costs.\n\n";
-      }
-      if (inputLower.includes("goal") || inputLower.includes("objective") || inputLower.includes("target") || inputLower.includes("profit")) {
-        response += "• **Goal:** The target profitability is unknown. The goal is to derive the potential selling price based on customer value.\n\n";
-      }
-      response += "*Are there other clarifying questions, or would you like to move on to structuring your approach?*";
-      
-      addInterviewerMessage(response, "info");
-      setPhase("awaiting_clarifying");
-    } else {
-      addInterviewerMessage(
-        `Good start. Before we structure our approach, consider asking about:
-• The competitive landscape
-• The company's cost structure
-• Their pricing objectives
+    // Good effort but no specific keyword - guide them
+    addInterviewerMessage(
+      `Good start. Before we structure our approach, consider asking about:
+• The **competitive** landscape
+• The company's **cost** structure
+• Their pricing **goals**
 
 *What specific information would help you determine the price?*`,
-        "hint"
-      );
-      setPhase("awaiting_clarifying");
-    }
+      "hint"
+    );
+    setPhase("awaiting_clarifying");
   };
 
   const handleClarifyingPhase = (input: string) => {
+    const inputLower = input.toLowerCase();
+    
+    // Priority 1: Check for keyword unlocks FIRST
+    const keywordCheck = checkKeywordUnlock(input, "awaiting_clarifying");
+    
+    if (keywordCheck.hasKeyword) {
+      let response = "";
+      let hasNewInfo = false;
+      
+      // Check each keyword type and reveal if not already revealed
+      if (clarifyingKeywords.competition.some(kw => inputLower.includes(kw)) && !revealedInfo.competition) {
+        response += "• **Competition:** No comparable tires exist. The product is **unique**.\n\n";
+        setRevealedInfo(prev => ({ ...prev, competition: true }));
+        hasNewInfo = true;
+      }
+      if (clarifyingKeywords.costs.some(kw => inputLower.includes(kw)) && !revealedInfo.costs) {
+        response += "• **Costs:** No manufacturing cost information is available.\n\n";
+        setRevealedInfo(prev => ({ ...prev, costs: true }));
+        hasNewInfo = true;
+      }
+      if (clarifyingKeywords.goals.some(kw => inputLower.includes(kw)) && !revealedInfo.goal) {
+        response += "• **Goal:** Derive price from **customer value**, not cost targets.\n\n";
+        setRevealedInfo(prev => ({ ...prev, goal: true }));
+        hasNewInfo = true;
+      }
+
+      if (hasNewInfo) {
+        response += "*Any other questions, or shall we structure the approach?*";
+        addInterviewerMessage(response, "info");
+        return;
+      }
+    }
+
+    // Priority 2: Engagement nudge
     if (isLowEffortResponse(input, "awaiting_clarifying")) {
-      addInterviewerMessage(
-        `Please explain your reasoning. Use **"Need a Hint?"** if you're stuck!`,
-        "hint"
-      );
+      addInterviewerMessage(getEngagementNudgeMessage(), "hint");
       return;
     }
 
@@ -527,21 +599,8 @@ If you're stuck, use the **"Need a Hint?"** button!
       return;
     }
 
-    const inputLower = input.toLowerCase();
-    
-    // Check for more keyword unlocks
-    if (inputLower.includes("competition") || inputLower.includes("competitor")) {
-      setRevealedInfo(prev => ({ ...prev, competition: true }));
-    }
-    if (inputLower.includes("cost")) {
-      setRevealedInfo(prev => ({ ...prev, costs: true }));
-    }
-    if (inputLower.includes("goal") || inputLower.includes("objective") || inputLower.includes("profit")) {
-      setRevealedInfo(prev => ({ ...prev, goal: true }));
-    }
-
     // Check if they want to move on to structuring
-    if (inputLower.includes("structure") || inputLower.includes("approach") || inputLower.includes("move on") || inputLower.includes("next")) {
+    if (inputLower.includes("structure") || inputLower.includes("approach") || inputLower.includes("move on") || inputLower.includes("next") || inputLower.includes("ready")) {
       addInterviewerMessage(
         `Good. Let me summarize what we know:
 
@@ -557,35 +616,36 @@ If you're stuck, use the **"Need a Hint?"** button!
       return;
     }
 
-    // Provide relevant info based on questions
-    let response = "";
-    if (!revealedInfo.competition && (inputLower.includes("competition") || inputLower.includes("competitor"))) {
-      response += "• **Competition:** No comparable tires exist. The product is unique.\n\n";
-    }
-    if (!revealedInfo.costs && inputLower.includes("cost")) {
-      response += "• **Costs:** No manufacturing cost information is available.\n\n";
-    }
-    if (!revealedInfo.goal && (inputLower.includes("goal") || inputLower.includes("objective") || inputLower.includes("profit"))) {
-      response += "• **Goal:** Derive price from customer value, not from cost targets.\n\n";
-    }
-
-    if (response) {
-      response += "*Any other questions, or shall we structure the approach?*";
-      addInterviewerMessage(response, "info");
-    } else {
-      addInterviewerMessage(
-        `Think about what pricing strategies are available. When you're ready, tell me how you'd approach determining the price.`,
-        "hint"
-      );
-    }
+    // Generic nudge
+    addInterviewerMessage(
+      `Think about what pricing strategies are available. Ask about **competition**, **costs**, or **goals**, or tell me you're ready to structure your approach.`,
+      "hint"
+    );
   };
 
   const handleStructurePhase = (input: string) => {
-    if (isLowEffortResponse(input, "awaiting_structure")) {
+    const inputLower = input.toLowerCase();
+    
+    // Priority 1: Check for value-based pricing keywords (Fast Track)
+    if (structureKeywords.some(kw => inputLower.includes(kw))) {
+      setHasIdentifiedValuePricing(true);
       addInterviewerMessage(
-        `Please explain your reasoning. Use **"Need a Hint?"** if you're stuck!`,
-        "hint"
+        `Excellent! **Value-based pricing** is exactly right.
+
+Since we don't know manufacturing costs and the product is unique, we must price based on the **value delivered to the customer** — in this case, **fuel savings**.
+
+**Next step:** What assumptions do you need to make to calculate the fuel savings for a customer?
+
+Think about: annual driving habits, fuel consumption, and the tire's lifespan.`,
+        "success"
       );
+      setPhase("awaiting_assumptions");
+      return;
+    }
+
+    // Priority 2: Engagement nudge
+    if (isLowEffortResponse(input, "awaiting_structure")) {
+      addInterviewerMessage(getEngagementNudgeMessage(), "hint");
       return;
     }
 
@@ -594,23 +654,8 @@ If you're stuck, use the **"Need a Hint?"** button!
       return;
     }
 
-    const inputLower = input.toLowerCase();
-    
-    // Check for value-based pricing identification
-    if (inputLower.includes("value") || inputLower.includes("customer") || inputLower.includes("saving") || inputLower.includes("benefit") || inputLower.includes("willingness")) {
-      setHasIdentifiedValuePricing(true);
-      addInterviewerMessage(
-        `Excellent! **Value-based pricing** is exactly right.
-
-Since we don't know manufacturing costs and the product is unique, we must price based on the value delivered to the customer — in this case, **fuel savings**.
-
-**Next step:** What assumptions do you need to make to calculate the fuel savings for a customer?
-
-Think about: annual driving habits, fuel consumption, and the tire's lifespan.`,
-        "success"
-      );
-      setPhase("awaiting_assumptions");
-    } else if (inputLower.includes("cost-plus") || inputLower.includes("cost based") || inputLower.includes("markup")) {
+    // Check for incorrect approach
+    if (inputLower.includes("cost-plus") || inputLower.includes("cost based") || inputLower.includes("markup")) {
       addInterviewerMessage(
         `⚠️ Cost-plus pricing won't work here because **we don't have cost information**.
 
@@ -625,34 +670,17 @@ Given that:
 • Costs are unknown
 • No comparable products exist
 
-Which strategy makes sense here?`,
+Which strategy makes sense here? Think about the **value** or **savings** the customer gets.`,
         "hint"
       );
     }
   };
 
   const handleAssumptionsPhase = (input: string) => {
-    if (isLowEffortResponse(input, "awaiting_assumptions")) {
-      addInterviewerMessage(
-        `Please explain your reasoning. Use **"Need a Hint?"** if you're stuck!`,
-        "hint"
-      );
-      return;
-    }
-
-    if (isHelpRequest(input)) {
-      processHintRequest();
-      return;
-    }
-
     const inputLower = input.toLowerCase();
     
-    // Check if they identified key assumptions
-    const hasMileage = inputLower.includes("mileage") || inputLower.includes("km") || inputLower.includes("kilometer") || inputLower.includes("distance");
-    const hasFuel = inputLower.includes("fuel") || inputLower.includes("consumption") || inputLower.includes("liter");
-    const hasLifespan = inputLower.includes("year") || inputLower.includes("lifespan") || inputLower.includes("life");
-
-    if (hasMileage || hasFuel || hasLifespan) {
+    // Priority 1: Check for data keywords (Fast Track to reveal data)
+    if (dataKeywords.some(kw => inputLower.includes(kw))) {
       setHasIdentifiedAssumptions(true);
       addInterviewerMessage(
         `Good thinking! Here are the assumptions we'll use:
@@ -671,24 +699,101 @@ Which strategy makes sense here?`,
         "info"
       );
       setPhase("awaiting_calculation");
-    } else {
-      addInterviewerMessage(
-        `To calculate fuel savings, think about:
-• How many km does a typical driver travel per year?
-• How much fuel does a car consume?
-• What's the current fuel price?
-• How long do tires last?
-
-What assumptions would you make?`,
-        "hint"
-      );
+      return;
     }
+
+    // Priority 2: Engagement nudge
+    if (isLowEffortResponse(input, "awaiting_assumptions")) {
+      addInterviewerMessage(getEngagementNudgeMessage(), "hint");
+      return;
+    }
+
+    if (isHelpRequest(input)) {
+      processHintRequest();
+      return;
+    }
+
+    // Nudge toward assumptions
+    addInterviewerMessage(
+      `To calculate fuel savings, think about:
+• How many **km** does a typical driver travel per year?
+• How much **fuel** does a car consume per 100km?
+• What's the current fuel price?
+• How long do tires last (**lifespan**)?
+
+What **assumptions** would you make?`,
+      "hint"
+    );
   };
 
   const handleCalculationPhase = (input: string) => {
+    const inputLower = input.toLowerCase();
+    setCalculationAttempts(prev => prev + 1);
+
+    // Priority 1: Check for correct final answer (115)
+    const hasCorrectAnswer = inputLower.includes("115") || inputLower.includes("€115") || inputLower.includes("115€");
+    
+    if (hasCorrectAnswer) {
+      addInterviewerMessage(
+        `✓ **Excellent work!** Your calculation is correct.
+
+**Verification:**
+1. Annual fuel: (12,000 ÷ 100) × 8 = 960 L
+2. Annual cost: 960 × €1.20 = €1,152
+3. 5% savings: €1,152 × 0.05 = €57.60 ≈ €60/year
+4. Per tire/year: €60 ÷ 4 = €15
+5. Over 5 years: €15 × 5 = €75 value
+6. Maximum price: €40 + €75 = **€115** ✓
+
+**The Indifference Point:**
+At €115, the customer is **indifferent** — they save exactly what they pay extra. How should we set the final price to actually encourage them to buy?`,
+        "success"
+      );
+      setPhase("calculation_feedback");
+      
+      setTimeout(() => {
+        showConclusion(true);
+      }, 3000);
+      return;
+    }
+
+    // Check for intermediate calculations
+    const hasValuePerTire = inputLower.includes("75");
+    const hasSavings = inputLower.includes("57.6") || inputLower.includes("57,6") || inputLower.includes("58") || inputLower.includes("60");
+    const hasAnnualCost = inputLower.includes("1152") || inputLower.includes("1,152");
+    const hasAnnualFuel = inputLower.includes("960");
+
+    if (hasValuePerTire || hasSavings) {
+      addInterviewerMessage(
+        `Good progress! You've correctly calculated the fuel savings.
+
+Now add the **extra value (€75)** to the **standard tire price (€40)** to get the maximum selling price.`,
+        "hint"
+      );
+      return;
+    }
+    
+    if (hasAnnualCost || hasAnnualFuel) {
+      addInterviewerMessage(
+        `You're on the right track with the fuel costs!
+
+Next:
+• Calculate 5% of the annual fuel cost (€1,152 × 0.05)
+• Divide by 4 tires
+• Multiply by 5 years
+
+What's the total value per tire?`,
+        "hint"
+      );
+      return;
+    }
+
+    // Priority 2: Engagement nudge
     if (isLowEffortResponse(input, "awaiting_calculation")) {
       addInterviewerMessage(
-        `Please show your step-by-step calculations. Use **"Need a Hint?"** if you're stuck!`,
+        `${getEngagementNudgeMessage()}
+
+Please show me your step-by-step calculations.`,
         "hint"
       );
       return;
@@ -699,70 +804,19 @@ What assumptions would you make?`,
       return;
     }
 
-    const inputLower = input.toLowerCase();
-    setCalculationAttempts(prev => prev + 1);
-
-    // Check for correct final answer
-    const hasCorrectAnswer = inputLower.includes("115") || inputLower.includes("€115") || inputLower.includes("115€");
-    
-    // Check for intermediate calculations
-    const hasAnnualFuel = inputLower.includes("960");
-    const hasAnnualCost = inputLower.includes("1152") || inputLower.includes("1,152");
-    const hasSavings = inputLower.includes("57.6") || inputLower.includes("57,6") || inputLower.includes("58") || inputLower.includes("60");
-    const hasValuePerTire = inputLower.includes("75");
-
-    if (hasCorrectAnswer) {
-      addInterviewerMessage(
-        `✓ **Excellent work!** Your calculation is correct.
-
-**Verification:**
-1. Annual fuel: 960 L × €1.20 = €1,152
-2. 5% savings: €57.60 ≈ €60/year
-3. Per tire/year: €15
-4. Over 5 years: €75 value
-5. Maximum price: €40 + €75 = **€115** ✓
-
-**Business Insight:** At €115, the customer is indifferent — they save exactly what they pay. To drive adoption, price slightly below €115 to share value with the customer.`,
-        "success"
-      );
-      setPhase("calculation_feedback");
-      
-      setTimeout(() => {
-        showConclusion(true);
-      }, 3000);
-    } else if (hasValuePerTire || hasSavings) {
-      addInterviewerMessage(
-        `Good progress! You've correctly calculated the fuel savings.
-
-Now add the **extra value (€75)** to the **standard tire price (€40)** to get the maximum selling price.`,
-        "hint"
-      );
-    } else if (hasAnnualCost || hasAnnualFuel) {
-      addInterviewerMessage(
-        `You're on the right track with the fuel costs!
-
-Next:
-• Calculate 5% of the annual fuel cost
-• Divide by 4 tires
-• Multiply by 5 years
-
-What's the total value per tire?`,
-        "hint"
-      );
-    } else {
-      setCalculationHintLevel(prev => prev + 1);
-      addInterviewerMessage(
-        `I need to see your step-by-step reasoning. Please calculate:
+    // Generic guidance
+    setCalculationHintLevel(prev => prev + 1);
+    addInterviewerMessage(
+      `I need to see your step-by-step reasoning. Please calculate:
 
 1. Annual fuel consumption (12,000 km at 8 L/100km)
 2. Annual fuel cost (at €1.20/L)
 3. Annual savings (5%)
 4. Savings per tire per year (÷4 tires)
 5. Total value over 5 years
-6. Final price (base + value)`,
-        "hint"
-      );
-    }
+6. Final price (base €40 + value)`,
+      "hint"
+    );
   };
 
   const handlePostCalculationPhase = (input: string) => {
