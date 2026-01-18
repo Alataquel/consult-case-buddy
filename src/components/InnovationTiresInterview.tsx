@@ -60,9 +60,16 @@ const InnovationTiresInterview = ({ caseData, onComplete, onRequestRating, onRes
   const [hintsUsedTotal, setHintsUsedTotal] = useState(0);
   const [hasIdentifiedValuePricing, setHasIdentifiedValuePricing] = useState(false);
   const [hasIdentifiedAssumptions, setHasIdentifiedAssumptions] = useState(false);
+  const [hasCalculatedPrice, setHasCalculatedPrice] = useState(false);
+  const [hasRecommendedPrice, setHasRecommendedPrice] = useState(false);
   const [calculationAttempts, setCalculationAttempts] = useState(0);
   const [finalScore, setFinalScore] = useState<number | null>(null);
   const [revealedInfo, setRevealedInfo] = useState({ competition: false, costs: false, goal: false });
+  // Track hints used at time of completing each milestone (for scoring)
+  const [frameworkHintsAtCompletion, setFrameworkHintsAtCompletion] = useState<number | null>(null);
+  const [dataHintsAtCompletion, setDataHintsAtCompletion] = useState<number | null>(null);
+  const [calculationHintsAtCompletion, setCalculationHintsAtCompletion] = useState<number | null>(null);
+  const [recommendationHintsAtCompletion, setRecommendationHintsAtCompletion] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Handle leaving the case
@@ -271,6 +278,10 @@ In a value-based pricing case, the key clarifying questions reveal:
 Now, how would you structure your approach to determine this price?`,
       "info"
     );
+    if (frameworkHintsAtCompletion === null) {
+      setFrameworkHintsAtCompletion(3); // Walkthrough = used all hints
+    }
+    setHasIdentifiedValuePricing(true);
     setRevealedInfo({ competition: true, costs: true, goal: true });
     setPhase("awaiting_structure");
   };
@@ -300,6 +311,12 @@ Since we don't know manufacturing costs and the product is unique, we price base
 Now calculate the maximum price the customer would pay.`,
       "info"
     );
+    if (frameworkHintsAtCompletion === null) {
+      setFrameworkHintsAtCompletion(3);
+    }
+    if (dataHintsAtCompletion === null) {
+      setDataHintsAtCompletion(3);
+    }
     setHasIdentifiedValuePricing(true);
     setHasIdentifiedAssumptions(true);
     setPhase("awaiting_calculation");
@@ -331,6 +348,14 @@ Now calculate the maximum price the customer would pay.`,
 At €115, the customer is **indifferent** — they save exactly what they pay extra. To encourage adoption, price slightly below €115 to share some savings with the customer.`,
       "success"
     );
+    if (calculationHintsAtCompletion === null) {
+      setCalculationHintsAtCompletion(3);
+    }
+    if (recommendationHintsAtCompletion === null) {
+      setRecommendationHintsAtCompletion(3);
+    }
+    setHasCalculatedPrice(true);
+    setHasRecommendedPrice(true);
     setPhase("calculation_feedback");
     
     setTimeout(() => {
@@ -376,6 +401,10 @@ At €115, the customer is **indifferent** — they save exactly what they pay e
 Now, what pricing strategy makes sense given these constraints?`,
         "info"
       );
+      if (frameworkHintsAtCompletion === null) {
+        setFrameworkHintsAtCompletion(3);
+      }
+      setHasIdentifiedValuePricing(true);
       setRevealedInfo({ competition: true, costs: true, goal: true });
       setPhase("awaiting_structure");
     }
@@ -411,6 +440,12 @@ Now, what pricing strategy makes sense given these constraints?`,
 Calculate the customer's total fuel savings over the tire's lifetime.`,
         "info"
       );
+      if (frameworkHintsAtCompletion === null) {
+        setFrameworkHintsAtCompletion(3);
+      }
+      if (dataHintsAtCompletion === null) {
+        setDataHintsAtCompletion(3);
+      }
       setHasIdentifiedValuePricing(true);
       setHasIdentifiedAssumptions(true);
       setPhase("awaiting_calculation");
@@ -446,6 +481,14 @@ Calculate the customer's total fuel savings over the tire's lifetime.`,
 • Maximum price = €40 + €75 = **€115**`,
         "info"
       );
+      if (calculationHintsAtCompletion === null) {
+        setCalculationHintsAtCompletion(3);
+      }
+      if (recommendationHintsAtCompletion === null) {
+        setRecommendationHintsAtCompletion(3);
+      }
+      setHasCalculatedPrice(true);
+      setHasRecommendedPrice(true);
       setPhase("calculation_feedback");
       
       setTimeout(() => {
@@ -636,6 +679,12 @@ Calculate the customer's total fuel savings over the tire's lifetime.`,
     const identifiedValuePricing = structureKeywords.some(kw => inputLower.includes(kw));
     
     if (identifiedValuePricing || wantsData) {
+      if (frameworkHintsAtCompletion === null) {
+        setFrameworkHintsAtCompletion(structureHintLevel);
+      }
+      if (dataHintsAtCompletion === null) {
+        setDataHintsAtCompletion(structureHintLevel);
+      }
       setHasIdentifiedValuePricing(true);
       setHasIdentifiedAssumptions(true);
       addInterviewerMessage(
@@ -697,6 +746,9 @@ Which strategy makes sense here? Think about the **value** or **savings** the cu
     
     // Priority 1: Check for data keywords (Fast Track to reveal data)
     if (dataKeywords.some(kw => inputLower.includes(kw))) {
+      if (dataHintsAtCompletion === null) {
+        setDataHintsAtCompletion(structureHintLevel);
+      }
       setHasIdentifiedAssumptions(true);
       addInterviewerMessage(
         `Good thinking! Here are the assumptions we'll use:
@@ -750,6 +802,14 @@ What **assumptions** would you make?`,
     const hasCorrectAnswer = inputLower.includes("115") || inputLower.includes("€115") || inputLower.includes("115€");
     
     if (hasCorrectAnswer) {
+      if (calculationHintsAtCompletion === null) {
+        setCalculationHintsAtCompletion(calculationHintLevel);
+      }
+      if (recommendationHintsAtCompletion === null) {
+        setRecommendationHintsAtCompletion(calculationHintLevel);
+      }
+      setHasCalculatedPrice(true);
+      setHasRecommendedPrice(true);
       addInterviewerMessage(
         `✓ **Excellent work!** Your calculation is correct.
 
@@ -877,11 +937,49 @@ Click **"Back to Library"** when you're ready to continue.`,
   const calculateScore = (wasCorrect: boolean): number => {
     let score = 0;
     
-    if (hasIdentifiedValuePricing) score += 30;
-    if (hasIdentifiedAssumptions) score += 20;
-    if (wasCorrect) score += 50;
+    // Milestone 1: Framework (Identify value-based pricing)
+    // No Hint: 25 pts | Hint 1: 15 pts | Hint 2+: 0 pts
+    if (hasIdentifiedValuePricing) {
+      const hintsUsed = frameworkHintsAtCompletion ?? structureHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 15;
+      }
+    }
     
-    if (calculationAttempts === 1 && wasCorrect) score = Math.min(100, score + 10);
+    // Milestone 2: Data Identification (Identify variables needed)
+    // No Hint: 25 pts | Hint 1: 15 pts | Hint 2+: 0 pts
+    if (hasIdentifiedAssumptions) {
+      const hintsUsed = dataHintsAtCompletion ?? structureHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 15;
+      }
+    }
+    
+    // Milestone 3: Calculation (€115 Indifference Point)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasCalculatedPrice || wasCorrect) {
+      const hintsUsed = calculationHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+    }
+    
+    // Milestone 4: Recommendation (Price below €115)
+    // No Hint: 25 pts | Hint 1: 10 pts | Hint 2+: 0 pts
+    if (hasRecommendedPrice || wasCorrect) {
+      const hintsUsed = recommendationHintsAtCompletion ?? calculationHintLevel;
+      if (hintsUsed === 0) {
+        score += 25;
+      } else if (hintsUsed === 1) {
+        score += 10;
+      }
+    }
     
     return Math.min(100, score);
   };
