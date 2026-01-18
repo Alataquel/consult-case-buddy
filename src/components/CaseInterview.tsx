@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Send, RotateCcw, Building, User, MessageSquare, Lightbulb, CheckCircle, AlertTriangle, FileSpreadsheet } from "lucide-react";
+import { Clock, Send, RotateCcw, Building, User, MessageSquare, Lightbulb, CheckCircle, AlertTriangle, FileSpreadsheet, HelpCircle } from "lucide-react";
 import ExhibitTable, { hasExhibitTableData } from "@/components/ExhibitTable";
 
 interface Message {
@@ -56,10 +56,25 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
   const [clarifyingHintLevel, setClarifyingHintLevel] = useState(0);
   const [structureHintLevel, setStructureHintLevel] = useState(0);
   const [calculationHintLevel, setCalculationHintLevel] = useState(0);
+  const [hintsUsedTotal, setHintsUsedTotal] = useState(0);
   const [hasRevealedMargin, setHasRevealedMargin] = useState(false);
   const [hasProvidedStructure, setHasProvidedStructure] = useState(false);
   const [calculationAttempts, setCalculationAttempts] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Get current hint level for the active phase
+  const getCurrentHintLevel = (): number => {
+    if (phase === "opening" || phase === "awaiting_clarifying") return clarifyingHintLevel;
+    if (phase === "awaiting_structure") return structureHintLevel;
+    if (phase === "awaiting_calculation" || phase === "data_revealed") return calculationHintLevel;
+    return 0;
+  };
+
+  // Check if hints are available (max 3 per phase)
+  const canUseHint = (): boolean => {
+    if (phase === "complete" || phase === "calculation_feedback" || phase === "clarifying_revealed") return false;
+    return getCurrentHintLevel() < 3;
+  };
 
   // Initialize with opening message
   useEffect(() => {
@@ -126,6 +141,141 @@ Determine the price that should be charged for every additional kilometer driven
       /^.{1,15}$/,         // Very short responses (less than 15 chars)
     ];
     return lowEffortPatterns.some(pattern => pattern.test(trimmed));
+  };
+
+  // Handle the Hint button click
+  const handleHintRequest = () => {
+    if (!canUseHint() || isTyping) return;
+
+    // Add a system message showing the hint request
+    setMessages(prev => [...prev, {
+      id: `msg-${Date.now()}`,
+      role: "student",
+      content: "💡 I'd like a hint, please.",
+      timestamp: Date.now()
+    }]);
+
+    setHintsUsedTotal(prev => prev + 1);
+
+    // Process hint based on current phase
+    setTimeout(() => {
+      processHintRequest();
+    }, 300);
+  };
+
+  const processHintRequest = () => {
+    if (phase === "opening" || phase === "awaiting_clarifying") {
+      provideClarifyingHint();
+    } else if (phase === "awaiting_structure") {
+      provideStructureHint();
+    } else if (phase === "awaiting_calculation" || phase === "data_revealed") {
+      provideCalculationHint();
+    }
+  };
+
+  const provideClarifyingHint = () => {
+    const level = clarifyingHintLevel;
+    setClarifyingHintLevel(prev => prev + 1);
+
+    if (level === 0) {
+      // Hint 1: Conceptual nudge
+      addInterviewerMessage(
+        `**Hint 1/3:** Think about what a business owner needs to know before setting a new price. What is their ultimate goal?`,
+        "hint"
+      );
+    } else if (level === 1) {
+      // Hint 2: Structural hint
+      addInterviewerMessage(
+        `**Hint 2/3:** You should ask about the company's **profitability targets** or what specific financial expectations they have for this pricing.`,
+        "hint"
+      );
+    } else {
+      // Hint 3: Direct reveal
+      addInterviewerMessage(
+        `**Hint 3/3 — Information Revealed:**
+
+The company expects a **9% profit margin** and wants to maintain this level for the extra kilometers. Focus strictly on pricing.
+
+Now, how would you structure your approach to find this price? What types of costs should we consider?`,
+        "info"
+      );
+      setHasRevealedMargin(true);
+      setPhase("awaiting_structure");
+    }
+  };
+
+  const provideStructureHint = () => {
+    const level = structureHintLevel;
+    setStructureHintLevel(prev => prev + 1);
+
+    if (level === 0) {
+      // Hint 1: Conceptual nudge
+      addInterviewerMessage(
+        `**Hint 1/3:** Think about different categories of business costs. Some costs stay the same regardless of how much the car is driven. Others increase specifically when the car is driven more.`,
+        "hint"
+      );
+    } else if (level === 1) {
+      // Hint 2: Structural hint
+      addInterviewerMessage(
+        `**Hint 2/3:** You're looking for costs that scale with kilometers driven. Think about **maintenance** and **depreciation/wear & tear** — these are variable costs. Personnel and rent are fixed.`,
+        "hint"
+      );
+    } else {
+      // Hint 3: Direct reveal
+      addInterviewerMessage(
+        `**Hint 3/3 — Structure Revealed:**
+
+**Fixed Costs** (don't change with km): Personnel, rent, insurance
+**Variable Costs** (scale with km): Maintenance, depreciation/wear & tear
+
+Here is the quantitative data:
+• Fixed Costs: **€50** per rental
+• Vehicle Purchase Price: **€100,000**
+• Vehicle Resale Value: **€90,000** (after 20,000 km)
+
+Now calculate the variable cost per km and the final price that maintains 9% margin.`,
+        "info"
+      );
+      setHasProvidedStructure(true);
+      setPhase("awaiting_calculation");
+    }
+  };
+
+  const provideCalculationHint = () => {
+    const level = calculationHintLevel;
+    setCalculationHintLevel(prev => prev + 1);
+
+    if (level === 0) {
+      // Hint 1: Conceptual nudge
+      addInterviewerMessage(
+        `**Hint 1/3:** Start by figuring out how much it costs the company each time a car is driven one kilometer. Think about what happens to the car's value as it's driven.`,
+        "hint"
+      );
+    } else if (level === 1) {
+      // Hint 2: Structural hint
+      addInterviewerMessage(
+        `**Hint 2/3:** Calculate depreciation per km:
+• Depreciation = (Purchase Price - Resale Value) ÷ Total km
+• Then apply the **margin formula** (not markup!) to get the final price.`,
+        "hint"
+      );
+    } else {
+      // Hint 3: Direct reveal
+      addInterviewerMessage(
+        `**Hint 3/3 — Calculation Guide:**
+
+**Step 1: Variable Cost**
+Depreciation = €100,000 - €90,000 = €10,000
+Variable Cost = €10,000 ÷ 20,000 km = **€0.50/km**
+
+**Step 2: Apply Margin Formula**
+⚠️ Use margin on price, NOT markup on cost!
+Price = Cost ÷ (1 - Margin) = €0.50 ÷ 0.91 = ?
+
+Now give me the final answer.`,
+        "info"
+      );
+    }
   };
 
   const isHelpRequest = (input: string): boolean => {
@@ -228,13 +378,15 @@ Determine the price that should be charged for every additional kilometer driven
   };
 
   const handleOpeningPhase = (input: string) => {
-    // Check for low-effort response - strict rejection
+    // Check for low-effort response - friendly guidance
     if (isLowEffortResponse(input)) {
       addInterviewerMessage(
-        `I need to see your initial thoughts on the current phase before we can move forward.
+        `To get the most out of this practice, please try to explain your reasoning. 
+
+If you're stuck, use the **"Need a Hint?"** button above to get guidance!
 
 *What clarifying questions do you have regarding the client's goals or the scope of this project?*`,
-        "warning"
+        "hint"
       );
       setPhase("awaiting_clarifying");
       return;
@@ -256,11 +408,13 @@ However, I'd encourage you to think more strategically. *What clarifying questio
   };
 
   const handleClarifyingPhase = (input: string) => {
-    // Strict rejection for low-effort responses
+    // Friendly guidance for low-effort responses
     if (isLowEffortResponse(input)) {
       addInterviewerMessage(
-        `I need to see your initial thoughts on the current phase before we can move forward.`,
-        "warning"
+        `To get the most out of this practice, please try to explain your reasoning.
+
+If you're stuck, use the **"Need a Hint?"** button to get guidance!`,
+        "hint"
       );
       return;
     }
@@ -339,11 +493,13 @@ Now, how would you structure your approach to find this price? What types of cos
   };
 
   const handleStructurePhase = (input: string) => {
-    // Strict rejection for low-effort responses
+    // Friendly guidance for low-effort responses
     if (isLowEffortResponse(input)) {
       addInterviewerMessage(
-        `I need to see your initial thoughts on the current phase before we can move forward.`,
-        "warning"
+        `To get the most out of this practice, please try to explain your reasoning.
+
+If you're stuck, use the **"Need a Hint?"** button to get guidance!`,
+        "hint"
       );
       return;
     }
@@ -435,11 +591,13 @@ Can you categorize the relevant costs into **Fixed** and **Variable** categories
   };
 
   const handleCalculationPhase = (input: string) => {
-    // Strict rejection for low-effort responses
+    // Friendly guidance for low-effort responses
     if (isLowEffortResponse(input)) {
       addInterviewerMessage(
-        `I need to see your initial thoughts on the current phase before we can move forward.`,
-        "warning"
+        `To get the most out of this practice, please show your step-by-step calculations.
+
+If you're stuck, use the **"Need a Hint?"** button to get guidance!`,
+        "hint"
       );
       return;
     }
@@ -814,9 +972,28 @@ Well done completing this pricing case!`,
 
           {/* Input Area */}
           <div className="p-4 border-t border-border/50 bg-muted/20">
+            {/* Hint Button Row */}
+            {canUseHint() && (
+              <div className="flex items-center justify-between mb-3">
+                <Button
+                  onClick={handleHintRequest}
+                  disabled={isTyping}
+                  variant="outline"
+                  size="sm"
+                  className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                >
+                  <HelpCircle className="w-4 h-4 mr-2" />
+                  Need a Hint? ({3 - getCurrentHintLevel()} remaining)
+                </Button>
+                <span className="text-xs text-muted-foreground">
+                  Hints used: {hintsUsedTotal}
+                </span>
+              </div>
+            )}
+            
             <div className="flex gap-3">
               <Textarea
-                placeholder={phase === "complete" ? "Case completed!" : "Type your response..."}
+                placeholder={phase === "complete" ? "Case completed!" : "Type your response... Explain your reasoning."}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
@@ -828,19 +1005,21 @@ Well done completing this pricing case!`,
                 disabled={isTyping || phase === "complete"}
                 className="min-h-[80px] resize-none bg-white border-border focus:border-primary"
               />
-              <Button
-                onClick={handleSendMessage}
-                disabled={!inputValue.trim() || isTyping || phase === "complete"}
-                size="lg"
-                variant="hero"
-                className="px-6 self-end"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Send
-              </Button>
+              <div className="flex flex-col gap-2 self-end">
+                <Button
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || isTyping || phase === "complete"}
+                  size="lg"
+                  variant="hero"
+                  className="px-6"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Send
+                </Button>
+              </div>
             </div>
             <p className="text-xs text-muted-foreground mt-2">
-              Press Enter to send • Shift+Enter for new line
+              Press Enter to send • Shift+Enter for new line • Use the Hint button if you're stuck
             </p>
           </div>
         </CardContent>
