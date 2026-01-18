@@ -2552,6 +2552,25 @@ This case uses Interview Mode: a turn-based conversational experience where you'
       "Customer Value Analysis",
       "Fuel Savings Calculation"
     ]
+  },
+
+  // MARKET ENTRY - Intermediate (Interview Mode) - Break-Even
+  {
+    id: "all-purpose-tires-market-entry",
+    title: "All-Purpose Tires — Market Entry Break-Even",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `An Italian tire manufacturer has developed innovative all-purpose tires that can be used year-round, eliminating seasonal summer/winter tire changes. They want to enter the German market but only if profitable within 3 years.
+
+This case uses Interview Mode: a turn-based conversational experience where you'll assess market entry feasibility through break-even analysis.`,
+    question: "Determine whether the German market entry is feasible within the 3-year profitability window.",
+    difficulty: "Intermediate",
+    modelSolution: "The entry is NOT feasible. Break-even requires 10M tires/year (€60M fixed ÷ €2 margin), which is 12.5% market share — unrealistic for a new entrant.",
+    keyFrameworks: [
+      "Break-Even Analysis",
+      "Market Sizing",
+      "Contribution Margin"
+    ]
   }
 ];
 
