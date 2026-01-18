@@ -1179,6 +1179,254 @@ The key insight is that in "Land Grab" markets like Mexican fintech, speed and s
     ]
   },
 
+  // MARKET ENTRY - All-Purpose Tires
+  {
+    id: "allpurpose-tires-market-entry",
+    title: "All-Purpose Tires — German Market Entry",
+    firm: "Market Entry",
+    type: "Market Entry",
+    background: `An Italian tire manufacturer has developed innovative all-purpose tires that make switching between summer and winter tires obsolete. The company is already active in Italy and France and now plans to enter the German market.
+
+The manufacturer has requested our consultancy's advice, intending to enter the market only if it can be profitable within the next three years.
+
+Key Business Context:
+• Product: All-purpose tires eliminating summer/winter tire changes
+• Current markets: Italy and France (established presence)
+• Target market: Germany
+• Profitability timeline: Must achieve profitability within 3 years
+• No specific margin target defined
+• No historical data available on Italy/France market entry performance
+• Candidate must make reasonable assumptions to derive values`,
+    question: "Assess whether achieving profitability within three years is realistic and whether market entry into Germany is recommended.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — What framework should guide this market entry assessment?\nIdentify the key analyses required to evaluate the 3-year profitability target.\nConsider: What do you need to calculate, and in what order?",
+        hints: [
+          "Think about the relationship between costs, volume, and profitability",
+          "You need to determine: How many tires must be sold to break even?",
+          "Then: How big is the German market, and what share would be required?",
+          "Finally: Is that market share achievable for a new entrant?"
+        ],
+        answer: `Framework for Market Entry Profitability Assessment:
+
+Step 1: Break-Even Analysis
+• Calculate contribution margin per tire (Price - Variable Cost)
+• Determine total volume needed to cover fixed costs within 3 years
+• Derive annual sales volume target
+
+Step 2: Market Sizing
+• Estimate total German tire market size
+• Calculate annual tire replacement demand
+• Account for the all-purpose tire's unique value proposition
+
+Step 3: Required Market Share
+• Compare required volume to total market size
+• Calculate necessary market share percentage
+
+Step 4: Feasibility Assessment
+• Evaluate if required market share is achievable
+• Consider competitive dynamics and barriers
+• Assess cost structure sustainability
+
+Key Questions to Ask:
+• What are the fixed and variable costs?
+• What is the selling price per tire?
+• How should we estimate the German tire market?
+
+This structured approach moves from financial requirements to market reality, enabling a go/no-go recommendation.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the required market share for break-even.\n\nUse this information:\n• Fixed Costs: €60 million\n• Variable Costs: €58 per tire\n• Price: €60 per tire\n• Profitability target: Break even within 3 years\n\nYou will need to estimate the German tire market size using reasonable assumptions.",
+        hints: [
+          "Start with contribution margin per tire",
+          "Calculate total tires needed to cover €60M fixed costs",
+          "For market sizing: Consider German population, households, cars per household",
+          "Remember: All-purpose tires compete with BOTH summer AND winter tires",
+          "Tires last ~4 years of active use, but summer/winter sets are used alternately"
+        ],
+        answer: `Part 1: Break-Even Calculation
+
+Contribution Margin per Tire:
+• Price: €60
+• Variable Cost: €58
+• Contribution: €60 - €58 = €2 per tire
+
+Total Tires for Break-Even:
+• Fixed Costs ÷ Contribution Margin
+• €60,000,000 ÷ €2 = 30 million tires
+
+Required Annual Volume (3-year target):
+• 30 million tires ÷ 3 years = 10 million tires per year
+
+---
+
+Part 2: German Tire Market Sizing
+
+Population & Households:
+• German population: ~80 million
+• Average household size: ~2 people
+• Total households: 80M ÷ 2 = 40 million households
+
+Cars in Germany:
+• Assume 1 car per household (conservative)
+• Total cars: ~40 million
+
+Tires Per Car (Current System):
+• Summer tires: 4
+• Winter tires: 4
+• Total tires per car: 8
+
+Total Tires in Circulation:
+• 40 million cars × 8 tires = 320 million tires
+
+Tire Replacement Cycle:
+• Active lifespan: ~4 years per set
+• But summer/winter tires alternate seasonally (6 months each)
+• Effective total lifespan: 8 years per tire set
+
+Annual Replacement Demand:
+• 320 million tires ÷ 8 years = 40 million tires/year
+• Add ~10% for damage, theft, vandalism: 44 million tires/year
+
+---
+
+Part 3: Required Market Share
+
+Required Annual Volume: 10 million tires
+Total Annual Market: ~40-44 million tires
+
+Required Market Share: 10M ÷ 40M = 25%
+
+---
+
+Summary:
+| Metric | Value |
+|--------|-------|
+| Contribution margin | €2/tire |
+| Break-even volume (3 yr) | 30M tires |
+| Annual target | 10M tires |
+| German market size | ~40M tires/year |
+| **Required market share** | **25%** |`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Should the Italian manufacturer enter the German market?\nBased on the 25% market share requirement, assess feasibility and provide strategic guidance.",
+        hints: [
+          "Consider what market share a new entrant typically achieves in year 1",
+          "Think about why the required share is so high (cost structure issue?)",
+          "What would need to change for market entry to become viable?",
+          "Consider alternative strategies or prerequisites"
+        ],
+        answer: `Recommendation: DO NOT ENTER the German market under current conditions
+
+---
+
+Feasibility Assessment:
+
+The 25% market share requirement is unrealistic because:
+
+1. New Entrant Reality:
+• Typical new entrant captures 1-5% market share in year 1
+• 25% would require displacing established players immediately
+• Brand recognition takes years to build in automotive sector
+
+2. Competitive Intensity:
+• German tire market dominated by established brands (Continental, Michelin, Bridgestone, Pirelli)
+• Strong dealer relationships and OEM partnerships
+• Significant marketing and distribution investments required
+
+3. Customer Adoption Barriers:
+• Germans are traditionally conservative about vehicle safety
+• Skepticism about all-purpose tires in harsh winter conditions
+• Established habit of seasonal tire changes
+
+---
+
+Root Cause Analysis:
+
+The problem is the cost structure, not the market:
+
+• €2 contribution margin on a €60 tire = 3.3% margin
+• This is extremely thin and leaves no room for error
+• Fixed costs of €60M suggest either:
+  - Over-investment in market entry infrastructure
+  - Inefficient manufacturing operations
+  - Unrealistic overhead allocation
+
+---
+
+Prerequisites for Viable Market Entry:
+
+1. Cost Structure Improvement:
+• Target contribution margin of €10-15/tire (vs. €2)
+• This requires either:
+  - Variable cost reduction from €58 to €45-50/tire
+  - Or price increase from €60 to €70-75/tire
+• At €10/tire margin: Break-even = 6M tires = 15% share (still aggressive)
+• At €15/tire margin: Break-even = 4M tires = 10% share (challenging but possible)
+
+2. Fixed Cost Reduction:
+• Reduce fixed costs from €60M to €20-30M
+• Share infrastructure with Italy/France operations
+• Use distributor model instead of direct presence
+
+3. Extended Timeline:
+• 5-7 year profitability target instead of 3 years
+• Allows gradual market share build-up
+• More realistic for premium positioning
+
+---
+
+Alternative Strategy:
+
+If entry is mandated despite poor economics:
+
+Phase 1 (Years 1-2): Premium Niche
+• Target only premium/luxury vehicle segment
+• Price at €100-120/tire for higher margins
+• Partner with luxury dealerships (BMW, Mercedes, Audi)
+• Goal: 2-3% market share, build brand credibility
+
+Phase 2 (Years 3-5): Selective Expansion
+• Expand to mid-market with improved cost structure
+• Leverage economies of scale from Phase 1
+• Target 8-10% market share
+
+Phase 3 (Years 5+): Mass Market
+• Full market participation
+• Profitability achieved through scale
+
+---
+
+Final Verdict:
+
+The 3-year profitability target is NOT achievable with current economics.
+
+Recommended Next Steps:
+1. Conduct detailed cost structure analysis
+2. Explore economies of scale/scope opportunities
+3. Evaluate partnership with German distributor to reduce fixed costs
+4. Consider premium-only positioning with higher prices
+5. Revise timeline to 5-7 years if entry remains strategic priority`
+      }
+    ],
+    difficulty: "Advanced",
+    modelSolution: `This case combines break-even analysis with market sizing to assess market entry feasibility. The key finding is that achieving 25% market share in year one is unrealistic for any new entrant, revealing a fundamental cost structure problem.
+
+The €2 contribution margin (3.3%) is dangerously thin, requiring massive volume to cover €60M in fixed costs. The calculation shows that even in a large market like Germany (~40M tires/year), the required market share exceeds what any new entrant could realistically achieve.
+
+The recommendation is to NOT enter under current conditions, and instead focus on improving unit economics (either reducing variable costs or increasing prices) and/or reducing fixed cost exposure before attempting market entry. This case illustrates how financial constraints can make an otherwise attractive market opportunity unviable.`,
+    keyFrameworks: [
+      "Break-Even Analysis",
+      "Market Sizing (Top-Down)",
+      "Market Share Feasibility",
+      "Cost Structure Analysis",
+      "Go/No-Go Decision Framework"
+    ]
+  },
+
   // GROWTH STRATEGY
   {
     id: "novaride-growth",
