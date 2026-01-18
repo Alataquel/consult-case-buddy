@@ -800,9 +800,19 @@ Now calculate the break-even volume.`,
 • Break-Even: €60M ÷ €2 = 30M tires (3 years)
 • Annual: 30M ÷ 3 = **10 Million tires/year** ✓
 
-Now the critical question: **Is 10 million tires per year achievable in Germany?**
+Now let's assess feasibility. Here is the market data:
 
-What market data do you need to assess this?`,
+📊 **German Market Data:**
+• Total Population: **80 Million** people
+• Car Ownership: 1 car per 2 people = **40 Million cars**
+• Tires per Car: **8 tires** (4 summer + 4 winter)
+• Tire Lifespan: **4 years**
+
+**Market Calculation:**
+(40M cars × 8 tires) ÷ 4 years = **80 Million tires/year** total demand
+
+**The Critical Question:**
+What market share would 10 million tires represent? Is this realistic for a new entrant?`,
         "success"
       );
       setPhase("awaiting_market");
