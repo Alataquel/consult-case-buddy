@@ -268,7 +268,7 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
               className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 animate-fade-in"
               style={{ animationDelay: `${index * 30}ms` }}
             >
-              {/* Top Row: Title + Rating */}
+              {/* Top Row: Title + Badges */}
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div className="flex items-center gap-3 flex-wrap">
                   <h3 className="text-xl font-semibold text-foreground">
@@ -286,25 +286,6 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
                     </Badge>
                   )}
                 </div>
-                
-                {caseRating && (
-                  <div className="flex items-center gap-2 text-sm flex-shrink-0">
-                    <span className="font-semibold text-foreground">{caseRating}.0</span>
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star 
-                          key={star} 
-                          className={`w-4 h-4 ${
-                            star <= caseRating 
-                              ? 'fill-amber-400 text-amber-400' 
-                              : 'text-gray-300'
-                          }`} 
-                        />
-                      ))}
-                    </div>
-                    <span className="text-muted-foreground hidden sm:inline">• Your rating</span>
-                  </div>
-                )}
               </div>
               
               {/* Meta Row */}
@@ -353,18 +334,41 @@ const CaseListSelector = ({ onSelectCase }: CaseListSelectorProps) => {
                 {description}
               </p>
               
-              {/* Bottom Row: Actions */}
+              {/* Bottom Row: Reviews + Actions */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <BookOpen className="w-4 h-4" />
-                    {caseItem.questions?.length || 3} questions
-                  </span>
-                  {caseItem.keyFrameworks?.[0] && (
-                    <Badge variant="outline" className="text-xs">
-                      {caseItem.keyFrameworks[0]}
-                    </Badge>
-                  )}
+                <div className="flex items-center gap-4">
+                  {/* Review Stars */}
+                  <div className="flex items-center gap-1.5">
+                    {caseRating ? (
+                      <>
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star 
+                              key={star} 
+                              className={`w-4 h-4 ${
+                                star <= caseRating 
+                                  ? 'fill-amber-400 text-amber-400' 
+                                  : 'text-gray-300'
+                              }`} 
+                            />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground">(1 review)</span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star 
+                              key={star} 
+                              className="w-4 h-4 text-gray-300"
+                            />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground">(0 reviews)</span>
+                      </>
+                    )}
+                  </div>
                 </div>
                 
                 <Button 

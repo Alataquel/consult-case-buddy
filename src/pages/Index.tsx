@@ -5,9 +5,10 @@ import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
 import CaseInterview, { luxuryCarRentalCase } from "@/components/CaseInterview";
+import CaseRatingDialog from "@/components/CaseRatingDialog";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
-import { saveCaseScore } from "@/utils/scoreStorage";
+import { saveCaseScore, saveCaseRating } from "@/utils/scoreStorage";
 
 type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'feedback';
 
@@ -21,6 +22,9 @@ const Index = () => {
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
   const [isInterviewMode, setIsInterviewMode] = useState(false);
+  const [showRatingDialog, setShowRatingDialog] = useState(false);
+  const [pendingRatingCaseId, setPendingRatingCaseId] = useState<string>('');
+  const [pendingRatingCaseTitle, setPendingRatingCaseTitle] = useState<string>('');
 
   const handleSelectCase = (caseId: string) => {
     // Check if this is an interview-mode case
@@ -65,9 +69,26 @@ const Index = () => {
     // Save the interview score
     saveCaseScore('car-rental-mileage-pricing', score, 'Pricing Strategy', 'Luxury Car Rental — Mileage Pricing Strategy');
     
-    // For interview mode, go back to library with success state
-    setCurrentState('library');
+    // Show rating dialog
+    setPendingRatingCaseId('car-rental-mileage-pricing');
+    setPendingRatingCaseTitle('Luxury Car Rental — Mileage Pricing Strategy');
+    setShowRatingDialog(true);
     setIsInterviewMode(false);
+  };
+
+  const handleRatingSubmit = (rating: number) => {
+    saveCaseRating(pendingRatingCaseId, rating);
+    setShowRatingDialog(false);
+    setCurrentState('library');
+    setPendingRatingCaseId('');
+    setPendingRatingCaseTitle('');
+  };
+
+  const handleRatingSkip = () => {
+    setShowRatingDialog(false);
+    setCurrentState('library');
+    setPendingRatingCaseId('');
+    setPendingRatingCaseTitle('');
   };
 
   const handleSubmitScore = (score: number) => {
@@ -133,6 +154,14 @@ const Index = () => {
         <div className="flex-1 container mx-auto px-6 py-8">
           <CaseListSelector onSelectCase={handleSelectCase} />
         </div>
+        
+        {/* Rating Dialog */}
+        <CaseRatingDialog
+          isOpen={showRatingDialog}
+          caseTitle={pendingRatingCaseTitle}
+          onSubmit={handleRatingSubmit}
+          onSkip={handleRatingSkip}
+        />
       </div>
     );
   }
