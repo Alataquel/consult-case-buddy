@@ -462,9 +462,6 @@ Calculate the break-even volume.`,
 • Tires per Car: **8 tires** (4 summer + 4 winter)
 • Tire Lifespan: **4 years**
 
-**Market Calculation:**
-(40M cars × 8 tires) ÷ 4 years = **80 Million tires/year** total demand
-
 **The Critical Question:**
 What market share would 10 million tires represent? Is this realistic for a new entrant?`,
         "info"
@@ -487,10 +484,10 @@ What market share would 10 million tires represent? Is this realistic for a new 
     } else if (level === 1) {
       addInterviewerMessage(
         `**Hint 2/3:** 
-• Germany has ~80M people, ~40M cars
-• Each car uses 8 tires (summer + winter)
-• Tires last ~4 years
-What's the annual market demand?`,
+**Required Market Share** = Required Volume ÷ Total Market Size
+
+You need 10M tires/year. The total market is 80M tires/year.
+What percentage is that?`,
         "hint"
       );
     } else {
