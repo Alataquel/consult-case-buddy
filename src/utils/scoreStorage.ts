@@ -6,6 +6,7 @@ export interface CaseScore {
   date: string;
   firm: string;
   caseTitle: string;
+  difficulty?: "Beginner" | "Intermediate" | "Advanced";
 }
 
 export interface CaseRating {
@@ -19,19 +20,27 @@ export interface UserStats {
   totalAttempts: number;
   averageScore: number;
   overallGrade: string;
+  beginnerGrade: string;
+  intermediateGrade: string;
+  advancedGrade: string;
+  beginnerAverage: number;
+  intermediateAverage: number;
+  advancedAverage: number;
   bestCase: { title: string; score: number } | null;
   currentStreak: number;
   scoresByFirm: Record<string, { attempted: number; averageScore: number }>;
+  scoresByDifficulty: Record<string, { attempted: number; averageScore: number }>;
 }
 
-export const saveCaseScore = (caseId: string, score: number, firm: string, caseTitle: string) => {
+export const saveCaseScore = (caseId: string, score: number, firm: string, caseTitle: string, difficulty?: "Beginner" | "Intermediate" | "Advanced") => {
   const scores = getCaseScores();
   const newScore: CaseScore = {
     caseId,
     score,
     date: new Date().toISOString(),
     firm,
-    caseTitle
+    caseTitle,
+    difficulty
   };
   
   scores.push(newScore);
@@ -145,9 +154,16 @@ export const getUserStats = (): UserStats => {
       totalAttempts: 0,
       averageScore: 0,
       overallGrade: "N/A",
+      beginnerGrade: "N/A",
+      intermediateGrade: "N/A",
+      advancedGrade: "N/A",
+      beginnerAverage: 0,
+      intermediateAverage: 0,
+      advancedAverage: 0,
       bestCase: null,
       currentStreak: 0,
-      scoresByFirm: {}
+      scoresByFirm: {},
+      scoresByDifficulty: {}
     };
   }
   
@@ -155,6 +171,25 @@ export const getUserStats = (): UserStats => {
   const totalScore = scores.reduce((sum, s) => sum + s.score, 0);
   const averageScore = Math.round(totalScore / scores.length);
   const overallGrade = getGradeFromScore(averageScore);
+  
+  // Calculate difficulty-based stats
+  const beginnerScores = scores.filter(s => s.difficulty === "Beginner");
+  const intermediateScores = scores.filter(s => s.difficulty === "Intermediate");
+  const advancedScores = scores.filter(s => s.difficulty === "Advanced");
+  
+  const beginnerAverage = beginnerScores.length > 0 
+    ? Math.round(beginnerScores.reduce((sum, s) => sum + s.score, 0) / beginnerScores.length) 
+    : 0;
+  const intermediateAverage = intermediateScores.length > 0 
+    ? Math.round(intermediateScores.reduce((sum, s) => sum + s.score, 0) / intermediateScores.length) 
+    : 0;
+  const advancedAverage = advancedScores.length > 0 
+    ? Math.round(advancedScores.reduce((sum, s) => sum + s.score, 0) / advancedScores.length) 
+    : 0;
+  
+  const beginnerGrade = beginnerScores.length > 0 ? getGradeFromScore(beginnerAverage) : "N/A";
+  const intermediateGrade = intermediateScores.length > 0 ? getGradeFromScore(intermediateAverage) : "N/A";
+  const advancedGrade = advancedScores.length > 0 ? getGradeFromScore(advancedAverage) : "N/A";
   
   // Find best case
   const bestScore = scores.reduce((best, current) => 
@@ -165,12 +200,22 @@ export const getUserStats = (): UserStats => {
   const currentStreak = calculateStreak(scores);
   
   const scoresByFirm: Record<string, { attempted: number; averageScore: number }> = {};
+  const scoresByDifficulty: Record<string, { attempted: number; averageScore: number }> = {};
   
   scores.forEach(score => {
+    // By problem type
     if (!scoresByFirm[score.firm]) {
       scoresByFirm[score.firm] = { attempted: 0, averageScore: 0 };
     }
     scoresByFirm[score.firm].attempted++;
+    
+    // By difficulty
+    if (score.difficulty) {
+      if (!scoresByDifficulty[score.difficulty]) {
+        scoresByDifficulty[score.difficulty] = { attempted: 0, averageScore: 0 };
+      }
+      scoresByDifficulty[score.difficulty].attempted++;
+    }
   });
   
   Object.keys(scoresByFirm).forEach(firm => {
@@ -179,13 +224,26 @@ export const getUserStats = (): UserStats => {
     scoresByFirm[firm].averageScore = Math.round(firmTotal / firmScores.length);
   });
   
+  Object.keys(scoresByDifficulty).forEach(diff => {
+    const diffScores = scores.filter(s => s.difficulty === diff);
+    const diffTotal = diffScores.reduce((sum, s) => sum + s.score, 0);
+    scoresByDifficulty[diff].averageScore = Math.round(diffTotal / diffScores.length);
+  });
+  
   return {
     totalCasesAttempted: uniqueCases.size,
     totalAttempts: scores.length,
     averageScore,
     overallGrade,
+    beginnerGrade,
+    intermediateGrade,
+    advancedGrade,
+    beginnerAverage,
+    intermediateAverage,
+    advancedAverage,
     bestCase,
     currentStreak,
-    scoresByFirm
+    scoresByFirm,
+    scoresByDifficulty
   };
 };
