@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Image, Award, Star } from "lucide-react";
-import { exhibitImages } from "./CasePractice";
+import { CheckCircle, User, RotateCcw, Home, Clock, Lightbulb, FileText, Award, Star, FileSpreadsheet } from "lucide-react";
+import ExhibitTable, { hasExhibitTableData } from "@/components/ExhibitTable";
 import SelfAssessmentRubric from "./SelfAssessmentRubric";
 import { saveCaseRating, getCaseRating } from "@/utils/scoreStorage";
 
@@ -311,17 +311,13 @@ const CaseFeedback = ({
                             <p className="text-foreground leading-relaxed whitespace-pre-line">
                               {q.answer}
                             </p>
-                            {q.answerImage && exhibitImages[q.answerImage] && (
-                              <div className="mt-5 p-3 bg-emerald-50/50 rounded-lg border border-emerald-100">
+                            {q.answerImage && hasExhibitTableData(q.answerImage) && (
+                              <div className="mt-5">
                                 <p className="text-xs font-medium text-emerald-600 mb-2 flex items-center gap-1.5">
-                                  <Image className="w-3.5 h-3.5" />
+                                  <FileSpreadsheet className="w-3.5 h-3.5" />
                                   Solution Exhibit
                                 </p>
-                                <img 
-                                  src={exhibitImages[q.answerImage]} 
-                                  alt={`Answer exhibit for Question ${q.number}`}
-                                  className="w-full rounded-lg border border-emerald-200 shadow-sm"
-                                />
+                                <ExhibitTable exhibitKey={q.answerImage} />
                               </div>
                             )}
                           </div>

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building, ArrowRight, Lightbulb, ArrowLeft, FileText, HelpCircle, Image, BookOpen, Clock, Target, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
-import { exhibitImages } from "./CasePractice";
+import { Building, ArrowRight, Lightbulb, ArrowLeft, FileText, HelpCircle, BookOpen, Clock, Target, ChevronDown, ChevronUp, Sparkles, FileSpreadsheet } from "lucide-react";
+import ExhibitTable, { hasExhibitTableData } from "@/components/ExhibitTable";
 
 interface CaseQuestion {
   number: number;
@@ -181,17 +181,9 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
                       </div>
                       
                       {/* Question-specific exhibit */}
-                      {q.exhibitImage && (
-                        <div className="mt-4 ml-12 p-4 bg-white rounded-lg border border-border/50">
-                          <p className="text-sm font-medium text-description-gray mb-3 flex items-center gap-2">
-                            <Image className="w-4 h-4" />
-                            Exhibit for Question {q.number}
-                          </p>
-                          <img 
-                            src={exhibitImages[q.exhibitImage]}
-                            alt={`Exhibit for question ${q.number}`}
-                            className="w-full h-auto rounded-lg border border-border shadow-sm"
-                          />
+                      {q.exhibitImage && hasExhibitTableData(q.exhibitImage) && (
+                        <div className="mt-4 ml-12">
+                          <ExhibitTable exhibitKey={q.exhibitImage} />
                         </div>
                       )}
                     </div>
@@ -203,24 +195,18 @@ const CasePresentation = ({ caseData, onStartCase, onGoBack }: CasePresentationP
         )}
 
         {/* Case Exhibit */}
-        {caseData.exhibitImage && (
+        {caseData.exhibitImage && hasExhibitTableData(caseData.exhibitImage) && (
           <Card className="border-0 shadow-lg overflow-hidden">
             <div className="flex items-stretch">
               <div className="w-1.5 bg-gradient-to-b from-purple-500 to-purple-300" />
               <CardContent className="flex-1 p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                    <Image className="w-5 h-5 text-purple-600" />
+                    <FileSpreadsheet className="w-5 h-5 text-purple-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">Case Exhibit</h3>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-border/50">
-                  <img 
-                    src={exhibitImages[caseData.exhibitImage]}
-                    alt="Case exhibit"
-                    className="w-full h-auto rounded-lg shadow-sm"
-                  />
-                </div>
+                <ExhibitTable exhibitKey={caseData.exhibitImage} />
               </CardContent>
             </div>
           </Card>
