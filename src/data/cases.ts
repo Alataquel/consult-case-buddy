@@ -2514,6 +2514,25 @@ This case illustrates the principle that optimal pricing isn't always about maxi
       "Product-Market Fit",
       "Subscription Business Models"
     ]
+  },
+
+  // PRICING STRATEGY - Intermediate (Interview Mode)
+  {
+    id: "car-rental-mileage-pricing",
+    title: "Luxury Car Rental — Mileage Pricing Strategy",
+    firm: "Pricing Strategy",
+    type: "Pricing Strategy",
+    background: `Your client is an international luxury car rental company charging €220/day with "unlimited" mileage. Internally, costs are based on 300 km/day — but customers are exceeding this limit.
+
+This case uses Interview Mode: a turn-based conversational experience where you'll interact with a virtual interviewer who reveals information progressively based on your questions.`,
+    question: "Determine the price for every additional kilometer above the 300 km limit.",
+    difficulty: "Intermediate",
+    modelSolution: "The price should be 54.95 cents per additional kilometer, calculated using Cost ÷ (1 - Margin) = €0.50 ÷ 0.91.",
+    keyFrameworks: [
+      "Cost-Based Pricing",
+      "Margin vs Markup Calculation",
+      "Fixed vs Variable Cost Analysis"
+    ]
   }
 ];
 

@@ -4,11 +4,15 @@ import CaseListSelector from "@/components/CaseListSelector";
 import CasePresentation from "@/components/CasePresentation";
 import CasePractice from "@/components/CasePractice";
 import CaseFeedback from "@/components/CaseFeedback";
+import CaseInterview, { luxuryCarRentalCase } from "@/components/CaseInterview";
 import { cases, Case } from "@/data/cases";
 import { generateFeedback, generateNextTip } from "@/utils/feedbackGenerator";
 import { saveCaseScore } from "@/utils/scoreStorage";
 
-type AppState = 'library' | 'case-presentation' | 'practice' | 'feedback';
+type AppState = 'library' | 'case-presentation' | 'practice' | 'interview' | 'feedback';
+
+// Special interview-mode case IDs
+const INTERVIEW_MODE_CASES = ['car-rental-mileage-pricing'];
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('library');
@@ -16,11 +20,20 @@ const Index = () => {
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [caseFeedback, setCaseFeedback] = useState<any>(null);
+  const [isInterviewMode, setIsInterviewMode] = useState(false);
 
   const handleSelectCase = (caseId: string) => {
+    // Check if this is an interview-mode case
+    if (INTERVIEW_MODE_CASES.includes(caseId)) {
+      setIsInterviewMode(true);
+      setCurrentState('interview');
+      return;
+    }
+
     const selected = cases.find(c => c.id === caseId);
     if (selected) {
       setSelectedCase(selected);
+      setIsInterviewMode(false);
       setCurrentState('case-presentation');
     }
   };
@@ -48,6 +61,15 @@ const Index = () => {
     }
   };
 
+  const handleInterviewComplete = (answers: Record<string, string>, time: number, score: number) => {
+    // Save the interview score
+    saveCaseScore('car-rental-mileage-pricing', score, 'Pricing Strategy', 'Luxury Car Rental — Mileage Pricing Strategy');
+    
+    // For interview mode, go back to library with success state
+    setCurrentState('library');
+    setIsInterviewMode(false);
+  };
+
   const handleSubmitScore = (score: number) => {
     if (selectedCase) {
       saveCaseScore(selectedCase.id, score, selectedCase.type, selectedCase.title);
@@ -60,6 +82,7 @@ const Index = () => {
     setUserAnswer('');
     setTimeElapsed(0);
     setCaseFeedback(null);
+    setIsInterviewMode(false);
   };
 
   const handleGoHome = () => {
@@ -68,10 +91,17 @@ const Index = () => {
     setUserAnswer('');
     setTimeElapsed(0);
     setCaseFeedback(null);
+    setIsInterviewMode(false);
   };
 
   const handleRestart = () => {
-    setCurrentState('library');
+    if (isInterviewMode) {
+      // Reset interview mode
+      setCurrentState('library');
+      setIsInterviewMode(false);
+    } else {
+      setCurrentState('library');
+    }
   };
 
   // Header Component
@@ -102,6 +132,21 @@ const Index = () => {
         <Header />
         <div className="flex-1 container mx-auto px-6 py-8">
           <CaseListSelector onSelectCase={handleSelectCase} />
+        </div>
+      </div>
+    );
+  }
+
+  if (currentState === 'interview') {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <div className="flex-1 container mx-auto px-4 py-6">
+          <CaseInterview 
+            caseData={luxuryCarRentalCase}
+            onComplete={handleInterviewComplete}
+            onRestart={handleRestart}
+          />
         </div>
       </div>
     );
