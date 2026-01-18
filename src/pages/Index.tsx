@@ -167,6 +167,16 @@ const Index = () => {
   }
 
   if (currentState === 'interview') {
+    const handleInterviewRequestRating = (score: number) => {
+      // Save the score first
+      saveCaseScore('car-rental-mileage-pricing', score, 'Pricing Strategy', 'Luxury Car Rental — Mileage Pricing Strategy');
+      
+      // Show rating dialog
+      setPendingRatingCaseId('car-rental-mileage-pricing');
+      setPendingRatingCaseTitle('Luxury Car Rental — Mileage Pricing Strategy');
+      setShowRatingDialog(true);
+    };
+
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Header />
@@ -174,9 +184,18 @@ const Index = () => {
           <CaseInterview 
             caseData={luxuryCarRentalCase}
             onComplete={handleInterviewComplete}
+            onRequestRating={handleInterviewRequestRating}
             onRestart={handleRestart}
           />
         </div>
+        
+        {/* Rating Dialog */}
+        <CaseRatingDialog
+          isOpen={showRatingDialog}
+          caseTitle={pendingRatingCaseTitle}
+          onSubmit={handleRatingSubmit}
+          onSkip={handleRatingSkip}
+        />
       </div>
     );
   }
