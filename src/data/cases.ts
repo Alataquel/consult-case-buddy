@@ -3455,6 +3455,175 @@ Marketing is essential to communicate the fuel savings USP and justify the premi
       "Product-Market Fit",
       "Subscription Business Models"
     ]
+  },
+  {
+    id: "cologne-chocolate-kpi",
+    title: "Cologne Chocolate Factory — Production Cost KPI Analysis",
+    firm: "Profitability & Cost Optimization",
+    type: "Profitability & Cost Optimization",
+    background: `The client is a chocolate manufacturer based in Cologne, Germany. The company operates in the discount/low-price supermarket segment, selling chocolate bars at a retail price of €1.00 per bar.
+
+The CEO fears that production costs are too high. To verify this assumption, the CEO would like to introduce a specific KPI: Raw-material costs / Total manufacturing costs.
+
+Key business context:
+• The company purchases chocolate mass (a pre-mixed chocolate mixture) from an external supplier
+• The in-house production process involves only finishing steps: pouring the chocolate mass into molds and hardening
+• There have been no significant recent investments in machinery or equipment
+• The CEO's concern about high production costs is based purely on impression—it has not yet been examined with data
+
+Your task is to calculate and interpret this KPI to determine whether the CEO's concerns are justified.`,
+    question: "Determine the KPI the CEO wants to track, explain what it shows, and assess whether production costs are actually too high.",
+    questions: [
+      {
+        number: 1,
+        question: "Diagnostic — Understanding the Value Chain\nBefore calculating the KPI, explore the company's value chain and cost structure. What questions would you ask to understand the business model? What does the simplified production process (buying finished chocolate mass vs. raw ingredients) imply about their cost structure?",
+        hints: [
+          "Consider what activities remain in-house vs. outsourced",
+          "Think about what 'manufacturing costs' would include for a company that only does finishing (molding, hardening, packaging)",
+          "The more outsourced the production, the higher the raw material share should be relative to total costs"
+        ],
+        answer: `Key Questions to Understand the Value Chain:
+
+1. How can the value chain be represented?
+   - Purchasing (chocolate mass) → Finishing (molding, hardening) → Packaging → Distribution
+
+2. Does the company produce chocolate from raw ingredients?
+   - No. The company purchases pre-mixed chocolate mass from a supplier—they don't process cocoa beans, sugar, or milk themselves.
+
+3. How is production organized?
+   - Simple finishing operations: pouring into molds and hardening. This is a low-complexity, capital-light process.
+
+4. Recent investments?
+   - No high investments recently, suggesting stable cost structure.
+
+Implications for Cost Structure:
+
+Because the company outsources the complex, ingredient-intensive part of chocolate production:
+• Raw material costs (chocolate mass) should represent a HIGH proportion of total manufacturing costs
+• In-house costs are limited to: labor (molding/packaging), energy (heating/cooling), packaging materials, and overhead
+• A company doing full vertical integration would have LOWER raw material share (more labor, equipment depreciation, etc.)
+
+This context is crucial: if raw materials are ~40% of costs for a finishing-only operation, that may actually be LOW compared to vertically integrated competitors.`
+      },
+      {
+        number: 2,
+        question: "Quantitative — Calculate the KPI\n\nUse the following data to calculate the CEO's desired KPI:\n• Costs for 100 tons of chocolate mass: €200,000\n• Retail price per chocolate bar: €1.00\n• The €1.00 includes: 7% VAT, 20% retailer margin, 20% manufacturer profit margin\n• Assume each chocolate bar weighs 100g\n\nDerive: (1) Total manufacturing cost per bar, (2) Raw material cost per bar, (3) The KPI ratio.",
+        hints: [
+          "First, calculate what percentage of the €1 retail price goes to manufacturing (after removing VAT, retailer margin, and manufacturer profit)",
+          "Convert 100 tons to grams to find how many 100g bars can be produced",
+          "The KPI = Raw material cost per bar ÷ Total manufacturing cost per bar"
+        ],
+        answer: `Step 1: Deriving Total Manufacturing Costs per Bar
+
+Retail price breakdown:
+• Retail price to consumers: €1.00
+• VAT: 7%
+• Retailer margin: 20%
+• Manufacturer profit margin: 20%
+
+Total non-manufacturing components: 7% + 20% + 20% = 47%
+
+Therefore, manufacturing costs = 53% of retail price:
+Total manufacturing cost per bar = 0.53 × €1.00 = €0.53
+
+---
+
+Step 2: Deriving Raw Material Costs per Bar
+
+Given:
+• 100 tons of chocolate mass costs €200,000
+• 1 ton = 1,000 kg = 1,000,000 grams
+• 100 tons = 100,000,000 grams
+
+Number of bars (at 100g each):
+100,000,000g ÷ 100g/bar = 1,000,000 bars
+
+Raw material cost per bar:
+€200,000 ÷ 1,000,000 bars = €0.20 per bar
+
+---
+
+Step 3: Calculate the KPI
+
+KPI = Raw material cost / Total manufacturing cost
+KPI = €0.20 / €0.53 = 0.377 ≈ 38%
+
+Rounded: approximately 40%
+
+---
+
+Summary Table:
+| Metric | Value |
+|--------|-------|
+| Retail price | €1.00 |
+| Manufacturing cost per bar | €0.53 |
+| Raw material cost per bar | €0.20 |
+| Other manufacturing costs | €0.33 |
+| KPI (Raw material / Total manufacturing) | 38-40% |`
+      },
+      {
+        number: 3,
+        question: "Recommendation — Are production costs too high?\n\nInterpret the 38-40% KPI result. Is the CEO's concern about high production costs justified? What additional analysis would you recommend before drawing final conclusions?",
+        hints: [
+          "Consider what the KPI tells us (and doesn't tell us) about cost efficiency",
+          "Think about industry benchmarks—what would you expect for a finishing-only operation vs. vertically integrated?",
+          "The remaining 60% of manufacturing costs is where inefficiencies might hide"
+        ],
+        answer: `Interpretation of the 38-40% KPI:
+
+Raw material costs account for roughly 40% of total manufacturing costs. This means:
+• 40% goes to purchasing chocolate mass
+• 60% goes to other manufacturing activities (labor, energy, packaging, overhead, depreciation)
+
+Is This Too High?
+
+For a company that buys finished chocolate mass and mainly handles molding and packaging, a 40% raw material ratio does NOT appear unusually high. In fact, it may even be on the lower end.
+
+Consider:
+• Vertically integrated manufacturers (processing cocoa beans) would have LOWER raw material ratios (15-25%) because more value-add happens in-house
+• Pure finishing/packaging operations often have raw material ratios of 50-70%
+• At 40%, the Cologne factory has significant 'other costs' that warrant investigation
+
+Key Insight: The CEO is Asking the Wrong Question
+
+The KPI doesn't directly answer whether 'production costs are too high.' It only shows the composition of costs. To truly assess cost competitiveness, we need:
+
+1. Benchmark comparisons: What is this ratio for similar discount chocolate manufacturers?
+
+2. Analysis of the other 60%: Where is €0.33/bar going?
+   - Labor costs (molding, packaging staff)
+   - Energy costs (heating for melting, cooling for hardening)
+   - Packaging materials
+   - Overhead (facility, management)
+   - Depreciation
+
+3. Cost per unit trends: Has the €0.53 manufacturing cost per bar been rising over time?
+
+4. Efficiency metrics: 
+   - Scrap/waste rates
+   - Labor productivity (bars per worker-hour)
+   - Equipment utilization
+
+Recommendation:
+
+The CEO's suspicion is not clearly supported by this KPI alone. Before concluding costs are 'too high':
+• Obtain industry benchmarks for similar discount chocolate producers
+• Conduct a detailed cost breakdown of the 60% non-raw-material manufacturing costs
+• Analyze trends over time to identify if costs are rising
+• Compare to competitors' retail pricing and margins
+
+The real opportunity likely lies in optimizing the €0.33/bar of 'other' manufacturing costs, not in the raw material spend.`
+      }
+    ],
+    difficulty: "Intermediate",
+    modelSolution: "This case tests the candidate's ability to structure a cost analysis problem, perform multi-step quantitative calculations (percentage breakdowns, unit conversions), and—critically—interpret a KPI in business context rather than just calculating it. Strong candidates will recognize that a 40% raw material ratio for a finishing-only operation is not necessarily 'high' and will probe the remaining 60% of costs for optimization opportunities.",
+    keyFrameworks: [
+      "Cost Structure Analysis",
+      "KPI Development & Interpretation",
+      "Value Chain Analysis",
+      "Unit Economics",
+      "Benchmarking"
+    ]
   }
 ];
 
