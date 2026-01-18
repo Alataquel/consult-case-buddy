@@ -25,6 +25,7 @@ interface InterviewCase {
 interface CaseInterviewProps {
   caseData: InterviewCase;
   onComplete: (answers: Record<string, string>, timeElapsed: number, score: number) => void;
+  onRequestRating: (score: number) => void;
   onRestart: () => void;
 }
 
@@ -47,7 +48,7 @@ export const luxuryCarRentalCase: InterviewCase = {
   difficulty: "Intermediate",
 };
 
-const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) => {
+const CaseInterview = ({ caseData, onComplete, onRequestRating, onRestart }: CaseInterviewProps) => {
   const [phase, setPhase] = useState<Phase>("opening");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -60,7 +61,17 @@ const CaseInterview = ({ caseData, onComplete, onRestart }: CaseInterviewProps) 
   const [hasRevealedMargin, setHasRevealedMargin] = useState(false);
   const [hasProvidedStructure, setHasProvidedStructure] = useState(false);
   const [calculationAttempts, setCalculationAttempts] = useState(0);
+  const [finalScore, setFinalScore] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Handle leaving the case - triggers rating popup
+  const handleLeaveCase = () => {
+    if (finalScore !== null) {
+      onRequestRating(finalScore);
+    } else {
+      onRestart();
+    }
+  };
 
   // Get current hint level for the active phase
   const getCurrentHintLevel = (): number => {
@@ -894,6 +905,7 @@ Walk me through each step.`,
     setPhase("complete");
     
     const score = calculateScore(wasCorrect);
+    setFinalScore(score); // Store score for when user chooses to leave
     
     setTimeout(() => {
       addInterviewerMessage(
@@ -918,14 +930,9 @@ ${wasCorrect ? "✓" : "○"} Understood that fixed costs are already covered
 
 **Your Score: ${score}%**
 
-Well done completing this pricing case!`,
+Well done completing this pricing case! Click **"Back to Library"** when you're ready to continue.`,
         "success"
       );
-      
-      // Trigger completion after showing summary
-      setTimeout(() => {
-        onComplete({}, timeElapsed, score);
-      }, 2000);
       
     }, 1000);
   };
@@ -1006,12 +1013,12 @@ Well done completing this pricing case!`,
               </div>
               <Button 
                 variant="ghost" 
-                onClick={onRestart} 
+                onClick={handleLeaveCase} 
                 className="text-description-gray hover:text-foreground hover:bg-white/50"
                 size="sm"
               >
                 <RotateCcw className="w-4 h-4 mr-1" />
-                Restart
+                {phase === "complete" ? "Back to Library" : "Exit Case"}
               </Button>
             </div>
           </div>
