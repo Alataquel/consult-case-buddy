@@ -386,15 +386,15 @@ Now, what pricing strategy makes sense given these constraints?`,
     setStructureHintLevel(prev => prev + 1);
 
     if (level === 0) {
-      // Hint 1: Focus on value
+      // Hint 1: Three pricing approaches
       addInterviewerMessage(
-        `**Hint 1/3:** Focus on **Value-based pricing**. What is the 5% fuel saving worth in Euros?`,
+        `**Hint 1/3:** There are three ways to price a product: **Cost-based** (based on production), **Competition-based** (based on others), or **Value-based** (based on customer benefits). Which one fits a unique product where we don't know the production costs?`,
         "hint"
       );
     } else if (level === 1) {
-      // Hint 2: Calculate fuel cost first
+      // Hint 2: Guide towards value-based
       addInterviewerMessage(
-        `**Hint 2/3:** Calculate the **total annual fuel cost** for the car first. Then find 5% of that.`,
+        `**Hint 2/3:** If we are pricing based on the **5% fuel savings** rather than what it cost us to make the tire, which pricing strategy are we using?`,
         "hint"
       );
     } else {
